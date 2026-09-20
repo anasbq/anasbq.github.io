@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Portfolio — SnO₂ ETL for Perovskite Solar Cells</title>
+<meta name="description" content="Master's research on doping the SnO₂ electron transport layer (ErCl₃, YbCl₃, HoCl₃) for perovskite solar cells, studied with DFT+U and LOBSTER.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;}
+a{color:#235E59;text-decoration:none;}
+a:hover{color:#173F3B;text-decoration:underline;}
+::selection{background:#2F6F6A;color:#F9F7F0;}
+</style>
+</head>
+<body>
+<div style="width: 100%; min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; background: #F3F1EA;">
+
+<header style="position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 16px 24px; background: #F3F1EA; border-bottom: 1px solid #E4E0D3;">
+  <a href="#top" style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600;">[Your Name]</a>
+  <nav style="display: flex; gap: 4px; flex-wrap: wrap;">
+    <a href="#about" style="padding: 12px 14px; font-size: 15px;">About</a>
+    <a href="#research" style="padding: 12px 14px; font-size: 15px;">Research</a>
+    <a href="#approach" style="padding: 12px 14px; font-size: 15px;">Why It Matters</a>
+    <a href="#faq" style="padding: 12px 14px; font-size: 15px;">FAQ</a>
+    <a href="#public-science" style="padding: 12px 14px; font-size: 15px;">Public Science</a>
+    <a href="#articles" style="padding: 12px 14px; font-size: 15px;">Articles</a>
+    <a href="#contact" style="padding: 12px 14px; font-size: 15px;">Contact</a>
+    <a href="ar/index.html" lang="ar" dir="rtl" style="padding: 8px 16px; margin-left: 4px; border: 1.5px solid #2F6F6A; border-radius: 20px; font-size: 13px; font-weight: 600; color: #1F4F4B;">العربية</a>
+  </nav>
+</header>
+
+<section id="top" style="padding: clamp(56px,10vw,120px) 24px 64px; display: flex; align-items: center; justify-content: center;">
+  <div style="max-width: 1040px; width: 100%; display: flex; align-items: center; gap: 48px; flex-wrap: wrap;">
+    <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #2F6F6A;">Engineering Science · Master's Research</div>
+      <h1 style="margin: 0; font-size: clamp(34px,5.5vw,58px); line-height: 1.08; color: #1B1F1E; font-weight: 600;">[Your Name]</h1>
+      <p style="margin: 0; font-size: clamp(17px,2vw,20px); line-height: 1.55; color: #4A4B44; max-width: 520px;">I study the SnO₂ electron transport layer that perovskite solar cells depend on — at the atomic level, before it ever meets a device.</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px;">
+        <a href="#research" style="padding: 12px 24px; border-radius: 8px; background: #2F6F6A; color: #F9F7F0; font-weight: 600; font-size: 15px;">See the research</a>
+        <a href="#contact" style="padding: 12px 24px; border-radius: 8px; border: 1.5px solid #2F6F6A; color: #1F4F4B; font-weight: 600; font-size: 15px;">Get in touch</a>
+      </div>
+    </div>
+    <div style="flex: 0 1 200px; display: flex; justify-content: center;">
+      <svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="Decorative illustration of atoms connected in a lattice, with one substituted atom highlighted">
+        <g stroke="#2F6F6A" stroke-width="2" opacity="0.55">
+          <line x1="30" y1="40" x2="100" y2="25"/>
+          <line x1="100" y1="25" x2="170" y2="45"/>
+          <line x1="30" y1="40" x2="20" y2="105"/>
+          <line x1="100" y1="25" x2="100" y2="100"/>
+          <line x1="170" y1="45" x2="180" y2="110"/>
+          <line x1="20" y1="105" x2="100" y2="100"/>
+          <line x1="100" y1="100" x2="180" y2="110"/>
+          <line x1="20" y1="105" x2="35" y2="170"/>
+          <line x1="100" y1="100" x2="105" y2="175"/>
+          <line x1="180" y1="110" x2="165" y2="165"/>
+          <line x1="35" y1="170" x2="105" y2="175"/>
+          <line x1="105" y1="175" x2="165" y2="165"/>
+        </g>
+        <circle cx="30" cy="40" r="6" fill="#8FBFBA"/>
+        <circle cx="100" cy="25" r="6" fill="#8FBFBA"/>
+        <circle cx="170" cy="45" r="6" fill="#8FBFBA"/>
+        <circle cx="20" cy="105" r="6" fill="#8FBFBA"/>
+        <circle cx="180" cy="110" r="6" fill="#8FBFBA"/>
+        <circle cx="35" cy="170" r="6" fill="#8FBFBA"/>
+        <circle cx="105" cy="175" r="6" fill="#8FBFBA"/>
+        <circle cx="165" cy="165" r="6" fill="#8FBFBA"/>
+        <circle cx="100" cy="100" r="9" fill="#B5651D"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3; border-bottom: 1px solid #E4E0D3;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">About</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">I'm a master's student in Engineering Science. My thesis focuses on the SnO₂ electron transport layer (ETL) used in perovskite solar cells — specifically, how incorporating the lanthanide chlorides ErCl₃, YbCl₃ and HoCl₃ changes its electrical and transport properties.</p>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">Most published work treats the ETL as one component of a finished device. I'm starting a step earlier than that — trying to understand SnO₂ itself, as a surface and a material, before asking how it performs once it's integrated. It's a gap I noticed in the literature, and one I think is worth closing.</p>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">This started with a postdoc asking if I could run a DFT study of the SnO₂–perovskite interface. At the time I only knew how to model bulk materials — not surfaces or interfaces — but it seemed worth trying, so I learned how. That's what led me to SnO₂ itself: the more I read, the clearer it became that a lot of perovskite research treats it as a given, without really studying it on its own.</p>
+  </div>
+</section>
+
+<section id="research" style="padding: 64px 24px;">
+  <div style="max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">Research focus</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+      <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">Lanthanide-doped SnO₂</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #52534C;">Incorporating <span style="font-family: 'IBM Plex Mono', monospace; color: #B5651D;">ErCl₃</span>, <span style="font-family: 'IBM Plex Mono', monospace; color: #B5651D;">YbCl₃</span> and <span style="font-family: 'IBM Plex Mono', monospace; color: #B5651D;">HoCl₃</span> into the SnO₂ ETL to tune its electrical and transport properties for perovskite solar cell applications.</p>
+      </div>
+      <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">The surface, not just the device</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #52534C;">Studying the SnO₂ surface directly, rather than only as an already-integrated device layer — the step most ETL research skips past.</p>
+      </div>
+      <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">DFT + LOBSTER at the atomic scale</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #52534C;">DFT+U calculations, with Hubbard U values from density-functional perturbation theory (DFPT) to correctly treat the localized 4f electrons of Er, Ho and Yb — paired with LOBSTER's bond-level analysis to connect atomic bonding to electronic and transport behavior.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="approach" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3; border-bottom: 1px solid #E4E0D3;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">Why it matters</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">Perovskite solar cells are one of the more promising directions in photovoltaics, but their performance depends on layers most people never think about. The electron transport layer carries charge out of the light-absorbing perovskite and into the rest of the device — if it's inefficient or unstable, the whole cell suffers, however good the perovskite itself is.</p>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">A useful way to picture it: the ETL acts like a one-way gate for electrons, and how well that gate performs comes down to what's happening at the atomic scale inside it.</p>
+
+    <figure role="group" aria-label="Interactive diagram: adjust atomic-scale bonding quality to see how many electrons pass through the ETL gate" style="margin: 8px 0 0; display: flex; flex-direction: column; gap: 20px; padding: 28px; background: #F3F1EA; border: 1px solid #E4E0D3; border-radius: 16px;">
+      <div style="font-size: 14px; font-weight: 600; color: #52534C;">Try it — atomic-scale order at the gate:</div>
+      <div id="gate-pills" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+      <div aria-hidden="true" style="position: relative; width: 100%; height: 200px; background: #FBFAF5; border-radius: 12px; overflow: hidden;">
+        <div style="position: absolute; left: 0; top: 0; width: 50%; height: 100%; border-right: 2px dashed #2F6F6A; opacity: 0.4;"></div>
+        <div style="position: absolute; left: 14px; top: 10px; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: #9A9A8E; font-family: 'IBM Plex Mono', monospace;">Perovskite side</div>
+        <div style="position: absolute; right: 14px; top: 10px; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: #9A9A8E; font-family: 'IBM Plex Mono', monospace;">Electrode side</div>
+        <div id="gate-electrons" style="position: absolute; inset: 0;"></div>
+      </div>
+      <figcaption id="gate-caption" style="margin: 0; font-size: 15px; line-height: 1.6; color: #33342F;"></figcaption>
+    </figure>
+
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">Understanding SnO₂ at the atomic level — how dopants sit in the lattice, how they change bonding, how that changes electron behavior — is what turns ETL design into something more deliberate than trial and error.</p>
+  </div>
+</section>
+
+<section id="faq" style="padding: 64px 24px;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">A few questions, answered plainly</h2>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">What is an electron transport layer, and why does a solar cell need one?</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #33342F;">When light hits the perovskite layer of a perovskite solar cell, it generates electrons that need to reach an electrode to become usable current. The electron transport layer (ETL) sits between the perovskite and that electrode, pulling electrons through efficiently while keeping the cell's other charge carriers from leaking back the wrong way. SnO₂ is one of the more promising materials for that job.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">Why dope SnO₂ with ErCl₃, YbCl₃ and HoCl₃ specifically?</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #33342F;">Erbium, ytterbium and holmium are lanthanides — much larger, and a different charge, than the tin atoms they'd replace in the SnO₂ lattice. That mismatch is exactly what makes them worth studying: depending on where they end up in the structure, they can change how many oxygen vacancies form and how easily electrons move through the material. Comparing three different lanthanides side by side is a way to see which of those effects actually matters.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">What does DFT + LOBSTER actually tell you that experiments can't?</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #33342F;">Density functional theory (DFT) models how electrons are arranged around each atom. LOBSTER takes that output and translates it into information about the bonds between specific atoms. Together, they let me see how a dopant changes the atomic-scale bonding around it — something very hard to measure directly — and connect that back to why the material's electrical behavior changes.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">Why study just the surface of SnO₂, instead of the full solar cell?</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #33342F;">Most published work studies the ETL only after it's already built into a working device, which makes it hard to tell what the material itself is doing versus what the rest of the device is doing. Studying the surface on its own isolates that question — though it does mean some real-device effects won't show up in this work. That trade-off is one of the things I'm weighing as the thesis develops.</p>
+    </div>
+  </div>
+</section>
+
+<section id="public-science" style="padding: 64px 24px;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">Becoming a public scientist</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">A lot of materials science research stays inside papers that few people outside the field ever read. I'd like to change that for my own corner of it. This site is a starting point — I'll be adding plain-language notes on SnO₂, on how DFT and LOBSTER actually work, and on what perovskite solar cells still need to get better, as the research develops.</p>
+  </div>
+</section>
+
+<section id="articles" style="padding: 64px 24px;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">Articles</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">Plain-language notes on SnO₂, DFT+U, LOBSTER, and what perovskite solar cells still need to get better — written for readers outside the field, not just for other researchers.</p>
+    <a href="articles/template.html" style="display: flex; flex-direction: column; gap: 6px; padding: 24px; background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #2F6F6A;">[Month 2026]</div>
+      <div style="font-size: 19px; font-weight: 600; color: #1B1F1E; font-family: 'Fraunces', Georgia, serif;">[Your first article title]</div>
+      <div style="font-size: 15px; line-height: 1.6; color: #52534C;">[A one- or two-sentence summary of the article goes here.]</div>
+    </a>
+    <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #7A7B70;">[This section will fill in over time. A natural first article: take one of the FAQ answers above and expand it into a few paragraphs.]</p>
+  </div>
+</section>
+
+<section id="contact" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">Get in touch</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">Email: <a href="mailto:anasqalasi@gmail.com" style="font-weight: 600;">anasqalasi@gmail.com</a></p>
+    <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #7A7B70;">[Add your university/department, LinkedIn, Google Scholar or ORCID here]</p>
+  </div>
+</section>
+
+<footer style="padding: 32px 24px; display: flex; justify-content: center;">
+  <p style="margin: 0; font-size: 13px; color: #7A7B70; font-family: 'IBM Plex Mono', monospace;">© 2026 [Your Name] · Engineering Science</p>
+</footer>
+
+</div>
+<script>
+(function() {
+  var levels = [
+    { id: 'poor', label: 'Disordered bonding' },
+    { id: 'typical', label: 'Typical bonding' },
+    { id: 'good', label: 'Well-ordered bonding' }
+  ];
+  var outcomes = {
+    poor:    ['through', 'stuck', 'bounced', 'stuck', 'bounced', 'stuck', 'bounced'],
+    typical: ['through', 'through', 'stuck', 'through', 'stuck', 'bounced', 'through'],
+    good:    ['through', 'through', 'through', 'stuck', 'through', 'through', 'through']
+  };
+  var lanes = [16, 28, 40, 52, 64, 76, 88];
+  var xByOutcome = { through: 82, stuck: 46, bounced: 14 };
+  var colorByOutcome = { through: '#2F6F6A', stuck: '#B5651D', bounced: '#7A7B70' };
+  var captions = {
+    poor: 'Only one in seven electrons makes it through — disordered bonding around the dopant traps or scatters the rest.',
+    typical: 'About four in seven get through — a mix of well-ordered and disordered regions near the dopant.',
+    good: 'Six in seven pass cleanly through — well-ordered bonding around the dopant keeps the pathway open.'
+  };
+
+  var quality = 'typical';
+  var pillsEl = document.getElementById('gate-pills');
+  var electronsEl = document.getElementById('gate-electrons');
+  var captionEl = document.getElementById('gate-caption');
+  if (!pillsEl || !electronsEl || !captionEl) { return; }
+
+  function render() {
+    pillsEl.innerHTML = '';
+    levels.forEach(function(lvl) {
+      var selected = quality === lvl.id;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = lvl.label;
+      btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      btn.style.cssText = 'padding: 14px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; border: 1.5px solid ' + (selected ? '#2F6F6A' : '#E4E0D3') + '; background: ' + (selected ? '#2F6F6A' : '#FBFAF5') + '; color: ' + (selected ? '#F9F7F0' : '#4A4B44') + '; font-family: "IBM Plex Sans", system-ui, sans-serif;';
+      btn.addEventListener('click', function() {
+        quality = lvl.id;
+        render();
+      });
+      pillsEl.appendChild(btn);
+    });
+
+    electronsEl.innerHTML = '';
+    outcomes[quality].forEach(function(outcome, i) {
+      var dot = document.createElement('div');
+      dot.style.cssText = 'position: absolute; left: ' + xByOutcome[outcome] + '%; top: ' + lanes[i] + '%; width: 12px; height: 12px; border-radius: 50%; background: ' + colorByOutcome[outcome] + '; transform: translate(-50%, -50%); transition: left 0.6s ease, background 0.6s ease; box-shadow: 0 0 0 4px ' + colorByOutcome[outcome] + '22;';
+      electronsEl.appendChild(dot);
+    });
+
+    captionEl.textContent = captions[quality];
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

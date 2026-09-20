@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>السيرة البحثية — طبقة نقل الإلكترونات SnO₂ للخلايا الشمسية البيروفسكايتية</title>
+<meta name="description" content="بحث ماجستير حول تطعيم طبقة نقل الإلكترونات SnO₂ (بـ ErCl₃ وYbCl₃ وHoCl₃) للخلايا الشمسية البيروفسكايتية، باستخدام DFT+U وLOBSTER.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}
+h1,h2,h3{font-family:'Noto Serif Arabic','Fraunces',Georgia,serif;}
+a{color:#235E59;text-decoration:none;}
+a:hover{color:#173F3B;text-decoration:underline;}
+::selection{background:#2F6F6A;color:#F9F7F0;}
+</style>
+</head>
+<body>
+<div style="width: 100%; min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; background: #F3F1EA;">
+
+<header style="position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 16px 24px; background: #F3F1EA; border-bottom: 1px solid #E4E0D3;">
+  <a href="#top" style="font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 15px; font-weight: 600;">[اسمك]</a>
+  <nav style="display: flex; gap: 4px; flex-wrap: wrap; align-items: center;">
+    <a href="#about" style="padding: 12px 14px; font-size: 15px;">نبذة عني</a>
+    <a href="#research" style="padding: 12px 14px; font-size: 15px;">البحث</a>
+    <a href="#approach" style="padding: 12px 14px; font-size: 15px;">لماذا يهم</a>
+    <a href="#faq" style="padding: 12px 14px; font-size: 15px;">الأسئلة الشائعة</a>
+    <a href="#public-science" style="padding: 12px 14px; font-size: 15px;">التواصل العلمي</a>
+    <a href="#articles" style="padding: 12px 14px; font-size: 15px;">مقالات</a>
+    <a href="#contact" style="padding: 12px 14px; font-size: 15px;">تواصل معي</a>
+    <a href="../index.html" lang="en" dir="ltr" style="padding: 8px 16px; margin-right: 4px; border: 1.5px solid #2F6F6A; border-radius: 20px; font-size: 13px; font-weight: 600; color: #1F4F4B; font-family: 'IBM Plex Mono', monospace;">English</a>
+  </nav>
+</header>
+
+<section id="top" style="padding: clamp(56px,10vw,120px) 24px 64px; display: flex; align-items: center; justify-content: center;">
+  <div style="max-width: 1040px; width: 100%; display: flex; align-items: center; gap: 48px; flex-wrap: wrap;">
+    <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px;">
+      <div style="font-size: 13px; color: #2F6F6A; font-weight: 600;">علوم الهندسة · بحث ماجستير</div>
+      <h1 style="margin: 0; font-size: clamp(34px,5.5vw,58px); line-height: 1.2; color: #1B1F1E; font-weight: 600;">[اسمك]</h1>
+      <p style="margin: 0; font-size: clamp(17px,2vw,20px); line-height: 1.7; color: #4A4B44; max-width: 520px;">أدرس طبقة نقل الإلكترونات SnO₂ التي تعتمد عليها الخلايا الشمسية البيروفسكايتية — على المستوى الذري، قبل أن تُدمَج في أي جهاز.</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px;">
+        <a href="#research" style="padding: 12px 24px; border-radius: 8px; background: #2F6F6A; color: #F9F7F0; font-weight: 600; font-size: 15px;">استعرض البحث</a>
+        <a href="#contact" style="padding: 12px 24px; border-radius: 8px; border: 1.5px solid #2F6F6A; color: #1F4F4B; font-weight: 600; font-size: 15px;">تواصل معي</a>
+      </div>
+    </div>
+    <div style="flex: 0 1 200px; display: flex; justify-content: center;">
+      <svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="رسم توضيحي زخرفي لذرات مترابطة ضمن شبكة بلورية، مع إبراز ذرة مستبدَلة واحدة">
+        <g stroke="#2F6F6A" stroke-width="2" opacity="0.55">
+          <line x1="30" y1="40" x2="100" y2="25"/>
+          <line x1="100" y1="25" x2="170" y2="45"/>
+          <line x1="30" y1="40" x2="20" y2="105"/>
+          <line x1="100" y1="25" x2="100" y2="100"/>
+          <line x1="170" y1="45" x2="180" y2="110"/>
+          <line x1="20" y1="105" x2="100" y2="100"/>
+          <line x1="100" y1="100" x2="180" y2="110"/>
+          <line x1="20" y1="105" x2="35" y2="170"/>
+          <line x1="100" y1="100" x2="105" y2="175"/>
+          <line x1="180" y1="110" x2="165" y2="165"/>
+          <line x1="35" y1="170" x2="105" y2="175"/>
+          <line x1="105" y1="175" x2="165" y2="165"/>
+        </g>
+        <circle cx="30" cy="40" r="6" fill="#8FBFBA"/>
+        <circle cx="100" cy="25" r="6" fill="#8FBFBA"/>
+        <circle cx="170" cy="45" r="6" fill="#8FBFBA"/>
+        <circle cx="20" cy="105" r="6" fill="#8FBFBA"/>
+        <circle cx="180" cy="110" r="6" fill="#8FBFBA"/>
+        <circle cx="35" cy="170" r="6" fill="#8FBFBA"/>
+        <circle cx="105" cy="175" r="6" fill="#8FBFBA"/>
+        <circle cx="165" cy="165" r="6" fill="#8FBFBA"/>
+        <circle cx="100" cy="100" r="9" fill="#B5651D"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3; border-bottom: 1px solid #E4E0D3;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">نبذة عني</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">أنا طالب ماجستير في علوم الهندسة. تتمحور أطروحتي حول طبقة نقل الإلكترونات (ETL) من مادة SnO₂ المستخدمة في الخلايا الشمسية البيروفسكايتية — وتحديدًا كيف يُغيّر إدخال كلوريدات اللانثانيدات ErCl₃ وYbCl₃ وHoCl₃ خصائصها الكهربائية وخصائص النقل فيها.</p>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">تتعامل معظم الأبحاث المنشورة مع طبقة نقل الإلكترونات كمكوّن واحد ضمن جهاز مكتمل. أما أنا فأبدأ خطوة قبل ذلك — أحاول فهم مادة SnO₂ بحد ذاتها، كسطح وكمادة، قبل السؤال عن أدائها بعد دمجها. هذه فجوة لاحظتها في الأدبيات العلمية، وأعتقد أنها تستحق أن تُسَد.</p>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">بدأ الأمر عندما سألني أحد الباحثين في مرحلة ما بعد الدكتوراه إن كان بإمكاني إجراء دراسة DFT للسطح الفاصل بين SnO₂ والبيروفسكايت. لم أكن حينها أعرف سوى نمذجة المواد الحجمية (bulk) — لا الأسطح ولا السطوح الفاصلة — لكن بدا الأمر يستحق المحاولة، فتعلمت كيفية ذلك. ومن هناك انجذبت إلى دراسة SnO₂ بحد ذاتها: فكلما قرأت أكثر، ازداد وضوحًا أن كثيرًا من أبحاث البيروفسكايت تتعامل معها كأمر مسلَّم به، دون أن تدرسها فعليًا بحد ذاتها.</p>
+  </div>
+</section>
+
+<section id="research" style="padding: 64px 24px;">
+  <div style="max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">محاور البحث</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+      <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">SnO₂ مطعَّمة باللانثانيدات</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #52534C;">إدخال <span style="font-family: 'IBM Plex Mono', monospace; color: #B5651D;" dir="ltr">ErCl₃</span>، <span style="font-family: 'IBM Plex Mono', monospace; color: #B5651D;" dir="ltr">YbCl₃</span> و<span style="font-family: 'IBM Plex Mono', monospace; color: #B5651D;" dir="ltr">HoCl₃</span> إلى طبقة نقل الإلكترونات SnO₂ لضبط خصائصها الكهربائية وخصائص النقل فيها، لتطبيقات الخلايا الشمسية البيروفسكايتية.</p>
+      </div>
+      <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">السطح، لا الجهاز فقط</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #52534C;">دراسة سطح SnO₂ مباشرةً، بدلًا من الاكتفاء بدراسته كطبقة مدمجة ضمن جهاز — وهي الخطوة التي تتخطاها معظم أبحاث طبقة نقل الإلكترونات.</p>
+      </div>
+      <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">DFT وLOBSTER على المستوى الذري</h3>
+        <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #52534C;">حسابات DFT+U، باستخدام قيم هابارد U المستخلصة من نظرية اضطراب دالة الكثافة (DFPT) لمعالجة إلكترونات 4f الموضعية لعناصر Er وHo وYb بشكل صحيح — إلى جانب تحليل LOBSTER على مستوى الروابط لربط الترابط الذري بالسلوك الإلكتروني وسلوك النقل.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="approach" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3; border-bottom: 1px solid #E4E0D3;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">لماذا يهم هذا</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">تُعدّ الخلايا الشمسية البيروفسكايتية من أكثر الاتجاهات الواعدة في مجال الطاقة الكهروضوئية، لكن أداءها يعتمد على طبقات نادرًا ما يفكر فيها معظم الناس. تنقل طبقة نقل الإلكترونات الشحنات من طبقة البيروفسكايت الماصة للضوء إلى بقية الجهاز — فإذا كانت غير فعالة أو غير مستقرة، تتأثر الخلية بأكملها، مهما كانت جودة البيروفسكايت نفسها.</p>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">طريقة مفيدة لتخيل الأمر: تعمل طبقة نقل الإلكترونات كبوابة أحادية الاتجاه للإلكترونات، وجودة أداء هذه البوابة تعتمد على ما يحدث داخلها على المستوى الذري.</p>
+
+    <figure role="group" aria-label="رسم بياني تفاعلي: اضبط جودة الترابط الذري لمعرفة كم إلكترونًا يعبر بوابة طبقة نقل الإلكترونات" style="margin: 8px 0 0; display: flex; flex-direction: column; gap: 20px; padding: 28px; background: #F3F1EA; border: 1px solid #E4E0D3; border-radius: 16px;">
+      <div style="font-size: 14px; font-weight: 600; color: #52534C;">جرّب بنفسك — الانتظام الذري عند البوابة:</div>
+      <div id="gate-pills" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+      <div aria-hidden="true" style="position: relative; width: 100%; height: 200px; background: #FBFAF5; border-radius: 12px; overflow: hidden;">
+        <div style="position: absolute; left: 0; top: 0; width: 50%; height: 100%; border-right: 2px dashed #2F6F6A; opacity: 0.4;"></div>
+        <div style="position: absolute; right: 14px; top: 10px; font-size: 11px; letter-spacing: 0.02em; color: #9A9A8E;">جهة البيروفسكايت</div>
+        <div style="position: absolute; left: 14px; top: 10px; font-size: 11px; letter-spacing: 0.02em; color: #9A9A8E;">جهة القطب الكهربائي</div>
+        <div id="gate-electrons" style="position: absolute; inset: 0;"></div>
+      </div>
+      <figcaption id="gate-caption" style="margin: 0; font-size: 15px; line-height: 1.8; color: #33342F;"></figcaption>
+    </figure>
+
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">فهم SnO₂ على المستوى الذري — كيف تستقر الذرات المطعَّمة داخل الشبكة البلورية، وكيف تغيّر الترابط، وكيف يغيّر ذلك سلوك الإلكترونات — هو ما يحوّل تصميم طبقة نقل الإلكترونات إلى عملية مدروسة، بدلًا من التجربة والخطأ.</p>
+  </div>
+</section>
+
+<section id="faq" style="padding: 64px 24px;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">أسئلة قليلة، وإجابات واضحة</h2>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">ما هي طبقة نقل الإلكترونات، ولماذا تحتاجها الخلية الشمسية؟</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.85; color: #33342F;">عندما يسقط الضوء على طبقة البيروفسكايت في الخلية الشمسية، يولّد إلكترونات تحتاج إلى الوصول إلى أحد الأقطاب الكهربائية لتتحول إلى تيار كهربائي قابل للاستخدام. تقع طبقة نقل الإلكترونات (ETL) بين البيروفسكايت وذلك القطب، فتسحب الإلكترونات بكفاءة مع منع حاملات الشحنة الأخرى في الخلية من التسرب في الاتجاه الخاطئ. وتُعدّ SnO₂ من أكثر المواد الواعدة لأداء هذه المهمة.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">لماذا يتم تطعيم SnO₂ بـ ErCl₃ وYbCl₃ وHoCl₃ تحديدًا؟</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.85; color: #33342F;">الإربيوم والإيتربيوم والهولميوم عناصر لانثانيدية — أكبر حجمًا بكثير، وبشحنة مختلفة، عن ذرات القصدير التي تحل محلها داخل شبكة SnO₂. وهذا التباين بالذات هو ما يجعلها جديرة بالدراسة: فبحسب موضعها داخل البنية، يمكن أن تغيّر عدد الشواغر الأكسجينية المتكوّنة، وسهولة انتقال الإلكترونات عبر المادة. مقارنة ثلاثة لانثانيدات مختلفة جنبًا إلى جنب وسيلة لمعرفة أي من هذه التأثيرات هو الأكثر أهمية فعليًا.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">ماذا يخبرك DFT وLOBSTER فعليًا مما لا تستطيع التجارب إخبارك به؟</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.85; color: #33342F;">تُحاكي نظرية دالة الكثافة (DFT) كيفية توزّع الإلكترونات حول كل ذرة. ويأخذ برنامج LOBSTER هذه المخرجات ويترجمها إلى معلومات عن الروابط بين ذرات محددة. ومعًا، يتيحان لي رؤية كيف تغيّر الذرة المطعَّمة الترابط من حولها على المستوى الذري — وهو أمر يصعب قياسه مباشرة — وربط ذلك بسبب تغيّر السلوك الكهربائي للمادة.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <h3 style="margin: 0; font-size: 17px; color: #1B1F1E;">لماذا دراسة سطح SnO₂ فقط، بدلًا من الخلية الشمسية كاملةً؟</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 1.85; color: #33342F;">تدرس معظم الأبحاث المنشورة طبقة نقل الإلكترونات بعد دمجها في جهاز فعلي فقط، ما يجعل من الصعب تمييز ما تفعله المادة نفسها عمّا يفعله بقية الجهاز. أما دراسة السطح بمفرده فتعزل هذا السؤال — وإن كان ذلك يعني أن بعض تأثيرات الجهاز الفعلي لن تظهر في هذا العمل. وهذه المفاضلة من الأمور التي أزنها مع تقدّم الأطروحة.</p>
+    </div>
+  </div>
+</section>
+
+<section id="public-science" style="padding: 64px 24px;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">التحول إلى عالِم منفتح على الجمهور</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">يبقى الكثير من أبحاث علوم المواد حبيس الأوراق العلمية التي لا يقرؤها إلا قلة من خارج هذا المجال. أودّ أن أغيّر ذلك في زاويتي الصغيرة منه. هذا الموقع نقطة بداية — سأضيف إليه تباعًا ملاحظات بلغة مبسّطة عن SnO₂، وعن كيفية عمل DFT وLOBSTER فعليًا، وعمّا تحتاجه الخلايا الشمسية البيروفسكايتية لتتحسّن أكثر، مع تقدّم البحث.</p>
+  </div>
+</section>
+
+<section id="articles" style="padding: 64px 24px;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">مقالات</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">ملاحظات بلغة مبسّطة عن SnO₂ وDFT+U وLOBSTER وما تحتاجه الخلايا الشمسية البيروفسكايتية لتتحسّن — مكتوبة لقراء من خارج المجال، لا للباحثين فقط.</p>
+    <a href="../articles/template.html" style="display: flex; flex-direction: column; gap: 6px; padding: 24px; background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px;">
+      <div style="font-size: 13px; color: #2F6F6A; font-weight: 600;">[الشهر 2026]</div>
+      <div style="font-size: 19px; font-weight: 600; color: #1B1F1E; font-family: 'Noto Serif Arabic', Georgia, serif;">[عنوان مقالك الأول]</div>
+      <div style="font-size: 15px; line-height: 1.8; color: #52534C;">[ملخص من جملة أو جملتين للمقال يوضع هنا.]</div>
+    </a>
+    <p style="margin: 0; font-size: 15px; line-height: 1.9; color: #7A7B70;">[سيتم ملء هذا القسم تدريجيًا. فكرة جيدة لأول مقال: خذ إحدى إجابات الأسئلة الشائعة أعلاه ووسّعها إلى بضع فقرات. ملاحظة: البطاقة أعلاه ما تزال تشير إلى نموذج المقال الإنجليزي.]</p>
+  </div>
+</section>
+
+<section id="contact" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3;">
+  <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">تواصل معي</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">البريد الإلكتروني: <a href="mailto:anasqalasi@gmail.com" style="font-weight: 600;" dir="ltr">anasqalasi@gmail.com</a></p>
+    <p style="margin: 0; font-size: 15px; line-height: 1.9; color: #7A7B70;">[أضف هنا جامعتك/قسمك، وحساب LinkedIn، وGoogle Scholar، أو ORCID]</p>
+  </div>
+</section>
+
+<footer style="padding: 32px 24px; display: flex; justify-content: center;">
+  <p style="margin: 0; font-size: 13px; color: #7A7B70;">© 2026 [اسمك] · علوم الهندسة</p>
+</footer>
+
+</div>
+<script>
+(function() {
+  var levels = [
+    { id: 'poor', label: 'ترابط غير منتظم' },
+    { id: 'typical', label: 'ترابط نموذجي' },
+    { id: 'good', label: 'ترابط منتظم جيدًا' }
+  ];
+  var outcomes = {
+    poor:    ['through', 'stuck', 'bounced', 'stuck', 'bounced', 'stuck', 'bounced'],
+    typical: ['through', 'through', 'stuck', 'through', 'stuck', 'bounced', 'through'],
+    good:    ['through', 'through', 'through', 'stuck', 'through', 'through', 'through']
+  };
+  var lanes = [16, 28, 40, 52, 64, 76, 88];
+  var xByOutcome = { through: 18, stuck: 54, bounced: 86 };
+  var colorByOutcome = { through: '#2F6F6A', stuck: '#B5651D', bounced: '#7A7B70' };
+  var captions = {
+    poor: 'يعبر إلكترون واحد فقط من كل سبعة — الترابط غير المنتظم حول الذرة المطعَّمة يحبس البقية أو يبعثرها.',
+    typical: 'يعبر نحو أربعة من كل سبعة — مزيج من مناطق منتظمة وأخرى غير منتظمة قرب الذرة المطعَّمة.',
+    good: 'يعبر ستة من كل سبعة بسلاسة — الترابط المنتظم جيدًا حول الذرة المطعَّمة يُبقي المسار مفتوحًا.'
+  };
+
+  var quality = 'typical';
+  var pillsEl = document.getElementById('gate-pills');
+  var electronsEl = document.getElementById('gate-electrons');
+  var captionEl = document.getElementById('gate-caption');
+  if (!pillsEl || !electronsEl || !captionEl) { return; }
+
+  function render() {
+    pillsEl.innerHTML = '';
+    levels.forEach(function(lvl) {
+      var selected = quality === lvl.id;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = lvl.label;
+      btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      btn.style.cssText = 'padding: 14px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; border: 1.5px solid ' + (selected ? '#2F6F6A' : '#E4E0D3') + '; background: ' + (selected ? '#2F6F6A' : '#FBFAF5') + '; color: ' + (selected ? '#F9F7F0' : '#4A4B44') + '; font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;';
+      btn.addEventListener('click', function() {
+        quality = lvl.id;
+        render();
+      });
+      pillsEl.appendChild(btn);
+    });
+
+    electronsEl.innerHTML = '';
+    outcomes[quality].forEach(function(outcome, i) {
+      var dot = document.createElement('div');
+      dot.style.cssText = 'position: absolute; left: ' + xByOutcome[outcome] + '%; top: ' + lanes[i] + '%; width: 12px; height: 12px; border-radius: 50%; background: ' + colorByOutcome[outcome] + '; transform: translate(-50%, -50%); transition: left 0.6s ease, background 0.6s ease; box-shadow: 0 0 0 4px ' + colorByOutcome[outcome] + '22;';
+      electronsEl.appendChild(dot);
+    });
+
+    captionEl.textContent = captions[quality];
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
