@@ -88,7 +88,7 @@ a:hover{color:#173F3B;text-decoration:underline;}
         <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #52534C;">إدخال باللانثانيدات إلى طبقة نقل الإلكترونات SnO₂ لضبط خصائصها الكهربائية وخصائص النقل فيها، لتطبيقات الخلايا الشمسية البيروفسكايتية.</p>       </div>
       <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
         <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">السطح، لا الجهاز فقط</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #52534C;">دراسة سطح SnO₂ مباشرةً، بدلًا من الاكتفاء بدراسته كطبقة مدمجة ضمن جهاز — وهي الخطوة التي تتخطاها معظم أبحاث طبقة نقل الإلكترونات.</p>
+        <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #52534C;">دراسة سطح SnO₂ مباشرةً، بدلًا من الاكتفاء بدراسته كطبقة مدمجة ضمن جهاز وهي الخطوة التي تتخطاها معظم أبحاث طبقة نقل الإلكترونات.</p>
       </div>
       <div style="background: #FBFAF5; border: 1px solid #E4E0D3; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
         <h3 style="margin: 0; font-size: 19px; color: #1B1F1E;">DFT وLOBSTER على المستوى الذري</h3>
@@ -178,9 +178,9 @@ a:hover{color:#173F3B;text-decoration:underline;}
 <script>
 (function() {
   var levels = [
-    { id: 'poor', label: 'ترابط غير منتظم' },
-    { id: 'typical', label: 'ترابط نموذجي' },
-    { id: 'good', label: 'ترابط منتظم جيدًا' }
+    { id: 'poor', label: 'سطح سيء' },
+    { id: 'typical', label: 'سطح نموذجي' },
+    { id: 'good', label: 'سطح ممتاز' }
   ];
   var outcomes = {
     poor:    ['through', 'stuck', 'bounced', 'stuck', 'bounced', 'stuck', 'bounced'],
@@ -191,9 +191,9 @@ a:hover{color:#173F3B;text-decoration:underline;}
   var xByOutcome = { through: 18, stuck: 54, bounced: 86 };
   var colorByOutcome = { through: '#2F6F6A', stuck: '#B5651D', bounced: '#7A7B70' };
   var captions = {
-    poor: 'يعبر إلكترون واحد فقط من كل سبعة — الترابط غير المنتظم حول الذرة المطعَّمة يحبس البقية أو يبعثرها.',
-    typical: 'يعبر نحو أربعة من كل سبعة — مزيج من مناطق منتظمة وأخرى غير منتظمة قرب الذرة المطعَّمة.',
-    good: 'يعبر ستة من كل سبعة بسلاسة — الترابط المنتظم جيدًا حول الذرة المطعَّمة يُبقي المسار مفتوحًا.'
+    poor: 'يعبر إلكترون واحد فقط من كل سبعة — السطح السيء يحبس البقية أو يرجعها لجهة البيروفسكايت.',
+    typical: 'يعبر نحو أربعة من كل سبعة جيد! — مزيج من سطح جيد وسطح سيء.',
+    good: 'يعبر ستة من كل سبعة بسلاسة ممتاز!.'
   };
 
   var quality = 'typical';
