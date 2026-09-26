@@ -1,410 +1,232 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>الكيمياء والفيزياء في المادة الصلبة</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap">
-
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #F7F3EC;
-    --bg2: #EDE6D8;
-    --surface: #FFFFFF;
-    --night: #0F1B2D;
-    --blue-deep: #1A3A5C;
-    --blue-mid: #2D6A8F;
-    --gold: #C8A96E;
-    --gold-light: #E8D9B5;
-    --text: #1C1A17;
-    --text-muted: #5A5040;
-    --border: #D4C9B0;
-    color-scheme: light;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0A1520;
-      --bg2: #0F1B2D;
-      --surface: #132133;
-      --night: #E8DCC8;
-      --blue-deep: #2D6A8F;
-      --blue-mid: #5A9EC4;
-      --gold: #C8A96E;
-      --gold-light: #3A2E1A;
-      --text: #E8DCC8;
-      --text-muted: #A09070;
-      --border: #2A3D52;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0A1520;
-    --bg2: #0F1B2D;
-    --surface: #132133;
-    --night: #E8DCC8;
-    --blue-deep: #2D6A8F;
-    --blue-mid: #5A9EC4;
-    --gold: #C8A96E;
-    --gold-light: #3A2E1A;
-    --text: #E8DCC8;
-    --text-muted: #A09070;
-    --border: #2A3D52;
-    color-scheme: dark;
-  }
+body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;}
+a{color:#235E59;text-decoration:none;}
+a:hover{color:#173F3B;text-decoration:underline;}
+::selection{background:#2F6F6A;color:#F9F7F0;}
+.ar{font-family:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif;}
+.ar h1,.ar h2,.ar h3{font-family:'Noto Serif Arabic','Fraunces',serif;}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* interactive boxes */
+.ibox {
+  background: #ECEAE1;
+  border: 1px solid #D6D2C5;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 12px 0 20px;
+  text-align: center;
+}
+.ibox-title {
+  font-family: 'Noto Serif Arabic', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1B1F1E;
+  margin: 0 0 4px;
+}
+.ibox-caption {
+  font-size: 13px;
+  color: #6B6A63;
+  margin: 0 0 14px;
+}
+canvas { display: block; margin: 0 auto; max-width: 100%; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Naskh Arabic', 'Georgia', serif;
-    font-size: 18px;
-    line-height: 1.9;
-    direction: rtl;
-    padding-inline: 20px;
-    padding-block: 24px;
-  }
+/* compare cards */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0 20px;
+}
+@media (max-width: 520px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare-card {
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #D6D2C5;
+  background: #ECEAE1;
+}
+.compare-card.physics { border-color: #2F6F6A; background: rgba(47,111,106,0.06); }
+.compare-card.chemistry { border-color: #9A7030; background: rgba(154,112,48,0.06); }
+.card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-card.physics .card-label { color: #2F6F6A; }
+.compare-card.chemistry .card-label { color: #9A7030; }
+.compare-card h4 {
+  font-family: 'Noto Serif Arabic', serif;
+  font-size: 16px;
+  margin: 0 0 8px;
+  color: #1B1F1E;
+}
+.compare-card ul {
+  list-style: none; padding: 0; margin: 0;
+  font-size: 14px; color: #6B6A63; line-height: 2;
+}
+.compare-card ul li::before { content: '◈ '; color: #2F6F6A; font-size: 10px; }
 
-  .container { max-width: 740px; margin: 0 auto; }
+/* controls */
+.slider-wrap {
+  margin: 12px 0 4px;
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.slider-label { font-size: 13px; color: #6B6A63; font-family: 'IBM Plex Sans Arabic'; }
+input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
 
-  header {
-    text-align: center;
-    padding-block: 48px 36px;
-    border-bottom: 2px solid var(--gold);
-    margin-bottom: 48px;
-  }
+/* tabs */
+.tab-row {
+  display: flex; gap: 6px; justify-content: center;
+  margin-bottom: 12px; flex-wrap: wrap;
+}
+.tab-btn {
+  background: #E2DFDA;
+  border: 1px solid #D6D2C5;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+  color: #6B6A63;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  transition: all .15s;
+}
+.tab-btn.active, .tab-btn:hover {
+  background: #2F6F6A;
+  color: #fff;
+  border-color: #2F6F6A;
+}
 
-  .eyebrow {
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    font-family: Georgia, serif;
-    direction: ltr;
-  }
+/* band+DOS two column */
+.band-dos-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: start;
+}
+@media (max-width: 480px) { .band-dos-wrap { grid-template-columns: 1fr; } }
+.band-col, .dos-col { display: flex; flex-direction: column; align-items: center; }
+.band-col canvas, .dos-col canvas { width: 100%; height: auto; }
+.col-label {
+  font-size: 11px;
+  color: #6B6A63;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 4px;
+}
 
-  h1 {
-    font-family: 'Amiri', serif;
-    font-size: clamp(28px, 5vw, 46px);
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--night);
-    text-wrap: balance;
-    margin-bottom: 20px;
-  }
+/* info badge */
+.info-badge {
+  display: inline-block;
+  background: #2F6F6A;
+  color: #fff;
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-right: 2px;
+  vertical-align: middle;
+}
 
-  .subtitle {
-    font-size: 17px;
-    color: var(--text-muted);
-    max-width: 560px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
+/* info box below canvases */
+.info-box {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #E2DFDA;
+  border-radius: 6px;
+  text-align: right;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #33342F;
+}
 
-  section { margin-bottom: 56px; }
+/* device grid */
+.device-item {
+  cursor: pointer;
+  padding: 12px 8px;
+  border-radius: 8px;
+  border: 1px solid #D6D2C5;
+  background: #E2DFDA;
+  text-align: center;
+  transition: border-color .15s;
+}
+.device-item:hover { border-color: #2F6F6A; }
 
-  h2 {
-    font-family: 'Amiri', serif;
-    font-size: clamp(22px, 3.5vw, 30px);
-    font-weight: 700;
-    color: var(--blue-deep);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-    text-wrap: balance;
-  }
-
-  p { margin-bottom: 18px; color: var(--text); }
-  p:last-child { margin-bottom: 0; }
-
-  .pull-quote {
-    border-right: 4px solid var(--gold);
-    padding: 16px 20px;
-    margin: 32px 0;
-    background: var(--gold-light);
-    border-radius: 0 8px 8px 0;
-  }
-  .pull-quote p {
-    font-family: 'Amiri', serif;
-    font-size: 20px;
-    color: var(--blue-deep);
-    margin: 0;
-    line-height: 1.7;
-  }
-
-  .interactive-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin: 32px 0;
-    text-align: center;
-  }
-
-  .interactive-box h3 {
-    font-family: 'Amiri', serif;
-    font-size: 18px;
-    color: var(--blue-deep);
-    margin-bottom: 6px;
-  }
-
-  .interactive-box .caption {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-    margin-top: 0;
-  }
-
-  canvas { display: block; margin: 0 auto; max-width: 100%; }
-
-  .compare-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 32px 0;
-  }
-  @media (max-width: 520px) { .compare-grid { grid-template-columns: 1fr; } }
-
-  .compare-card {
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid var(--border);
-  }
-  .compare-card.physics {
-    background: color-mix(in srgb, var(--blue-deep) 8%, var(--surface));
-    border-color: var(--blue-mid);
-  }
-  .compare-card.chemistry {
-    background: color-mix(in srgb, var(--gold) 10%, var(--surface));
-    border-color: var(--gold);
-  }
-  .compare-card .card-label {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    margin-bottom: 10px;
-    font-family: Georgia, serif;
-    direction: ltr;
-  }
-  .compare-card.physics .card-label { color: var(--blue-mid); }
-  .compare-card.chemistry .card-label { color: #9A7030; }
-  .compare-card h4 {
-    font-family: 'Amiri', serif;
-    font-size: 19px;
-    margin-bottom: 10px;
-    color: var(--text);
-  }
-  .compare-card ul {
-    list-style: none;
-    padding: 0;
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 2;
-  }
-  .compare-card ul li::before { content: '◈ '; color: var(--gold); font-size: 11px; }
-
-  .slider-wrap {
-    margin: 16px 0 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-  }
-  .slider-label { font-size: 14px; color: var(--text-muted); direction: rtl; }
-  input[type=range] { width: 100%; max-width: 340px; accent-color: var(--gold); }
-
-  /* Tab system for orbital selector */
-  .tab-row {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-  }
-  .tab-btn {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 14px;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: Georgia, serif;
-    direction: ltr;
-    transition: all .2s;
-  }
-  .tab-btn.active, .tab-btn:hover {
-    background: var(--blue-deep);
-    color: #fff;
-    border-color: var(--blue-deep);
-  }
-
-  /* two-column canvas layout for band+DOS */
-  .band-dos-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    align-items: start;
-  }
-  @media (max-width: 480px) {
-    .band-dos-wrap { grid-template-columns: 1fr; }
-  }
-  .band-col, .dos-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .band-col canvas, .dos-col canvas { width: 100%; height: auto; }
-  .col-label {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-family: Georgia, serif;
-    margin-top: 6px;
-    direction: ltr;
-  }
-
-  .closing-box {
-    background: var(--bg2);
-    border-radius: 12px;
-    padding: 28px 24px;
-    border: 1px solid var(--border);
-    text-align: center;
-    margin-top: 48px;
-  }
-  .closing-box p {
-    font-family: 'Amiri', serif;
-    font-size: 18px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-  }
-  .closing-box .author {
-    font-size: 14px;
-    color: var(--gold);
-    font-family: Georgia, serif;
-    direction: ltr;
-  }
-
-  hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
-
-  .theme-btn {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 13px;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: Georgia, serif;
-    direction: ltr;
-    z-index: 100;
-  }
-  .theme-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-  /* info badge */
-  .info-badge {
-    display: inline-block;
-    background: var(--blue-deep);
-    color: #fff;
-    font-size: 12px;
-    font-family: Georgia, serif;
-    direction: ltr;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-right: 4px;
-    vertical-align: middle;
-  }
+/* section separator */
+.section-sep {
+  border: none;
+  border-top: 1px solid #D6D2C5;
+  margin: 0;
+}
 </style>
+</head>
+<body>
+<div style="width:100%;min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;background:#F3F1EA;">
 
-<button class="theme-btn" onclick="toggleTheme()">🌙 / ☀️</button>
+<header style="padding:16px 24px;border-bottom:1px solid #E4E0D3;">
+  <a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;">← Anas Balghaith</a>
+</header>
 
-<div class="container">
+<article class="ar" dir="rtl" lang="ar" style="padding:clamp(48px,8vw,96px) 24px;display:flex;justify-content:center;">
+  <div style="max-width:680px;width:100%;display:flex;flex-direction:column;gap:20px;text-align:right;">
 
-  <header>
-    <div class="eyebrow">مقالة علمية · Roald Hoffmann 1987</div>
-    <h1>كيف تلتقي الكيمياء والفيزياء<br>في فهم المادة الصلبة؟</h1>
-    <p class="subtitle">كيف يصف عالم الكيمياء وعالم الفيزياء نفس الشيء بلغتين مختلفتين وكيف يجتمعان في فهم المادة الصلبة؟</p>
-  </header>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.02em;color:#2F6F6A;">[سبتمبر 2026]</div>
+    <h1 style="margin:0;font-size:clamp(26px,4.5vw,40px);line-height:1.35;color:#1B1F1E;">كيف تلتقي الكيمياء والفيزياء في فهم المادة الصلبة؟</h1>
 
-  <!-- INTRO: Personal story -->
-  <section>
-    <p>
-      في نهاية السنة الماضية، أرسلتُ بحثي لمشرفَيّ — أحدهما فيزيائية والآخر كيميائي، وكلاهما خبير في مجاله ودرسا تحت أحد علماء المادة الصلبة. لكن صدمني ما حدث: جاء ردّ الفيزيائية أولاً: <em>"النتائج رائعة وتستحق النشر."</em> ثم جاء ردّ الكيميائي: <em>"هممم... لا أثق بالنتائج."</em> رغم أنني عملتُ التجربة مرتين وحصلتُ على نفس النتائج — وبالغالب حِدسُه الكيميائي وخبرته يقولان له أن لا يثق بسبب التركيبة الكيميائية.
-    </p>
+    <!-- ── INTRO ── -->
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">في نهاية السنة الماضية، أرسلتُ بحثي لمشرفَيّ، أحدهما فيزيائية والآخر كيميائي، وكلاهما خبير في مجاله ودرسا تحت أحد علماء المادة الصلبة. لكن صدمني ما حدث: جاء ردّ الفيزيائية أولاً: <em>"النتائج رائعة وتستحق النشر."</em> ثم جاء ردّ الكيميائي: <em>"هممم... لا أثق بالنتائج."</em> رغم أنني عملتُ التجربة مرتين وحصلتُ على نفس النتائج، وبالغالب حِدسُه الكيميائي وخبرته يقولان له أن لا يثق بسبب التركيبة الكيميائية.</p>
 
-    <p>
-      جلستُ أنظر إلى الردَّين وأنا في حيرة تامة. كيف يقرأ اثنان من الباحثين المتمرسين نفسَ البيانات ويصلان إلى استنتاجَين متضادَّين؟ هل هذا خلاف شخصي؟ أم أنه شيء أعمق؟
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">جلستُ أنظر إلى الردَّين وأنا في حيرة تامة. كيف يقرأ اثنان من الباحثين المتمرسين نفسَ البيانات ويصلان إلى استنتاجَين متضادَّين؟ هل هذا خلاف شخصي؟ أم أنه شيء أعمق؟</p>
 
-    <p>
-      ثم صادفتُ ورقة علمية نُشرت عام 1987 كتبها الكيميائي الحائز على جائزة نوبل <strong>رولد هوفمان (Roald Hoffmann)</strong> بعنوان: <em>"كيف تلتقي الكيمياء والفيزياء في المادة الصلبة."</em> وفهمتُ: ما عشتُه مع مشرفَيّ ليس استثناءً — إنما هو سمة متجذّرة في مجال علم المواد وخصوصاً المادة الصلبة منذ عقود.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">ثم صادفتُ ورقة علمية نُشرت عام 1987 كتبها الكيميائي الحائز على جائزة نوبل رولد هوفمان (Roald Hoffmann) بعنوان: <em>"كيف تلتقي الكيمياء والفيزياء في المادة الصلبة."</em> وفهمتُ: ما عشتُه مع مشرفَيّ ليس استثناءً، إنما هو سمة متجذّرة في مجال علم المواد وخصوصاً المادة الصلبة منذ عقود.</p>
 
-    <p>
-      يشخّص هوفمان هذا الخلافَ بثلاثة أسباب: أولاً، الكيميائي يشعر بالغرابة أمام مصطلحات فيزيائي المادة الصلبة — نطاقات الطاقة، ودالة بلوخ، وزخم الموجة — فيتحاشى الخوض فيها. ثانياً، الفيزيائي لا يُقدّر ما يمتلكه الكيميائي من قدرة حدسية عميقة على فهم طبيعة الروابط الكيميائية. ثالثاً، كيميائيو المادة الصلبة أنفسهم لا يبذلون جهداً كافياً للاطلاع على الكيمياء الجزيئية، فتتسع الهوّة من الداخل.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">يشخّص هوفمان هذا الخلافَ بثلاثة أسباب: أولاً، الكيميائي يشعر بالغرابة أمام مصطلحات فيزيائي المادة الصلبة، نطاقات الطاقة، ودالة بلوخ، وزخم الموجة، فيتحاشى الخوض فيها. ثانياً، الفيزيائي لا يُقدّر ما يمتلكه الكيميائي من قدرة حدسية عميقة على فهم طبيعة الروابط الكيميائية. ثالثاً، كيميائيو المادة الصلبة أنفسهم لا يبذلون جهداً كافياً للاطلاع على الكيمياء الجزيئية، فتتسع الهوّة من الداخل.</p>
 
-    <div class="pull-quote">
-      <p>الفجوة ليست في البيانات — بل في اللغة. وهذا ما تحاول هذه المقالة أن تقدّمه.</p>
-    </div>
-  </section>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الفجوة ليست في البيانات، بل في اللغة. وهذا ما تحاول هذه المقالة أن تقدّمه.</p>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 1: What is solid state matter
-  ════════════════════════════════════════════════════ -->
-  <section>
-    <h2>ما هي المادة الصلبة؟</h2>
+    <hr class="section-sep">
 
-    <p>
-      حاول أن تضع يدك على الطاولة أمامك، أو الجدار، أو حتى الحديد إن كان بجانبك. هذا الشيء الصلب الذي تلمسه — لماذا هو صلب أصلاً؟ لماذا لا تمر يدك من خلاله؟ هذا السؤال يبدو ساذجاً، لكنه من أعمق الأسئلة في العلم.
-    </p>
+    <!-- ── SECTION 1 ── -->
+    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">ما هي المادة الصلبة؟</h2>
 
-    <p>
-      المادة الصلبة — كالمعادن والأحجار والخشب والزجاج والجدار — تختلف عن السوائل والغازات في تشكّل ذراتها. في الصلب تكون مقيّدة، وفي الغاز الجزيئات تكون حرة وتتحرك بسرعة. في السائل، تتدحرج فوق بعضها. أما في الصلب، فكل ذرة محبوسة في شبكة هندسية منتظمة لا تستطيع مغادرتها.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">حاول أن تضع يدك على الطاولة أمامك، أو الجدار، أو حتى الحديد إن كان بجانبك. هذا الشيء الصلب الذي تلمسه، لماذا هو صلب أصلاً؟ لماذا لا تمر يدك من خلاله؟ هذا السؤال يبدو ساذجاً، لكنه من أعمق الأسئلة في العلم.</p>
 
-    <div class="interactive-box">
-      <h3>الشبكة البلورية — Crystal Lattice</h3>
-      <p class="caption">اضغط على "تحريك" لترى كيف تتذبذب الذرات في مكانها دون أن تغادره</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">المادة الصلبة، كالمعادن والأحجار والخشب والزجاج والجدار، تختلف عن السوائل والغازات في تشكّل ذراتها. في الصلب تكون مقيّدة، وفي الغاز الجزيئات تكون حرة وتتحرك بسرعة. في السائل، تتدحرج فوق بعضها. أما في الصلب، فكل ذرة محبوسة في شبكة هندسية منتظمة لا تستطيع مغادرتها.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">الشبكة البلورية — Crystal Lattice</div>
+      <p class="ibox-caption">اضغط على "تحريك" لترى كيف تتذبذب الذرات في مكانها دون أن تغادره</p>
       <canvas id="lattice-canvas" width="340" height="220"></canvas>
-      <div style="margin-top:12px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <button onclick="toggleLatticeAnim()" id="anim-btn" style="background:var(--blue-deep);color:#fff;border:none;border-radius:6px;padding:8px 20px;cursor:pointer;font-family:inherit;font-size:14px;">▶ تحريك</button>
-        <button onclick="changeTemp(-1)" style="background:var(--surface);color:var(--text-muted);border:1px solid var(--border);border-radius:6px;padding:8px 16px;cursor:pointer;font-family:inherit;font-size:14px;">❄ تبريد</button>
-        <button onclick="changeTemp(1)" style="background:var(--surface);color:var(--text-muted);border:1px solid var(--border);border-radius:6px;padding:8px 16px;cursor:pointer;font-family:inherit;font-size:14px;">🔥 تسخين</button>
+      <div style="margin-top:10px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="toggleLatticeAnim()" id="anim-btn" style="background:#2F6F6A;color:#fff;border:none;border-radius:6px;padding:7px 18px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">▶ تحريك</button>
+        <button onclick="changeTemp(-1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">❄ تبريد</button>
+        <button onclick="changeTemp(1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">🔥 تسخين</button>
       </div>
-      <p id="temp-label" style="margin-top:10px;font-size:13px;color:var(--text-muted);">درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)</p>
+      <p id="temp-label" style="margin:8px 0 0;font-size:13px;color:#6B6A63;">درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)</p>
     </div>
 
-    <p>
-      هذا الترتيب الهندسي المنتظم هو ما نسميه <strong>البلّورة (Crystal)</strong>. معظم المواد الصلبة من حولنا بلّورية: الملح، الثلج، المعادن. وعدد قليل منها غير منتظم كالزجاج — نسميه <strong>صلباً غير بلّوري (Amorphous Solid)</strong>. وكل المواد الصلبة لها شكل هندسي تتميز به، وكل شكل يعطي صفات مختلفة — وربما تكون قد درست هذا الأمر في الثانوية أو الجامعة، فهذه المعلومة ليست بالجديدة.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">هذا الترتيب الهندسي المنتظم هو ما نسميه <strong>البلّورة (Crystal)</strong>. معظم المواد الصلبة من حولنا بلّورية: الملح، الثلج، المعادن. وعدد قليل منها غير منتظم كالزجاج — نسميه <strong>صلباً غير بلّوري (Amorphous Solid)</strong>. وكل المواد الصلبة لها شكل هندسي تتميز به، وكل شكل يعطي صفات مختلفة — وربما تكون قد درست هذا الأمر في الثانوية أو الجامعة، فهذه المعلومة ليست بالجديدة.</p>
 
-    <div class="pull-quote">
-      <p>المادة الصلبة ليست مجرد "مادة جامدة" — إنها مجموعة كبيرة من الذرات المترابطة بانتظام، ويمكن فهم كل خاصية فيزيائية وكيميائية لها من خلال فهم هذا الترتيب الهندسي.</p>
-    </div>
-  </section>
+    <hr class="section-sep">
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 2: Hydrogen atom & orbitals
-  ════════════════════════════════════════════════════ -->
-  <section>
-    <h2>البداية: ذرة الهيدروجين</h2>
+    <!-- ── SECTION 2 ── -->
+    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">البداية: ذرة الهيدروجين</h2>
 
-    <p>
-      حسناً، قبل أن نتحدث عن ملايين الذرات في الحالة الصلبة، لنبدأ بأبسط ذرة موجودة: <strong>الهيدروجين</strong>. ذرة واحدة، نواة واحدة، إلكترون واحد. لكن هذا الإلكترون الواحد يُخبرنا بكل شيء.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">حسناً، قبل أن نتحدث عن ملايين الذرات في الحالة الصلبة، لنبدأ بأبسط ذرة موجودة: <strong>الهيدروجين</strong>. ذرة واحدة، نواة واحدة، إلكترون واحد. لكن هذا الإلكترون الواحد يُخبرنا بكل شيء.</p>
 
-    <p>
-      الكيميائي يتخيّل الإلكترون كـ<strong>سحابة</strong> من الاحتمالات المحيطة بالنواة. هذه السحابة ليست عشوائية — لها أشكال محددة جداً نسميها <strong>المدارات الذرية (Atomic Orbitals)</strong>. أما الفيزيائي، فيصفها كـ<strong>دالة موجية (Wave Function)</strong> تُعطي كثافة احتمال وجود الإلكترون في كل نقطة في الفضاء.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الكيميائي يتخيّل الإلكترون كـ<strong>سحابة</strong> من الاحتمالات المحيطة بالنواة. هذه السحابة ليست عشوائية — لها أشكال محددة جداً نسميها <strong>المدارات الذرية (Atomic Orbitals)</strong>. أما الفيزيائي، فيصفها كـ<strong>دالة موجية (Wave Function)</strong> تُعطي كثافة احتمال وجود الإلكترون في كل نقطة في الفضاء.</p>
 
-    <p>
-      اللغتان تصفان نفس الشيء. المدار <span class="info-badge">1s</span> هو حل معادلة شرودنغر لأدنى مستوى طاقة — كرة متماثلة حول النواة. المدار <span class="info-badge">2p</span> أكبر وأكثر تعقيداً، وله فصّان كالدمبل (إن كنت تذهب إلى النادي ستعرف ما هو الدمبل).
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">اللغتان تصفان نفس الشيء. المدار <span class="info-badge">1s</span> هو حل معادلة شرودنغر لأدنى مستوى طاقة — كرة متماثلة حول النواة. المدار <span class="info-badge">2p</span> أكبر وأكثر تعقيداً، وله فصّان كالدمبل (إن كنت تذهب إلى النادي ستعرف ما هو الدمبل).</p>
 
-    <div class="interactive-box">
-      <h3>المدارات الذرية للهيدروجين</h3>
-      <p class="caption">اختر مدارًا لترى شكله وطاقته — هذا هو "مكان" الإلكترون حول النواة</p>
+    <div class="ibox">
+      <div class="ibox-title">المدارات الذرية للهيدروجين</div>
+      <p class="ibox-caption">اختر مداراً لترى شكله وطاقته — هذا هو "مكان" الإلكترون حول النواة</p>
       <div class="tab-row">
         <button class="tab-btn active" onclick="selectOrbital('1s',this)">1s</button>
         <button class="tab-btn" onclick="selectOrbital('2s',this)">2s</button>
@@ -413,25 +235,19 @@
         <button class="tab-btn" onclick="selectOrbital('3d',this)">3d<sub>z²</sub></button>
       </div>
       <canvas id="orbital-canvas" width="340" height="260"></canvas>
-      <div id="orbital-info" style="margin-top:12px;padding:12px 16px;background:var(--bg2);border-radius:8px;text-align:right;font-size:15px;line-height:1.8;">
+      <div id="orbital-info" class="info-box">
         <strong>1s</strong> — أول مستوى طاقة، أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.
       </div>
     </div>
 
-    <p>
-      كل مدار يحمل <strong>طاقة محددة</strong>. الإلكترون في 1s يملك طاقة أقل — وكلما كانت الطاقة أقل كان المدار أكثر استقراراً — من الإلكترون في 2s، الذي بدوره أقل طاقةً من 3d. هذا السلّم التدريجي من الطاقات هو المفتاح لفهم ما يحدث عندما نجمع مئات الذرات معاً.
-    </p>
-  </section>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">كل مدار يحمل <strong>طاقة محددة</strong>. الإلكترون في 1s يملك طاقة أقل — وكلما كانت الطاقة أقل كان المدار أكثر استقراراً — من الإلكترون في 2s، الذي بدوره أقل طاقةً من 3d. هذا السلّم التدريجي من الطاقات هو المفتاح لفهم ما يحدث عندما نجمع مئات الذرات معاً.</p>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 3: Two languages
-  ════════════════════════════════════════════════════ -->
-  <section>
-    <h2>لغتان لوصف نفس الشيء</h2>
+    <hr class="section-sep">
 
-    <p>
-      الغريب أن عالم الفيزياء وعالم الكيمياء يدرسان نفس المادة الصلبة، لكنهما يصفانها بطريقتين مختلفتين تماماً — كأن أحدهما يتحدث الإنجليزية والآخر العربية عن نفس المشهد. الفيزيائي يسأل: كيف تتدفق الإلكترونات؟ ما سرعة الموجة داخل المادة؟ ما نطاقات الطاقة المسموح بها؟ هل المادة موصلة أم عازلة؟ أما الكيميائي يسأل: ما نوع الروابط بين الذرات؟ كيف تتداخل المدارات الذرية؟ لماذا هذا المركب مستقر؟ ما شكل الإلكترون حول الذرة؟
-    </p>
+    <!-- ── SECTION 3 ── -->
+    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">لغتان لوصف نفس الشيء</h2>
+
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الغريب أن عالم الفيزياء وعالم الكيمياء يدرسان نفس المادة الصلبة، لكنهما يصفانها بطريقتين مختلفتين تماماً — كأن أحدهما يتحدث الإنجليزية والآخر العربية عن نفس المشهد. الفيزيائي يسأل: كيف تتدفق الإلكترونات؟ ما سرعة الموجة داخل المادة؟ ما نطاقات الطاقة المسموح بها؟ هل المادة موصلة أم عازلة؟ أما الكيميائي يسأل: ما نوع الروابط بين الذرات؟ كيف تتداخل المدارات الذرية؟ لماذا هذا المركب مستقر؟ ما شكل الإلكترون حول الذرة؟</p>
 
     <div class="compare-grid">
       <div class="compare-card physics">
@@ -456,69 +272,49 @@
       </div>
     </div>
 
-    <p>
-      كلاهما مخطئ وكلاهما مصيب! الفيزيائي ينظر إلى الحالة الصلبة كـ<strong>"بحر من الإلكترونات"</strong> تتموج عبره موجات. أما الكيميائي، فيرى <strong>ذرات ترتبط بذرات</strong> عبر روابط كيميائية. وكلاهما يصف نفس الشيء من زاوية مختلفة.
-    </p>
-  </section>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">كلاهما مخطئ وكلاهما مصيب! الفيزيائي ينظر إلى الحالة الصلبة كـ<strong>"بحر من الإلكترونات"</strong> تتموج عبره موجات. أما الكيميائي، فيرى <strong>ذرات ترتبط بذرات</strong> عبر روابط كيميائية. وكلاهما يصف نفس الشيء من زاوية مختلفة.</p>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 4: From atom to band
-  ════════════════════════════════════════════════════ -->
-  <section>
-    <h2>من ذرة واحدة إلى نطاق طاقة كامل</h2>
+    <hr class="section-sep">
 
-    <p>
-      تخيّل معي ذرة هيدروجين وحيدة. لها مستوى طاقة 1s محدد بدقة. الآن أحضر ذرتَي هيدروجين وقرّبهما من بعضهما — ماذا يحدث؟ المدارات تبدأ بالتداخل (Overlap).
-    </p>
+    <!-- ── SECTION 4 ── -->
+    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">من ذرة واحدة إلى نطاق طاقة كامل</h2>
 
-    <p>
-      وعندما يتداخل مداران، لا يتحولان إلى مدار واحد — بل ينقسمان إلى <strong>مدارين جديدين</strong>: واحد أقل طاقة (رابطة، Bonding) وآخر أعلى طاقة (تنافر، Antibonding). هذا هو جوهر فكرة الرابطة الكيميائية. حسناً فهمنا الروابط الكيميائية — والآن تخيّل أنك تضيف ذرة ثالثة، ورابعة، وألف ذرة... كل ذرة تُضيف مستوى طاقة جديداً. وعندما تصبح الذرات كثيرة بما يكفي، تتحول هذه المستويات المنفصلة إلى شيء جديد تماماً: <strong>نطاق طاقة مستمر (Energy Band)</strong>.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">تخيّل معي ذرة هيدروجين وحيدة. لها مستوى طاقة 1s محدد بدقة. الآن أحضر ذرتَي هيدروجين وقرّبهما من بعضهما — ماذا يحدث؟ المدارات تبدأ بالتداخل (Overlap).</p>
 
-    <div class="interactive-box">
-      <h3>من مستويات منفصلة إلى نطاق مستمر</h3>
-      <p class="caption">حرّك المؤشر لزيادة عدد الذرات وشاهد كيف تتحول المستويات إلى نطاق</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">وعندما يتداخل مداران، لا يتحولان إلى مدار واحد — بل ينقسمان إلى <strong>مدارين جديدين</strong>: واحد أقل طاقة (رابطة، Bonding) وآخر أعلى طاقة (تنافر، Antibonding). هذا هو جوهر فكرة الرابطة الكيميائية. حسناً فهمنا الروابط الكيميائية — والآن تخيّل أنك تضيف ذرة ثالثة، ورابعة، وألف ذرة... كل ذرة تُضيف مستوى طاقة جديداً. وعندما تصبح الذرات كثيرة بما يكفي، تتحول هذه المستويات المنفصلة إلى شيء جديد تماماً: <strong>نطاق طاقة مستمر (Energy Band)</strong>.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">من مستويات منفصلة إلى نطاق مستمر</div>
+      <p class="ibox-caption">حرّك المؤشر لزيادة عدد الذرات وشاهد كيف تتحول المستويات إلى نطاق</p>
       <canvas id="band-canvas" width="340" height="200"></canvas>
       <div class="slider-wrap">
         <span class="slider-label">عدد الذرات المتجاورة:</span>
         <input type="range" id="atom-slider" min="1" max="20" value="1" oninput="updateBand(this.value)">
-        <span id="band-status">ذرة واحدة → مستوى طاقة محدد</span>
+        <span id="band-status" style="font-size:13px;color:#6B6A63;">ذرة واحدة → مستوى طاقة محدد</span>
       </div>
     </div>
 
-    <p>
-      الكيميائي يرى هذا النطاق ويقول: <em>"اوووه هذا هو مجموع كل الروابط الكيميائية بين مئات الذرات."</em> والفيزيائي يرى نفس النطاق ويقول: <em>"انظرووا هذا هو المجال الذي تستطيع فيه الإلكترونات التنقل بحرية."</em> — نفس الظاهرة، لغتان مختلفتان.
-    </p>
-  </section>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الكيميائي يرى هذا النطاق ويقول: <em>"اوووه هذا هو مجموع كل الروابط الكيميائية بين مئات الذرات."</em> والفيزيائي يرى نفس النطاق ويقول: <em>"انظرووا هذا هو المجال الذي تستطيع فيه الإلكترونات التنقل بحرية."</em> — نفس الظاهرة، لغتان مختلفتان.</p>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 5: Band Structure & DOS
-  ════════════════════════════════════════════════════ -->
-  <section>
-    <h2>Band Structure و Density of States: كيف يرسم العلماء الطاقة</h2>
+    <hr class="section-sep">
 
-    <p>
-      لتفسير هذه الأرقام ومئات الذرات المترابطة، الفيزيائيون والكيميائيون طوّروا أدوات رسومية خاصة لفهم نطاقات الطاقة في المواد الصلبة. أشهر هذين الرسمين:
-    </p>
+    <!-- ── SECTION 5 ── -->
+    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">Band Structure و Density of States: كيف يرسم العلماء الطاقة</h2>
 
-    <p>
-      <strong>Band Structure</strong>: يُظهر كيف تتغير طاقة الإلكترون بحسب "اتجاه" حركته داخل البلّورة (المحور الأفقي k هو زخم الموجة، وهو يمثل اتجاه الإلكترون-الموجة في الشبكة). <strong>Density of States (DOS)</strong>: يُظهر كم عدد الحالات المتاحة للإلكترونات عند كل مستوى طاقة.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">لتفسير هذه الأرقام ومئات الذرات المترابطة، الفيزيائيون والكيميائيون طوّروا أدوات رسومية خاصة لفهم نطاقات الطاقة في المواد الصلبة. أشهر هذين الرسمين:</p>
 
-    <p>
-      الرسمان مرتبطان: حيث يكون الشريط <em>مسطحاً</em> في Band Structure (تغيّر بطيء في الطاقة)، تجد <em>قمة عالية</em> في DOS. وحيث يكون الشريط <em>منحدراً</em>، تجد قيماً منخفضة في DOS. الكيميائيون يفضلون رسم DOS لأنه يربط مباشرةً بتفاعلات الروابط؛ الفيزيائيون يفضلون Band Structure لأنه يُظهر حركة الإلكترون.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;"><strong>Band Structure</strong>: يُظهر كيف تتغير طاقة الإلكترون بحسب "اتجاه" حركته داخل البلّورة (المحور الأفقي k هو زخم الموجة، وهو يمثل اتجاه الإلكترون-الموجة في الشبكة). <strong>Density of States (DOS)</strong>: يُظهر كم عدد الحالات المتاحة للإلكترونات عند كل مستوى طاقة.</p>
 
-    <div class="interactive-box">
-      <h3>Band Structure و DOS التفاعليان</h3>
-      <p class="caption">اختر نوع المادة وانظر كيف يتغير شكل النطاقات — وأين يقع مستوى فيرمي (Fermi Level)</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الرسمان مرتبطان: حيث يكون الشريط <em>مسطحاً</em> في Band Structure (تغيّر بطيء في الطاقة)، تجد <em>قمة عالية</em> في DOS. وحيث يكون الشريط <em>منحدراً</em>، تجد قيماً منخفضة في DOS. الكيميائيون يفضلون رسم DOS لأنه يربط مباشرةً بتفاعلات الروابط؛ الفيزيائيون يفضلون Band Structure لأنه يُظهر حركة الإلكترون.</p>
 
+    <div class="ibox">
+      <div class="ibox-title">Band Structure و DOS التفاعليان</div>
+      <p class="ibox-caption">اختر نوع المادة وانظر كيف يتغير شكل النطاقات — وأين يقع مستوى فيرمي (Fermi Level)</p>
       <div class="tab-row">
         <button class="tab-btn active" onclick="selectMaterial('metal',this)">معدن (Metal)</button>
-        <button class="tab-btn" onclick="selectMaterial('semiconductor',this)">شبه موصل (Semiconductor)</button>
+        <button class="tab-btn" onclick="selectMaterial('semiconductor',this)">شبه موصل</button>
         <button class="tab-btn" onclick="selectMaterial('insulator',this)">عازل (Insulator)</button>
       </div>
-
       <div class="band-dos-wrap" style="margin-top:8px;">
         <div class="band-col">
           <canvas id="bs-canvas" width="200" height="280"></canvas>
@@ -529,649 +325,332 @@
           <span class="col-label">Density of States (DOS)</span>
         </div>
       </div>
-
-      <div id="material-info" style="margin-top:14px;padding:12px 16px;background:var(--bg2);border-radius:8px;text-align:right;font-size:15px;line-height:1.8;">
+      <div id="material-info" class="info-box">
         في المعدن، مستوى فيرمي يقع <em>داخل</em> النطاق — الإلكترونات حرة التنقل، ولهذا يوصّل المعدن الكهرباء.
       </div>
     </div>
 
-    <p>
-      مستوى فيرمي <span class="info-badge">E_F</span> هو الحدّ الفاصل: الحالات أدناه ممتلئة بإلكترونات، والحالات فوقه فارغة. في المعادن، هذا المستوى يقع وسط النطاق — والإلكترونات تتحرك بحرية. في العازلات، يقع بين نطاقين — لا إلكترونات تستطيع التنقل. أما شبه الموصل؟ فهو في المنتصف بين الاثنين.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">مستوى فيرمي <span class="info-badge">E_F</span> هو الحدّ الفاصل: الحالات أدناه ممتلئة بإلكترونات، والحالات فوقه فارغة. في المعادن، هذا المستوى يقع وسط النطاق — والإلكترونات تتحرك بحرية. في العازلات، يقع بين نطاقين — لا إلكترونات تستطيع التنقل. أما شبه الموصل؟ فهو في المنتصف بين الاثنين.</p>
 
-    <div class="pull-quote">
-      <p>الجزء الرائع: مستوى فيرمي هو نفس الفكرة التي يستخدمها الكيميائي حين يتحدث عن "أعلى مدار مشغول" — HOMO. اللغتان تصفان نفس الحدّ.</p>
-    </div>
-  </section>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الجزء الرائع: مستوى فيرمي هو نفس الفكرة التي يستخدمها الكيميائي حين يتحدث عن "أعلى مدار مشغول" — HOMO. اللغتان تصفان نفس الحدّ.</p>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 6: Bloch Function bridge
-  ════════════════════════════════════════════════════ -->
-  <section>
-    <h2>الجسر بين العالَمين: دالة بلوخ</h2>
+    <hr class="section-sep">
 
-    <p>
-      ما الذي يجمع اللغتين رياضياً؟ الإجابة تكمن في فكرة واحدة أنيقة: <strong>دالة بلوخ (Bloch Function)</strong>.
-    </p>
+    <!-- ── SECTION 6 ── -->
+    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">الجسر بين العالَمين: دالة بلوخ</h2>
 
-    <p>
-      تخيّل معي أم كلثوم وعبدالحليم حافظ — كل منهم يغني بلحنه وصوته العذب، وكل صوت هو المدار الذري. لكن عندما يغنون معاً؟ لا تختفي أصواتهم الفردية بل تتشابك وتكوّن موجة جماعية. هذا بالضبط ما تقوله دالة بلوخ: <em>الإلكترون في الصلب يحمل في طيّاته شكل المدار الذري الأصلي، لكنه مُضاعَف عندما يرتبط بذرات أخرى عبر الشبكة كلها كموجة.</em>
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">ما الذي يجمع اللغتين رياضياً؟ الإجابة تكمن في فكرة واحدة أنيقة: <strong>دالة بلوخ (Bloch Function)</strong>.</p>
 
-    <div class="interactive-box">
-      <h3>من مدار ذري إلى موجة بلوخ</h3>
-      <p class="caption">انقر على الذرات واحدة تلو الأخرى لترى كيف تتحد مداراتها في موجة واحدة</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">تخيّل معي أم كلثوم وعبدالحليم حافظ — كل منهم يغني بلحنه وصوته العذب، وكل صوت هو المدار الذري. لكن عندما يغنون معاً؟ لا تختفي أصواتهم الفردية بل تتشابك وتكوّن موجة جماعية. هذا بالضبط ما تقوله دالة بلوخ: الإلكترون في الصلب يحمل في طيّاته شكل المدار الذري الأصلي، لكنه مُضاعَف عندما يرتبط بذرات أخرى عبر الشبكة كلها كموجة.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">من مدار ذري إلى موجة بلوخ</div>
+      <p class="ibox-caption">انقر على الذرات واحدة تلو الأخرى لترى كيف تتحد مداراتها في موجة واحدة</p>
       <canvas id="bloch-canvas" width="360" height="200"></canvas>
-      <p id="bloch-label" style="margin-top:10px;font-size:14px;color:var(--text-muted);">انقر على الذرات واحدة تلو الأخرى</p>
+      <p id="bloch-label" style="margin:8px 0 0;font-size:14px;color:#6B6A63;">انقر على الذرات واحدة تلو الأخرى</p>
     </div>
 
-    <p>
-      هذه الفكرة هي جوهر رسالة Hoffmann: الكيميائي لا يحتاج أن يتخلى عن تصوّره للروابط والمدارات، والفيزيائي لا يحتاج أن يتخلى عن معادلاته الموجية. كلاهما يصف نفس الحقيقة من زاوية مختلفة. لكن كلّ منهما يحتاج إلى شيء يتعلمه من الآخر.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">هذه الفكرة هي جوهر رسالة Hoffmann: الكيميائي لا يحتاج أن يتخلى عن تصوّره للروابط والمدارات، والفيزيائي لا يحتاج أن يتخلى عن معادلاته الموجية. كلاهما يصف نفس الحقيقة من زاوية مختلفة. لكن كلّ منهما يحتاج إلى شيء يتعلمه من الآخر.</p>
 
-    <p>
-      <strong>ما يحتاجه الكيميائي:</strong> أن يتعلم كيفية تصنيف خصائص المواد — وليس الاكتفاء بمجرد تصنيع المواد الجديدة وتحديد بُنيتها. يجب أن يكون قادراً على تحليل البنية الإلكترونية للمركبات التي يصنعها بأسلوب رصين، ليتسنّى له فهم كيفية تعديل هذه الخصائص والتحكم فيها. وهذا يعني أن يتعلم لغة فيزياء الحالة الصلبة — وتحديداً <strong>نظرية حزم الطاقة (Band Theory)</strong>.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;"><strong>ما يحتاجه الكيميائي:</strong> أن يتعلم كيفية تصنيف خصائص المواد — وليس الاكتفاء بمجرد تصنيع المواد الجديدة وتحديد بُنيتها. يجب أن يكون قادراً على تحليل البنية الإلكترونية للمركبات التي يصنعها بأسلوب رصين، ليتسنّى له فهم كيفية تعديل هذه الخصائص والتحكم فيها. وهذا يعني أن يتعلم لغة فيزياء الحالة الصلبة — وتحديداً <strong>نظرية حزم الطاقة (Band Theory)</strong>.</p>
 
-    <p>
-      <strong>ما يحتاجه الفيزيائي:</strong> أن يتعلم لغة الكيميائي في فهم الروابط والمدارات. الفيزيائي يستطيع حساب Band Structure بدقة عالية، لكنه في كثير من الأحيان لا يستطيع الإجابة على سؤال بسيط: <em>لماذا هذا المركب مستقر أصلاً؟</em> أو <em>لماذا هذه المادة تمتص الضوء عند هذا الطول الموجي تحديداً؟</em> — هذه أسئلة الكيميائي. ولهذا يحتاج الفيزيائي أن يطّلع على الكيمياء الجزيئية ويفهم حِدس الكيميائي في قراءة الروابط، لأن هذا الحِدس هو ما يجعله يشكّك في نتيجة حتى لو كانت الأرقام تبدو صحيحة — كما فعل مشرفي تماماً.
-    </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;"><strong>ما يحتاجه الفيزيائي:</strong> أن يتعلم لغة الكيميائي في فهم الروابط والمدارات. الفيزيائي يستطيع حساب Band Structure بدقة عالية، لكنه في كثير من الأحيان لا يستطيع الإجابة على سؤال بسيط: <em>لماذا هذا المركب مستقر أصلاً؟</em> أو <em>لماذا هذه المادة تمتص الضوء عند هذا الطول الموجي تحديداً؟</em> — هذه أسئلة الكيميائي. ولهذا يحتاج الفيزيائي أن يطّلع على الكيمياء الجزيئية ويفهم حِدس الكيميائي في قراءة الروابط، لأن هذا الحِدس هو ما يجعله يشكّك في نتيجة حتى لو كانت الأرقام تبدو صحيحة — كما فعل مشرفي تماماً.</p>
 
-    <div class="pull-quote">
-      <p>مستوى فيرمي الذي يتحدث عنه الفيزيائي هو نفسه HOMO الذي يتحدث عنه الكيميائي — اللغتان تصفان نفس الحدّ مرة أخرى.</p>
-    </div>
-  </section>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">مستوى فيرمي الذي يتحدث عنه الفيزيائي هو نفسه HOMO الذي يتحدث عنه الكيميائي — اللغتان تصفان نفس الحدّ مرة أخرى.</p>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 7: Applications
-  ════════════════════════════════════════════════════ -->
-  <section>
-    <h2>لماذا يهمنا هذا؟</h2>
+    <hr class="section-sep">
 
-    <p>
-      كل <strong>شاشة هاتفك</strong>، كل <strong>بطارية</strong> تشحنه، كل <strong>خلية شمسية</strong> وكل <strong>ليد (LED)</strong> — هذه التقنيات صُمِّمت من خلال قراءة Band Structure و DOS بعين الكيميائي وعين الفيزيائي معاً.
-    </p>
+    <!-- ── SECTION 7 ── -->
+    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">لماذا يهمنا هذا؟</h2>
 
-    <div class="interactive-box">
-      <h3>المادة الصلبة في حياتنا</h3>
-      <p class="caption">انقر على كل جهاز لترى دور الفيزياء والكيمياء فيه</p>
-      <div id="devices-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px;">
-        <div class="device-item" onclick="showDevice('solar',event)" style="cursor:pointer;padding:14px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);text-align:center;">
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">كل <strong>شاشة هاتفك</strong>، كل <strong>بطارية</strong> تشحنه، كل <strong>خلية شمسية</strong> وكل <strong>ليد (LED)</strong> — هذه التقنيات صُمِّمت من خلال قراءة Band Structure و DOS بعين الكيميائي وعين الفيزيائي معاً.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">المادة الصلبة في حياتنا</div>
+      <p class="ibox-caption">انقر على كل جهاز لترى دور الفيزياء والكيمياء فيه</p>
+      <div id="devices-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;">
+        <div class="device-item" onclick="showDevice('solar',event)">
           <div style="font-size:28px;">☀️</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:6px;">الخلية الشمسية</div>
+          <div style="font-size:13px;color:#6B6A63;margin-top:6px;">الخلية الشمسية</div>
         </div>
-        <div class="device-item" onclick="showDevice('battery',event)" style="cursor:pointer;padding:14px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);text-align:center;">
+        <div class="device-item" onclick="showDevice('battery',event)">
           <div style="font-size:28px;">🔋</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:6px;">البطارية</div>
+          <div style="font-size:13px;color:#6B6A63;margin-top:6px;">البطارية</div>
         </div>
-        <div class="device-item" onclick="showDevice('led',event)" style="cursor:pointer;padding:14px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);text-align:center;">
+        <div class="device-item" onclick="showDevice('led',event)">
           <div style="font-size:28px;">💡</div>
-          <div style="font-size:13px;color:var(--text-muted);margin-top:6px;">الليد LED</div>
+          <div style="font-size:13px;color:#6B6A63;margin-top:6px;">الليد LED</div>
         </div>
       </div>
-      <div id="device-info" style="margin-top:16px;min-height:60px;display:none;padding:14px;background:var(--bg);border-radius:8px;border:1px solid var(--gold);font-size:15px;text-align:right;line-height:1.8;"></div>
+      <div id="device-info" style="margin-top:14px;min-height:60px;display:none;padding:12px;background:#E2DFDA;border-radius:6px;border:1px solid #2F6F6A;font-size:14px;text-align:right;line-height:1.8;color:#33342F;"></div>
     </div>
-  </section>
 
-  <div class="closing-box">
-    <p>المادة الصلبة ليست ملكاً للفيزيائيين ولا للكيميائيين وحدهم — إنها الأرض المشتركة التي تزدهر فيها أجمل اكتشافاتهم حين يتكلمان معاً.</p>
-    <p style="font-size:14px;color:var(--text-muted);margin-bottom:8px;">مستوحى من ورقة Roald Hoffmann (1987):</p>
-    <span class="author">"How Chemistry and Physics Meet in the Solid State"</span>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">المادة الصلبة ليست ملكاً للفيزيائيين ولا للكيميائيين وحدهم — إنها الأرض المشتركة التي تزدهر فيها أجمل اكتشافاتهم حين يتكلمان معاً.</p>
+
+    <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">مستوحى من: Roald Hoffmann (1987) — "How Chemistry and Physics Meet in the Solid State"</p>
+
   </div>
+</article>
+
+<footer style="padding:32px 24px;display:flex;justify-content:center;">
+  <a href="../index.html#articles" style="font-size:14px;font-weight:600;font-family:'IBM Plex Mono',monospace;">← Back to all articles</a>
+</footer>
 
 </div>
 
 <script>
-// ─── HELPERS ───
-function getCSSVar(name) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-
-function toggleTheme() {
-  const r = document.documentElement;
-  r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  redrawAll();
-}
+// ─── helpers ───
+function getCSSVar(n){return'#2F6F6A';}// fallback; below we use direct values matching the template
+const TEAL='#2F6F6A', TEAL_LIGHT='rgba(47,111,106,0.15)';
+const GOLD='#C8A964', GOLD_LIGHT='rgba(200,169,100,0.18)';
+const BORDER='#D6D2C5', BG='#F3F1EA', BG2='#ECEAE1', BG3='#E2DFDA';
+const TEXT='#1B1F1E', MUTED='#6B6A63';
+const BLUE='#2F6F6A', BLUE_LIGHT='rgba(47,111,106,0.2)';
 
 // ─── LATTICE ───
-const lc = document.getElementById('lattice-canvas');
-const lctx = lc.getContext('2d');
-let animating = false, animId = null, tempLevel = 0, t = 0;
-const amplitudes = [0.5, 2.5, 6];
-const tempLabels = [
-  'درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)',
-  'درجة الحرارة: متوسطة (ذبذبات معتدلة)',
-  'درجة الحرارة: عالية (ذبذبات قوية — اقتراب من الانصهار)'
-];
-const rows = 4, cols = 6;
-const baseAtoms = [];
-for (let r = 0; r < rows; r++)
-  for (let c = 0; c < cols; c++)
-    baseAtoms.push({ x: 38 + c*52, y: 30 + r*52, phase: Math.random()*Math.PI*2, phase2: Math.random()*Math.PI*2 });
-
-function drawLattice() {
-  const amp = amplitudes[tempLevel];
-  lctx.clearRect(0, 0, lc.width, lc.height);
-  const positions = baseAtoms.map(a => ({
-    x: a.x + (animating ? Math.sin(t*.04 + a.phase)*amp : 0),
-    y: a.y + (animating ? Math.sin(t*.05 + a.phase2)*amp*.7 : 0)
-  }));
-  lctx.strokeStyle = getCSSVar('--border') || '#D4C9B0';
-  lctx.lineWidth = 1.2;
-  for (let i = 0; i < baseAtoms.length; i++)
-    for (let j = i+1; j < baseAtoms.length; j++) {
-      const dx = baseAtoms[i].x - baseAtoms[j].x, dy = baseAtoms[i].y - baseAtoms[j].y;
-      if (Math.sqrt(dx*dx+dy*dy) < 60) {
-        lctx.beginPath(); lctx.moveTo(positions[i].x, positions[i].y);
-        lctx.lineTo(positions[j].x, positions[j].y); lctx.stroke();
-      }
-    }
-  positions.forEach(p => {
-    const grad = lctx.createRadialGradient(p.x-3, p.y-3, 1, p.x, p.y, 11);
-    grad.addColorStop(0, '#7ab8e0'); grad.addColorStop(1, getCSSVar('--blue-deep') || '#1A3A5C');
-    lctx.beginPath(); lctx.arc(p.x, p.y, 10, 0, Math.PI*2);
-    lctx.fillStyle = grad; lctx.fill();
+const lc=document.getElementById('lattice-canvas');
+const lctx=lc.getContext('2d');
+let animating=false,animId=null,tempLevel=0,lt=0;
+const amplitudes=[0.5,2.5,6];
+const tempLabels=['درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)','درجة الحرارة: متوسطة (ذبذبات معتدلة)','درجة الحرارة: عالية (ذبذبات قوية — اقتراب من الانصهار)'];
+const rows=4,cols=6;
+const baseAtoms=[];
+for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) baseAtoms.push({x:38+c*52,y:30+r*52,phase:Math.random()*Math.PI*2,phase2:Math.random()*Math.PI*2});
+function drawLattice(){
+  const amp=amplitudes[tempLevel];
+  lctx.clearRect(0,0,lc.width,lc.height);
+  const pos=baseAtoms.map(a=>({x:a.x+(animating?Math.sin(lt*.04+a.phase)*amp:0),y:a.y+(animating?Math.sin(lt*.05+a.phase2)*amp*.7:0)}));
+  lctx.strokeStyle=BORDER;lctx.lineWidth=1.2;
+  for(let i=0;i<baseAtoms.length;i++) for(let j=i+1;j<baseAtoms.length;j++){
+    const dx=baseAtoms[i].x-baseAtoms[j].x,dy=baseAtoms[i].y-baseAtoms[j].y;
+    if(Math.sqrt(dx*dx+dy*dy)<60){lctx.beginPath();lctx.moveTo(pos[i].x,pos[i].y);lctx.lineTo(pos[j].x,pos[j].y);lctx.stroke();}
+  }
+  pos.forEach(p=>{
+    const g=lctx.createRadialGradient(p.x-3,p.y-3,1,p.x,p.y,11);
+    g.addColorStop(0,'#7ab8b0');g.addColorStop(1,TEAL);
+    lctx.beginPath();lctx.arc(p.x,p.y,10,0,Math.PI*2);lctx.fillStyle=g;lctx.fill();
   });
-  t++;
+  lt++;
 }
-function animLoop() { drawLattice(); animId = requestAnimationFrame(animLoop); }
-function toggleLatticeAnim() {
-  animating = !animating;
-  document.getElementById('anim-btn').textContent = animating ? '⏸ إيقاف' : '▶ تحريك';
-  if (animating && !animId) animLoop();
-  else if (!animating) { cancelAnimationFrame(animId); animId = null; drawLattice(); }
+function animLoop(){drawLattice();animId=requestAnimationFrame(animLoop);}
+function toggleLatticeAnim(){
+  animating=!animating;
+  document.getElementById('anim-btn').textContent=animating?'⏸ إيقاف':'▶ تحريك';
+  if(animating&&!animId)animLoop();
+  else if(!animating){cancelAnimationFrame(animId);animId=null;drawLattice();}
 }
-function changeTemp(dir) {
-  tempLevel = Math.max(0, Math.min(2, tempLevel + dir));
-  document.getElementById('temp-label').textContent = tempLabels[tempLevel];
-  if (!animating) drawLattice();
+function changeTemp(d){
+  tempLevel=Math.max(0,Math.min(2,tempLevel+d));
+  document.getElementById('temp-label').textContent=tempLabels[tempLevel];
+  if(!animating)drawLattice();
 }
 drawLattice();
 
-// ─── ORBITAL CANVAS ───
-const oc = document.getElementById('orbital-canvas');
-const octx = oc.getContext('2d');
-let currentOrbital = '1s';
-let orbitalAnimId = null;
-let orbT = 0;
-
-const orbitalData = {
-  '1s': {
-    info: '<strong>1s</strong> — أول مستوى طاقة، أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.',
-    energy: -13.6, label: 'n=1, l=0'
-  },
-  '2s': {
-    info: '<strong>2s</strong> — المستوى الثاني، أعلى طاقة من 1s. كروي أيضاً لكن أكبر، ويحتوي على منطقة "عقدة" (Node) حيث احتمال وجود الإلكترون صفر.',
-    energy: -3.4, label: 'n=2, l=0'
-  },
-  '2px': {
-    info: '<strong>2p<sub>x</sub></strong> — شكله كالدمبل (فصّان) على المحور الأفقي. نفس طاقة 2p<sub>y</sub> و 2p<sub>z</sub> (degenerate). هذه المدارات هي أساس معظم الروابط الكيميائية.',
-    energy: -3.4, label: 'n=2, l=1, m=1'
-  },
-  '2py': {
-    info: '<strong>2p<sub>y</sub></strong> — نفس شكل 2p<sub>x</sub> لكن على المحور الرأسي. في البلورة، هذه المدارات تتداخل لتشكّل نطاقات الـ p.',
-    energy: -3.4, label: 'n=2, l=1, m=-1'
-  },
-  '3d': {
-    info: '<strong>3d<sub>z²</sub></strong> — مدار معقد، يشبه الدمبل مع حلقة في المنتصف. مدارات d هي المسؤولة عن الخصائص المميزة للمعادن الانتقالية.',
-    energy: -1.5, label: 'n=3, l=2, m=0'
-  }
+// ─── ORBITAL ───
+const oc=document.getElementById('orbital-canvas');
+const octx=oc.getContext('2d');
+let currentOrbital='1s',orbAnimId=null,orbT=0;
+const orbData={
+  '1s':{info:'<strong>1s</strong> — أول مستوى طاقة، أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.',energy:-13.6,label:'n=1, l=0'},
+  '2s':{info:'<strong>2s</strong> — المستوى الثاني، أعلى طاقة من 1s. كروي أيضاً لكن أكبر، ويحتوي على منطقة "عقدة" (Node) حيث احتمال وجود الإلكترون صفر.',energy:-3.4,label:'n=2, l=0'},
+  '2px':{info:'<strong>2p<sub>x</sub></strong> — شكله كالدمبل (فصّان) على المحور الأفقي. نفس طاقة 2p<sub>y</sub>. هذه المدارات هي أساس معظم الروابط الكيميائية.',energy:-3.4,label:'n=2, l=1, m=1'},
+  '2py':{info:'<strong>2p<sub>y</sub></strong> — نفس شكل 2p<sub>x</sub> لكن على المحور الرأسي. في البلورة، هذه المدارات تتداخل لتشكّل نطاقات الـ p.',energy:-3.4,label:'n=2, l=1, m=-1'},
+  '3d':{info:'<strong>3d<sub>z²</sub></strong> — مدار معقد، يشبه الدمبل مع حلقة في المنتصف. مدارات d هي المسؤولة عن الخصائص المميزة للمعادن الانتقالية.',energy:-1.5,label:'n=3, l=2, m=0'}
 };
-
-function selectOrbital(name, btn) {
-  currentOrbital = name;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+function selectOrbital(name,btn){
+  currentOrbital=name;
+  document.querySelectorAll('#orbital-canvas ~ * .tab-btn, .tab-row .tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('orbital-info').innerHTML = orbitalData[name].info;
-  if (orbitalAnimId) { cancelAnimationFrame(orbitalAnimId); orbitalAnimId = null; }
-  orbT = 0;
-  drawOrbital();
+  document.getElementById('orbital-info').innerHTML=orbData[name].info;
+  if(orbAnimId){cancelAnimationFrame(orbAnimId);orbAnimId=null;}
+  orbT=0;drawOrbital();
 }
-
-function drawOrbital() {
-  const w = oc.width, h = oc.height;
-  const cx = w/2, cy = h/2 - 20;
-  octx.clearRect(0, 0, w, h);
-
-  const gold = getCSSVar('--gold') || '#C8A96E';
-  const blue = getCSSVar('--blue-mid') || '#2D6A8F';
-  const blueDeep = getCSSVar('--blue-deep') || '#1A3A5C';
-  const muted = getCSSVar('--text-muted') || '#5A5040';
-  const textC = getCSSVar('--text') || '#1C1A17';
-  const surface = getCSSVar('--surface') || '#fff';
-
-  const orb = currentOrbital;
-  const pulse = 0.06 + 0.04 * Math.sin(orbT * 0.05);
-
-  if (orb === '1s') {
-    // s orbital: spherical gradient
-    for (let r = 70; r > 0; r -= 3) {
-      const alpha = Math.pow(1 - r/70, 1.5) * 0.55 + pulse * 0.1;
-      octx.beginPath();
-      octx.arc(cx, cy, r, 0, Math.PI*2);
-      octx.fillStyle = `rgba(200,169,110,${alpha})`;
-      octx.fill();
-    }
-    // node hint for 1s: none
-    octx.beginPath(); octx.arc(cx, cy, 6, 0, Math.PI*2);
-    octx.fillStyle = blueDeep; octx.fill();
-  } else if (orb === '2s') {
-    // 2s: larger sphere with a node ring
-    for (let r = 90; r > 0; r -= 3) {
-      const nr = r/90;
-      const alpha = (nr < 0.35 ? 0.45*(1-nr/0.35) : nr > 0.45 ? 0.55*(nr-0.45)/0.55 : 0) + pulse*0.05;
-      octx.beginPath(); octx.arc(cx, cy, r, 0, Math.PI*2);
-      octx.fillStyle = `rgba(200,169,110,${Math.max(0,alpha)})`;
-      octx.fill();
-    }
-    // node ring
-    octx.beginPath(); octx.arc(cx, cy, 90*0.4, 0, Math.PI*2);
-    octx.strokeStyle = muted + '60'; octx.lineWidth = 1.5; octx.stroke();
-    octx.fillStyle = muted + '30'; octx.fill();
-    octx.beginPath(); octx.arc(cx, cy, 6, 0, Math.PI*2);
-    octx.fillStyle = blueDeep; octx.fill();
-  } else if (orb === '2px') {
-    // dumbbell horizontal
-    [-1, 1].forEach(side => {
-      for (let r = 55; r > 0; r -= 3) {
-        const alpha = (1 - r/55) * 0.6 + pulse*0.08;
-        octx.beginPath(); octx.ellipse(cx + side*42, cy, r*0.7, r, 0, 0, Math.PI*2);
-        octx.fillStyle = side === 1 ? `rgba(200,169,110,${alpha})` : `rgba(45,106,143,${alpha})`;
-        octx.fill();
-      }
-    });
-    octx.beginPath(); octx.arc(cx, cy, 6, 0, Math.PI*2);
-    octx.fillStyle = blueDeep; octx.fill();
-  } else if (orb === '2py') {
-    // dumbbell vertical
-    [-1, 1].forEach(side => {
-      for (let r = 55; r > 0; r -= 3) {
-        const alpha = (1 - r/55) * 0.6 + pulse*0.08;
-        octx.beginPath(); octx.ellipse(cx, cy + side*42, r, r*0.7, 0, 0, Math.PI*2);
-        octx.fillStyle = side === 1 ? `rgba(200,169,110,${alpha})` : `rgba(45,106,143,${alpha})`;
-        octx.fill();
-      }
-    });
-    octx.beginPath(); octx.arc(cx, cy, 6, 0, Math.PI*2);
-    octx.fillStyle = blueDeep; octx.fill();
-  } else if (orb === '3d') {
-    // dz2: dumbbell + torus
-    [-1, 1].forEach(side => {
-      for (let r = 50; r > 0; r -= 3) {
-        const alpha = (1 - r/50) * 0.55 + pulse*0.07;
-        octx.beginPath(); octx.ellipse(cx, cy + side*42, r*0.6, r, 0, 0, Math.PI*2);
-        octx.fillStyle = `rgba(200,169,110,${alpha})`;
-        octx.fill();
-      }
-    });
-    // torus ring (equatorial, drawn as ellipse)
-    octx.beginPath(); octx.ellipse(cx, cy, 30, 14, 0, 0, Math.PI*2);
-    octx.fillStyle = `rgba(45,106,143,0.35)`; octx.fill();
-    octx.strokeStyle = blue + '90'; octx.lineWidth = 1.5; octx.stroke();
-    octx.beginPath(); octx.arc(cx, cy, 6, 0, Math.PI*2);
-    octx.fillStyle = blueDeep; octx.fill();
+function drawOrbital(){
+  const w=oc.width,h=oc.height,cx=w/2,cy=h/2-20;
+  octx.clearRect(0,0,w,h);
+  const orb=currentOrbital,pulse=0.06+0.04*Math.sin(orbT*.05);
+  if(orb==='1s'){
+    for(let r=70;r>0;r-=3){const a=Math.pow(1-r/70,1.5)*.55+pulse*.1;octx.beginPath();octx.arc(cx,cy,r,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${a})`;octx.fill();}
+    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+  }else if(orb==='2s'){
+    for(let r=90;r>0;r-=3){const nr=r/90,a=(nr<.35?.45*(1-nr/.35):nr>.45?.55*(nr-.45)/.55:0)+pulse*.05;octx.beginPath();octx.arc(cx,cy,r,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${Math.max(0,a)})`;octx.fill();}
+    octx.beginPath();octx.arc(cx,cy,90*.4,0,Math.PI*2);octx.strokeStyle=MUTED+'60';octx.lineWidth=1.5;octx.stroke();
+    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+  }else if(orb==='2px'){
+    [-1,1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx+s*42,cy,r*.7,r,0,0,Math.PI*2);octx.fillStyle=s===1?`rgba(47,111,106,${a})`:`rgba(200,169,64,${a})`;octx.fill();}});
+    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+  }else if(orb==='2py'){
+    [-1,1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx,cy+s*42,r,r*.7,0,0,Math.PI*2);octx.fillStyle=s===1?`rgba(47,111,106,${a})`:`rgba(200,169,64,${a})`;octx.fill();}});
+    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+  }else if(orb==='3d'){
+    [-1,1].forEach(s=>{for(let r=50;r>0;r-=3){const a=(1-r/50)*.55+pulse*.07;octx.beginPath();octx.ellipse(cx,cy+s*42,r*.6,r,0,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${a})`;octx.fill();}});
+    octx.beginPath();octx.ellipse(cx,cy,30,14,0,0,Math.PI*2);octx.fillStyle='rgba(200,169,64,0.35)';octx.fill();octx.strokeStyle=GOLD+'90';octx.lineWidth=1.5;octx.stroke();
+    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
   }
-
-  // energy level indicator on left
-  const eData = orbitalData[orb];
-  const eMin = -15, eMax = 0;
-  const eNorm = (eData.energy - eMin) / (eMax - eMin);
-  const ey = 20 + (1 - eNorm) * (h - 50);
-
-  octx.strokeStyle = muted + '40'; octx.lineWidth = 1;
-  octx.beginPath(); octx.moveTo(22, 20); octx.lineTo(22, h-20); octx.stroke();
-  octx.fillStyle = muted; octx.font = '10px Georgia'; octx.textAlign = 'center';
-  octx.fillText('E', 22, 14);
-
-  octx.strokeStyle = gold; octx.lineWidth = 2.5;
-  octx.beginPath(); octx.moveTo(10, ey); octx.lineTo(34, ey); octx.stroke();
-  octx.fillStyle = textC; octx.font = '11px Georgia'; octx.textAlign = 'left';
-  octx.fillText(eData.label, 38, ey + 4);
-
-  // label
-  octx.fillStyle = muted; octx.font = '12px Georgia'; octx.textAlign = 'center';
-  octx.fillText(eData.energy + ' eV', cx, h - 6);
-
-  orbT++;
-  orbitalAnimId = requestAnimationFrame(drawOrbital);
+  const eD=orbData[orb],eMin=-15,eMax=0,eNorm=(eD.energy-eMin)/(eMax-eMin),ey=20+(1-eNorm)*(h-50);
+  octx.strokeStyle=MUTED+'40';octx.lineWidth=1;octx.beginPath();octx.moveTo(22,20);octx.lineTo(22,h-20);octx.stroke();
+  octx.fillStyle=MUTED;octx.font='10px IBM Plex Mono, Georgia';octx.textAlign='center';octx.fillText('E',22,14);
+  octx.strokeStyle=TEAL;octx.lineWidth=2.5;octx.beginPath();octx.moveTo(10,ey);octx.lineTo(34,ey);octx.stroke();
+  octx.fillStyle=TEXT;octx.font='11px IBM Plex Mono, Georgia';octx.textAlign='left';octx.fillText(eD.label,38,ey+4);
+  octx.fillStyle=MUTED;octx.font='12px IBM Plex Mono, Georgia';octx.textAlign='center';octx.fillText(eD.energy+' eV',cx,h-6);
+  orbT++;orbAnimId=requestAnimationFrame(drawOrbital);
 }
 drawOrbital();
 
-// ─── SIMPLE BAND (atom→band transition) ───
-const bc = document.getElementById('band-canvas');
-const bctx = bc.getContext('2d');
-
-function drawBand(n) {
-  bctx.clearRect(0, 0, bc.width, bc.height);
-  const w = bc.width, h = bc.height, cx = w/2;
-  const gold = getCSSVar('--gold') || '#C8A96E';
-  const muted = getCSSVar('--text-muted') || '#5A5040';
-  const levels = [0.75, 0.5, 0.3];
-
-  if (n <= 1) {
-    levels.forEach(frac => {
-      const y = h * frac;
-      bctx.strokeStyle = gold; bctx.lineWidth = 2.5;
-      bctx.beginPath(); bctx.moveTo(cx-40, y); bctx.lineTo(cx+40, y); bctx.stroke();
+// ─── BAND (atom→band) ───
+const bc=document.getElementById('band-canvas');
+const bctx=bc.getContext('2d');
+function drawBand(n){
+  bctx.clearRect(0,0,bc.width,bc.height);
+  const w=bc.width,h=bc.height,cx=w/2;
+  const levels=[.75,.5,.3];
+  if(n<=1){
+    levels.forEach(f=>{const y=h*f;bctx.strokeStyle=TEAL;bctx.lineWidth=2.5;bctx.beginPath();bctx.moveTo(cx-40,y);bctx.lineTo(cx+40,y);bctx.stroke();});
+    bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic, sans-serif';bctx.textAlign='center';bctx.fillText('مستويات منفصلة',cx,h-14);
+  }else{
+    const spread=Math.min(.18,(n-1)*.012);
+    levels.forEach(f=>{
+      const yMid=h*f,bH=h*spread;
+      const g=bctx.createLinearGradient(cx-80,0,cx+80,0);
+      g.addColorStop(0,'transparent');g.addColorStop(.2,TEAL+'80');g.addColorStop(.5,TEAL+'CC');g.addColorStop(.8,TEAL+'80');g.addColorStop(1,'transparent');
+      bctx.fillStyle=g;bctx.fillRect(cx-80,yMid-bH/2,160,bH);
+      bctx.strokeStyle=TEAL;bctx.lineWidth=1;bctx.strokeRect(cx-80,yMid-bH/2,160,bH);
     });
-    bctx.fillStyle = muted; bctx.font = '13px Georgia'; bctx.textAlign = 'center';
-    bctx.fillText('مستويات منفصلة', cx, h-14);
-  } else {
-    const spread = Math.min(0.18, (n-1)*0.012);
-    levels.forEach(frac => {
-      const yMid = h * frac, bandH = h * spread;
-      const grad = bctx.createLinearGradient(cx-80, 0, cx+80, 0);
-      grad.addColorStop(0, 'transparent'); grad.addColorStop(0.2, gold+'80');
-      grad.addColorStop(0.5, gold+'CC'); grad.addColorStop(0.8, gold+'80'); grad.addColorStop(1, 'transparent');
-      bctx.fillStyle = grad; bctx.fillRect(cx-80, yMid-bandH/2, 160, bandH);
-      bctx.strokeStyle = gold; bctx.lineWidth = 1; bctx.strokeRect(cx-80, yMid-bandH/2, 160, bandH);
-    });
-    if (n >= 10) { bctx.fillStyle = muted; bctx.font = '13px Georgia'; bctx.textAlign = 'center'; bctx.fillText('نطاقات طاقة مستمرة', cx, h-14); }
+    if(n>=10){bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic, sans-serif';bctx.textAlign='center';bctx.fillText('نطاقات طاقة مستمرة',cx,h-14);}
   }
-  bctx.strokeStyle = muted+'60'; bctx.lineWidth = 1;
-  bctx.beginPath(); bctx.moveTo(30, 10); bctx.lineTo(30, h-20); bctx.stroke();
-  bctx.fillStyle = muted; bctx.font = '12px Georgia'; bctx.textAlign = 'left'; bctx.fillText('E', 10, 16);
+  bctx.strokeStyle=MUTED+'60';bctx.lineWidth=1;bctx.beginPath();bctx.moveTo(30,10);bctx.lineTo(30,h-20);bctx.stroke();
+  bctx.fillStyle=MUTED;bctx.font='12px IBM Plex Mono, monospace';bctx.textAlign='left';bctx.fillText('E',10,16);
 }
-
-function updateBand(val) {
-  val = parseInt(val);
-  const s = document.getElementById('band-status');
-  s.textContent = val===1 ? 'ذرة واحدة → مستوى طاقة محدد' :
-    val<5 ? `${val} ذرات → تنقسم المستويات` :
-    val<12 ? `${val} ذرة → يتشكّل النطاق تدريجياً` :
-    `${val} ذرة → نطاق طاقة مستمر (Band) ✓`;
-  drawBand(val);
+function updateBand(v){
+  v=parseInt(v);
+  document.getElementById('band-status').textContent=v===1?'ذرة واحدة → مستوى طاقة محدد':v<5?`${v} ذرات → تنقسم المستويات`:v<12?`${v} ذرة → يتشكّل النطاق تدريجياً`:`${v} ذرة → نطاق طاقة مستمر (Band) ✓`;
+  drawBand(v);
 }
 drawBand(1);
 
 // ─── BAND STRUCTURE + DOS ───
-const bsc = document.getElementById('bs-canvas');
-const bsctx = bsc.getContext('2d');
-const dosc = document.getElementById('dos-canvas');
-const dosctx = dosc.getContext('2d');
-
-let currentMaterial = 'metal';
-
-const materialData = {
-  metal: {
-    info: 'في المعدن، مستوى فيرمي يقع <em>داخل</em> النطاق — الإلكترونات حرة التنقل، ولهذا يوصّل المعدن الكهرباء. مثال: النحاس والذهب والحديد.',
-    fermiNorm: 0.5, // fraction of band height
-    bands: [
-      { yMin: 0.15, yMax: 0.85, filled: true, color: 'blue' } // one overlapping band
-    ],
-    gap: null
-  },
-  semiconductor: {
-    info: 'في شبه الموصل، الفجوة بين النطاقين صغيرة (1-3 eV). الإلكترونات لا تتنقل في الحالة العادية، لكن بإضافة الحرارة أو الضوء يمكنها القفز. مثال: السيليكون في رقائق الحاسوب.',
-    fermiNorm: 0.5,
-    bands: [
-      { yMin: 0.1, yMax: 0.44, filled: true, color: 'blue' },
-      { yMin: 0.56, yMax: 0.9, filled: false, color: 'gold' }
-    ],
-    gap: { y1: 0.44, y2: 0.56 }
-  },
-  insulator: {
-    info: 'في العازل، الفجوة بين النطاقين كبيرة جداً (>5 eV). لا يمكن للإلكترونات القفز إطلاقاً في الظروف العادية. مثال: الألماس والزجاج.',
-    fermiNorm: 0.5,
-    bands: [
-      { yMin: 0.05, yMax: 0.35, filled: true, color: 'blue' },
-      { yMin: 0.65, yMax: 0.95, filled: false, color: 'gold' }
-    ],
-    gap: { y1: 0.35, y2: 0.65 }
-  }
+const bsc=document.getElementById('bs-canvas'),bsctx=bsc.getContext('2d');
+const dosc=document.getElementById('dos-canvas'),dosctx=dosc.getContext('2d');
+let currentMaterial='metal';
+const matData={
+  metal:{info:'في المعدن، مستوى فيرمي يقع <em>داخل</em> النطاق — الإلكترونات حرة التنقل، ولهذا يوصّل المعدن الكهرباء. مثال: النحاس والذهب والحديد.',fermiNorm:.5,bands:[{yMin:.15,yMax:.85,filled:true,color:'teal'}],gap:null},
+  semiconductor:{info:'في شبه الموصل، الفجوة بين النطاقين صغيرة (1-3 eV). الإلكترونات لا تتنقل في الحالة العادية، لكن بإضافة الحرارة أو الضوء يمكنها القفز. مثال: السيليكون في رقائق الحاسوب.',fermiNorm:.5,bands:[{yMin:.1,yMax:.44,filled:true,color:'teal'},{yMin:.56,yMax:.9,filled:false,color:'gold'}],gap:{y1:.44,y2:.56}},
+  insulator:{info:'في العازل، الفجوة بين النطاقين كبيرة جداً (>5 eV). لا يمكن للإلكترونات القفز إطلاقاً في الظروف العادية. مثال: الألماس والزجاج.',fermiNorm:.5,bands:[{yMin:.05,yMax:.35,filled:true,color:'teal'},{yMin:.65,yMax:.95,filled:false,color:'gold'}],gap:{y1:.35,y2:.65}}
 };
-
-function drawBandStructure() {
-  const w = bsc.width, h = bsc.height;
-  bsctx.clearRect(0, 0, w, h);
-
-  const gold = getCSSVar('--gold') || '#C8A96E';
-  const blue = getCSSVar('--blue-mid') || '#2D6A8F';
-  const blueDeep = getCSSVar('--blue-deep') || '#1A3A5C';
-  const muted = getCSSVar('--text-muted') || '#5A5040';
-  const textC = getCSSVar('--text') || '#1C1A17';
-  const border = getCSSVar('--border') || '#D4C9B0';
-  const bg2 = getCSSVar('--bg2') || '#EDE6D8';
-
-  const mat = materialData[currentMaterial];
-  const pad = { l: 36, r: 16, t: 16, b: 36 };
-  const pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
-
-  // axes
-  bsctx.strokeStyle = muted + '60'; bsctx.lineWidth = 1;
-  bsctx.beginPath(); bsctx.moveTo(pad.l, pad.t); bsctx.lineTo(pad.l, pad.t+ph); bsctx.stroke();
-  bsctx.beginPath(); bsctx.moveTo(pad.l, pad.t+ph/2); bsctx.lineTo(pad.l+pw, pad.t+ph/2); bsctx.stroke();
-
-  // axis labels
-  bsctx.fillStyle = muted; bsctx.font = '11px Georgia'; bsctx.textAlign = 'center';
-  bsctx.fillText('k', pad.l + pw/2, h - 4);
-  bsctx.textAlign = 'right'; bsctx.fillText('E', pad.l - 4, pad.t + 10);
-  bsctx.font = '9px Georgia'; bsctx.textAlign = 'center';
-  bsctx.fillText('Γ', pad.l, pad.t+ph/2+14);
-  bsctx.fillText('X', pad.l+pw, pad.t+ph/2+14);
-
-  // gap shading
-  if (mat.gap) {
-    const gy1 = pad.t + mat.gap.y1 * ph, gy2 = pad.t + mat.gap.y2 * ph;
-    bsctx.fillStyle = bg2;
-    bsctx.fillRect(pad.l, gy1, pw, gy2 - gy1);
-    bsctx.fillStyle = muted; bsctx.font = '10px Georgia'; bsctx.textAlign = 'left';
-    const gapLabel = currentMaterial === 'semiconductor' ? 'Gap ~1-3eV' : 'Gap >5eV';
-    bsctx.fillText(gapLabel, pad.l+4, (gy1+gy2)/2+4);
+function drawBS(){
+  const w=bsc.width,h=bsc.height;bsctx.clearRect(0,0,w,h);
+  const mat=matData[currentMaterial],pad={l:36,r:16,t:16,b:36},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+  bsctx.strokeStyle=MUTED+'60';bsctx.lineWidth=1;
+  bsctx.beginPath();bsctx.moveTo(pad.l,pad.t);bsctx.lineTo(pad.l,pad.t+ph);bsctx.stroke();
+  bsctx.beginPath();bsctx.moveTo(pad.l,pad.t+ph/2);bsctx.lineTo(pad.l+pw,pad.t+ph/2);bsctx.stroke();
+  bsctx.fillStyle=MUTED;bsctx.font='11px IBM Plex Mono, monospace';bsctx.textAlign='center';
+  bsctx.fillText('k',pad.l+pw/2,h-4);bsctx.textAlign='right';bsctx.fillText('E',pad.l-4,pad.t+10);
+  bsctx.font='9px IBM Plex Mono, monospace';bsctx.textAlign='center';
+  bsctx.fillText('Γ',pad.l,pad.t+ph/2+14);bsctx.fillText('X',pad.l+pw,pad.t+ph/2+14);
+  if(mat.gap){
+    const gy1=pad.t+mat.gap.y1*ph,gy2=pad.t+mat.gap.y2*ph;
+    bsctx.fillStyle=BG3;bsctx.fillRect(pad.l,gy1,pw,gy2-gy1);
+    bsctx.fillStyle=MUTED;bsctx.font='9px IBM Plex Mono, monospace';bsctx.textAlign='left';
+    bsctx.fillText(currentMaterial==='semiconductor'?'Gap ~1-3eV':'Gap >5eV',pad.l+4,(gy1+gy2)/2+4);
   }
-
-  // draw bands as sinusoidal curves
-  mat.bands.forEach(band => {
-    const y1 = pad.t + band.yMin * ph, y2 = pad.t + band.yMax * ph;
-    const midY = (y1 + y2)/2, amp = (y2 - y1)/2.4;
-    const col = band.color === 'blue' ? blue : gold;
-
-    // fill under/over band if filled
-    if (band.filled) {
-      const fermiY = pad.t + mat.fermiNorm * ph;
-      bsctx.save();
-      bsctx.beginPath();
-      for (let xi = 0; xi <= pw; xi++) {
-        const t = xi/pw;
-        const y = midY + amp * Math.cos(Math.PI * t);
-        if (xi === 0) bsctx.moveTo(pad.l + xi, y); else bsctx.lineTo(pad.l + xi, y);
-      }
-      bsctx.lineTo(pad.l + pw, pad.t + ph); bsctx.lineTo(pad.l, pad.t + ph); bsctx.closePath();
-      bsctx.fillStyle = col + '28'; bsctx.fill();
-      bsctx.restore();
+  mat.bands.forEach(band=>{
+    const y1=pad.t+band.yMin*ph,y2=pad.t+band.yMax*ph,midY=(y1+y2)/2,amp=(y2-y1)/2.4;
+    const col=band.color==='teal'?TEAL:GOLD;
+    if(band.filled){
+      bsctx.save();bsctx.beginPath();
+      for(let xi=0;xi<=pw;xi++){const tt=xi/pw,y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi,y):bsctx.lineTo(pad.l+xi,y);}
+      bsctx.lineTo(pad.l+pw,pad.t+ph);bsctx.lineTo(pad.l,pad.t+ph);bsctx.closePath();
+      bsctx.fillStyle=col+'28';bsctx.fill();bsctx.restore();
     }
-
-    // band curve
-    bsctx.beginPath();
-    bsctx.strokeStyle = col; bsctx.lineWidth = 2.5;
-    for (let xi = 0; xi <= pw; xi++) {
-      const t = xi/pw;
-      const y = midY + amp * Math.cos(Math.PI * t);
-      if (xi === 0) bsctx.moveTo(pad.l + xi, y); else bsctx.lineTo(pad.l + xi, y);
-    }
+    bsctx.beginPath();bsctx.strokeStyle=col;bsctx.lineWidth=2.5;
+    for(let xi=0;xi<=pw;xi++){const tt=xi/pw,y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi,y):bsctx.lineTo(pad.l+xi,y);}
     bsctx.stroke();
   });
-
-  // Fermi level
-  const fermiY = pad.t + mat.fermiNorm * ph;
-  bsctx.setLineDash([5, 3]);
-  bsctx.strokeStyle = '#E85555'; bsctx.lineWidth = 1.5;
-  bsctx.beginPath(); bsctx.moveTo(pad.l, fermiY); bsctx.lineTo(pad.l+pw, fermiY); bsctx.stroke();
-  bsctx.setLineDash([]);
-  bsctx.fillStyle = '#E85555'; bsctx.font = '10px Georgia'; bsctx.textAlign = 'left';
-  bsctx.fillText('E_F', pad.l+4, fermiY - 4);
+  const fy=pad.t+mat.fermiNorm*ph;
+  bsctx.setLineDash([5,3]);bsctx.strokeStyle='#C84444';bsctx.lineWidth=1.5;
+  bsctx.beginPath();bsctx.moveTo(pad.l,fy);bsctx.lineTo(pad.l+pw,fy);bsctx.stroke();bsctx.setLineDash([]);
+  bsctx.fillStyle='#C84444';bsctx.font='10px IBM Plex Mono, monospace';bsctx.textAlign='left';bsctx.fillText('E_F',pad.l+4,fy-4);
 }
-
-function drawDOS() {
-  const w = dosc.width, h = dosc.height;
-  dosctx.clearRect(0, 0, w, h);
-
-  const gold = getCSSVar('--gold') || '#C8A96E';
-  const blue = getCSSVar('--blue-mid') || '#2D6A8F';
-  const muted = getCSSVar('--text-muted') || '#5A5040';
-  const bg2 = getCSSVar('--bg2') || '#EDE6D8';
-
-  const mat = materialData[currentMaterial];
-  const pad = { l: 16, r: 28, t: 16, b: 36 };
-  const pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
-
-  // axis
-  dosctx.strokeStyle = muted+'60'; dosctx.lineWidth = 1;
-  dosctx.beginPath(); dosctx.moveTo(pad.l, pad.t); dosctx.lineTo(pad.l, pad.t+ph); dosctx.stroke();
-  dosctx.fillStyle = muted; dosctx.font = '11px Georgia'; dosctx.textAlign = 'center';
-  dosctx.fillText('DOS', pad.l+pw/2, h-4);
-  dosctx.fillText('→', w-12, pad.t+ph/2+4);
-
-  // gap shading
-  if (mat.gap) {
-    const gy1 = pad.t + mat.gap.y1 * ph, gy2 = pad.t + mat.gap.y2 * ph;
-    dosctx.fillStyle = bg2;
-    dosctx.fillRect(pad.l, gy1, pw, gy2 - gy1);
+function drawDOS(){
+  const w=dosc.width,h=dosc.height;dosctx.clearRect(0,0,w,h);
+  const mat=matData[currentMaterial],pad={l:16,r:28,t:16,b:36},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+  dosctx.strokeStyle=MUTED+'60';dosctx.lineWidth=1;dosctx.beginPath();dosctx.moveTo(pad.l,pad.t);dosctx.lineTo(pad.l,pad.t+ph);dosctx.stroke();
+  dosctx.fillStyle=MUTED;dosctx.font='11px IBM Plex Mono, monospace';dosctx.textAlign='center';
+  dosctx.fillText('DOS',pad.l+pw/2,h-4);dosctx.fillText('→',w-12,pad.t+ph/2+4);
+  if(mat.gap){
+    const gy1=pad.t+mat.gap.y1*ph,gy2=pad.t+mat.gap.y2*ph;
+    dosctx.fillStyle=BG3;dosctx.fillRect(pad.l,gy1,pw,gy2-gy1);
   }
-
-  // DOS peaks for each band
-  mat.bands.forEach(band => {
-    const y1 = pad.t + band.yMin * ph, y2 = pad.t + band.yMax * ph;
-    const col = band.color === 'blue' ? blue : gold;
-
-    dosctx.save();
-    dosctx.beginPath();
-    dosctx.moveTo(pad.l, y1);
-    // DOS shape: U-shaped (high at edges, low in middle, van Hove singularities)
-    const steps = 60;
-    for (let i = 0; i <= steps; i++) {
-      const frac = i/steps;
-      const ey = y1 + frac*(y2-y1);
-      // van Hove: U-shape
-      const dosVal = 0.15 + 0.85 * (4 * Math.pow(frac - 0.5, 2));
-      const xw = dosVal * pw * 0.85;
-      dosctx.lineTo(pad.l + xw, ey);
-    }
-    dosctx.lineTo(pad.l, y2); dosctx.closePath();
-    dosctx.fillStyle = col + '35'; dosctx.fill();
-    dosctx.strokeStyle = col; dosctx.lineWidth = 2;
-    dosctx.beginPath();
-    dosctx.moveTo(pad.l, y1);
-    for (let i = 0; i <= steps; i++) {
-      const frac = i/steps, ey = y1 + frac*(y2-y1);
-      const dosVal = 0.15 + 0.85 * (4*Math.pow(frac-0.5,2));
-      dosctx.lineTo(pad.l + dosVal*pw*0.85, ey);
-    }
-    dosctx.stroke();
-    dosctx.restore();
+  mat.bands.forEach(band=>{
+    const y1=pad.t+band.yMin*ph,y2=pad.t+band.yMax*ph,col=band.color==='teal'?TEAL:GOLD;
+    dosctx.save();dosctx.beginPath();dosctx.moveTo(pad.l,y1);
+    const steps=60;
+    for(let i=0;i<=steps;i++){const frac=i/steps,ey=y1+frac*(y2-y1),dosV=.15+.85*(4*Math.pow(frac-.5,2)),xw=dosV*pw*.85;dosctx.lineTo(pad.l+xw,ey);}
+    dosctx.lineTo(pad.l,y2);dosctx.closePath();dosctx.fillStyle=col+'35';dosctx.fill();
+    dosctx.strokeStyle=col;dosctx.lineWidth=2;dosctx.beginPath();dosctx.moveTo(pad.l,y1);
+    for(let i=0;i<=steps;i++){const frac=i/steps,ey=y1+frac*(y2-y1),dosV=.15+.85*(4*Math.pow(frac-.5,2));dosctx.lineTo(pad.l+dosV*pw*.85,ey);}
+    dosctx.stroke();dosctx.restore();
   });
-
-  // Fermi level
-  const fermiY = pad.t + mat.fermiNorm * ph;
-  dosctx.setLineDash([5,3]); dosctx.strokeStyle = '#E85555'; dosctx.lineWidth = 1.5;
-  dosctx.beginPath(); dosctx.moveTo(pad.l, fermiY); dosctx.lineTo(pad.l+pw, fermiY); dosctx.stroke();
-  dosctx.setLineDash([]);
-  dosctx.fillStyle = '#E85555'; dosctx.font = '10px Georgia'; dosctx.textAlign = 'right';
-  dosctx.fillText('E_F', pad.l+pw, fermiY - 4);
+  const fy=pad.t+mat.fermiNorm*ph;
+  dosctx.setLineDash([5,3]);dosctx.strokeStyle='#C84444';dosctx.lineWidth=1.5;
+  dosctx.beginPath();dosctx.moveTo(pad.l,fy);dosctx.lineTo(pad.l+pw,fy);dosctx.stroke();dosctx.setLineDash([]);
+  dosctx.fillStyle='#C84444';dosctx.font='10px IBM Plex Mono, monospace';dosctx.textAlign='right';dosctx.fillText('E_F',pad.l+pw,fy-4);
 }
-
-function selectMaterial(name, btn) {
-  currentMaterial = name;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+function selectMaterial(name,btn){
+  currentMaterial=name;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('material-info').innerHTML = materialData[name].info;
-  drawBandStructure();
-  drawDOS();
+  document.getElementById('material-info').innerHTML=matData[name].info;
+  drawBS();drawDOS();
 }
-drawBandStructure();
-drawDOS();
+drawBS();drawDOS();
 
-// ─── BLOCH CANVAS ───
-const blc = document.getElementById('bloch-canvas');
-const blctx = blc.getContext('2d');
-let activeAtoms = 0, blochAnimId = null, blochT = 0;
-const blochAtomPositions = [50, 110, 170, 230, 290];
-
-blc.addEventListener('click', function(e) {
-  const rect = blc.getBoundingClientRect();
-  const x = (e.clientX - rect.left) * (blc.width / rect.width);
-  blochAtomPositions.forEach((ax, i) => {
-    if (Math.abs(x - ax) < 34 && i === activeAtoms) activeAtoms++;
-  });
-  document.getElementById('bloch-label').textContent =
-    activeAtoms === 0 ? 'انقر على الذرات واحدة تلو الأخرى' :
-    activeAtoms < 5 ? `${activeAtoms} ذرات — استمر في النقر` :
-    'اكتملت الشبكة — مدارات الذرات تشكّل موجة بلوخ!';
-  if (blochAnimId) cancelAnimationFrame(blochAnimId);
+// ─── BLOCH ───
+const blc=document.getElementById('bloch-canvas'),blctx=blc.getContext('2d');
+let activeAtoms=0,blochAnimId=null,blochT=0;
+const blochPos=[50,110,170,230,290];
+blc.addEventListener('click',function(e){
+  const rect=blc.getBoundingClientRect(),x=(e.clientX-rect.left)*(blc.width/rect.width);
+  blochPos.forEach((ax,i)=>{if(Math.abs(x-ax)<34&&i===activeAtoms)activeAtoms++;});
+  document.getElementById('bloch-label').textContent=activeAtoms===0?'انقر على الذرات واحدة تلو الأخرى':activeAtoms<5?`${activeAtoms} ذرات — استمر في النقر`:'اكتملت الشبكة — مدارات الذرات تشكّل موجة بلوخ!';
+  if(blochAnimId)cancelAnimationFrame(blochAnimId);
   drawBloch();
 });
-
-function drawBloch() {
-  blctx.clearRect(0, 0, blc.width, blc.height);
-  const gold = getCSSVar('--gold') || '#C8A96E';
-  const blue = getCSSVar('--blue-mid') || '#2D6A8F';
-  const blueDeep = getCSSVar('--blue-deep') || '#1A3A5C';
-  const border = getCSSVar('--border') || '#D4C9B0';
-  const muted = getCSSVar('--text-muted') || '#5A5040';
-
-  if (activeAtoms >= 5) {
-    blctx.beginPath(); blctx.strokeStyle = blue+'AA'; blctx.lineWidth = 2.5;
-    for (let px = 0; px < blc.width; px++) {
-      const wy = 60 + Math.sin((px/blc.width)*Math.PI*2*2.5 + blochT*0.05)*28;
-      px === 0 ? blctx.moveTo(px, wy) : blctx.lineTo(px, wy);
-    }
+function drawBloch(){
+  blctx.clearRect(0,0,blc.width,blc.height);
+  if(activeAtoms>=5){
+    blctx.beginPath();blctx.strokeStyle=TEAL+'AA';blctx.lineWidth=2.5;
+    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px,wy):blctx.lineTo(px,wy);}
     blctx.stroke();
-    blctx.beginPath(); blctx.fillStyle = blue+'18';
-    for (let px = 0; px < blc.width; px++) {
-      const wy = 60 + Math.sin((px/blc.width)*Math.PI*2*2.5 + blochT*0.05)*28;
-      px === 0 ? blctx.moveTo(px, wy) : blctx.lineTo(px, wy);
-    }
-    blctx.lineTo(blc.width, 60); blctx.lineTo(0, 60); blctx.fill();
+    blctx.beginPath();blctx.fillStyle=TEAL+'18';
+    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px,wy):blctx.lineTo(px,wy);}
+    blctx.lineTo(blc.width,60);blctx.lineTo(0,60);blctx.fill();
   }
-
-  blochAtomPositions.forEach((ax, i) => {
-    const active = i < activeAtoms;
-    if (active) {
-      const grad = blctx.createRadialGradient(ax, 140, 0, ax, 140, 28);
-      grad.addColorStop(0, gold+'80'); grad.addColorStop(1, gold+'00');
-      blctx.beginPath(); blctx.arc(ax, 140, 28, 0, Math.PI*2);
-      blctx.fillStyle = grad; blctx.fill();
-    }
-    blctx.beginPath(); blctx.arc(ax, 140, 13, 0, Math.PI*2);
-    blctx.fillStyle = active ? blueDeep : border; blctx.fill();
-    blctx.strokeStyle = active ? gold : 'transparent'; blctx.lineWidth = 2; blctx.stroke();
-    if (!active) {
-      blctx.fillStyle = muted; blctx.font = 'bold 16px Georgia'; blctx.textAlign = 'center';
-      blctx.fillText('+', ax, 145);
-    }
+  blochPos.forEach((ax,i)=>{
+    const active=i<activeAtoms;
+    if(active){const g=blctx.createRadialGradient(ax,140,0,ax,140,28);g.addColorStop(0,TEAL+'70');g.addColorStop(1,TEAL+'00');blctx.beginPath();blctx.arc(ax,140,28,0,Math.PI*2);blctx.fillStyle=g;blctx.fill();}
+    blctx.beginPath();blctx.arc(ax,140,13,0,Math.PI*2);
+    blctx.fillStyle=active?TEAL:BORDER;blctx.fill();
+    blctx.strokeStyle=active?GOLD:'transparent';blctx.lineWidth=2;blctx.stroke();
+    if(!active){blctx.fillStyle=MUTED;blctx.font='bold 16px Georgia';blctx.textAlign='center';blctx.fillText('+',ax,145);}
   });
-
   blochT++;
-  if (activeAtoms >= 5) blochAnimId = requestAnimationFrame(drawBloch);
+  if(activeAtoms>=5)blochAnimId=requestAnimationFrame(drawBloch);
 }
 drawBloch();
 
 // ─── DEVICES ───
-const deviceText = {
-  solar: `<strong>الخلية الشمسية (Perovskite / Silicon)</strong><br>
-    الفيزياء تفسّر كيف تُحرّر الفوتونات الإلكترونات عبر قفزة بين النطاقين (Band Gap)<br>
-    الكيمياء تفسّر لماذا يمتص البيروفسكايت الضوء بكفاءة — بسبب تداخل مداراته الخاصة`,
-  battery: `<strong>بطارية الليثيوم (Li-ion Battery)</strong><br>
-    الفيزياء تفسّر حركة أيونات Li⁺ عبر المادة الصلبة (Diffusion)<br>
-    الكيمياء تفسّر الروابط التي تمسك Li⁺ وتُطلقه عند الشحن والتفريغ`,
-  led: `<strong>الصمام الثنائي للضوء (LED)</strong><br>
-    الفيزياء تفسّر انبعاث الفوتون عند انتقال الإلكترون بين النطاقين<br>
-    الكيمياء تفسّر اختيار المركب الكيميائي الصحيح للحصول على اللون المطلوب`
+const deviceText={
+  solar:`<strong>الخلية الشمسية (Perovskite / Silicon)</strong><br>الفيزياء تفسّر كيف تُحرّر الفوتونات الإلكترونات عبر قفزة بين النطاقين (Band Gap)<br>الكيمياء تفسّر لماذا يمتص البيروفسكايت الضوء بكفاءة — بسبب تداخل مداراته الخاصة`,
+  battery:`<strong>بطارية الليثيوم (Li-ion Battery)</strong><br>الفيزياء تفسّر حركة أيونات Li⁺ عبر المادة الصلبة (Diffusion)<br>الكيمياء تفسّر الروابط التي تمسك Li⁺ وتُطلقه عند الشحن والتفريغ`,
+  led:`<strong>الصمام الثنائي للضوء (LED)</strong><br>الفيزياء تفسّر انبعاث الفوتون عند انتقال الإلكترون بين النطاقين<br>الكيمياء تفسّر اختيار المركب الكيميائي الصحيح للحصول على اللون المطلوب`
 };
-function showDevice(key, e) {
-  document.getElementById('device-info').innerHTML = deviceText[key];
-  document.getElementById('device-info').style.display = 'block';
-  document.querySelectorAll('.device-item').forEach(d => d.style.borderColor = 'var(--border)');
-  e.currentTarget.style.borderColor = 'var(--gold)';
-}
-
-// ─── REDRAW ALL ───
-function redrawAll() {
-  drawLattice();
-  drawBand(parseInt(document.getElementById('atom-slider').value));
-  drawOrbital();
-  drawBandStructure();
-  drawDOS();
-  drawBloch();
+function showDevice(key,e){
+  document.getElementById('device-info').innerHTML=deviceText[key];
+  document.getElementById('device-info').style.display='block';
+  document.querySelectorAll('.device-item').forEach(d=>d.style.borderColor='#D6D2C5');
+  e.currentTarget.style.borderColor='#2F6F6A';
 }
 </script>
+</body>
+</html>
