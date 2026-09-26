@@ -247,31 +247,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <!-- ── SECTION 3 ── -->
     <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">لغتان لوصف نفس الشيء</h2>
 
-    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الغريب أن عالم الفيزياء وعالم الكيمياء يدرسان نفس المادة الصلبة، لكنهما يصفانها بطريقتين مختلفتين تماماً — كأن أحدهما يتحدث الإنجليزية والآخر العربية عن نفس المشهد. الفيزيائي يسأل: كيف تتدفق الإلكترونات؟ ما سرعة الموجة داخل المادة؟ ما نطاقات الطاقة المسموح بها؟ هل المادة موصلة أم عازلة؟ أما الكيميائي يسأل: ما نوع الروابط بين الذرات؟ كيف تتداخل المدارات الذرية؟ لماذا هذا المركب مستقر؟ ما شكل الإلكترون حول الذرة؟</p>
-
-    <div class="compare-grid">
-      <div class="compare-card physics">
-        <div class="card-label">PHYSICIST</div>
-        <h4>عالم الفيزياء يرى:</h4>
-        <ul>
-          <li>بحراً من الإلكترونات بها موجات</li>
-          <li>نطاقات طاقة مستمرة</li>
-          <li>زخم الموجة واتجاهها</li>
-          <li>توصيلية أم عزل؟</li>
-        </ul>
-      </div>
-      <div class="compare-card chemistry">
-        <div class="card-label">CHEMIST</div>
-        <h4>عالم الكيمياء يرى:</h4>
-        <ul>
-          <li>ذرات ترتبط بذرات برابطة</li>
-          <li>تداخل المدارات الذرية</li>
-          <li>استقرار أم عدم استقرار؟</li>
-          <li>شكل الإلكترون حول الذرة</li>
-        </ul>
-      </div>
-    </div>
-
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الغريب أن عالم الفيزياء وعالم الكيمياء يدرسان نفس المادة الصلبة، لكنهما يصفانها بطريقتين مختلفتين تماماً — كأن أحدهما يتحدث الإنجليزية والآخر العربية عن نفس المشهد. الفيزيائي يسأل: كيف تتدفق الإلكترونات؟ ما سرعة الموجة داخل المادة؟ ما نطاقات الطاقة المسموح بها؟ هل المادة موصلة أم عازلة؟ أما الكيميائي يسأل: ما نوع الروابط بين الذرات؟ كيف تتداخل المدارات الذرية؟ لماذا هذا المركب مستقر؟ ما شكل الإلكترون حول الذرة؟
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">كلاهما مخطئ وكلاهما مصيب! الفيزيائي ينظر إلى الحالة الصلبة كـ<strong>"بحر من الإلكترونات"</strong> تتموج عبره موجات. أما الكيميائي، فيرى <strong>ذرات ترتبط بذرات</strong> عبر روابط كيميائية. وكلاهما يصف نفس الشيء من زاوية مختلفة.</p>
 
     <hr class="section-sep">
@@ -359,35 +335,6 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">مستوى فيرمي الذي يتحدث عنه الفيزيائي هو نفسه HOMO الذي يتحدث عنه الكيميائي — اللغتان تصفان نفس الحدّ مرة أخرى.</p>
 
     <hr class="section-sep">
-
-    <!-- ── SECTION 7 ── -->
-    <h2 style="margin:0;font-size:clamp(20px,3vw,26px);color:#1B1F1E;">لماذا يهمنا هذا؟</h2>
-
-    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">كل <strong>شاشة هاتفك</strong>، كل <strong>بطارية</strong> تشحنه، كل <strong>خلية شمسية</strong> وكل <strong>ليد (LED)</strong> — هذه التقنيات صُمِّمت من خلال قراءة Band Structure و DOS بعين الكيميائي وعين الفيزيائي معاً.</p>
-
-    <div class="ibox">
-      <div class="ibox-title">المادة الصلبة في حياتنا</div>
-      <p class="ibox-caption">انقر على كل جهاز لترى دور الفيزياء والكيمياء فيه</p>
-      <div id="devices-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;">
-        <div class="device-item" onclick="showDevice('solar',event)">
-          <div style="font-size:28px;">☀️</div>
-          <div style="font-size:13px;color:#6B6A63;margin-top:6px;">الخلية الشمسية</div>
-        </div>
-        <div class="device-item" onclick="showDevice('battery',event)">
-          <div style="font-size:28px;">🔋</div>
-          <div style="font-size:13px;color:#6B6A63;margin-top:6px;">البطارية</div>
-        </div>
-        <div class="device-item" onclick="showDevice('led',event)">
-          <div style="font-size:28px;">💡</div>
-          <div style="font-size:13px;color:#6B6A63;margin-top:6px;">الليد LED</div>
-        </div>
-      </div>
-      <div id="device-info" style="margin-top:14px;min-height:60px;display:none;padding:12px;background:#E2DFDA;border-radius:6px;border:1px solid #2F6F6A;font-size:14px;text-align:right;line-height:1.8;color:#33342F;"></div>
-    </div>
-
-    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">المادة الصلبة ليست ملكاً للفيزيائيين ولا للكيميائيين وحدهم — إنها الأرض المشتركة التي تزدهر فيها أجمل اكتشافاتهم حين يتكلمان معاً.</p>
-
-    <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">مستوحى من: Roald Hoffmann (1987) — "How Chemistry and Physics Meet in the Solid State"</p>
 
   </div>
 </article>
