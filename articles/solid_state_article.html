@@ -2,17 +2,17 @@
 <html lang="ar">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width، initial-scale=1">
 <title>الكيمياء والفيزياء في المادة الصلبة</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz،wght@9..144،500;9..144،600;9..144،700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}
-h1,h2,h3{font-family:'Fraunces',Georgia,serif;}
+body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans'،system-ui،sans-serif;color:#1B1F1E;}
+h1،h2،h3{font-family:'Fraunces'،Georgia،serif;}
 a{color:#235E59;text-decoration:none;}
 a:hover{color:#173F3B;text-decoration:underline;}
 ::selection{background:#2F6F6A;color:#F9F7F0;}
-.ar{font-family:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif;}
-.ar h1,.ar h2,.ar h3{font-family:'Noto Serif Arabic','Fraunces',serif;}
+.ar{font-family:'IBM Plex Sans Arabic'،'IBM Plex Sans'،system-ui،sans-serif;}
+.ar h1،.ar h2،.ar h3{font-family:'Noto Serif Arabic'،'Fraunces'،serif;}
 
 /* interactive boxes */
 .ibox {
@@ -24,7 +24,7 @@ a:hover{color:#173F3B;text-decoration:underline;}
   text-align: center;
 }
 .ibox-title {
-  font-family: 'Noto Serif Arabic', serif;
+  font-family: 'Noto Serif Arabic'، serif;
   font-size: 16px;
   font-weight: 600;
   color: #1B1F1E;
@@ -51,10 +51,10 @@ canvas { display: block; margin: 0 auto; max-width: 100%; }
   border: 1px solid #D6D2C5;
   background: #ECEAE1;
 }
-.compare-card.physics { border-color: #2F6F6A; background: rgba(47,111,106,0.06); }
-.compare-card.chemistry { border-color: #9A7030; background: rgba(154,112,48,0.06); }
+.compare-card.physics { border-color: #2F6F6A; background: rgba(47،111،106،0.06); }
+.compare-card.chemistry { border-color: #9A7030; background: rgba(154،112،48،0.06); }
 .card-label {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono'، monospace;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -63,7 +63,7 @@ canvas { display: block; margin: 0 auto; max-width: 100%; }
 .compare-card.physics .card-label { color: #2F6F6A; }
 .compare-card.chemistry .card-label { color: #9A7030; }
 .compare-card h4 {
-  font-family: 'Noto Serif Arabic', serif;
+  font-family: 'Noto Serif Arabic'، serif;
   font-size: 16px;
   margin: 0 0 8px;
   color: #1B1F1E;
@@ -95,10 +95,10 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
   font-size: 13px;
   color: #6B6A63;
   cursor: pointer;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono'، monospace;
   transition: all .15s;
 }
-.tab-btn.active, .tab-btn:hover {
+.tab-btn.active، .tab-btn:hover {
   background: #2F6F6A;
   color: #fff;
   border-color: #2F6F6A;
@@ -112,12 +112,12 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
   align-items: start;
 }
 @media (max-width: 480px) { .band-dos-wrap { grid-template-columns: 1fr; } }
-.band-col, .dos-col { display: flex; flex-direction: column; align-items: center; }
-.band-col canvas, .dos-col canvas { width: 100%; height: auto; }
+.band-col، .dos-col { display: flex; flex-direction: column; align-items: center; }
+.band-col canvas، .dos-col canvas { width: 100%; height: auto; }
 .col-label {
   font-size: 11px;
   color: #6B6A63;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono'، monospace;
   margin-top: 4px;
 }
 
@@ -127,7 +127,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
   background: #2F6F6A;
   color: #fff;
   font-size: 11px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono'، monospace;
   padding: 2px 7px;
   border-radius: 10px;
   margin-right: 2px;
@@ -170,14 +170,14 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
 <div style="width:100%;min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;background:#F3F1EA;">
 
 <header style="padding:16px 24px;border-bottom:1px solid #E4E0D3;">
-  <a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;">← Anas Balghaith</a>
+  <a href="../index.html" style="font-family:'IBM Plex Mono'،monospace;font-size:14px;font-weight:600;">← Anas Balghaith</a>
 </header>
 
-<article class="ar" dir="rtl" lang="ar" style="padding:clamp(48px,8vw,96px) 24px;display:flex;justify-content:center;">
+<article class="ar" dir="rtl" lang="ar" style="padding:clamp(48px،8vw،96px) 24px;display:flex;justify-content:center;">
   <div style="max-width:680px;width:100%;display:flex;flex-direction:column;gap:20px;text-align:right;">
 
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.02em;color:#2F6F6A;">[سبتمبر 2026]</div>
-    <h1 style="margin:0;font-size:clamp(26px,4.5vw,40px);line-height:1.35;color:#1B1F1E;">كيف تلتقي الكيمياء والفيزياء في فهم المادة الصلبة؟</h1>
+    <div style="font-family:'IBM Plex Mono'،monospace;font-size:13px;letter-spacing:0.02em;color:#2F6F6A;">[سبتمبر 2026]</div>
+    <h1 style="margin:0;font-size:clamp(26px،4.5vw،40px);line-height:1.35;color:#1B1F1E;">كيف تلتقي الكيمياء والفيزياء في فهم المادة الصلبة؟</h1>
 
     <!-- ── INTRO ── -->
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">في نهاية السنة الماضية، أرسلتُ بحثي لمشرفَيّ، أحدهما فيزيائية والآخر كيميائي، وكلاهما خبير في مجاله ودرسا تحت أحد علماء المادة الصلبة. لكن صدمني ما حدث: جاء ردّ الفيزيائية أولاً: "النتائج رائعة وتستحق النشر." ثم جاء ردّ الكيميائي: "هممم... لا أثق بالنتائج." رغم أنني عملتُ التجربة مرتين وحصلتُ على نفس النتائج، وبالغالب حِدسُه الكيميائي وخبرته يقولان له أن لا يثق بسبب التركيبة الكيميائية.</p>
@@ -197,9 +197,9 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
       <p class="ibox-caption">اضغط على "تحريك" لترى كيف تتذبذب الذرات في مكانها دون أن تغادره</p>
       <canvas id="lattice-canvas" width="340" height="220"></canvas>
       <div style="margin-top:10px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <button onclick="toggleLatticeAnim()" id="anim-btn" style="background:#2F6F6A;color:#fff;border:none;border-radius:6px;padding:7px 18px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">▶ تحريك</button>
-        <button onclick="changeTemp(-1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">❄ تبريد</button>
-        <button onclick="changeTemp(1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">🔥 تسخين</button>
+        <button onclick="toggleLatticeAnim()" id="anim-btn" style="background:#2F6F6A;color:#fff;border:none;border-radius:6px;padding:7px 18px;cursor:pointer;font-family:'IBM Plex Sans Arabic'،sans-serif;font-size:14px;">▶ تحريك</button>
+        <button onclick="changeTemp(-1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans Arabic'،sans-serif;font-size:14px;">❄ تبريد</button>
+        <button onclick="changeTemp(1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans Arabic'،sans-serif;font-size:14px;">🔥 تسخين</button>
       </div>
       <p id="temp-label" style="margin:8px 0 0;font-size:13px;color:#6B6A63;">درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)</p>
     </div>
@@ -213,11 +213,11 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
       <div class="ibox-title">المدارات الذرية للهيدروجين</div>
       <p class="ibox-caption">اختر مداراً لترى شكله وطاقته، هذا هو "مكان" الإلكترون حول النواة</p>
       <div class="tab-row">
-        <button class="tab-btn active" onclick="selectOrbital('1s',this)">1s</button>
-        <button class="tab-btn" onclick="selectOrbital('2s',this)">2s</button>
-        <button class="tab-btn" onclick="selectOrbital('2px',this)">2p<sub>x</sub></button>
-        <button class="tab-btn" onclick="selectOrbital('2py',this)">2p<sub>y</sub></button>
-        <button class="tab-btn" onclick="selectOrbital('3d',this)">3d<sub>z²</sub></button>
+        <button class="tab-btn active" onclick="selectOrbital('1s'،this)">1s</button>
+        <button class="tab-btn" onclick="selectOrbital('2s'،this)">2s</button>
+        <button class="tab-btn" onclick="selectOrbital('2px'،this)">2p<sub>x</sub></button>
+        <button class="tab-btn" onclick="selectOrbital('2py'،this)">2p<sub>y</sub></button>
+        <button class="tab-btn" onclick="selectOrbital('3d'،this)">3d<sub>z²</sub></button>
       </div>
       <canvas id="orbital-canvas" width="340" height="260"></canvas>
       <div id="orbital-info" class="info-box">
@@ -232,7 +232,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الغريب أن عالِم الفيزياء وعالِم الكيمياء يدرسان نفس المادة الصلبة، لكنهما يصفانها بطريقتين مختلفتين تماماً، كأن أحدهما يتحدث الإنجليزية والآخر العربية عن نفس المشهد. الفيزيائي يسأل: كيف تتدفق الإلكترونات؟ ما سرعة الموجة داخل المادة؟ ما نطاقات الطاقة المسموح بها؟ هل المادة موصلة أم عازلة؟ أما الكيميائي يسأل: ما نوع الروابط بين الذرات؟ كيف تتداخل المدارات الذرية؟ لماذا هذا المركب مستقر؟ ما شكل الإلكترون حول الذرة؟ كلاهما مخطئ وكلاهما مصيب! الفيزيائي ينظر إلى الحالة الصلبة كـ بحر من الإلكترونات. أما الكيميائي، فيرى ذرات ترتبط بذرات عبر روابط كيميائية. وكلاهما يصف نفس الشيء من زاوية مختلفة.</p>
 
-    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">تخيّل معي ذرة هيدروجين وحيدة. لها مستوى طاقة 1s. الآن أحضر ذرتَي هيدروجين وقرّبهما من بعضهما، ماذا يحدث؟ المدارات تبدأ بالتداخل (Overlap), وعندما يتداخل مداران، لا يتحولان إلى مدار واحد، بل ينقسمان إلى مدارين جديدين: واحد أقل طاقة (رابطة، Bonding) وآخر أعلى طاقة (تنافر، Antibonding). هذا هو جوهر فكرة الرابطة الكيميائية. حسناً فهمنا الروابط الكيميائية، والآن تخيّل أنك تضيف ذرة ثالثة، ورابعة، وألف ذرة... كل ذرة تُضيف مستوى طاقة جديداً. وعندما تصبح الذرات كثيرة بما يكفي، تتحول هذه المستويات المنفصلة إلى شيء جديد تماماً: نطاق طاقة مستمر (Energy Band).</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">تخيّل معي ذرة هيدروجين وحيدة. لها مستوى طاقة 1s. الآن أحضر ذرتَي هيدروجين وقرّبهما من بعضهما، ماذا يحدث؟ المدارات تبدأ بالتداخل (Overlap)، وعندما يتداخل مداران، لا يتحولان إلى مدار واحد، بل ينقسمان إلى مدارين جديدين: واحد أقل طاقة (رابطة، Bonding) وآخر أعلى طاقة (تنافر، Antibonding). هذا هو جوهر فكرة الرابطة الكيميائية. حسناً فهمنا الروابط الكيميائية، والآن تخيّل أنك تضيف ذرة ثالثة، ورابعة، وألف ذرة... كل ذرة تُضيف مستوى طاقة جديداً. وعندما تصبح الذرات كثيرة بما يكفي، تتحول هذه المستويات المنفصلة إلى شيء جديد تماماً: نطاق طاقة مستمر (Energy Band).</p>
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;"></p>
 
@@ -247,7 +247,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
       </div>
     </div>
 
-    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الكيميائي يرى هذا النطاق ويقول: "اوووه هذا هو مجموع كل الروابط الكيميائية بين مئات الذرات." والفيزيائي يرى نفس النطاق ويقول: "انظرووا هذا هو المجال الذي تستطيع فيه الإلكترونات التنقل بحرية."، نفس الظاهرة، لغتان مختلفتان, لتفسير هذه الأرقام ومئات الذرات المترابطة، الفيزيائيون والكيميائيون طوّروا أدوات رسومية خاصة لفهم نطاقات الطاقة في المواد الصلبة. أشهر هذين الرسمين:.</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الكيميائي يرى هذا النطاق ويقول: "اوووه هذا هو مجموع كل الروابط الكيميائية بين مئات الذرات." والفيزيائي يرى نفس النطاق ويقول: "انظرووا هذا هو المجال الذي تستطيع فيه الإلكترونات التنقل بحرية."، نفس الظاهرة، لغتان مختلفتان، لتفسير هذه الأرقام ومئات الذرات المترابطة، الفيزيائيون والكيميائيون طوّروا أدوات رسومية خاصة لفهم نطاقات الطاقة في المواد الصلبة. أشهر هذين الرسمين:.</p>
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">Band Structure: يُظهر كيف تتغير طاقة الإلكترون بحسب "اتجاه" حركته داخل البلّورة (المحور الأفقي k هو زخم الموجة، وهو يمثل اتجاه الإلكترون-الموجة في الشبكة)</p>
     
@@ -259,9 +259,9 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
       <div class="ibox-title">Band Structure و DOS التفاعليان</div>
       <p class="ibox-caption">اختر نوع المادة وانظر كيف يتغير شكل النطاقات، وأين يقع مستوى فيرمي (Fermi Level)</p>
       <div class="tab-row">
-        <button class="tab-btn active" onclick="selectMaterial('metal',this)">معدن (Metal)</button>
-        <button class="tab-btn" onclick="selectMaterial('semiconductor',this)">شبه موصل</button>
-        <button class="tab-btn" onclick="selectMaterial('insulator',this)">عازل (Insulator)</button>
+        <button class="tab-btn active" onclick="selectMaterial('metal'،this)">معدن (Metal)</button>
+        <button class="tab-btn" onclick="selectMaterial('semiconductor'،this)">شبه موصل</button>
+        <button class="tab-btn" onclick="selectMaterial('insulator'،this)">عازل (Insulator)</button>
       </div>
       <div class="band-dos-wrap" style="margin-top:8px;">
         <div class="band-col">
@@ -278,7 +278,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
       </div>
     </div>
 
-    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">مستوى فيرمي E_F هو الحدّ الفاصل: الحالات التي تحته ممتلئة بإلكترونات، والحالات فوقه فارغة. في المعادن، هذا المستوى يقع وسط النطاق، والإلكترونات تتحرك بحرية. في العازلات، يقع بين نطاقين، لا إلكترونات تستطيع التنقل. أما شبه الموصل؟ فهو في المنتصف بين الاثنين,  مستوى فيرمي هو نفس الفكرة التي يستخدمها الكيميائي حين يتحدث عن "أعلى مدار مشغول"، HOMO. والشيء اللغتان تصفان نفس الحدّ.</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">مستوى فيرمي E_F هو الحدّ الفاصل: الحالات التي تحته ممتلئة بإلكترونات، والحالات فوقه فارغة. في المعادن، هذا المستوى يقع وسط النطاق، والإلكترونات تتحرك بحرية. في العازلات، يقع بين نطاقين، لا إلكترونات تستطيع التنقل. أما شبه الموصل؟ فهو في المنتصف بين الاثنين،  مستوى فيرمي هو نفس الفكرة التي يستخدمها الكيميائي حين يتحدث عن "أعلى مدار مشغول"، HOMO. والشيء اللغتان تصفان نفس الحدّ.</p>
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">ما الذي يجمع اللغتين رياضياً؟ الإجابة تكمن في فكرة واحدة أنيقة:دالة بلوخ (Bloch Function).</p>
 
@@ -302,19 +302,19 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">ما يحتاجه الفيزيائي: أن يتعلم لغة الكيميائي في فهم الروابط والمدارات. الفيزيائي يستطيع حساب Band Structure بدقة عالية، لكنه في كثير من الأحيان لا يستطيع الإجابة على سؤال بسيط: لماذا هذا المركب مستقر أصلاً؟ أو لماذا هذه المادة تمتص الضوء عند هذا الطول الموجي تحديداً؟، هذه أسئلة الكيميائي. ولهذا يحتاج الفيزيائي أن يطّلع على الكيمياء الجزيئية ويفهم حِدس الكيميائي في قراءة الروابط، لأن هذا الحِدس هو ما يجعله يشكّك في نتيجة حتى لو كانت الأرقام تبدو صحيحة، كما فعل مشرفي تماماً.</p>
     
 
-    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">بعد تلك التجربة مع مشرفَيّ، وبعد قراءة هوفمان، وبعد أن صرتُ أفهم لماذا ردّ كل منهما بالطريقة التي ردّ بها، تغيّر شيء في طريقة قراءتي للأوراق العلمية أو حتى في رؤيتي للنتائج, أصبحت منتبهاً أكثر واسألُ: هل هذه النتيجة منطقية كيميائياً؟ هل تتوافق مع طبيعة الروابط في هذا المركب؟ هل الحدس الكيميائي يقول الشيء ذاته الذي تقوله الأرقام، أم أن ثمة تناقضاً ينبغي التحقق منه؟ الحدس الكيميائي أداة تحليلية حقيقية مبنية على عشرات الأوراق وآلاف التجارب. لكنه يبقى ناقصاً دون ربطه بصفات المادة الفيزيائية القابلة للقياس.</p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">بعد تلك التجربة مع مشرفَيّ، وبعد قراءة هوفمان، وبعد أن صرتُ أفهم لماذا ردّ كل منهما بالطريقة التي ردّ بها، تغيّر شيء في طريقة قراءتي للأوراق العلمية أو حتى في رؤيتي للنتائج، أصبحت منتبهاً أكثر واسألُ: هل هذه النتيجة منطقية كيميائياً؟ هل تتوافق مع طبيعة الروابط في هذا المركب؟ هل الحدس الكيميائي يقول الشيء ذاته الذي تقوله الأرقام، أم أن ثمة تناقضاً ينبغي التحقق منه؟ الحدس الكيميائي أداة تحليلية حقيقية مبنية على عشرات الأوراق وآلاف التجارب. لكنه يبقى ناقصاً دون ربطه بصفات المادة الفيزيائية القابلة للقياس.</p>
 
         <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;"></p>
 
 
-    <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">مستوحى من: Roald Hoffmann (1987)، "How Chemistry and Physics Meet in the Solid State"</p>
+    <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono'،monospace;">مستوحى من: Roald Hoffmann (1987)، "How Chemistry and Physics Meet in the Solid State"</p>
 
-        <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">توضيح: أُستخدم الذكاء الإصطناعي لعمل الرسومات التفاعلية والتصحيح اللغوي.</p>
+        <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono'،monospace;">توضيح: أُستخدم الذكاء الإصطناعي لعمل الرسومات التفاعلية والتصحيح اللغوي.</p>
   </div>
 </article>
 
 <footer style="padding:32px 24px;display:flex;justify-content:center;">
-  <a href="../index.html#articles" style="font-size:14px;font-weight:600;font-family:'IBM Plex Mono',monospace;">← Back to all articles</a>
+  <a href="../index.html#articles" style="font-size:14px;font-weight:600;font-family:'IBM Plex Mono'،monospace;">← Back to all articles</a>
 </footer>
 
 </div>
@@ -322,34 +322,34 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
 <script>
 // ─── helpers ───
 function getCSSVar(n){return'#2F6F6A';}// fallback; below we use direct values matching the template
-const TEAL='#2F6F6A', TEAL_LIGHT='rgba(47,111,106,0.15)';
-const GOLD='#C8A964', GOLD_LIGHT='rgba(200,169,100,0.18)';
-const BORDER='#D6D2C5', BG='#F3F1EA', BG2='#ECEAE1', BG3='#E2DFDA';
-const TEXT='#1B1F1E', MUTED='#6B6A63';
-const BLUE='#2F6F6A', BLUE_LIGHT='rgba(47,111,106,0.2)';
+const TEAL='#2F6F6A'، TEAL_LIGHT='rgba(47،111،106،0.15)';
+const GOLD='#C8A964'، GOLD_LIGHT='rgba(200،169،100،0.18)';
+const BORDER='#D6D2C5'، BG='#F3F1EA'، BG2='#ECEAE1'، BG3='#E2DFDA';
+const TEXT='#1B1F1E'، MUTED='#6B6A63';
+const BLUE='#2F6F6A'، BLUE_LIGHT='rgba(47،111،106،0.2)';
 
 // ─── LATTICE ───
 const lc=document.getElementById('lattice-canvas');
 const lctx=lc.getContext('2d');
-let animating=false,animId=null,tempLevel=0,lt=0;
-const amplitudes=[0.5,2.5,6];
-const tempLabels=['درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)','درجة الحرارة: متوسطة (ذبذبات معتدلة)','درجة الحرارة: عالية (ذبذبات قوية، اقتراب من الانصهار)'];
-const rows=4,cols=6;
+let animating=false،animId=null،tempLevel=0،lt=0;
+const amplitudes=[0.5،2.5،6];
+const tempLabels=['درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)'،'درجة الحرارة: متوسطة (ذبذبات معتدلة)'،'درجة الحرارة: عالية (ذبذبات قوية، اقتراب من الانصهار)'];
+const rows=4،cols=6;
 const baseAtoms=[];
-for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) baseAtoms.push({x:38+c*52,y:30+r*52,phase:Math.random()*Math.PI*2,phase2:Math.random()*Math.PI*2});
+for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) baseAtoms.push({x:38+c*52،y:30+r*52،phase:Math.random()*Math.PI*2،phase2:Math.random()*Math.PI*2});
 function drawLattice(){
   const amp=amplitudes[tempLevel];
-  lctx.clearRect(0,0,lc.width,lc.height);
-  const pos=baseAtoms.map(a=>({x:a.x+(animating?Math.sin(lt*.04+a.phase)*amp:0),y:a.y+(animating?Math.sin(lt*.05+a.phase2)*amp*.7:0)}));
+  lctx.clearRect(0،0،lc.width،lc.height);
+  const pos=baseAtoms.map(a=>({x:a.x+(animating?Math.sin(lt*.04+a.phase)*amp:0)،y:a.y+(animating?Math.sin(lt*.05+a.phase2)*amp*.7:0)}));
   lctx.strokeStyle=BORDER;lctx.lineWidth=1.2;
   for(let i=0;i<baseAtoms.length;i++) for(let j=i+1;j<baseAtoms.length;j++){
-    const dx=baseAtoms[i].x-baseAtoms[j].x,dy=baseAtoms[i].y-baseAtoms[j].y;
-    if(Math.sqrt(dx*dx+dy*dy)<60){lctx.beginPath();lctx.moveTo(pos[i].x,pos[i].y);lctx.lineTo(pos[j].x,pos[j].y);lctx.stroke();}
+    const dx=baseAtoms[i].x-baseAtoms[j].x،dy=baseAtoms[i].y-baseAtoms[j].y;
+    if(Math.sqrt(dx*dx+dy*dy)<60){lctx.beginPath();lctx.moveTo(pos[i].x،pos[i].y);lctx.lineTo(pos[j].x،pos[j].y);lctx.stroke();}
   }
   pos.forEach(p=>{
-    const g=lctx.createRadialGradient(p.x-3,p.y-3,1,p.x,p.y,11);
-    g.addColorStop(0,'#7ab8b0');g.addColorStop(1,TEAL);
-    lctx.beginPath();lctx.arc(p.x,p.y,10,0,Math.PI*2);lctx.fillStyle=g;lctx.fill();
+    const g=lctx.createRadialGradient(p.x-3،p.y-3،1،p.x،p.y،11);
+    g.addColorStop(0،'#7ab8b0');g.addColorStop(1،TEAL);
+    lctx.beginPath();lctx.arc(p.x،p.y،10،0،Math.PI*2);lctx.fillStyle=g;lctx.fill();
   });
   lt++;
 }
@@ -361,7 +361,7 @@ function toggleLatticeAnim(){
   else if(!animating){cancelAnimationFrame(animId);animId=null;drawLattice();}
 }
 function changeTemp(d){
-  tempLevel=Math.max(0,Math.min(2,tempLevel+d));
+  tempLevel=Math.max(0،Math.min(2،tempLevel+d));
   document.getElementById('temp-label').textContent=tempLabels[tempLevel];
   if(!animating)drawLattice();
 }
@@ -370,50 +370,50 @@ drawLattice();
 // ─── ORBITAL ───
 const oc=document.getElementById('orbital-canvas');
 const octx=oc.getContext('2d');
-let currentOrbital='1s',orbAnimId=null,orbT=0;
+let currentOrbital='1s'،orbAnimId=null،orbT=0;
 const orbData={
-  '1s':{info:'1s، أول مستوى طاقة، أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.',energy:-13.6,label:'n=1, l=0'},
-  '2s':{info:'2s، المستوى الثاني، أعلى طاقة من 1s. كروي أيضاً لكن أكبر، ويحتوي على منطقة "عقدة" (Node) حيث احتمال وجود الإلكترون صفر.',energy:-3.4,label:'n=2, l=0'},
-  '2px':{info:'2p<sub>x</sub>، شكله كالدمبل (فصّان) على المحور الأفقي. نفس طاقة 2p<sub>y</sub>. هذه المدارات هي أساس معظم الروابط الكيميائية.',energy:-3.4,label:'n=2, l=1, m=1'},
-  '2py':{info:'2p<sub>y</sub>، نفس شكل 2p<sub>x</sub> لكن على المحور الرأسي. في البلورة، هذه المدارات تتداخل لتشكّل نطاقات الـ p.',energy:-3.4,label:'n=2, l=1, m=-1'},
-  '3d':{info:'3d<sub>z²</sub>، مدار معقد، يشالدمبل مع حلقة في المنتصف. مدارات d هي المسؤولة عن الخصائص المميزة للمعادن الانتقالية.',energy:-1.5,label:'n=3, l=2, m=0'}
+  '1s':{info:'1s، أول مستوى طاقة، أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.'،energy:-13.6،label:'n=1، l=0'}،
+  '2s':{info:'2s، المستوى الثاني، أعلى طاقة من 1s. كروي أيضاً لكن أكبر، ويحتوي على منطقة "عقدة" (Node) حيث احتمال وجود الإلكترون صفر.'،energy:-3.4،label:'n=2، l=0'}،
+  '2px':{info:'2p<sub>x</sub>، شكله كالدمبل (فصّان) على المحور الأفقي. نفس طاقة 2p<sub>y</sub>. هذه المدارات هي أساس معظم الروابط الكيميائية.'،energy:-3.4،label:'n=2، l=1، m=1'}،
+  '2py':{info:'2p<sub>y</sub>، نفس شكل 2p<sub>x</sub> لكن على المحور الرأسي. في البلورة، هذه المدارات تتداخل لتشكّل نطاقات الـ p.'،energy:-3.4،label:'n=2، l=1، m=-1'}،
+  '3d':{info:'3d<sub>z²</sub>، مدار معقد، يشالدمبل مع حلقة في المنتصف. مدارات d هي المسؤولة عن الخصائص المميزة للمعادن الانتقالية.'،energy:-1.5،label:'n=3، l=2، m=0'}
 };
-function selectOrbital(name,btn){
+function selectOrbital(name،btn){
   currentOrbital=name;
-  document.querySelectorAll('#orbital-canvas ~ * .tab-btn, .tab-row .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#orbital-canvas ~ * .tab-btn، .tab-row .tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('orbital-info').innerHTML=orbData[name].info;
   if(orbAnimId){cancelAnimationFrame(orbAnimId);orbAnimId=null;}
   orbT=0;drawOrbital();
 }
 function drawOrbital(){
-  const w=oc.width,h=oc.height,cx=w/2,cy=h/2-20;
-  octx.clearRect(0,0,w,h);
-  const orb=currentOrbital,pulse=0.06+0.04*Math.sin(orbT*.05);
+  const w=oc.width،h=oc.height،cx=w/2،cy=h/2-20;
+  octx.clearRect(0،0،w،h);
+  const orb=currentOrbital،pulse=0.06+0.04*Math.sin(orbT*.05);
   if(orb==='1s'){
-    for(let r=70;r>0;r-=3){const a=Math.pow(1-r/70,1.5)*.55+pulse*.1;octx.beginPath();octx.arc(cx,cy,r,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${a})`;octx.fill();}
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+    for(let r=70;r>0;r-=3){const a=Math.pow(1-r/70،1.5)*.55+pulse*.1;octx.beginPath();octx.arc(cx،cy،r،0،Math.PI*2);octx.fillStyle=`rgba(47،111،106،${a})`;octx.fill();}
+    octx.beginPath();octx.arc(cx،cy،6،0،Math.PI*2);octx.fillStyle=TEXT;octx.fill();
   }else if(orb==='2s'){
-    for(let r=90;r>0;r-=3){const nr=r/90,a=(nr<.35?.45*(1-nr/.35):nr>.45?.55*(nr-.45)/.55:0)+pulse*.05;octx.beginPath();octx.arc(cx,cy,r,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${Math.max(0,a)})`;octx.fill();}
-    octx.beginPath();octx.arc(cx,cy,90*.4,0,Math.PI*2);octx.strokeStyle=MUTED+'60';octx.lineWidth=1.5;octx.stroke();
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+    for(let r=90;r>0;r-=3){const nr=r/90،a=(nr<.35?.45*(1-nr/.35):nr>.45?.55*(nr-.45)/.55:0)+pulse*.05;octx.beginPath();octx.arc(cx،cy،r،0،Math.PI*2);octx.fillStyle=`rgba(47،111،106،${Math.max(0،a)})`;octx.fill();}
+    octx.beginPath();octx.arc(cx،cy،90*.4،0،Math.PI*2);octx.strokeStyle=MUTED+'60';octx.lineWidth=1.5;octx.stroke();
+    octx.beginPath();octx.arc(cx،cy،6،0،Math.PI*2);octx.fillStyle=TEXT;octx.fill();
   }else if(orb==='2px'){
-    [-1,1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx+s*42,cy,r*.7,r,0,0,Math.PI*2);octx.fillStyle=s===1?`rgba(47,111,106,${a})`:`rgba(200,169,64,${a})`;octx.fill();}});
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+    [-1،1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx+s*42،cy،r*.7،r،0،0،Math.PI*2);octx.fillStyle=s===1?`rgba(47،111،106،${a})`:`rgba(200،169،64،${a})`;octx.fill();}});
+    octx.beginPath();octx.arc(cx،cy،6،0،Math.PI*2);octx.fillStyle=TEXT;octx.fill();
   }else if(orb==='2py'){
-    [-1,1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx,cy+s*42,r,r*.7,0,0,Math.PI*2);octx.fillStyle=s===1?`rgba(47,111,106,${a})`:`rgba(200,169,64,${a})`;octx.fill();}});
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+    [-1،1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx،cy+s*42،r،r*.7،0،0،Math.PI*2);octx.fillStyle=s===1?`rgba(47،111،106،${a})`:`rgba(200،169،64،${a})`;octx.fill();}});
+    octx.beginPath();octx.arc(cx،cy،6،0،Math.PI*2);octx.fillStyle=TEXT;octx.fill();
   }else if(orb==='3d'){
-    [-1,1].forEach(s=>{for(let r=50;r>0;r-=3){const a=(1-r/50)*.55+pulse*.07;octx.beginPath();octx.ellipse(cx,cy+s*42,r*.6,r,0,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${a})`;octx.fill();}});
-    octx.beginPath();octx.ellipse(cx,cy,30,14,0,0,Math.PI*2);octx.fillStyle='rgba(200,169,64,0.35)';octx.fill();octx.strokeStyle=GOLD+'90';octx.lineWidth=1.5;octx.stroke();
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+    [-1،1].forEach(s=>{for(let r=50;r>0;r-=3){const a=(1-r/50)*.55+pulse*.07;octx.beginPath();octx.ellipse(cx،cy+s*42،r*.6،r،0،0،Math.PI*2);octx.fillStyle=`rgba(47،111،106،${a})`;octx.fill();}});
+    octx.beginPath();octx.ellipse(cx،cy،30،14،0،0،Math.PI*2);octx.fillStyle='rgba(200،169،64،0.35)';octx.fill();octx.strokeStyle=GOLD+'90';octx.lineWidth=1.5;octx.stroke();
+    octx.beginPath();octx.arc(cx،cy،6،0،Math.PI*2);octx.fillStyle=TEXT;octx.fill();
   }
-  const eD=orbData[orb],eMin=-15,eMax=0,eNorm=(eD.energy-eMin)/(eMax-eMin),ey=20+(1-eNorm)*(h-50);
-  octx.strokeStyle=MUTED+'40';octx.lineWidth=1;octx.beginPath();octx.moveTo(22,20);octx.lineTo(22,h-20);octx.stroke();
-  octx.fillStyle=MUTED;octx.font='10px IBM Plex Mono, Georgia';octx.textAlign='center';octx.fillText('E',22,14);
-  octx.strokeStyle=TEAL;octx.lineWidth=2.5;octx.beginPath();octx.moveTo(10,ey);octx.lineTo(34,ey);octx.stroke();
-  octx.fillStyle=TEXT;octx.font='11px IBM Plex Mono, Georgia';octx.textAlign='left';octx.fillText(eD.label,38,ey+4);
-  octx.fillStyle=MUTED;octx.font='12px IBM Plex Mono, Georgia';octx.textAlign='center';octx.fillText(eD.energy+' eV',cx,h-6);
+  const eD=orbData[orb]،eMin=-15،eMax=0،eNorm=(eD.energy-eMin)/(eMax-eMin)،ey=20+(1-eNorm)*(h-50);
+  octx.strokeStyle=MUTED+'40';octx.lineWidth=1;octx.beginPath();octx.moveTo(22،20);octx.lineTo(22،h-20);octx.stroke();
+  octx.fillStyle=MUTED;octx.font='10px IBM Plex Mono، Georgia';octx.textAlign='center';octx.fillText('E'،22،14);
+  octx.strokeStyle=TEAL;octx.lineWidth=2.5;octx.beginPath();octx.moveTo(10،ey);octx.lineTo(34،ey);octx.stroke();
+  octx.fillStyle=TEXT;octx.font='11px IBM Plex Mono، Georgia';octx.textAlign='left';octx.fillText(eD.label،38،ey+4);
+  octx.fillStyle=MUTED;octx.font='12px IBM Plex Mono، Georgia';octx.textAlign='center';octx.fillText(eD.energy+' eV'،cx،h-6);
   orbT++;orbAnimId=requestAnimationFrame(drawOrbital);
 }
 drawOrbital();
@@ -422,25 +422,25 @@ drawOrbital();
 const bc=document.getElementById('band-canvas');
 const bctx=bc.getContext('2d');
 function drawBand(n){
-  bctx.clearRect(0,0,bc.width,bc.height);
-  const w=bc.width,h=bc.height,cx=w/2;
-  const levels=[.75,.5,.3];
+  bctx.clearRect(0،0،bc.width،bc.height);
+  const w=bc.width،h=bc.height،cx=w/2;
+  const levels=[.75،.5،.3];
   if(n<=1){
-    levels.forEach(f=>{const y=h*f;bctx.strokeStyle=TEAL;bctx.lineWidth=2.5;bctx.beginPath();bctx.moveTo(cx-40,y);bctx.lineTo(cx+40,y);bctx.stroke();});
-    bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic, sans-serif';bctx.textAlign='center';bctx.fillText('مستويات منفصلة',cx,h-14);
+    levels.forEach(f=>{const y=h*f;bctx.strokeStyle=TEAL;bctx.lineWidth=2.5;bctx.beginPath();bctx.moveTo(cx-40،y);bctx.lineTo(cx+40،y);bctx.stroke();});
+    bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic، sans-serif';bctx.textAlign='center';bctx.fillText('مستويات منفصلة'،cx،h-14);
   }else{
-    const spread=Math.min(.18,(n-1)*.012);
+    const spread=Math.min(.18،(n-1)*.012);
     levels.forEach(f=>{
-      const yMid=h*f,bH=h*spread;
-      const g=bctx.createLinearGradient(cx-80,0,cx+80,0);
-      g.addColorStop(0,'transparent');g.addColorStop(.2,TEAL+'80');g.addColorStop(.5,TEAL+'CC');g.addColorStop(.8,TEAL+'80');g.addColorStop(1,'transparent');
-      bctx.fillStyle=g;bctx.fillRect(cx-80,yMid-bH/2,160,bH);
-      bctx.strokeStyle=TEAL;bctx.lineWidth=1;bctx.strokeRect(cx-80,yMid-bH/2,160,bH);
+      const yMid=h*f،bH=h*spread;
+      const g=bctx.createLinearGradient(cx-80،0،cx+80،0);
+      g.addColorStop(0،'transparent');g.addColorStop(.2،TEAL+'80');g.addColorStop(.5،TEAL+'CC');g.addColorStop(.8،TEAL+'80');g.addColorStop(1،'transparent');
+      bctx.fillStyle=g;bctx.fillRect(cx-80،yMid-bH/2،160،bH);
+      bctx.strokeStyle=TEAL;bctx.lineWidth=1;bctx.strokeRect(cx-80،yMid-bH/2،160،bH);
     });
-    if(n>=10){bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic, sans-serif';bctx.textAlign='center';bctx.fillText('نطاقات طاقة مستمرة',cx,h-14);}
+    if(n>=10){bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic، sans-serif';bctx.textAlign='center';bctx.fillText('نطاقات طاقة مستمرة'،cx،h-14);}
   }
-  bctx.strokeStyle=MUTED+'60';bctx.lineWidth=1;bctx.beginPath();bctx.moveTo(30,10);bctx.lineTo(30,h-20);bctx.stroke();
-  bctx.fillStyle=MUTED;bctx.font='12px IBM Plex Mono, monospace';bctx.textAlign='left';bctx.fillText('E',10,16);
+  bctx.strokeStyle=MUTED+'60';bctx.lineWidth=1;bctx.beginPath();bctx.moveTo(30،10);bctx.lineTo(30،h-20);bctx.stroke();
+  bctx.fillStyle=MUTED;bctx.font='12px IBM Plex Mono، monospace';bctx.textAlign='left';bctx.fillText('E'،10،16);
 }
 function updateBand(v){
   v=parseInt(v);
@@ -450,74 +450,74 @@ function updateBand(v){
 drawBand(1);
 
 // ─── BAND STRUCTURE + DOS ───
-const bsc=document.getElementById('bs-canvas'),bsctx=bsc.getContext('2d');
-const dosc=document.getElementById('dos-canvas'),dosctx=dosc.getContext('2d');
+const bsc=document.getElementById('bs-canvas')،bsctx=bsc.getContext('2d');
+const dosc=document.getElementById('dos-canvas')،dosctx=dosc.getContext('2d');
 let currentMaterial='metal';
 const matData={
-  metal:{info:'في المعدن، مستوى فيرمي يقع داخل النطاق، الإلكترونات حرة التنقل، ولهذا يوصّل المعدن الكهرباء. مثال: النحاس والذهب والحديد.',fermiNorm:.5,bands:[{yMin:.15,yMax:.85,filled:true,color:'teal'}],gap:null},
-  semiconductor:{info:'في شبه موصل، الفجوة بين النطاقين صغيرة (1-3 eV). الإلكترونات لا تتنقل في الحالة العادية، لكن بإضافة الحرارة أو الضوء يمكنها القفز. مثال: السيليكون في رقائق الحاسوب.',fermiNorm:.5,bands:[{yMin:.1,yMax:.44,filled:true,color:'teal'},{yMin:.56,yMax:.9,filled:false,color:'gold'}],gap:{y1:.44,y2:.56}},
-  insulator:{info:'في العازل، الفجوة بين النطاقين كبيرة جداً (>5 eV). لا يمكن للإلكترونات القفز إطلاقاً في الظروف العادية. مثال: الألماس والزجاج.',fermiNorm:.5,bands:[{yMin:.05,yMax:.35,filled:true,color:'teal'},{yMin:.65,yMax:.95,filled:false,color:'gold'}],gap:{y1:.35,y2:.65}}
+  metal:{info:'في المعدن، مستوى فيرمي يقع داخل النطاق، الإلكترونات حرة التنقل، ولهذا يوصّل المعدن الكهرباء. مثال: النحاس والذهب والحديد.'،fermiNorm:.5،bands:[{yMin:.15،yMax:.85،filled:true،color:'teal'}]،gap:null}،
+  semiconductor:{info:'في شبه موصل، الفجوة بين النطاقين صغيرة (1-3 eV). الإلكترونات لا تتنقل في الحالة العادية، لكن بإضافة الحرارة أو الضوء يمكنها القفز. مثال: السيليكون في رقائق الحاسوب.'،fermiNorm:.5،bands:[{yMin:.1،yMax:.44،filled:true،color:'teal'}،{yMin:.56،yMax:.9،filled:false،color:'gold'}]،gap:{y1:.44،y2:.56}}،
+  insulator:{info:'في العازل، الفجوة بين النطاقين كبيرة جداً (>5 eV). لا يمكن للإلكترونات القفز إطلاقاً في الظروف العادية. مثال: الألماس والزجاج.'،fermiNorm:.5،bands:[{yMin:.05،yMax:.35،filled:true،color:'teal'}،{yMin:.65،yMax:.95،filled:false،color:'gold'}]،gap:{y1:.35،y2:.65}}
 };
 function drawBS(){
-  const w=bsc.width,h=bsc.height;bsctx.clearRect(0,0,w,h);
-  const mat=matData[currentMaterial],pad={l:36,r:16,t:16,b:36},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+  const w=bsc.width،h=bsc.height;bsctx.clearRect(0،0،w،h);
+  const mat=matData[currentMaterial]،pad={l:36،r:16،t:16،b:36}،pw=w-pad.l-pad.r،ph=h-pad.t-pad.b;
   bsctx.strokeStyle=MUTED+'60';bsctx.lineWidth=1;
-  bsctx.beginPath();bsctx.moveTo(pad.l,pad.t);bsctx.lineTo(pad.l,pad.t+ph);bsctx.stroke();
-  bsctx.beginPath();bsctx.moveTo(pad.l,pad.t+ph/2);bsctx.lineTo(pad.l+pw,pad.t+ph/2);bsctx.stroke();
-  bsctx.fillStyle=MUTED;bsctx.font='11px IBM Plex Mono, monospace';bsctx.textAlign='center';
-  bsctx.fillText('k',pad.l+pw/2,h-4);bsctx.textAlign='right';bsctx.fillText('E',pad.l-4,pad.t+10);
-  bsctx.font='9px IBM Plex Mono, monospace';bsctx.textAlign='center';
-  bsctx.fillText('Γ',pad.l,pad.t+ph/2+14);bsctx.fillText('X',pad.l+pw,pad.t+ph/2+14);
+  bsctx.beginPath();bsctx.moveTo(pad.l،pad.t);bsctx.lineTo(pad.l،pad.t+ph);bsctx.stroke();
+  bsctx.beginPath();bsctx.moveTo(pad.l،pad.t+ph/2);bsctx.lineTo(pad.l+pw،pad.t+ph/2);bsctx.stroke();
+  bsctx.fillStyle=MUTED;bsctx.font='11px IBM Plex Mono، monospace';bsctx.textAlign='center';
+  bsctx.fillText('k'،pad.l+pw/2،h-4);bsctx.textAlign='right';bsctx.fillText('E'،pad.l-4،pad.t+10);
+  bsctx.font='9px IBM Plex Mono، monospace';bsctx.textAlign='center';
+  bsctx.fillText('Γ'،pad.l،pad.t+ph/2+14);bsctx.fillText('X'،pad.l+pw،pad.t+ph/2+14);
   if(mat.gap){
-    const gy1=pad.t+mat.gap.y1*ph,gy2=pad.t+mat.gap.y2*ph;
-    bsctx.fillStyle=BG3;bsctx.fillRect(pad.l,gy1,pw,gy2-gy1);
-    bsctx.fillStyle=MUTED;bsctx.font='9px IBM Plex Mono, monospace';bsctx.textAlign='left';
-    bsctx.fillText(currentMaterial==='semiconductor'?'Gap ~1-3eV':'Gap >5eV',pad.l+4,(gy1+gy2)/2+4);
+    const gy1=pad.t+mat.gap.y1*ph،gy2=pad.t+mat.gap.y2*ph;
+    bsctx.fillStyle=BG3;bsctx.fillRect(pad.l،gy1،pw،gy2-gy1);
+    bsctx.fillStyle=MUTED;bsctx.font='9px IBM Plex Mono، monospace';bsctx.textAlign='left';
+    bsctx.fillText(currentMaterial==='semiconductor'?'Gap ~1-3eV':'Gap >5eV'،pad.l+4،(gy1+gy2)/2+4);
   }
   mat.bands.forEach(band=>{
-    const y1=pad.t+band.yMin*ph,y2=pad.t+band.yMax*ph,midY=(y1+y2)/2,amp=(y2-y1)/2.4;
+    const y1=pad.t+band.yMin*ph،y2=pad.t+band.yMax*ph،midY=(y1+y2)/2،amp=(y2-y1)/2.4;
     const col=band.color==='teal'?TEAL:GOLD;
     if(band.filled){
       bsctx.save();bsctx.beginPath();
-      for(let xi=0;xi<=pw;xi++){const tt=xi/pw,y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi,y):bsctx.lineTo(pad.l+xi,y);}
-      bsctx.lineTo(pad.l+pw,pad.t+ph);bsctx.lineTo(pad.l,pad.t+ph);bsctx.closePath();
+      for(let xi=0;xi<=pw;xi++){const tt=xi/pw،y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi،y):bsctx.lineTo(pad.l+xi،y);}
+      bsctx.lineTo(pad.l+pw،pad.t+ph);bsctx.lineTo(pad.l،pad.t+ph);bsctx.closePath();
       bsctx.fillStyle=col+'28';bsctx.fill();bsctx.restore();
     }
     bsctx.beginPath();bsctx.strokeStyle=col;bsctx.lineWidth=2.5;
-    for(let xi=0;xi<=pw;xi++){const tt=xi/pw,y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi,y):bsctx.lineTo(pad.l+xi,y);}
+    for(let xi=0;xi<=pw;xi++){const tt=xi/pw،y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi،y):bsctx.lineTo(pad.l+xi،y);}
     bsctx.stroke();
   });
   const fy=pad.t+mat.fermiNorm*ph;
-  bsctx.setLineDash([5,3]);bsctx.strokeStyle='#C84444';bsctx.lineWidth=1.5;
-  bsctx.beginPath();bsctx.moveTo(pad.l,fy);bsctx.lineTo(pad.l+pw,fy);bsctx.stroke();bsctx.setLineDash([]);
-  bsctx.fillStyle='#C84444';bsctx.font='10px IBM Plex Mono, monospace';bsctx.textAlign='left';bsctx.fillText('E_F',pad.l+4,fy-4);
+  bsctx.setLineDash([5،3]);bsctx.strokeStyle='#C84444';bsctx.lineWidth=1.5;
+  bsctx.beginPath();bsctx.moveTo(pad.l،fy);bsctx.lineTo(pad.l+pw،fy);bsctx.stroke();bsctx.setLineDash([]);
+  bsctx.fillStyle='#C84444';bsctx.font='10px IBM Plex Mono، monospace';bsctx.textAlign='left';bsctx.fillText('E_F'،pad.l+4،fy-4);
 }
 function drawDOS(){
-  const w=dosc.width,h=dosc.height;dosctx.clearRect(0,0,w,h);
-  const mat=matData[currentMaterial],pad={l:16,r:28,t:16,b:36},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
-  dosctx.strokeStyle=MUTED+'60';dosctx.lineWidth=1;dosctx.beginPath();dosctx.moveTo(pad.l,pad.t);dosctx.lineTo(pad.l,pad.t+ph);dosctx.stroke();
-  dosctx.fillStyle=MUTED;dosctx.font='11px IBM Plex Mono, monospace';dosctx.textAlign='center';
-  dosctx.fillText('DOS',pad.l+pw/2,h-4);dosctx.fillText('→',w-12,pad.t+ph/2+4);
+  const w=dosc.width،h=dosc.height;dosctx.clearRect(0،0،w،h);
+  const mat=matData[currentMaterial]،pad={l:16،r:28،t:16،b:36}،pw=w-pad.l-pad.r،ph=h-pad.t-pad.b;
+  dosctx.strokeStyle=MUTED+'60';dosctx.lineWidth=1;dosctx.beginPath();dosctx.moveTo(pad.l،pad.t);dosctx.lineTo(pad.l،pad.t+ph);dosctx.stroke();
+  dosctx.fillStyle=MUTED;dosctx.font='11px IBM Plex Mono، monospace';dosctx.textAlign='center';
+  dosctx.fillText('DOS'،pad.l+pw/2،h-4);dosctx.fillText('→'،w-12،pad.t+ph/2+4);
   if(mat.gap){
-    const gy1=pad.t+mat.gap.y1*ph,gy2=pad.t+mat.gap.y2*ph;
-    dosctx.fillStyle=BG3;dosctx.fillRect(pad.l,gy1,pw,gy2-gy1);
+    const gy1=pad.t+mat.gap.y1*ph،gy2=pad.t+mat.gap.y2*ph;
+    dosctx.fillStyle=BG3;dosctx.fillRect(pad.l،gy1،pw،gy2-gy1);
   }
   mat.bands.forEach(band=>{
-    const y1=pad.t+band.yMin*ph,y2=pad.t+band.yMax*ph,col=band.color==='teal'?TEAL:GOLD;
-    dosctx.save();dosctx.beginPath();dosctx.moveTo(pad.l,y1);
+    const y1=pad.t+band.yMin*ph،y2=pad.t+band.yMax*ph،col=band.color==='teal'?TEAL:GOLD;
+    dosctx.save();dosctx.beginPath();dosctx.moveTo(pad.l،y1);
     const steps=60;
-    for(let i=0;i<=steps;i++){const frac=i/steps,ey=y1+frac*(y2-y1),dosV=.15+.85*(4*Math.pow(frac-.5,2)),xw=dosV*pw*.85;dosctx.lineTo(pad.l+xw,ey);}
-    dosctx.lineTo(pad.l,y2);dosctx.closePath();dosctx.fillStyle=col+'35';dosctx.fill();
-    dosctx.strokeStyle=col;dosctx.lineWidth=2;dosctx.beginPath();dosctx.moveTo(pad.l,y1);
-    for(let i=0;i<=steps;i++){const frac=i/steps,ey=y1+frac*(y2-y1),dosV=.15+.85*(4*Math.pow(frac-.5,2));dosctx.lineTo(pad.l+dosV*pw*.85,ey);}
+    for(let i=0;i<=steps;i++){const frac=i/steps،ey=y1+frac*(y2-y1)،dosV=.15+.85*(4*Math.pow(frac-.5،2))،xw=dosV*pw*.85;dosctx.lineTo(pad.l+xw،ey);}
+    dosctx.lineTo(pad.l،y2);dosctx.closePath();dosctx.fillStyle=col+'35';dosctx.fill();
+    dosctx.strokeStyle=col;dosctx.lineWidth=2;dosctx.beginPath();dosctx.moveTo(pad.l،y1);
+    for(let i=0;i<=steps;i++){const frac=i/steps،ey=y1+frac*(y2-y1)،dosV=.15+.85*(4*Math.pow(frac-.5،2));dosctx.lineTo(pad.l+dosV*pw*.85،ey);}
     dosctx.stroke();dosctx.restore();
   });
   const fy=pad.t+mat.fermiNorm*ph;
-  dosctx.setLineDash([5,3]);dosctx.strokeStyle='#C84444';dosctx.lineWidth=1.5;
-  dosctx.beginPath();dosctx.moveTo(pad.l,fy);dosctx.lineTo(pad.l+pw,fy);dosctx.stroke();dosctx.setLineDash([]);
-  dosctx.fillStyle='#C84444';dosctx.font='10px IBM Plex Mono, monospace';dosctx.textAlign='right';dosctx.fillText('E_F',pad.l+pw,fy-4);
+  dosctx.setLineDash([5،3]);dosctx.strokeStyle='#C84444';dosctx.lineWidth=1.5;
+  dosctx.beginPath();dosctx.moveTo(pad.l،fy);dosctx.lineTo(pad.l+pw،fy);dosctx.stroke();dosctx.setLineDash([]);
+  dosctx.fillStyle='#C84444';dosctx.font='10px IBM Plex Mono، monospace';dosctx.textAlign='right';dosctx.fillText('E_F'،pad.l+pw،fy-4);
 }
-function selectMaterial(name,btn){
+function selectMaterial(name،btn){
   currentMaterial=name;
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -527,33 +527,33 @@ function selectMaterial(name,btn){
 drawBS();drawDOS();
 
 // ─── BLOCH ───
-const blc=document.getElementById('bloch-canvas'),blctx=blc.getContext('2d');
-let activeAtoms=0,blochAnimId=null,blochT=0;
-const blochPos=[50,110,170,230,290];
-blc.addEventListener('click',function(e){
-  const rect=blc.getBoundingClientRect(),x=(e.clientX-rect.left)*(blc.width/rect.width);
-  blochPos.forEach((ax,i)=>{if(Math.abs(x-ax)<34&&i===activeAtoms)activeAtoms++;});
+const blc=document.getElementById('bloch-canvas')،blctx=blc.getContext('2d');
+let activeAtoms=0،blochAnimId=null،blochT=0;
+const blochPos=[50،110،170،230،290];
+blc.addEventListener('click'،function(e){
+  const rect=blc.getBoundingClientRect()،x=(e.clientX-rect.left)*(blc.width/rect.width);
+  blochPos.forEach((ax،i)=>{if(Math.abs(x-ax)<34&&i===activeAtoms)activeAtoms++;});
   document.getElementById('bloch-label').textContent=activeAtoms===0?'انقر على الذرات واحدة تلو الأخرى':activeAtoms<5?`${activeAtoms} ذرات، استمر في النقر`:'اكتملت الشبكة، مدارات الذرات تشكّل موجة بلوخ!';
   if(blochAnimId)cancelAnimationFrame(blochAnimId);
   drawBloch();
 });
 function drawBloch(){
-  blctx.clearRect(0,0,blc.width,blc.height);
+  blctx.clearRect(0،0،blc.width،blc.height);
   if(activeAtoms>=5){
     blctx.beginPath();blctx.strokeStyle=TEAL+'AA';blctx.lineWidth=2.5;
-    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px,wy):blctx.lineTo(px,wy);}
+    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px،wy):blctx.lineTo(px،wy);}
     blctx.stroke();
     blctx.beginPath();blctx.fillStyle=TEAL+'18';
-    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px,wy):blctx.lineTo(px,wy);}
-    blctx.lineTo(blc.width,60);blctx.lineTo(0,60);blctx.fill();
+    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px،wy):blctx.lineTo(px،wy);}
+    blctx.lineTo(blc.width،60);blctx.lineTo(0،60);blctx.fill();
   }
-  blochPos.forEach((ax,i)=>{
+  blochPos.forEach((ax،i)=>{
     const active=i<activeAtoms;
-    if(active){const g=blctx.createRadialGradient(ax,140,0,ax,140,28);g.addColorStop(0,TEAL+'70');g.addColorStop(1,TEAL+'00');blctx.beginPath();blctx.arc(ax,140,28,0,Math.PI*2);blctx.fillStyle=g;blctx.fill();}
-    blctx.beginPath();blctx.arc(ax,140,13,0,Math.PI*2);
+    if(active){const g=blctx.createRadialGradient(ax،140،0،ax،140،28);g.addColorStop(0،TEAL+'70');g.addColorStop(1،TEAL+'00');blctx.beginPath();blctx.arc(ax،140،28،0،Math.PI*2);blctx.fillStyle=g;blctx.fill();}
+    blctx.beginPath();blctx.arc(ax،140،13،0،Math.PI*2);
     blctx.fillStyle=active?TEAL:BORDER;blctx.fill();
     blctx.strokeStyle=active?GOLD:'transparent';blctx.lineWidth=2;blctx.stroke();
-    if(!active){blctx.fillStyle=MUTED;blctx.font='bold 16px Georgia';blctx.textAlign='center';blctx.fillText('+',ax,145);}
+    if(!active){blctx.fillStyle=MUTED;blctx.font='bold 16px Georgia';blctx.textAlign='center';blctx.fillText('+'،ax،145);}
   });
   blochT++;
   if(activeAtoms>=5)blochAnimId=requestAnimationFrame(drawBloch);
@@ -561,7 +561,7 @@ function drawBloch(){
 drawBloch();
 
 
-function showDevice(key,e){
+function showDevice(key،e){
   document.getElementById('device-info').innerHTML=deviceText[key];
   document.getElementById('device-info').style.display='block';
   document.querySelectorAll('.device-item').forEach(d=>d.style.borderColor='#D6D2C5');
