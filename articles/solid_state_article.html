@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!doctype html>
 <html lang="ar">
 <head>
@@ -35,7 +36,7 @@ a:hover{color:#173F3B;text-decoration:underline;}
   color: #6B6A63;
   margin: 0 0 14px;
 }
-canvas { display: block; margin: 0 auto; max-width: 100%; }
+svg { display: block; margin: 0 auto; max-width: 100%; }
 
 /* compare cards */
 .compare-grid {
@@ -113,7 +114,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
 }
 @media (max-width: 480px) { .band-dos-wrap { grid-template-columns: 1fr; } }
 .band-col, .dos-col { display: flex; flex-direction: column; align-items: center; }
-.band-col canvas, .dos-col canvas { width: 100%; height: auto; }
+.band-col svg, .dos-col svg { width: 100%; height: auto; }
 .col-label {
   font-size: 11px;
   color: #6B6A63;
@@ -134,7 +135,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
   vertical-align: middle;
 }
 
-/* info box below canvases */
+/* info box below svgs */
 .info-box {
   margin-top: 10px;
   padding: 10px 14px;
@@ -195,7 +196,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <div class="ibox">
       <div class="ibox-title">الشبكة البلورية، Crystal Lattice</div>
       <p class="ibox-caption">اضغط على "تحريك" لترى كيف تتذبذب الذرات في مكانها دون أن تغادره</p>
-      <canvas id="lattice-canvas" width="340" height="220"></canvas>
+      <svg id="lattice-canvas" width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
       <div style="margin-top:10px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
         <button onclick="toggleLatticeAnim()" id="anim-btn" style="background:#2F6F6A;color:#fff;border:none;border-radius:6px;padding:7px 18px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">▶ تحريك</button>
         <button onclick="changeTemp(-1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;">❄ تبريد</button>
@@ -219,7 +220,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
         <button class="tab-btn" onclick="selectOrbital('2py',this)">2p<sub>y</sub></button>
         <button class="tab-btn" onclick="selectOrbital('3d',this)">3d<sub>z²</sub></button>
       </div>
-      <canvas id="orbital-canvas" width="340" height="260"></canvas>
+      <svg id="orbital-canvas" width="340" height="260" viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
       <div id="orbital-info" class="info-box">
        1s، أول مستوى طاقة، أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.
       </div>
@@ -239,7 +240,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <div class="ibox">
       <div class="ibox-title">من مستويات منفصلة إلى نطاق مستمر</div>
       <p class="ibox-caption">حرّك المؤشر لزيادة عدد الذرات وشاهد كيف تتحول المستويات إلى نطاق</p>
-      <canvas id="band-canvas" width="340" height="200"></canvas>
+      <svg id="band-canvas" width="340" height="200" viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
       <div class="slider-wrap">
         <span class="slider-label">عدد الذرات المتجاورة:</span>
         <input type="range" id="atom-slider" min="1" max="20" value="1" oninput="updateBand(this.value)">
@@ -250,7 +251,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الكيميائي يرى هذا النطاق ويقول: "اوووه هذا هو مجموع كل الروابط الكيميائية بين مئات الذرات." والفيزيائي يرى نفس النطاق ويقول: "انظرووا هذا هو المجال الذي تستطيع فيه الإلكترونات التنقل بحرية."، نفس الظاهرة، لغتان مختلفتان. ولتفسير هذه الأرقام ومئات الذرات المترابطة، الفيزيائيون والكيميائيون طوّروا أدوات رسومية خاصة لفهم نطاقات الطاقة في المواد الصلبة. أشهر هذين الرسمين:.</p>
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">Band Structure: يُظهر كيف تتغير طاقة الإلكترون بحسب "اتجاه" حركته داخل البلّورة (المحور الأفقي k هو زخم الموجة، وهو يمثل اتجاه الإلكترون-الموجة في الشبكة)</p>
-    
+
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">Density of States (DOS): يُظهر كم عدد الحالات المتاحة للإلكترونات عند كل مستوى طاقة.</p>
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">الرسمان مرتبطان: حيث يكون خط الطاقة مسطحاً في Band Structure (تغيّر بطيء في الطاقة)، تجد قمة عالية في DOS. وحيث يكون خط الطاقة منحدراً، تجد قيماً منخفضة في DOS. الكيميائيون يفضلون رسم DOS لأنه يربط مباشرةً بتفاعلات الروابط؛ الفيزيائيون يفضلون Band Structure لأنه يُظهر حركة الإلكترون.</p>
@@ -265,11 +266,11 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
       </div>
       <div class="band-dos-wrap" style="margin-top:8px;">
         <div class="band-col">
-          <canvas id="bs-canvas" width="200" height="280"></canvas>
+          <svg id="bs-canvas" width="200" height="280" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
           <span class="col-label">Band Structure</span>
         </div>
         <div class="dos-col">
-          <canvas id="dos-canvas" width="160" height="280"></canvas>
+          <svg id="dos-canvas" width="160" height="280" viewBox="0 0 160 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
           <span class="col-label">Density of States (DOS)</span>
         </div>
       </div>
@@ -287,7 +288,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <div class="ibox">
       <div class="ibox-title">من مدار ذري إلى موجة بلوخ</div>
       <p class="ibox-caption">انقر على الذرات واحدة تلو الأخرى لترى كيف تتحد مداراتها في موجة واحدة</p>
-      <canvas id="bloch-canvas" width="360" height="200"></canvas>
+      <svg id="bloch-canvas" width="360" height="200" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;cursor:pointer;"></svg>
       <p id="bloch-label" style="margin:8px 0 0;font-size:14px;color:#6B6A63;">انقر على الذرات واحدة تلو الأخرى</p>
     </div>
 
@@ -300,7 +301,7 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">ما يحتاجه الكيميائي: أن يتعلم كيفية تصنيف خصائص المواد، وليس الاكتفاء بمجرد تصنيع المواد الجديدة وتحديد بُنيتها. يجب أن يكون قادراً على تحليل البنية الإلكترونية للمركبات التي يصنعها بأسلوب رصين، ليتسنّى له فهم كيفية تعديل هذه الخصائص والتحكم فيها. وهذا يعني أن يتعلم لغة فيزياء الحالة الصلبة، وتحديداًنظرية حزم الطاقة (Band Theory).</p>
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">ما يحتاجه الفيزيائي: أن يتعلم لغة الكيميائي في فهم الروابط والمدارات. الفيزيائي يستطيع حساب Band Structure بدقة عالية، لكنه في كثير من الأحيان لا يستطيع الإجابة على سؤال بسيط: لماذا هذا المركب مستقر أصلاً؟ أو لماذا هذه المادة تمتص الضوء عند هذا الطول الموجي تحديداً؟، هذه أسئلة الكيميائي. ولهذا يحتاج الفيزيائي أن يطّلع على الكيمياء الجزيئية ويفهم حِدس الكيميائي في قراءة الروابط، لأن هذا الحِدس هو ما يجعله يشكّك في نتيجة حتى لو كانت الأرقام تبدو صحيحة، كما فعل مشرفي تماماً.</p>
-    
+
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">بعد تلك التجربة مع مشرفَيّ، وبعد قراءة هوفمان، وبعد أن صرتُ أفهم لماذا ردّ كل منهما بالطريقة التي ردّ بها، تغيّر شيء في طريقة قراءتي للأوراق العلمية أو حتى في رؤيتي للنتائج، أصبحت منتبهاً أكثر واسألُ: هل هذه النتيجة منطقية كيميائياً؟ هل تتوافق مع طبيعة الروابط في هذا المركب؟ هل الحدس الكيميائي يقول الشيء ذاته الذي تقوله الأرقام، أم أن ثمة تناقضاً ينبغي التحقق منه؟ الحدس الكيميائي أداة تحليلية حقيقية مبنية على عشرات الأوراق وآلاف التجارب. لكنه يبقى ناقصاً دون ربطه بصفات المادة الفيزيائية القابلة للقياس.</p>
 
@@ -320,253 +321,630 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
 </div>
 
 <script>
-// ─── helpers ───
-function getCSSVar(n){return'#2F6F6A';}// fallback; below we use direct values matching the template
+const SVG_NS = 'http://www.w3.org/2000/svg';
 const TEAL='#2F6F6A', TEAL_LIGHT='rgba(47,111,106,0.15)';
-const GOLD='#C8A964', GOLD_LIGHT='rgba(200,169,100,0.18)';
+const GOLD='#C8A964';
 const BORDER='#D6D2C5', BG='#F3F1EA', BG2='#ECEAE1', BG3='#E2DFDA';
 const TEXT='#1B1F1E', MUTED='#6B6A63';
-const BLUE='#2F6F6A', BLUE_LIGHT='rgba(47,111,106,0.2)';
+
+function svgEl(tag, attrs) {
+  const el = document.createElementNS(SVG_NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  return el;
+}
 
 // ─── LATTICE ───
-const lc=document.getElementById('lattice-canvas');
-const lctx=lc.getContext('2d');
-let animating=false,animId=null,tempLevel=0,lt=0;
-const amplitudes=[0.5,2.5,6];
-const tempLabels=['درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)','درجة الحرارة: متوسطة (ذبذبات معتدلة)','درجة الحرارة: عالية (ذبذبات قوية, اقتراب من الانصهار)'];
-const rows=4,cols=6;
-const baseAtoms=[];
-for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) baseAtoms.push({x:38+c*52,y:30+r*52,phase:Math.random()*Math.PI*2,phase2:Math.random()*Math.PI*2});
-function drawLattice(){
-  const amp=amplitudes[tempLevel];
-  lctx.clearRect(0,0,lc.width,lc.height);
-  const pos=baseAtoms.map(a=>({x:a.x+(animating?Math.sin(lt*.04+a.phase)*amp:0),y:a.y+(animating?Math.sin(lt*.05+a.phase2)*amp*.7:0)}));
-  lctx.strokeStyle=BORDER;lctx.lineWidth=1.2;
+(function() {
+  const svg = document.getElementById('lattice-canvas');
+  let animating = false, animId = null, tempLevel = 0, lt = 0;
+  const amplitudes = [0.5, 2.5, 6];
+  const tempLabels = [
+    'درجة الحرارة: منخفضة (الذرات تكاد لا تتحرك)',
+    'درجة الحرارة: متوسطة (ذبذبات معتدلة)',
+    'درجة الحرارة: عالية (ذبذبات قوية، اقتراب من الانصهار)'
+  ];
+  const rows=4, cols=6;
+  const baseAtoms=[];
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++)
+    baseAtoms.push({x:38+c*52, y:30+r*52, phase:Math.random()*Math.PI*2, phase2:Math.random()*Math.PI*2});
+
+  // Create defs for radial gradient
+  const defs = svgEl('defs');
+  const rg = svgEl('radialGradient', {id:'atom-grad', cx:'35%', cy:'35%', r:'60%'});
+  const s0 = svgEl('stop', {offset:'0%'}); s0.setAttribute('stop-color','#7ab8b0');
+  const s1 = svgEl('stop', {offset:'100%'}); s1.setAttribute('stop-color', TEAL);
+  rg.appendChild(s0); rg.appendChild(s1); defs.appendChild(rg); svg.appendChild(defs);
+
+  // Create bond lines
+  const bondLines = [];
   for(let i=0;i<baseAtoms.length;i++) for(let j=i+1;j<baseAtoms.length;j++){
-    const dx=baseAtoms[i].x-baseAtoms[j].x,dy=baseAtoms[i].y-baseAtoms[j].y;
-    if(Math.sqrt(dx*dx+dy*dy)<60){lctx.beginPath();lctx.moveTo(pos[i].x,pos[i].y);lctx.lineTo(pos[j].x,pos[j].y);lctx.stroke();}
+    const dx=baseAtoms[i].x-baseAtoms[j].x, dy=baseAtoms[i].y-baseAtoms[j].y;
+    if(Math.sqrt(dx*dx+dy*dy)<60){
+      const line = svgEl('line', {stroke:BORDER,'stroke-width':'1.2'});
+      svg.appendChild(line);
+      bondLines.push({el:line, i, j});
+    }
   }
-  pos.forEach(p=>{
-    const g=lctx.createRadialGradient(p.x-3,p.y-3,1,p.x,p.y,11);
-    g.addColorStop(0,'#7ab8b0');g.addColorStop(1,TEAL);
-    lctx.beginPath();lctx.arc(p.x,p.y,10,0,Math.PI*2);lctx.fillStyle=g;lctx.fill();
+
+  // Create atom circles
+  const atomCircles = baseAtoms.map(() => {
+    const c = svgEl('circle', {r:'10', fill:'url(#atom-grad)'});
+    svg.appendChild(c);
+    return c;
   });
-  lt++;
-}
-function animLoop(){drawLattice();animId=requestAnimationFrame(animLoop);}
-function toggleLatticeAnim(){
-  animating=!animating;
-  document.getElementById('anim-btn').textContent=animating?'⏸ إيقاف':'▶ تحريك';
-  if(animating&&!animId)animLoop();
-  else if(!animating){cancelAnimationFrame(animId);animId=null;drawLattice();}
-}
-function changeTemp(d){
-  tempLevel=Math.max(0,Math.min(2,tempLevel+d));
-  document.getElementById('temp-label').textContent=tempLabels[tempLevel];
-  if(!animating)drawLattice();
-}
-drawLattice();
+
+  function getPos() {
+    const amp = amplitudes[tempLevel];
+    return baseAtoms.map(a => ({
+      x: a.x + (animating ? Math.sin(lt*.04+a.phase)*amp : 0),
+      y: a.y + (animating ? Math.sin(lt*.05+a.phase2)*amp*.7 : 0)
+    }));
+  }
+
+  function drawLattice() {
+    const pos = getPos();
+    bondLines.forEach(({el, i, j}) => {
+      el.setAttribute('x1', pos[i].x); el.setAttribute('y1', pos[i].y);
+      el.setAttribute('x2', pos[j].x); el.setAttribute('y2', pos[j].y);
+    });
+    atomCircles.forEach((c, idx) => {
+      c.setAttribute('cx', pos[idx].x);
+      c.setAttribute('cy', pos[idx].y);
+    });
+    lt++;
+  }
+
+  function animLoop() { drawLattice(); animId = requestAnimationFrame(animLoop); }
+
+  window.toggleLatticeAnim = function() {
+    animating = !animating;
+    document.getElementById('anim-btn').textContent = animating ? '⏸ إيقاف' : '▶ تحريك';
+    if(animating && !animId) animLoop();
+    else if(!animating) { cancelAnimationFrame(animId); animId = null; drawLattice(); }
+  };
+
+  window.changeTemp = function(d) {
+    tempLevel = Math.max(0, Math.min(2, tempLevel+d));
+    document.getElementById('temp-label').textContent = tempLabels[tempLevel];
+    if(!animating) drawLattice();
+  };
+
+  drawLattice();
+})();
 
 // ─── ORBITAL ───
-const oc=document.getElementById('orbital-canvas');
-const octx=oc.getContext('2d');
-let currentOrbital='1s',orbAnimId=null,orbT=0;
-const orbData={
-  '1s':{info:'1s, أول مستوى طاقة, أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.',energy:-13.6,label:'n=1, l=0'},
-  '2s':{info:'2s, المستوى الثاني, أعلى طاقة من 1s. كروي أيضاً لكن أكبر, ويحتوي على منطقة "عقدة" (Node) حيث احتمال وجود الإلكترون صفر.',energy:-3.4,label:'n=2, l=0'},
-  '2px':{info:'2p<sub>x</sub>, شكله كالدمبل (فصّان) على المحور الأفقي. نفس طاقة 2p<sub>y</sub>. هذه المدارات هي أساس معظم الروابط الكيميائية.',energy:-3.4,label:'n=2, l=1, m=1'},
-  '2py':{info:'2p<sub>y</sub>, نفس شكل 2p<sub>x</sub> لكن على المحور الرأسي. في البلورة, هذه المدارات تتداخل لتشكّل نطاقات الـ p.',energy:-3.4,label:'n=2, l=1, m=-1'},
-  '3d':{info:'3d<sub>z²</sub>, مدار معقد, يشالدمبل مع حلقة في المنتصف. مدارات d هي المسؤولة عن الخصائص المميزة للمعادن الانتقالية.',energy:-1.5,label:'n=3, l=2, m=0'}
-};
-function selectOrbital(name,btn){
-  currentOrbital=name;
-  document.querySelectorAll('#orbital-canvas ~ * .tab-btn, .tab-row .tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('orbital-info').innerHTML=orbData[name].info;
-  if(orbAnimId){cancelAnimationFrame(orbAnimId);orbAnimId=null;}
-  orbT=0;drawOrbital();
-}
-function drawOrbital(){
-  const w=oc.width,h=oc.height,cx=w/2,cy=h/2-20;
-  octx.clearRect(0,0,w,h);
-  const orb=currentOrbital,pulse=0.06+0.04*Math.sin(orbT*.05);
-  if(orb==='1s'){
-    for(let r=70;r>0;r-=3){const a=Math.pow(1-r/70,1.5)*.55+pulse*.1;octx.beginPath();octx.arc(cx,cy,r,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${a})`;octx.fill();}
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
-  }else if(orb==='2s'){
-    for(let r=90;r>0;r-=3){const nr=r/90,a=(nr<.35?.45*(1-nr/.35):nr>.45?.55*(nr-.45)/.55:0)+pulse*.05;octx.beginPath();octx.arc(cx,cy,r,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${Math.max(0,a)})`;octx.fill();}
-    octx.beginPath();octx.arc(cx,cy,90*.4,0,Math.PI*2);octx.strokeStyle=MUTED+'60';octx.lineWidth=1.5;octx.stroke();
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
-  }else if(orb==='2px'){
-    [-1,1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx+s*42,cy,r*.7,r,0,0,Math.PI*2);octx.fillStyle=s===1?`rgba(47,111,106,${a})`:`rgba(200,169,64,${a})`;octx.fill();}});
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
-  }else if(orb==='2py'){
-    [-1,1].forEach(s=>{for(let r=55;r>0;r-=3){const a=(1-r/55)*.6+pulse*.08;octx.beginPath();octx.ellipse(cx,cy+s*42,r,r*.7,0,0,Math.PI*2);octx.fillStyle=s===1?`rgba(47,111,106,${a})`:`rgba(200,169,64,${a})`;octx.fill();}});
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
-  }else if(orb==='3d'){
-    [-1,1].forEach(s=>{for(let r=50;r>0;r-=3){const a=(1-r/50)*.55+pulse*.07;octx.beginPath();octx.ellipse(cx,cy+s*42,r*.6,r,0,0,Math.PI*2);octx.fillStyle=`rgba(47,111,106,${a})`;octx.fill();}});
-    octx.beginPath();octx.ellipse(cx,cy,30,14,0,0,Math.PI*2);octx.fillStyle='rgba(200,169,64,0.35)';octx.fill();octx.strokeStyle=GOLD+'90';octx.lineWidth=1.5;octx.stroke();
-    octx.beginPath();octx.arc(cx,cy,6,0,Math.PI*2);octx.fillStyle=TEXT;octx.fill();
+(function() {
+  const svg = document.getElementById('orbital-canvas');
+  const W = 340, H = 260, cx = W/2, cy = H/2 - 20;
+  let currentOrbital = '1s', orbAnimId = null, orbT = 0;
+
+  const orbData = {
+    '1s':  {info:'1s، أول مستوى طاقة، أقل طاقة وأكثر ثبات. شكله كروي متماثل حول النواة. الإلكترون يُقضي معظم وقته قريباً من النواة.', energy:-13.6, label:'n=1, l=0'},
+    '2s':  {info:'2s، المستوى الثاني، أعلى طاقة من 1s. كروي أيضاً لكن أكبر، ويحتوي على منطقة "عقدة" (Node) حيث احتمال وجود الإلكترون صفر.', energy:-3.4, label:'n=2, l=0'},
+    '2px': {info:'2p<sub>x</sub>، شكله كالدمبل (فصّان) على المحور الأفقي. نفس طاقة 2p<sub>y</sub>. هذه المدارات هي أساس معظم الروابط الكيميائية.', energy:-3.4, label:'n=2, l=1, m=1'},
+    '2py': {info:'2p<sub>y</sub>، نفس شكل 2p<sub>x</sub> لكن على المحور الرأسي. في البلورة، هذه المدارات تتداخل لتشكّل نطاقات الـ p.', energy:-3.4, label:'n=2, l=1, m=-1'},
+    '3d':  {info:'3d<sub>z²</sub>، مدار معقد، يشبه الدمبل مع حلقة في المنتصف. مدارات d هي المسؤولة عن الخصائص المميزة للمعادن الانتقالية.', energy:-1.5, label:'n=3, l=2, m=0'}
+  };
+
+  // SVG defs for gradients
+  const defs = svgEl('defs');
+  svg.appendChild(defs);
+
+  function makeDef(id, cx_pct, cy_pct, color) {
+    const rg = svgEl('radialGradient', {id, cx: cx_pct, cy: cy_pct, r:'70%'});
+    const s0 = svgEl('stop', {offset:'0%'}); s0.setAttribute('stop-color', color); s0.setAttribute('stop-opacity','0.7');
+    const s1 = svgEl('stop', {offset:'100%'}); s1.setAttribute('stop-color', color); s1.setAttribute('stop-opacity','0');
+    rg.appendChild(s0); rg.appendChild(s1); defs.appendChild(rg);
   }
-  const eD=orbData[orb],eMin=-15,eMax=0,eNorm=(eD.energy-eMin)/(eMax-eMin),ey=20+(1-eNorm)*(h-50);
-  octx.strokeStyle=MUTED+'40';octx.lineWidth=1;octx.beginPath();octx.moveTo(22,20);octx.lineTo(22,h-20);octx.stroke();
-  octx.fillStyle=MUTED;octx.font='10px IBM Plex Mono, Georgia';octx.textAlign='center';octx.fillText('E',22,14);
-  octx.strokeStyle=TEAL;octx.lineWidth=2.5;octx.beginPath();octx.moveTo(10,ey);octx.lineTo(34,ey);octx.stroke();
-  octx.fillStyle=TEXT;octx.font='11px IBM Plex Mono, Georgia';octx.textAlign='left';octx.fillText(eD.label,38,ey+4);
-  octx.fillStyle=MUTED;octx.font='12px IBM Plex Mono, Georgia';octx.textAlign='center';octx.fillText(eD.energy+' eV',cx,h-6);
-  orbT++;orbAnimId=requestAnimationFrame(drawOrbital);
-}
-drawOrbital();
+  makeDef('og-teal','50%','50%', TEAL);
+  makeDef('og-gold','50%','50%', '#C8A964');
+
+  // Container group that gets rebuilt
+  const orbGroup = svgEl('g');
+  svg.appendChild(orbGroup);
+
+  // Energy axis (static)
+  const axisLine = svgEl('line', {x1:22, y1:20, x2:22, y2:H-20, stroke:MUTED+'40', 'stroke-width':'1'});
+  svg.appendChild(axisLine);
+  const axisLabel = svgEl('text', {x:22, y:14, 'text-anchor':'middle', fill:MUTED, 'font-size':'10', 'font-family':'IBM Plex Mono, Georgia'});
+  axisLabel.textContent = 'E'; svg.appendChild(axisLabel);
+
+  // Energy level indicator (dynamic)
+  const energyLine = svgEl('line', {'stroke-width':'2.5', stroke:TEAL});
+  svg.appendChild(energyLine);
+  const energyLabel = svgEl('text', {'text-anchor':'left', fill:TEXT, 'font-size':'11', 'font-family':'IBM Plex Mono, Georgia'});
+  svg.appendChild(energyLabel);
+  const energyEV = svgEl('text', {'text-anchor':'middle', fill:MUTED, 'font-size':'12', 'font-family':'IBM Plex Mono, Georgia', x:cx, y:H-6});
+  svg.appendChild(energyEV);
+
+  function buildOrbital(orb, pulse) {
+    while(orbGroup.firstChild) orbGroup.removeChild(orbGroup.firstChild);
+
+    if(orb === '1s') {
+      for(let r=70;r>0;r-=3) {
+        const a = Math.pow(1-r/70, 1.5)*0.55 + pulse*0.1;
+        const c = svgEl('circle', {cx, cy, r, fill:`rgba(47,111,106,${a.toFixed(3)})`});
+        orbGroup.appendChild(c);
+      }
+    } else if(orb === '2s') {
+      for(let r=90;r>0;r-=3) {
+        const nr=r/90;
+        let a = (nr<.35 ? .45*(1-nr/.35) : nr>.45 ? .55*(nr-.45)/.55 : 0) + pulse*0.05;
+        a = Math.max(0,a);
+        const c = svgEl('circle', {cx, cy, r, fill:`rgba(47,111,106,${a.toFixed(3)})`});
+        orbGroup.appendChild(c);
+      }
+      const nodeRing = svgEl('circle', {cx, cy, r:90*.4, fill:'none', stroke:MUTED+'60', 'stroke-width':'1.5'});
+      orbGroup.appendChild(nodeRing);
+    } else if(orb === '2px') {
+      [[-1, TEAL], [1, '#C8A964']].forEach(([s, col]) => {
+        for(let r=55;r>0;r-=3) {
+          const a = (1-r/55)*0.6 + pulse*0.08;
+          const hexCol = col === TEAL ? '47,111,106' : '200,169,100';
+          const el = svgEl('ellipse', {
+            cx: cx+s*42, cy,
+            rx: r*0.7, ry: r,
+            fill:`rgba(${hexCol},${a.toFixed(3)})`
+          });
+          orbGroup.appendChild(el);
+        }
+      });
+    } else if(orb === '2py') {
+      [[-1, TEAL], [1, '#C8A964']].forEach(([s, col]) => {
+        for(let r=55;r>0;r-=3) {
+          const a = (1-r/55)*0.6 + pulse*0.08;
+          const hexCol = col === TEAL ? '47,111,106' : '200,169,100';
+          const el = svgEl('ellipse', {
+            cx, cy: cy+s*42,
+            rx: r, ry: r*0.7,
+            fill:`rgba(${hexCol},${a.toFixed(3)})`
+          });
+          orbGroup.appendChild(el);
+        }
+      });
+    } else if(orb === '3d') {
+      [-1, 1].forEach(s => {
+        for(let r=50;r>0;r-=3) {
+          const a = (1-r/50)*0.55 + pulse*0.07;
+          const el = svgEl('ellipse', {cx, cy: cy+s*42, rx:r*0.6, ry:r, fill:`rgba(47,111,106,${a.toFixed(3)})`});
+          orbGroup.appendChild(el);
+        }
+      });
+      const ring = svgEl('ellipse', {cx, cy, rx:30, ry:14, fill:'rgba(200,169,100,0.35)', stroke:'#C8A96490', 'stroke-width':'1.5'});
+      orbGroup.appendChild(ring);
+    }
+
+    // nucleus dot
+    const nucleus = svgEl('circle', {cx, cy, r:6, fill:TEXT});
+    orbGroup.appendChild(nucleus);
+  }
+
+  function updateEnergyIndicator(orb) {
+    const eD = orbData[orb], eMin=-15, eMax=0;
+    const eNorm = (eD.energy - eMin)/(eMax - eMin);
+    const ey = 20 + (1-eNorm)*(H-50);
+    energyLine.setAttribute('x1', 10); energyLine.setAttribute('y1', ey);
+    energyLine.setAttribute('x2', 34); energyLine.setAttribute('y2', ey);
+    energyLabel.setAttribute('x', 38); energyLabel.setAttribute('y', ey+4);
+    energyLabel.textContent = eD.label;
+    energyEV.textContent = eD.energy + ' eV';
+  }
+
+  function animLoop() {
+    const pulse = 0.06 + 0.04*Math.sin(orbT*0.05);
+    buildOrbital(currentOrbital, pulse);
+    updateEnergyIndicator(currentOrbital);
+    orbT++;
+    orbAnimId = requestAnimationFrame(animLoop);
+  }
+
+  window.selectOrbital = function(name, btn) {
+    currentOrbital = name;
+    document.querySelectorAll('.tab-row .tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('orbital-info').innerHTML = orbData[name].info;
+    if(orbAnimId) { cancelAnimationFrame(orbAnimId); orbAnimId = null; }
+    orbT = 0;
+    animLoop();
+  };
+
+  animLoop();
+})();
 
 // ─── BAND (atom→band) ───
-const bc=document.getElementById('band-canvas');
-const bctx=bc.getContext('2d');
-function drawBand(n){
-  bctx.clearRect(0,0,bc.width,bc.height);
-  const w=bc.width,h=bc.height,cx=w/2;
-  const levels=[.75,.5,.3];
-  if(n<=1){
-    levels.forEach(f=>{const y=h*f;bctx.strokeStyle=TEAL;bctx.lineWidth=2.5;bctx.beginPath();bctx.moveTo(cx-40,y);bctx.lineTo(cx+40,y);bctx.stroke();});
-    bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic, sans-serif';bctx.textAlign='center';bctx.fillText('مستويات منفصلة',cx,h-14);
-  }else{
-    const spread=Math.min(.18,(n-1)*.012);
-    levels.forEach(f=>{
-      const yMid=h*f,bH=h*spread;
-      const g=bctx.createLinearGradient(cx-80,0,cx+80,0);
-      g.addColorStop(0,'transparent');g.addColorStop(.2,TEAL+'80');g.addColorStop(.5,TEAL+'CC');g.addColorStop(.8,TEAL+'80');g.addColorStop(1,'transparent');
-      bctx.fillStyle=g;bctx.fillRect(cx-80,yMid-bH/2,160,bH);
-      bctx.strokeStyle=TEAL;bctx.lineWidth=1;bctx.strokeRect(cx-80,yMid-bH/2,160,bH);
-    });
-    if(n>=10){bctx.fillStyle=MUTED;bctx.font='13px IBM Plex Sans Arabic, sans-serif';bctx.textAlign='center';bctx.fillText('نطاقات طاقة مستمرة',cx,h-14);}
+(function() {
+  const svg = document.getElementById('band-canvas');
+  const W = 340, H = 200, cx = W/2;
+  const levels = [0.75, 0.5, 0.3];
+
+  // E axis
+  svg.appendChild(svgEl('line', {x1:30, y1:10, x2:30, y2:H-20, stroke:MUTED+'60', 'stroke-width':'1'}));
+  const eLabel = svgEl('text', {x:10, y:16, fill:MUTED, 'font-size':'12', 'font-family':'IBM Plex Mono, monospace'});
+  eLabel.textContent='E'; svg.appendChild(eLabel);
+
+  // Band rects (3 bands)
+  const bandRects = levels.map(() => {
+    const rect = svgEl('rect', {fill:TEAL+'80', stroke:TEAL, 'stroke-width':'1', display:'none'});
+    svg.appendChild(rect);
+    return rect;
+  });
+
+  // Discrete lines (3 sets of lines that split as n increases)
+  const discreteGroups = levels.map(f => {
+    const g = svgEl('g');
+    svg.appendChild(g);
+    return g;
+  });
+
+  // Status text
+  const statusText = svgEl('text', {x:cx, y:H-14, 'text-anchor':'middle', fill:MUTED, 'font-size':'13', 'font-family':'IBM Plex Sans Arabic, sans-serif'});
+  svg.appendChild(statusText);
+
+  function drawBand(n) {
+    n = parseInt(n);
+    if(n <= 1) {
+      // Single discrete level per band
+      bandRects.forEach(r => r.setAttribute('display','none'));
+      levels.forEach((f, idx) => {
+        const y = H*f;
+        const g = discreteGroups[idx];
+        while(g.firstChild) g.removeChild(g.firstChild);
+        const line = svgEl('line', {x1:cx-40, y1:y, x2:cx+40, y2:y, stroke:TEAL, 'stroke-width':'2.5'});
+        g.appendChild(line);
+      });
+      statusText.textContent = 'مستويات منفصلة';
+    } else {
+      const spread = Math.min(0.18, (n-1)*0.012);
+      levels.forEach((f, idx) => {
+        const yMid = H*f;
+        const bH = H*spread;
+
+        // Hide discrete lines, show band rects
+        const g = discreteGroups[idx];
+        while(g.firstChild) g.removeChild(g.firstChild);
+
+        // Draw multiple lines spreading out
+        const count = Math.min(n, 12);
+        for(let li=0; li<count; li++) {
+          const frac = count===1 ? 0 : (li/(count-1) - 0.5);
+          const ly = yMid + frac * bH * (count > 1 ? 1 : 0);
+          const op = 0.3 + 0.5*(1 - Math.abs(frac)*1.5);
+          const line = svgEl('line', {
+            x1:cx-80, y1:ly, x2:cx+80, y2:ly,
+            stroke:TEAL, 'stroke-width':'1.2', opacity: Math.max(0.1, op).toFixed(2)
+          });
+          g.appendChild(line);
+        }
+
+        if(n >= 8) {
+          // Show band rect overlay
+          bandRects[idx].setAttribute('display','');
+          bandRects[idx].setAttribute('x', cx-80);
+          bandRects[idx].setAttribute('y', yMid - bH/2);
+          bandRects[idx].setAttribute('width', 160);
+          bandRects[idx].setAttribute('height', bH);
+        } else {
+          bandRects[idx].setAttribute('display','none');
+        }
+      });
+
+      statusText.textContent = n<5 ? `${n} ذرات - تنقسم المستويات` :
+                               n<12 ? `${n} ذرة - يتشكّل النطاق تدريجياً` :
+                               `${n} ذرة - نطاق طاقة مستمر (Band)`;
+    }
   }
-  bctx.strokeStyle=MUTED+'60';bctx.lineWidth=1;bctx.beginPath();bctx.moveTo(30,10);bctx.lineTo(30,h-20);bctx.stroke();
-  bctx.fillStyle=MUTED;bctx.font='12px IBM Plex Mono, monospace';bctx.textAlign='left';bctx.fillText('E',10,16);
-}
-function updateBand(v){
-  v=parseInt(v);
-  document.getElementById('band-status').textContent=v===1?'ذرة واحدة → مستوى طاقة محدد':v<5?`${v} ذرات → تنقسم المستويات`:v<12?`${v} ذرة → يتشكّل النطاق تدريجياً`:`${v} ذرة → نطاق طاقة مستمر (Band) ✓`;
-  drawBand(v);
-}
-drawBand(1);
+
+  window.updateBand = function(v) {
+    v = parseInt(v);
+    document.getElementById('band-status').textContent =
+      v===1 ? 'ذرة واحدة ← مستوى طاقة محدد' :
+      v<5   ? `${v} ذرات ← تنقسم المستويات` :
+      v<12  ? `${v} ذرة ← يتشكّل النطاق تدريجياً` :
+              `${v} ذرة ← نطاق طاقة مستمر (Band)`;
+    drawBand(v);
+  };
+
+  drawBand(1);
+})();
 
 // ─── BAND STRUCTURE + DOS ───
-const bsc=document.getElementById('bs-canvas'),bsctx=bsc.getContext('2d');
-const dosc=document.getElementById('dos-canvas'),dosctx=dosc.getContext('2d');
-let currentMaterial='metal';
-const matData={
-  metal:{info:'في المعدن, مستوى فيرمي يقع داخل النطاق, الإلكترونات حرة التنقل, ولهذا يوصّل المعدن الكهرباء. مثال: النحاس والذهب والحديد.',fermiNorm:.5,bands:[{yMin:.15,yMax:.85,filled:true,color:'teal'}],gap:null},
-  semiconductor:{info:'في شبه موصل, الفجوة بين النطاقين صغيرة (1-3 eV). الإلكترونات لا تتنقل في الحالة العادية, لكن بإضافة الحرارة أو الضوء يمكنها القفز. مثال: السيليكون في رقائق الحاسوب.',fermiNorm:.5,bands:[{yMin:.1,yMax:.44,filled:true,color:'teal'},{yMin:.56,yMax:.9,filled:false,color:'gold'}],gap:{y1:.44,y2:.56}},
-  insulator:{info:'في العازل, الفجوة بين النطاقين كبيرة جداً (>5 eV). لا يمكن للإلكترونات القفز إطلاقاً في الظروف العادية. مثال: الألماس والزجاج.',fermiNorm:.5,bands:[{yMin:.05,yMax:.35,filled:true,color:'teal'},{yMin:.65,yMax:.95,filled:false,color:'gold'}],gap:{y1:.35,y2:.65}}
-};
-function drawBS(){
-  const w=bsc.width,h=bsc.height;bsctx.clearRect(0,0,w,h);
-  const mat=matData[currentMaterial],pad={l:36,r:16,t:16,b:36},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
-  bsctx.strokeStyle=MUTED+'60';bsctx.lineWidth=1;
-  bsctx.beginPath();bsctx.moveTo(pad.l,pad.t);bsctx.lineTo(pad.l,pad.t+ph);bsctx.stroke();
-  bsctx.beginPath();bsctx.moveTo(pad.l,pad.t+ph/2);bsctx.lineTo(pad.l+pw,pad.t+ph/2);bsctx.stroke();
-  bsctx.fillStyle=MUTED;bsctx.font='11px IBM Plex Mono, monospace';bsctx.textAlign='center';
-  bsctx.fillText('k',pad.l+pw/2,h-4);bsctx.textAlign='right';bsctx.fillText('E',pad.l-4,pad.t+10);
-  bsctx.font='9px IBM Plex Mono, monospace';bsctx.textAlign='center';
-  bsctx.fillText('Γ',pad.l,pad.t+ph/2+14);bsctx.fillText('X',pad.l+pw,pad.t+ph/2+14);
-  if(mat.gap){
-    const gy1=pad.t+mat.gap.y1*ph,gy2=pad.t+mat.gap.y2*ph;
-    bsctx.fillStyle=BG3;bsctx.fillRect(pad.l,gy1,pw,gy2-gy1);
-    bsctx.fillStyle=MUTED;bsctx.font='9px IBM Plex Mono, monospace';bsctx.textAlign='left';
-    bsctx.fillText(currentMaterial==='semiconductor'?'Gap ~1-3eV':'Gap >5eV',pad.l+4,(gy1+gy2)/2+4);
-  }
-  mat.bands.forEach(band=>{
-    const y1=pad.t+band.yMin*ph,y2=pad.t+band.yMax*ph,midY=(y1+y2)/2,amp=(y2-y1)/2.4;
-    const col=band.color==='teal'?TEAL:GOLD;
-    if(band.filled){
-      bsctx.save();bsctx.beginPath();
-      for(let xi=0;xi<=pw;xi++){const tt=xi/pw,y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi,y):bsctx.lineTo(pad.l+xi,y);}
-      bsctx.lineTo(pad.l+pw,pad.t+ph);bsctx.lineTo(pad.l,pad.t+ph);bsctx.closePath();
-      bsctx.fillStyle=col+'28';bsctx.fill();bsctx.restore();
+(function() {
+  const bsSvg = document.getElementById('bs-canvas');
+  const dosSvg = document.getElementById('dos-canvas');
+  let currentMaterial = 'metal';
+
+  const matData = {
+    metal: {
+      info: 'في المعدن، مستوى فيرمي يقع داخل النطاق، الإلكترونات حرة التنقل، ولهذا يوصّل المعدن الكهرباء. مثال: النحاس والذهب والحديد.',
+      fermiNorm: 0.5,
+      bands: [{yMin:.15, yMax:.85, filled:true, color:'teal'}],
+      gap: null
+    },
+    semiconductor: {
+      info: 'في شبه موصل، الفجوة بين النطاقين صغيرة (1-3 eV). الإلكترونات لا تتنقل في الحالة العادية، لكن بإضافة الحرارة أو الضوء يمكنها القفز. مثال: السيليكون في رقائق الحاسوب.',
+      fermiNorm: 0.5,
+      bands: [{yMin:.1, yMax:.44, filled:true, color:'teal'}, {yMin:.56, yMax:.9, filled:false, color:'gold'}],
+      gap: {y1:.44, y2:.56}
+    },
+    insulator: {
+      info: 'في العازل، الفجوة بين النطاقين كبيرة جداً (>5 eV). لا يمكن للإلكترونات القفز إطلاقاً في الظروف العادية. مثال: الألماس والزجاج.',
+      fermiNorm: 0.5,
+      bands: [{yMin:.05, yMax:.35, filled:true, color:'teal'}, {yMin:.65, yMax:.95, filled:false, color:'gold'}],
+      gap: {y1:.35, y2:.65}
     }
-    bsctx.beginPath();bsctx.strokeStyle=col;bsctx.lineWidth=2.5;
-    for(let xi=0;xi<=pw;xi++){const tt=xi/pw,y=midY+amp*Math.cos(Math.PI*tt);xi===0?bsctx.moveTo(pad.l+xi,y):bsctx.lineTo(pad.l+xi,y);}
-    bsctx.stroke();
-  });
-  const fy=pad.t+mat.fermiNorm*ph;
-  bsctx.setLineDash([5,3]);bsctx.strokeStyle='#C84444';bsctx.lineWidth=1.5;
-  bsctx.beginPath();bsctx.moveTo(pad.l,fy);bsctx.lineTo(pad.l+pw,fy);bsctx.stroke();bsctx.setLineDash([]);
-  bsctx.fillStyle='#C84444';bsctx.font='10px IBM Plex Mono, monospace';bsctx.textAlign='left';bsctx.fillText('E_F',pad.l+4,fy-4);
-}
-function drawDOS(){
-  const w=dosc.width,h=dosc.height;dosctx.clearRect(0,0,w,h);
-  const mat=matData[currentMaterial],pad={l:16,r:28,t:16,b:36},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
-  dosctx.strokeStyle=MUTED+'60';dosctx.lineWidth=1;dosctx.beginPath();dosctx.moveTo(pad.l,pad.t);dosctx.lineTo(pad.l,pad.t+ph);dosctx.stroke();
-  dosctx.fillStyle=MUTED;dosctx.font='11px IBM Plex Mono, monospace';dosctx.textAlign='center';
-  dosctx.fillText('DOS',pad.l+pw/2,h-4);dosctx.fillText('→',w-12,pad.t+ph/2+4);
-  if(mat.gap){
-    const gy1=pad.t+mat.gap.y1*ph,gy2=pad.t+mat.gap.y2*ph;
-    dosctx.fillStyle=BG3;dosctx.fillRect(pad.l,gy1,pw,gy2-gy1);
+  };
+
+  // ── Band Structure SVG setup ──
+  const bsW=200, bsH=280;
+  const bsPad = {l:36, r:16, t:16, b:36};
+  const bsPW = bsW - bsPad.l - bsPad.r, bsPH = bsH - bsPad.t - bsPad.b;
+
+  const bsDefs = svgEl('defs'); bsSvg.appendChild(bsDefs);
+
+  // Axis lines
+  bsSvg.appendChild(svgEl('line', {x1:bsPad.l, y1:bsPad.t, x2:bsPad.l, y2:bsPad.t+bsPH, stroke:MUTED+'60', 'stroke-width':'1'}));
+  bsSvg.appendChild(svgEl('line', {x1:bsPad.l, y1:bsPad.t+bsPH/2, x2:bsPad.l+bsPW, y2:bsPad.t+bsPH/2, stroke:MUTED+'60', 'stroke-width':'1'}));
+  const bsKLabel = svgEl('text', {x:bsPad.l+bsPW/2, y:bsH-4, 'text-anchor':'middle', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  bsKLabel.textContent='k'; bsSvg.appendChild(bsKLabel);
+  const bsELabel = svgEl('text', {x:bsPad.l-4, y:bsPad.t+10, 'text-anchor':'end', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  bsELabel.textContent='E'; bsSvg.appendChild(bsELabel);
+  const bsGamma = svgEl('text', {x:bsPad.l, y:bsPad.t+bsPH/2+14, 'text-anchor':'center', fill:MUTED, 'font-size':'9', 'font-family':'IBM Plex Mono, monospace'});
+  bsGamma.textContent='Γ'; bsSvg.appendChild(bsGamma);
+  const bsX = svgEl('text', {x:bsPad.l+bsPW, y:bsPad.t+bsPH/2+14, 'text-anchor':'center', fill:MUTED, 'font-size':'9', 'font-family':'IBM Plex Mono, monospace'});
+  bsX.textContent='X'; bsSvg.appendChild(bsX);
+
+  // Gap rect
+  const bsGapRect = svgEl('rect', {fill:BG3, display:'none'});
+  bsSvg.appendChild(bsGapRect);
+  const bsGapText = svgEl('text', {'text-anchor':'start', fill:MUTED, 'font-size':'9', 'font-family':'IBM Plex Mono, monospace', display:'none'});
+  bsSvg.appendChild(bsGapText);
+
+  // Band paths (pre-create 2 max)
+  const bsBandFills = [svgEl('path'), svgEl('path')];
+  const bsBandLines = [svgEl('path'), svgEl('path')];
+  bsBandFills.forEach(p => { p.setAttribute('display','none'); bsSvg.appendChild(p); });
+  bsBandLines.forEach(p => { p.setAttribute('display','none'); p.setAttribute('stroke-width','2.5'); p.setAttribute('fill','none'); bsSvg.appendChild(p); });
+
+  // Fermi line
+  const bsFermi = svgEl('line', {stroke:'#C84444', 'stroke-width':'1.5', 'stroke-dasharray':'5,3'});
+  bsSvg.appendChild(bsFermi);
+  const bsFermiLabel = svgEl('text', {'text-anchor':'start', fill:'#C84444', 'font-size':'10', 'font-family':'IBM Plex Mono, monospace'});
+  bsFermiLabel.textContent='E_F'; bsSvg.appendChild(bsFermiLabel);
+
+  function drawBS() {
+    const mat = matData[currentMaterial];
+    // Gap
+    if(mat.gap) {
+      const gy1 = bsPad.t + mat.gap.y1*bsPH, gy2 = bsPad.t + mat.gap.y2*bsPH;
+      bsGapRect.setAttribute('display','');
+      bsGapRect.setAttribute('x', bsPad.l); bsGapRect.setAttribute('y', gy1);
+      bsGapRect.setAttribute('width', bsPW); bsGapRect.setAttribute('height', gy2-gy1);
+      bsGapText.setAttribute('display','');
+      bsGapText.setAttribute('x', bsPad.l+4); bsGapText.setAttribute('y', (gy1+gy2)/2+4);
+      bsGapText.textContent = currentMaterial==='semiconductor' ? 'Gap ~1-3eV' : 'Gap >5eV';
+    } else {
+      bsGapRect.setAttribute('display','none');
+      bsGapText.setAttribute('display','none');
+    }
+
+    // Bands
+    mat.bands.forEach((band, idx) => {
+      const y1 = bsPad.t + band.yMin*bsPH, y2 = bsPad.t + band.yMax*bsPH;
+      const midY = (y1+y2)/2, amp = (y2-y1)/2.4;
+      const col = band.color==='teal' ? TEAL : GOLD;
+
+      // Build cosine path
+      let d = '';
+      for(let xi=0; xi<=bsPW; xi++) {
+        const tt=xi/bsPW, y=midY+amp*Math.cos(Math.PI*tt);
+        d += (xi===0 ? `M ${bsPad.l+xi} ${y}` : ` L ${bsPad.l+xi} ${y}`);
+      }
+
+      if(band.filled) {
+        bsBandFills[idx].setAttribute('display','');
+        bsBandFills[idx].setAttribute('d', d + ` L ${bsPad.l+bsPW} ${bsPad.t+bsPH} L ${bsPad.l} ${bsPad.t+bsPH} Z`);
+        bsBandFills[idx].setAttribute('fill', col+'28');
+      } else {
+        bsBandFills[idx].setAttribute('display','none');
+      }
+
+      bsBandLines[idx].setAttribute('display','');
+      bsBandLines[idx].setAttribute('d', d);
+      bsBandLines[idx].setAttribute('stroke', col);
+    });
+
+    // Hide unused band slots
+    for(let i=mat.bands.length; i<2; i++) {
+      bsBandFills[i].setAttribute('display','none');
+      bsBandLines[i].setAttribute('display','none');
+    }
+
+    // Fermi
+    const fy = bsPad.t + mat.fermiNorm*bsPH;
+    bsFermi.setAttribute('x1', bsPad.l); bsFermi.setAttribute('y1', fy);
+    bsFermi.setAttribute('x2', bsPad.l+bsPW); bsFermi.setAttribute('y2', fy);
+    bsFermiLabel.setAttribute('x', bsPad.l+4); bsFermiLabel.setAttribute('y', fy-4);
   }
-  mat.bands.forEach(band=>{
-    const y1=pad.t+band.yMin*ph,y2=pad.t+band.yMax*ph,col=band.color==='teal'?TEAL:GOLD;
-    dosctx.save();dosctx.beginPath();dosctx.moveTo(pad.l,y1);
-    const steps=60;
-    for(let i=0;i<=steps;i++){const frac=i/steps,ey=y1+frac*(y2-y1),dosV=.15+.85*(4*Math.pow(frac-.5,2)),xw=dosV*pw*.85;dosctx.lineTo(pad.l+xw,ey);}
-    dosctx.lineTo(pad.l,y2);dosctx.closePath();dosctx.fillStyle=col+'35';dosctx.fill();
-    dosctx.strokeStyle=col;dosctx.lineWidth=2;dosctx.beginPath();dosctx.moveTo(pad.l,y1);
-    for(let i=0;i<=steps;i++){const frac=i/steps,ey=y1+frac*(y2-y1),dosV=.15+.85*(4*Math.pow(frac-.5,2));dosctx.lineTo(pad.l+dosV*pw*.85,ey);}
-    dosctx.stroke();dosctx.restore();
-  });
-  const fy=pad.t+mat.fermiNorm*ph;
-  dosctx.setLineDash([5,3]);dosctx.strokeStyle='#C84444';dosctx.lineWidth=1.5;
-  dosctx.beginPath();dosctx.moveTo(pad.l,fy);dosctx.lineTo(pad.l+pw,fy);dosctx.stroke();dosctx.setLineDash([]);
-  dosctx.fillStyle='#C84444';dosctx.font='10px IBM Plex Mono, monospace';dosctx.textAlign='right';dosctx.fillText('E_F',pad.l+pw,fy-4);
-}
-function selectMaterial(name,btn){
-  currentMaterial=name;
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('material-info').innerHTML=matData[name].info;
-  drawBS();drawDOS();
-}
-drawBS();drawDOS();
+
+  // ── DOS SVG setup ──
+  const dosW=160, dosH=280;
+  const dosPad = {l:16, r:28, t:16, b:36};
+  const dosPW = dosW - dosPad.l - dosPad.r, dosPH = dosH - dosPad.t - dosPad.b;
+
+  dosSvg.appendChild(svgEl('line', {x1:dosPad.l, y1:dosPad.t, x2:dosPad.l, y2:dosPad.t+dosPH, stroke:MUTED+'60', 'stroke-width':'1'}));
+  const dosLabel = svgEl('text', {x:dosPad.l+dosPW/2, y:dosH-4, 'text-anchor':'middle', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  dosLabel.textContent='DOS'; dosSvg.appendChild(dosLabel);
+  const dosArrow = svgEl('text', {x:dosW-12, y:dosPad.t+dosPH/2+4, 'text-anchor':'middle', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  dosArrow.textContent='→'; dosSvg.appendChild(dosArrow);
+
+  const dosGapRect = svgEl('rect', {fill:BG3, display:'none'});
+  dosSvg.appendChild(dosGapRect);
+
+  const dosBandFills = [svgEl('path'), svgEl('path')];
+  const dosBandLines = [svgEl('path'), svgEl('path')];
+  dosBandFills.forEach(p => { p.setAttribute('display','none'); dosSvg.appendChild(p); });
+  dosBandLines.forEach(p => { p.setAttribute('display','none'); p.setAttribute('fill','none'); p.setAttribute('stroke-width','2'); dosSvg.appendChild(p); });
+
+  const dosFermi = svgEl('line', {stroke:'#C84444', 'stroke-width':'1.5', 'stroke-dasharray':'5,3'});
+  dosSvg.appendChild(dosFermi);
+  const dosFermiLabel = svgEl('text', {'text-anchor':'end', fill:'#C84444', 'font-size':'10', 'font-family':'IBM Plex Mono, monospace'});
+  dosFermiLabel.textContent='E_F'; dosSvg.appendChild(dosFermiLabel);
+
+  function drawDOS() {
+    const mat = matData[currentMaterial];
+    const steps = 60;
+
+    if(mat.gap) {
+      const gy1 = dosPad.t + mat.gap.y1*dosPH, gy2 = dosPad.t + mat.gap.y2*dosPH;
+      dosGapRect.setAttribute('display','');
+      dosGapRect.setAttribute('x', dosPad.l); dosGapRect.setAttribute('y', gy1);
+      dosGapRect.setAttribute('width', dosPW); dosGapRect.setAttribute('height', gy2-gy1);
+    } else {
+      dosGapRect.setAttribute('display','none');
+    }
+
+    mat.bands.forEach((band, idx) => {
+      const y1 = dosPad.t + band.yMin*dosPH, y2 = dosPad.t + band.yMax*dosPH;
+      const col = band.color==='teal' ? TEAL : GOLD;
+
+      let fillD = `M ${dosPad.l} ${y1}`;
+      let lineD = `M ${dosPad.l} ${y1}`;
+      for(let i=0; i<=steps; i++) {
+        const frac=i/steps, ey=y1+frac*(y2-y1);
+        const dosV = 0.15 + 0.85*(4*Math.pow(frac-.5,2));
+        const xw = dosV*dosPW*0.85;
+        fillD += ` L ${dosPad.l+xw} ${ey}`;
+        lineD += ` L ${dosPad.l+xw} ${ey}`;
+      }
+      fillD += ` L ${dosPad.l} ${y2} Z`;
+
+      dosBandFills[idx].setAttribute('display','');
+      dosBandFills[idx].setAttribute('d', fillD);
+      dosBandFills[idx].setAttribute('fill', col+'35');
+
+      dosBandLines[idx].setAttribute('display','');
+      dosBandLines[idx].setAttribute('d', lineD);
+      dosBandLines[idx].setAttribute('stroke', col);
+    });
+
+    for(let i=mat.bands.length; i<2; i++) {
+      dosBandFills[i].setAttribute('display','none');
+      dosBandLines[i].setAttribute('display','none');
+    }
+
+    const fy = dosPad.t + mat.fermiNorm*dosPH;
+    dosFermi.setAttribute('x1', dosPad.l); dosFermi.setAttribute('y1', fy);
+    dosFermi.setAttribute('x2', dosPad.l+dosPW); dosFermi.setAttribute('y2', fy);
+    dosFermiLabel.setAttribute('x', dosPad.l+dosPW); dosFermiLabel.setAttribute('y', fy-4);
+  }
+
+  window.selectMaterial = function(name, btn) {
+    currentMaterial = name;
+    document.querySelectorAll('.tab-row .tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('material-info').innerHTML = matData[name].info;
+    drawBS(); drawDOS();
+  };
+
+  drawBS(); drawDOS();
+})();
 
 // ─── BLOCH ───
-const blc=document.getElementById('bloch-canvas'),blctx=blc.getContext('2d');
-let activeAtoms=0,blochAnimId=null,blochT=0;
-const blochPos=[50,110,170,230,290];
-blc.addEventListener('click',function(e){
-  const rect=blc.getBoundingClientRect(),x=(e.clientX-rect.left)*(blc.width/rect.width);
-  blochPos.forEach((ax,i)=>{if(Math.abs(x-ax)<34&&i===activeAtoms)activeAtoms++;});
-  document.getElementById('bloch-label').textContent=activeAtoms===0?'انقر على الذرات واحدة تلو الأخرى':activeAtoms<5?`${activeAtoms} ذرات, استمر في النقر`:'اكتملت الشبكة, مدارات الذرات تشكّل موجة بلوخ!';
-  if(blochAnimId)cancelAnimationFrame(blochAnimId);
-  drawBloch();
-});
-function drawBloch(){
-  blctx.clearRect(0,0,blc.width,blc.height);
-  if(activeAtoms>=5){
-    blctx.beginPath();blctx.strokeStyle=TEAL+'AA';blctx.lineWidth=2.5;
-    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px,wy):blctx.lineTo(px,wy);}
-    blctx.stroke();
-    blctx.beginPath();blctx.fillStyle=TEAL+'18';
-    for(let px=0;px<blc.width;px++){const wy=60+Math.sin((px/blc.width)*Math.PI*2*2.5+blochT*.05)*28;px===0?blctx.moveTo(px,wy):blctx.lineTo(px,wy);}
-    blctx.lineTo(blc.width,60);blctx.lineTo(0,60);blctx.fill();
-  }
-  blochPos.forEach((ax,i)=>{
-    const active=i<activeAtoms;
-    if(active){const g=blctx.createRadialGradient(ax,140,0,ax,140,28);g.addColorStop(0,TEAL+'70');g.addColorStop(1,TEAL+'00');blctx.beginPath();blctx.arc(ax,140,28,0,Math.PI*2);blctx.fillStyle=g;blctx.fill();}
-    blctx.beginPath();blctx.arc(ax,140,13,0,Math.PI*2);
-    blctx.fillStyle=active?TEAL:BORDER;blctx.fill();
-    blctx.strokeStyle=active?GOLD:'transparent';blctx.lineWidth=2;blctx.stroke();
-    if(!active){blctx.fillStyle=MUTED;blctx.font='bold 16px Georgia';blctx.textAlign='center';blctx.fillText('+',ax,145);}
+(function() {
+  const svg = document.getElementById('bloch-canvas');
+  const W=360, H=200;
+  let activeAtoms=0, blochAnimId=null, blochT=0;
+  const blochPos=[50,110,170,230,290];
+  const atomY=140;
+
+  // Wave path
+  const wavePath = svgEl('path', {stroke:TEAL+'AA', 'stroke-width':'2.5', fill:'none', display:'none'});
+  const waveFill = svgEl('path', {fill:TEAL+'18', stroke:'none', display:'none'});
+  svg.appendChild(waveFill);
+  svg.appendChild(wavePath);
+
+  // Orbital halos (radial gradient glow per atom)
+  const defs = svgEl('defs');
+  blochPos.forEach((ax, i) => {
+    const rg = svgEl('radialGradient', {id:`bloch-glow-${i}`, cx:'50%', cy:'50%', r:'50%'});
+    const s0=svgEl('stop',{offset:'0%'}); s0.setAttribute('stop-color',TEAL); s0.setAttribute('stop-opacity','0.44');
+    const s1=svgEl('stop',{offset:'100%'}); s1.setAttribute('stop-color',TEAL); s1.setAttribute('stop-opacity','0');
+    rg.appendChild(s0); rg.appendChild(s1); defs.appendChild(rg);
   });
-  blochT++;
-  if(activeAtoms>=5)blochAnimId=requestAnimationFrame(drawBloch);
-}
-drawBloch();
+  svg.appendChild(defs);
 
+  const halos = blochPos.map((ax, i) => {
+    const c = svgEl('circle', {cx:ax, cy:atomY, r:28, fill:`url(#bloch-glow-${i})`, display:'none'});
+    svg.appendChild(c);
+    return c;
+  });
 
-function showDevice(key,e){
-  document.getElementById('device-info').innerHTML=deviceText[key];
-  document.getElementById('device-info').style.display='block';
-  document.querySelectorAll('.device-item').forEach(d=>d.style.borderColor='#D6D2C5');
-  e.currentTarget.style.borderColor='#2F6F6A';
-}
+  const atoms = blochPos.map((ax, i) => {
+    const c = svgEl('circle', {cx:ax, cy:atomY, r:13, fill:BORDER, stroke:'transparent', 'stroke-width':'2'});
+    svg.appendChild(c);
+    return c;
+  });
+
+  const plusSigns = blochPos.map((ax, i) => {
+    const t = svgEl('text', {x:ax, y:atomY+6, 'text-anchor':'middle', fill:MUTED, 'font-size':'16', 'font-weight':'bold', 'font-family':'Georgia'});
+    t.textContent='+'; svg.appendChild(t);
+    return t;
+  });
+
+  function buildWave() {
+    if(activeAtoms < 5) return;
+    const pts = 200;
+    let d='', df='';
+    for(let px=0; px<=W; px+=2) {
+      const wy = 60 + Math.sin((px/W)*Math.PI*2*2.5 + blochT*0.05)*28;
+      if(px===0) { d=`M ${px} ${wy}`; df=`M ${px} ${wy}`; }
+      else { d+=` L ${px} ${wy}`; df+=` L ${px} ${wy}`; }
+    }
+    wavePath.setAttribute('d', d);
+    wavePath.setAttribute('display','');
+    df += ` L ${W} 60 L 0 60 Z`;
+    waveFill.setAttribute('d', df);
+    waveFill.setAttribute('display','');
+  }
+
+  function updateAtoms() {
+    blochPos.forEach((ax, i) => {
+      const active = i < activeAtoms;
+      atoms[i].setAttribute('fill', active ? TEAL : BORDER);
+      atoms[i].setAttribute('stroke', active ? GOLD : 'transparent');
+      halos[i].setAttribute('display', active ? '' : 'none');
+      plusSigns[i].setAttribute('display', active ? 'none' : '');
+    });
+  }
+
+  function animLoop() {
+    blochT++;
+    buildWave();
+    blochAnimId = requestAnimationFrame(animLoop);
+  }
+
+  svg.addEventListener('click', function(e) {
+    const rect = svg.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (W / rect.width);
+    blochPos.forEach((ax, i) => {
+      if(Math.abs(x-ax) < 34 && i === activeAtoms) activeAtoms++;
+    });
+    updateAtoms();
+    document.getElementById('bloch-label').textContent =
+      activeAtoms===0 ? 'انقر على الذرات واحدة تلو الأخرى' :
+      activeAtoms<5   ? `${activeAtoms} ذرات، استمر في النقر` :
+                        'اكتملت الشبكة، مدارات الذرات تشكّل موجة بلوخ!';
+    if(activeAtoms >= 5 && !blochAnimId) animLoop();
+    if(activeAtoms < 5) {
+      wavePath.setAttribute('display','none');
+      waveFill.setAttribute('display','none');
+    }
+  });
+
+  updateAtoms();
+})();
 </script>
 </body>
 </html>
+
+</body></html>
