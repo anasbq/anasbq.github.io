@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>تصنيف المحفّزات: رسم تفاعلي</title>
-<meta name="description" content="رسم تفاعلي لتصنيف المحفّزات (متجانسة، غير متجانسة، حيوية) بشرح للعامة وللمتخصصين. إعداد أنس بلغيث.">
+<meta name="description" content="رسم تفاعلي لتصنيف المحفّزات (متجانسة، غير متجانسة، حيوية) مع رسوم متحركة توضّح كيف يعمل كل نوع. إعداد أنس بلغيث.">
 <link rel="canonical" href="https://anasbq.github.io/embeds/catalyst-classification.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
@@ -24,9 +24,6 @@
 #catx-anas .catx-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 #catx-anas .catx-head h3{font-size:1.2em;font-weight:700;color:var(--ink)}
 #catx-anas .catx-head p{font-size:.85em;color:var(--ink2)}
-#catx-anas .catx-seg{display:inline-flex;background:#F3F1EA;border:1px solid var(--line);border-radius:999px;padding:3px}
-#catx-anas .catx-seg button{border:0;background:transparent;border-radius:999px;padding:6px 16px;font-size:.9em;color:var(--ink2)}
-#catx-anas .catx-seg button[aria-pressed="true"]{background:var(--het);color:#fff;font-weight:700}
 #catx-anas .catx-tree{position:relative;padding:4px 0 8px}
 #catx-anas svg.catx-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
 #catx-anas svg.catx-lines path{fill:none;stroke:#B9B6A8;stroke-width:1.6}
@@ -64,10 +61,10 @@
 #catx-anas .catx-crumbs button{border:0;background:none;padding:0;color:var(--het);text-decoration:underline;text-underline-offset:3px;font-size:1em}
 #catx-anas .catx-ptitle{font-size:1.12em;font-weight:700;color:var(--ink)}
 #catx-anas .catx-pen{direction:ltr;display:inline-block;font-size:.78em;color:var(--ink2);margin:0 10px;font-weight:400}
-#catx-anas .catx-badge{display:inline-block;font-size:.72em;border-radius:999px;padding:1px 10px;margin-inline-start:8px;vertical-align:middle;background:#F3F1EA;color:var(--ink2);border:1px solid var(--line)}
-#catx-anas .catx-ptext{margin-top:8px;font-size:.97em;color:#33342F}
-#catx-anas .catx-ptext p+p{margin-top:8px}
-#catx-anas .catx-ptext span[dir="ltr"]{unicode-bidi:isolate;white-space:nowrap}
+#catx-anas .catx-stage{margin-top:10px;background:#FBFAF5;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+#catx-anas .catx-stage svg{display:block;width:100%;height:auto}
+#catx-anas .catx-stage text{font-family:inherit;font-size:12px;fill:#33342F;paint-order:stroke;stroke:#FBFAF5;stroke-width:3px;stroke-linejoin:round}
+#catx-anas .catx-cap{margin-top:10px;font-size:1em;color:#33342F;font-weight:600}
 #catx-anas .catx-nav{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
 #catx-anas .catx-nav button{border:1px solid var(--line);background:#F9F7F0;border-radius:8px;padding:5px 14px;font-size:.85em;color:var(--ink2)}
 #catx-anas .catx-nav button:hover{border-color:var(--het);color:var(--het)}
@@ -89,11 +86,7 @@
 <div class="catx-head">
   <div>
     <h3>تصنيف المحفّزات</h3>
-    <p>اضغط على أي مربع لقراءة شرحه، واختر مستوى الشرح.</p>
-  </div>
-  <div class="catx-seg" role="group" aria-label="مستوى الشرح">
-    <button type="button" data-lv="g" aria-pressed="true">للعامة</button>
-    <button type="button" data-lv="s" aria-pressed="false">للمتخصصين</button>
+    <p>اضغط على أي مربع لتشاهد كيف يعمل هذا النوع.</p>
   </div>
 </div>
 
@@ -143,9 +136,11 @@
 <div class="catx-panel" aria-live="polite">
   <div class="catx-crumbs"></div>
   <h4 class="catx-ptitle"></h4>
-  <div class="catx-ptext"></div>
+  <div class="catx-stage"></div>
+  <p class="catx-cap"></p>
   <div class="catx-nav">
     <button type="button" data-go="-1">→ السابق</button>
+    <button type="button" data-replay="1">↻ إعادة</button>
     <button type="button" data-go="1">التالي ←</button>
   </div>
 </div>
@@ -159,44 +154,217 @@
 <script>
 (function(){
   var R=document.getElementById('catx-anas'); if(!R||R.getAttribute('data-ready'))return; R.setAttribute('data-ready','1');
-  // {{...}} = نص لاتيني/معادلة يُعرض من اليسار لليمين
-  var D={
-  cat:{g:'<p>المحفّز مادة تجعل التفاعل الكيميائي أسرع، ثم تخرج منه كما دخلت تقريبًا، فيمكن استخدامها مرة بعد مرة. تخيّل التفاعل رحلة عبر جبل: المحفّز لا يغيّر نقطة الانطلاق ولا نقطة الوصول، لكنه يفتح نفقًا أقصر وأسهل.</p><p>تُقسَّم المحفّزات هنا بحسب علاقتها بخليط التفاعل: هل تذوب فيه، أم تبقى منفصلة عنه، أم مصدرها الكائنات الحية؟ والأمثلة مأخوذة من إنتاج وقود الديزل الحيوي، حيث يُحوَّل الزيت النباتي إلى وقود.</p>',
-       s:'<p>يوفّر المحفّز مسارًا تفاعليًا بديلًا بطاقة تنشيط {{(Eₐ)}} أقل، فيرفع معدّل التفاعل في الاتجاهين الأمامي والعكسي معًا دون أن يغيّر ثابت الاتزان أو {{ΔG}} للتفاعل.</p><p>يقوم هذا التصنيف على طور المحفّز نسبةً إلى طور المتفاعلات (متجانس / غير متجانس) وعلى منشئه (حيوي). ويشيع بهذا الشكل في أدبيات إنتاج الديزل الحيوي عبر الأسترة التبادلية {{(transesterification)}} للغليسريدات الثلاثية مع الميثانول، لذا تأتي الأمثلة من هذا السياق.</p>'},
-  homo:{g:'<p>محفّز يذوب في خليط التفاعل نفسه، كما يذوب السكر في الشاي. ولأنه منتشر بين كل الجزيئات، يلتقي بها بسهولة فيعمل بسرعة.</p><p>مشكلته أنه بعد انتهاء التفاعل يصعب فصله عن المنتج، فيضيع غالبًا ويحتاج المنتج إلى غسيل.</p>',
-        s:'<p>المحفّز والمتفاعلات في الطور نفسه (سائل غالبًا). المزايا: نشاط عالٍ، ومواقع نشطة متماثلة ومعرّفة جيدًا، وظروف تشغيل معتدلة نسبيًا.</p><p>العيوب: صعوبة الفصل والاسترجاع، والحاجة إلى معادلة المحفّز وغسل المنتج بما ينتجه من مياه صرف، إضافة إلى التآكل في حالة الأحماض.</p>'},
-  hbase:{g:'<p>قواعد قوية تذوب في الميثانول، أشهرها هيدروكسيد الصوديوم (الصودا الكاوية) وهيدروكسيد البوتاسيوم. رخيصة وسريعة جدًا، وهي الأكثر استخدامًا في المصانع.</p><p>لكنها لا تحب الماء ولا الأحماض الموجودة في الزيوت المستعملة؛ فإن وُجدت تكوّن صابونًا بدل الوقود.</p>',
-         s:'<p>أمثلة: {{NaOH}}، {{KOH}}، ميثوكسيد الصوديوم {{NaOCH₃}} وميثوكسيد البوتاسيوم. تعمل عبر توليد أيون الميثوكسيد {{CH₃O⁻}} الذي يهاجم كربونيل الغليسريد الثلاثي. الأسترة التبادلية بها أسرع بكثير من الحفز الحمضي، وتجري قرب 60°م تحت الضغط الجوي.</p><p>حساسة جدًا للأحماض الدهنية الحرة {{(FFA)}} والماء: تتعادل {{FFA}} مع القاعدة فيحدث التصبّن، فيُستهلك المحفّز ويصعب فصل الغليسرول؛ لذا تتطلب مواد خام مكرّرة منخفضة الحموضة.</p>'},
-  hacid:{g:'<p>أحماض قوية تذوب في الخليط، مثل حمض الكبريتيك. أبطأ من القواعد، لكنها لا تنزعج من الزيوت الرخيصة المستعملة الغنية بالأحماض الدهنية، بل تحوّل هذه الأحماض نفسها إلى وقود.</p><p>عيبها أنها تُتلف المعدات بالتآكل.</p>',
-         s:'<p>أمثلة: {{H₂SO₄}}، {{HCl}}، وأحماض السلفونيك مثل حمض بارا-تولوين سلفونيك {{(p-TSA)}}. تحفّز الأسترة {{(esterification)}} للأحماض الدهنية الحرة والأسترة التبادلية معًا دون تصبّن.</p><p>لكن معدّلها أبطأ بكثير، وتحتاج نسبًا مولية أعلى من الميثانول إلى الزيت وحرارة وزمنًا أكبر، وتسبّب التآكل. لذا تُستخدم كثيرًا خطوةً أولى لخفض {{FFA}} قبل الحفز القاعدي في العملية ذات الخطوتين.</p>'},
-  het:{g:'<p>محفّز يبقى منفصلًا عن خليط التفاعل، وهو عادةً مسحوق صلب داخل سائل. يجري التفاعل على سطحه: تلتصق الجزيئات بالسطح لحظة، تتفاعل، ثم تغادره ليستقبل غيرها.</p><p>ميزته الكبرى أنه يُفصل بسهولة بالترشيح ويُعاد استخدامه، فيقلّ الهدر والتكلفة. لكنه قد يكون أبطأ لأن الجزيئات يجب أن تصل إلى سطحه أولًا.</p>',
-       s:'<p>المحفّز في طور مختلف عن المتفاعلات (صلب في وسط سائل غالبًا). يمرّ التفاعل بخطوات: انتشار المتفاعلات إلى السطح، فالامتزاز على المواقع النشطة، فالتفاعل السطحي، ثم الانتزاز وانتشار النواتج.</p><p>المزايا: سهولة الفصل وإعادة الاستخدام، وإمكانية التشغيل المستمر، ومياه صرف أقل. التحديات: قيود انتقال الكتلة (فالزيت والميثانول والمحفّز ثلاثة أطوار)، وتسرّب الأنواع النشطة إلى الوسط {{(leaching)}} ما يجعل جزءًا من النشاط متجانسًا فعليًا، وفقدان النشاط بالتسمم أو انسداد المسام.</p><p>مساحة السطح النوعية وبنية المسام وكثافة المواقع الحمضية أو القاعدية وقوتها هي ما يحكم الأداء، وهنا يلتقي الحفز بعلم المواد.</p>'},
-  xacid:{g:'<p>مواد صلبة سطحها حمضي. تتحمّل الزيوت الرخيصة المستعملة كما تتحمّلها الأحماض الذائبة، لكنها تُفصل بسهولة ولا تسبّب التآكل نفسه.</p><p>تحتاج غالبًا حرارة أعلى ووقتًا أطول.</p>',
-         s:'<p>تحمل مواقع حمض برونستد (مانحة للبروتون مثل {{–SO₃H}}) و/أو حمض لويس (مستقبلة لزوج إلكترونات، كأيونات فلزية غير مشبعة التناسق على السطح). أمثلة: الزركونيا المكبرتة {{SO₄²⁻/ZrO₂}}، والزيوليتات، والأحماض المتعددة غير المتجانسة {{(heteropolyacids)}}، والكربون المُسلفَن، وراتنجات التبادل الأيوني.</p><p>تحفّز الأسترة والأسترة التبادلية معًا فتناسب المواد الخام عالية {{FFA}}، لكن نشاطها أقل من القواعد الصلبة، وقد يثبّطها الماء الناتج عن الأسترة.</p>'},
-  ion:{g:'<p>حبيبات بلاستيكية صغيرة ومسامية، مثبّت على سطحها وداخل مسامها مجموعات حمضية. تشبه الحبيبات المستخدمة في أجهزة إزالة عُسر الماء، لكن مجموعاتها الحمضية تجعلها محفّزًا.</p>',
-       s:'<p>بوليمرات متشابكة، غالبًا بوليستيرين مع ثنائي فينيل البنزين {{(PS-DVB)}}، تحمل مجموعات سلفونيك {{–SO₃H}}، مثل {{Amberlyst-15}}، أو بوليمرات مفلورة مثل {{Nafion}}.</p><p>يعتمد نشاطها على وصول المتفاعلات إلى المواقع الحمضية، وهذا يتحدد بانتفاخ البوليمر في المذيب وبنية المسام (هلامية أو كبيرة المسام). أبرز قيودها الثبات الحراري المحدود (نحو 120°م لـ{{Amberlyst-15}})، ما يحدّ من حرارة التشغيل. توجد أيضًا راتنجات تبادل أنيوني قاعدية، لكن الرسم يضع هذه الفئة تحت الحمضية.</p>'},
-  xbase:{g:'<p>مواد صلبة سطحها قاعدي، أشهرها أكسيد الكالسيوم (الجير الحيّ). أسرع من الصلبة الحمضية وتعمل في ظروف معتدلة، ويمكن صنع بعضها من مخلّفات رخيصة.</p><p>لكنها تتأثر بالماء والأحماض، وقد يذوب جزء منها في الخليط. تحتها خمس عائلات؛ اضغط على أيٍّ منها.</p>',
-         s:'<p>مواقعها القاعدية غالبًا أيونات أكسجين سطحية {{O²⁻}} أو مجموعات هيدروكسيل، تنتزع بروتونًا من الميثانول لتكوين الميثوكسيد على السطح. الأكثر دراسة {{CaO}} لرخصه وقاعديته العالية.</p><p>تحدياتها: التسمم بثاني أكسيد الكربون والرطوبة من الهواء (تكوّن كربونات وهيدروكسيدات سطحية) ما يستلزم تنشيطًا بالتكليس، والحساسية لـ{{FFA}}، وتسرّب أيونات الفلز (مثل {{Ca²⁺}}) إلى الوسط.</p><p>ملاحظة: العائلات الخمس تحتها مقسّمة بعضها بحسب المصدر (المخلّفات) وبعضها بحسب التركيب، لذا قد تتداخل؛ فـ{{CaO}} المحضّر من قشر البيض ينتمي إلى فئتين.</p>'},
-  waste:{g:'<p>محفّزات تُصنع من النفايات: قشر البيض، وأصداف البحر، والعظام، والرماد. قشر البيض مثلًا مكوّن أساسًا من كربونات الكالسيوم، وعند تسخينه بشدة يتحوّل إلى أكسيد الكالسيوم، وهو محفّز فعّال.</p><p>أي أن النفايات تساعد في صنع الوقود!</p>',
-         s:'<p>يتكوّن قشر البيض وأصداف الرخويات أساسًا من {{CaCO₃}}، وبالتكليس عند نحو 800–900°م يتفكك: {{CaCO₃ → CaO + CO₂}}. وتُستخدم كذلك العظام ورماد الكتلة الحيوية الغني بالبوتاسيوم.</p><p>المزايا: كلفة منخفضة جدًا، وتثمين للمخلّفات {{(valorization)}} ضمن منظور الاقتصاد الدائري. التحديات: تفاوت التركيب بين دفعة وأخرى، والشوائب، وكون المنتج في النهاية {{CaO}} بالمشاكل نفسها من تسمم وتسرّب.</p>'},
-  boron:{g:'<p>محفّزات قائمة على عناصر عائلة البورون في الجدول الدوري (المجموعة 13)، وأهمها عمليًا الألومنيوم في صورة أكسيد الألومنيوم (الألومينا).</p><p>تعمل الألومينا غالبًا «حاملًا»: سطح واسع جدًا تُثبَّت عليه مادة قاعدية نشطة.</p>',
-         s:'<p>عناصر المجموعة 13 ({{B}}، {{Al}}، {{Ga}}…). في محفّزات الديزل الحيوي يغلب استخدام {{γ-Al₂O₃}} دعامةً عالية المساحة السطحية تُحمَّل بأملاح قلوية مثل {{KF}} أو {{KI}} أو {{KNO₃}} أو {{K₂CO₃}}، فتتكوّن بعد التكليس مواقع قاعدية قوية تُنسب إلى أنواع مثل {{K₂O}} أو {{Al–O–K}}.</p><p>الألومينا نفسها مذبذبة (أمفوتيرية)، والقاعدية القوية تأتي أساسًا من الطور المحمَّل. أبرز القيود تسرّب البوتاسيوم إلى الوسط مع تكرار الاستخدام.</p>'},
-  tmo:{g:'<p>أكاسيد عناصر وسط الجدول الدوري، مثل الزركونيوم والتيتانيوم والحديد والمنغنيز. ميزتها أنها متينة وتتحمّل الماء والأحماض أكثر من غيرها، فتصلح لزيوت أقل نقاءً، لكنها تحتاج غالبًا حرارة أعلى.</p>',
-       s:'<p>أمثلة: {{ZrO₂}}، {{TiO₂}}، {{ZnO}}، {{Fe₂O₃}}، {{MnOₓ}}، وصيغها المطعّمة أو المحمّلة. يُدرج {{ZnO}} عادة في هذه الفئة في الأدبيات وإن لم يكن الزنك فلزًا انتقاليًا بالتعريف الصارم.</p><p>كثير منها مذبذب يحمل مواقع حمض لويس وقاعدة معًا، فيستطيع بعضها حفز الأسترة والأسترة التبادلية في آن، ويتحمّل {{FFA}} والماء أكثر من {{CaO}}. يُضبط النشاط بالتطعيم وحالة الأكسدة والعيوب البنيوية كفجوات الأكسجين. وضعها تحت «القاعدية» يتبع الرسم الأصلي، والأدق أنها حمضية أو قاعدية بحسب التركيب والتحضير.</p>'},
-  alk:{g:'<p>أكاسيد فلزات مثل الكالسيوم والمغنيسيوم والسترونشيوم، وأشهرها أكسيد الكالسيوم (الجير الحيّ). قاعدية قوية ورخيصة وسهلة التحضير، لذا هي أكثر المحفّزات الصلبة دراسةً في هذا المجال.</p>',
-       s:'<p>يشمل المصطلح في أدبيات الديزل الحيوي عادةً أكاسيد الفلزات القلوية (المجموعة 1) والقلوية الترابية (المجموعة 2) ومشتقاتها، مثل {{CaO}} و{{MgO}} و{{SrO}} و{{BaO}}، إضافة إلى أملاح قلوية محمّلة على دعامات.</p><p>تزداد القاعدية نزولًا في المجموعة: {{MgO < CaO < SrO < BaO}}، لكن الأشد قاعدية أكثر ذوبانًا في الميثانول وتسرّبًا (و{{BaO}} سام)، لذا يمثّل {{CaO}} حلًّا وسطًا بين النشاط والثبات والكلفة. وتُحسَّن هذه الأكاسيد بالتحميل على دعامات أو بالتطعيم (مثل {{Li/CaO}}).</p>'},
-  mix:{g:'<p>خليط من أكسيدين فلزيين أو أكثر في مادة واحدة، مثل الكالسيوم مع الزنك أو المغنيسيوم. الفكرة أن نجمع نقاط قوة كل مكوّن ونغطي نقاط ضعفه، فيصبح المحفّز أنشط وأمتن وأقل ذوبانًا في الخليط.</p>',
-       s:'<p>أمثلة: {{CaO–ZnO}}، {{CaO–MgO}}، {{CaO–La₂O₃}}، والأكاسيد المختلطة {{Mg–Al}} الناتجة عن تكليس الهيدروتالسيت.</p><p>يتيح الدمج ضبط توازن المواقع الحمضية والقاعدية وقوتها، ورفع المساحة السطحية، وتحسين الثبات وخفض تسرّب الطور النشط عبر التآثر بين المكوّنات (تأثير تآزري). كثير منها ثنائي الوظيفة، فيعالج مواد خام أعلى في {{FFA}}. التحدي: تعقيد التحضير وتحديد طبيعة المواقع النشطة الفعلية.</p>'},
-  bio:{g:'<p>محفّزات من صنع الكائنات الحية، أي الإنزيمات. جسمك يستخدمها كل لحظة لهضم الطعام، وفي الصناعة تُستخدم لأنها تعمل في حرارة معتدلة وبدقة عالية.</p>',
-       s:'<p>أساسها الإنزيمات، وهي بروتينات ذات مواقع نشطة عالية الانتقائية، تُستخدم معزولة أو داخل خلايا كاملة. تعمل في ظروف معتدلة من الحرارة والضغط، ولا تنتج صابونًا.</p><p>يضعها بعض المؤلفين فئة مستقلة كما هنا، وقد تُعامَل الإنزيمات المثبّتة على دعامة صلبة كمحفّزات غير متجانسة من حيث الطور.</p>'},
-  enz:{g:'<p>أشهرها إنزيمات الليباز، من عائلة الإنزيمات نفسها التي تهضم الدهون في جسمك. تحوّل الزيت إلى وقود في حرارة معتدلة (نحو 30–50°م) دون صابون.</p><p>لكنها غالية وأبطأ، ويمكن «تثبيتها» على سطح صلب لإعادة استخدامها.</p>',
-       s:'<p>الليبازات {{(EC 3.1.1.3)}} تحفّز الأسترة والأسترة التبادلية معًا، فتتحمّل المواد الخام عالية {{FFA}} ويسهل فصل غليسرول نقي. من أشهر الأمثلة الليباز {{B}} من {{Candida antarctica}} المثبّت {{(Novozym 435)}}، وليبازات {{Thermomyces lanuginosus}} و{{Rhizomucor miehei}}.</p><p>القيود: الكلفة العالية، والبطء، وفقدان النشاط بالميثانول (لذا يُضاف على دفعات) وبترسّب الغليسرول على سطح المحفّز. التثبيت {{(immobilization)}} على دعامات يحسّن الثبات ويسمح بإعادة الاستخدام.</p>'}
+  var D=7, C={oil:'#D9A21B',fuel:'#2F8F4E',gly:'#8A6FB0',base:'#3E5C76',acid:'#B5651D',meoh:'#7A7B70',surf:'#C9C5B6',het:'#2F6F6A',bio:'#5F6E2E',grey:'#9A9A8E',water:'#4A90C2',k:'#7D4BA0'};
+  /* ---- أدوات الحركة: كل مشهد دورة مدتها D ثوانٍ، والعناصر تعود لبدايتها وهي مخفية ---- */
+  function kt(k){var f=k[0],l=k[k.length-1];return k.concat([[.93].concat(l.slice(1)),[.97].concat(f.slice(1)),[1].concat(f.slice(1))]);}
+  function tr(k){k=kt(k);return '<animateTransform attributeName="transform" type="translate" dur="'+D+'s" repeatCount="indefinite" keyTimes="'+k.map(function(a){return a[0];}).join(';')+'" values="'+k.map(function(a){return a[1]+' '+a[2];}).join(';')+'"/>';}
+  function an(at,k){k=kt(k);return '<animate attributeName="'+at+'" dur="'+D+'s" repeatCount="indefinite" keyTimes="'+k.map(function(a){return a[0];}).join(';')+'" values="'+k.map(function(a){return a[1];}).join(';')+'"/>';}
+  function fin(a,b){return an('opacity',[[0,0],[a,0],[b,1],[.9,1]]);}
+  function win(a,b,c,d){return an('opacity',[[0,0],[a,0],[b,1],[c,1],[d,0],[.9,0]]);}
+  function tx(x,y,s,ex){return '<text x="'+x+'" y="'+y+'" text-anchor="middle" '+(ex||'')+'>'+s+'</text>';}
+  function g(anim,inner,ex){return '<g '+(ex||'')+'>'+anim+inner+'</g>';}
+  function box(x,y,w,h,f){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="12" fill="'+f+'" stroke="#E4E0D3"/>';}
+  function zig(x,y){var p=[];for(var i=0;i<7;i++)p.push((x+i*8)+','+(y-(i%2?4:0)));return p.join(' ');}
+  function tail(x,y,col,anim){return '<polyline points="'+zig(x,y)+'" fill="none" stroke="'+col+'" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">'+(anim||'')+'</polyline>';}
+  function ion(cx,cy,lab,col,k,r){r=r||11;return g(tr(k),'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+col+'"/><text x="'+cx+'" y="'+(cy+3.5)+'" text-anchor="middle" style="font-size:9px;fill:#fff;font-weight:700;stroke:none;direction:ltr;unicode-bidi:embed">'+lab+'</text>');}
+  function surface(x0,x1,y,sites){var s='<rect x="'+x0+'" y="'+y+'" width="'+(x1-x0)+'" height="30" rx="4" fill="'+C.surf+'"/>';sites.forEach(function(t){s+='<circle cx="'+t[0]+'" cy="'+y+'" r="7" fill="'+t[1]+'"/>'+(t[2]?'<text x="'+t[0]+'" y="'+(y+3)+'" text-anchor="middle" style="font-size:7px;fill:#fff;stroke:none;direction:ltr;unicode-bidi:embed">'+t[2]+'</text>':'');});return s;}
+  /* زيت (غليسريد ثلاثي): عمود + ثلاث سلاسل؛ بين t0 وt1 تنفصل السلاسل وقودًا ويبقى الغليسرول */
+  function oil(x,y,t0,t1,dir,meoh){
+    var s='<rect x="'+(x-4)+'" y="'+(y-17)+'" width="8" height="34" rx="3" fill="'+C.oil+'">'+an('fill',[[0,C.oil],[t0,C.oil],[t1,C.gly],[.9,C.gly]])+'</rect>';
+    [-12,0,12].forEach(function(dy,i){
+      var ex=dir[0]+i*4, ey=dir[1]+dy*1.6;
+      var m=meoh?g(tr([[0,40+i*12,-50-i*8],[t0-.15,40+i*12,-50-i*8],[t0-.02,0,0],[.9,0,0]]),'<circle cx="'+(x+60)+'" cy="'+(y+dy)+'" r="4.5" fill="'+C.meoh+'"/>'):'';
+      s+=g(tr([[0,0,0],[t0,0,0],[t1,ex,ey],[.9,ex,ey]]),tail(x+4,y+dy,C.oil,an('stroke',[[0,C.oil],[t0,C.oil],[t1,C.fuel],[.9,C.fuel]]))+m);
+    });
+    return s;
+  }
+  /* حمض دهني حر: سلسلة + رأس حمضي */
+  function ffa(x,y,t0,t1,toCol,hT,hF){
+    return tail(x+6,y,C.oil,an('stroke',[[0,C.oil],[t0,C.oil],[t1,toCol],[.9,toCol]]))+g(hT||'','<circle cx="'+x+'" cy="'+y+'" r="6" fill="#C0392B">'+(hF||'')+'</circle>');
+  }
+  function legend(items,x,y){var s='';items.forEach(function(it,i){s+='<circle cx="'+x+'" cy="'+(y+i*16)+'" r="5" fill="'+it[0]+'"/><text x="'+(x-10)+'" y="'+(y+4+i*16)+'" text-anchor="start" style="font-size:10.5px">'+it[1]+'</text>';});return s;}
+  var molLeg=[[C.oil,'زيت'],[C.meoh,'ميثانول'],[C.fuel,'وقود حيوي'],[C.gly,'غليسرول']];
+  function enzyme(cx,cy){var x=cx-80,y=cy;return '<path d="M'+x+' '+y+' C'+x+' '+(y-65)+' '+(x+130)+' '+(y-75)+' '+(x+150)+' '+(y-35)+' L'+(x+120)+' '+(y-10)+' L'+(x+120)+' '+(y+10)+' L'+(x+150)+' '+(y+35)+' C'+(x+130)+' '+(y+75)+' '+x+' '+(y+65)+' '+x+' '+y+' Z" fill="#EEF1E2" stroke="'+C.bio+'" stroke-width="2"/>';}
+
+  var S={
+  cat:function(){
+    var A='M40 160 C110 160 150 35 205 35 C260 35 300 185 370 185', B='M40 160 C110 160 150 110 205 110 C260 110 300 185 370 185';
+    return '<line x1="30" y1="200" x2="385" y2="200" stroke="#9A9A8E"/><line x1="30" y1="200" x2="30" y2="15" stroke="#9A9A8E"/>'+
+      tx(205,215,'سير التفاعل ←','style="font-size:10.5px"')+'<text x="20" y="110" text-anchor="middle" transform="rotate(-90 20 110)" style="font-size:10.5px">الطاقة</text>'+
+      '<path d="'+A+'" fill="none" stroke="#B9B6A8" stroke-width="2.5" stroke-dasharray="6 5"/><path d="'+B+'" fill="none" stroke="'+C.het+'" stroke-width="3"/>'+
+      tx(205,26,'بدون محفّز: تلّة عالية','style="fill:#7A7B70"')+tx(205,100,'مع المحفّز: تلّة أقل','style="fill:'+C.het+';font-weight:700"')+
+      tx(62,150,'المتفاعلات')+tx(352,176,'النواتج')+
+      '<circle r="8" fill="#9A9A8E"><animateMotion dur="'+D+'s" repeatCount="indefinite" path="'+A+'" calcMode="linear" keyPoints="0;0.38;0;0" keyTimes="0;0.4;0.75;1"/></circle>'+
+      '<circle r="8" fill="'+C.acid+'"><animateMotion dur="'+D+'s" repeatCount="indefinite" path="'+B+'" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;0.15;0.75;1"/></circle>';
+  },
+  homo:function(){
+    var dots=[[60,70],[250,60],[320,90],[90,170],[230,170],[330,160],[180,55]], s=box(20,30,360,170,'#EAF0F5');
+    dots.forEach(function(d,i){s+=g(tr([[0,0,0],[.3,(i%2?6:-6),4],[.6,-4,(i%2?-5:5)],[.9,0,0]]),'<circle cx="'+d[0]+'" cy="'+d[1]+'" r="6" fill="'+C.base+'"/>');});
+    s+=oil(140,115,.35,.6,[90,0],true)+ion(70,70,'',C.base,[[0,0,0],[.22,48,45],[.6,48,45],[.75,0,90],[.9,0,90]],9);
+    s+=tx(200,20,'المحفّز والمتفاعلات ذائبة في سائل واحد')+legend([[C.base,'المحفّز']].concat(molLeg.slice(0,1)),370,48);
+    s+=g(fin(.6,.68),tx(140,155,'غليسرول')+tx(300,160,'وقود حيوي'));
+    s+=g(fin(.7,.78),'<rect x="70" y="176" width="260" height="20" rx="6" fill="#fff" opacity=".85"/>'+tx(200,190,'لكن المحفّز يبقى مختلطًا بالمنتج','style="font-weight:700"'));
+    return s;
+  },
+  hbase:function(){
+    var s=box(8,30,188,175,'#EAF0F5')+box(204,30,188,175,'#EAF0F5');
+    s+=tx(102,20,'زيت نظيف ← وقود ✓')+tx(298,20,'زيت فيه أحماض حرة ← صابون ✗');
+    s+=oil(45,125,.35,.6,[55,0],true)+ion(25,65,'OH⁻',C.base,[[0,0,0],[.22,0,58],[.6,0,58],[.75,10,-20],[.9,10,-20]]);
+    s+=g(fin(.6,.68),tx(45,165,'غليسرول')+tx(150,170,'وقود'));
+    s+=ffa(250,115,.35,.5,C.grey)+ion(360,60,'OH⁻',C.base,[[0,0,0],[.3,-122,55],[.9,-122,55]]);
+    for(var i=0;i<5;i++)s+=g(tr([[0,0,0],[.5,0,0],[.85,(i-2)*14,-60-i*6],[.9,(i-2)*14,-60-i*6]])+win(.5,.55,.8,.86),'<circle cx="275" cy="105" r="'+(5+i%3*2)+'" fill="none" stroke="#9A9A8E" stroke-width="1.5"/>');
+    s+=g(fin(.55,.62),tx(298,170,'صابون','style="font-weight:700"')+tx(298,188,'يستهلك المحفّز ويفسد المنتج','style="font-size:10.5px"'));
+    return s;
+  },
+  hacid:function(){
+    var s=box(8,30,188,175,'#EAF0F5')+box(204,30,188,175,'#EAF0F5');
+    s+=tx(102,20,'الزيت ← وقود (أبطأ)')+tx(298,20,'الأحماض الحرة ← وقود أيضًا ✓');
+    s+=oil(45,125,.45,.8,[55,0],true)+ion(25,65,'H⁺',C.acid,[[0,0,0],[.3,0,58],[.8,0,58],[.88,10,-20],[.9,10,-20]]);
+    s+=g(fin(.8,.85),tx(45,165,'غليسرول')+tx(150,170,'وقود'));
+    s+=ffa(250,115,.4,.6,C.fuel,tr([[0,0,0],[.45,0,0],[.7,-10,55],[.9,-10,55]]),an('fill',[[0,'#C0392B'],[.45,'#C0392B'],[.6,C.water],[.9,C.water]]));
+    s+=ion(360,60,'H⁺',C.acid,[[0,0,0],[.3,-112,40],[.6,-112,40],[.75,-60,-10],[.9,-60,-10]])+g(tr([[0,60,-50],[.25,60,-50],[.4,0,0],[.9,0,0]]),'<circle cx="250" cy="105" r="4.5" fill="'+C.meoh+'"/>');
+    s+=g(fin(.6,.68),tx(300,150,'وقود')+tx(222,190,'ماء'));
+    return s;
+  },
+  het:function(){
+    var s=surface(15,255,168,[[50,C.het],[95,C.het],[140,C.het],[185,C.het],[230,C.het]]);
+    s+=tx(135,20,'التفاعل يحدث على سطح المحفّز الصلب');
+    s+=g(tr([[0,0,-90],[.25,0,0],[.9,0,0]]),oil(70,150,.35,.6,[40,-72],true));
+    s+=g(win(.22,.26,.33,.36),tx(135,214,'١. تلتصق الجزيئات بالسطح'))+g(win(.36,.4,.58,.6),tx(135,214,'٢. تتفاعل'))+g(fin(.6,.64),tx(135,214,'٣. تغادر، ويبقى السطح جاهزًا لغيرها'));
+    s+='<path d="M275 62 L385 62 L340 122 L340 150 L320 150 L320 122 Z" fill="#fff" stroke="#7A7B70" stroke-width="1.5"/><path d="M290 70 L370 70 L335 112 L325 112 Z" fill="#E7F1EF"/>';
+    for(var i=0;i<9;i++)s+='<circle cx="'+(318+(i%3)*12)+'" cy="'+(96+Math.floor(i/3)*6)+'" r="4" fill="'+C.het+'"/>';
+    s+='<rect x="305" y="178" width="50" height="34" rx="4" fill="#fff" stroke="#7A7B70"/><rect x="306" y="196" width="48" height="15" fill="#D8EEDF"/>';
+    for(var j=0;j<3;j++)s+='<circle cx="330" cy="155" r="3" fill="'+C.fuel+'"><animate attributeName="cy" values="152;195" dur="1.2s" begin="'+(j*.4)+'s" repeatCount="indefinite"/></circle>';
+    s+=tx(330,20,'ثم يُفصل بالترشيح')+tx(330,48,'♻ المحفّز يبقى ويُعاد استخدامه','style="font-size:10.5px"');
+    return s;
+  },
+  xacid:function(){
+    var sites=[];for(var x=40;x<=360;x+=40)sites.push([x,C.acid,'H⁺']);
+    var s=surface(15,385,168,sites)+tx(200,20,'سطح صلب عليه مواقع حمضية');
+    s+=g(tr([[0,0,-90],[.25,0,0],[.9,0,0]]),oil(85,150,.4,.65,[40,-72],true));
+    s+=g(tr([[0,0,-100],[.25,0,0],[.9,0,0]]),ffa(270,152,.4,.6,C.fuel,tr([[0,0,0],[.45,0,0],[.7,-20,-90],[.9,-20,-90]]),an('fill',[[0,'#C0392B'],[.45,'#C0392B'],[.6,C.water],[.9,C.water]])));
+    s+=g(fin(.65,.72),tx(120,212,'الزيت ← وقود')+tx(290,212,'الأحماض الحرة ← وقود + ماء'));
+    return s;
+  },
+  xbase:function(){
+    var sites=[];for(var x=40;x<=360;x+=40)sites.push([x,C.base,'O²⁻']);
+    var s=surface(15,385,168,sites)+tx(200,20,'سطح صلب عليه مواقع قاعدية (مثل أكسيد الكالسيوم)');
+    s+=g(tr([[0,0,-100],[.2,0,0],[.9,0,0]]),'<circle cx="80" cy="153" r="8" fill="'+C.meoh+'"/>'+g(tr([[0,0,0],[.28,0,0],[.4,0,12],[.9,0,12]]),'<circle cx="80" cy="141" r="4" fill="#fff" stroke="#7A7B70"/>')+g(fin(.38,.42),'<circle cx="80" cy="153" r="11" fill="none" stroke="'+C.acid+'" stroke-width="2"/>'));
+    s+=g(win(.25,.3,.5,.55),tx(110,110,'السطح ينتزع H من الميثانول','style="font-size:11px"')+tx(110,125,'فيصبح نشِطًا','style="font-size:11px"'));
+    s+=g(tr([[0,0,-100],[.45,0,-100],[.6,0,0],[.9,0,0]])+fin(.42,.48),oil(220,150,.66,.85,[40,-72],true));
+    s+=g(fin(.85,.88),tx(260,212,'ثم يتحوّل الزيت إلى وقود'));
+    return s;
+  },
+  ion:function(){
+    var s=tx(200,18,'حبيبة بوليمر مسامية تحمل مجموعات حمضية (SO₃H)');
+    var bead='<circle cx="200" cy="115" r="82" fill="#F3E9DA" stroke="'+C.acid+'" stroke-width="2"/>';
+    var pores=['M128 72 Q165 95 188 110','M272 62 Q238 90 212 108','M200 197 Q194 155 200 124'];
+    pores.forEach(function(p){bead+='<path d="'+p+'" stroke="#FBFAF5" stroke-width="12" fill="none" stroke-linecap="round"/>';});
+    [[150,86],[178,104],[245,80],[220,102],[198,170],[201,140],[140,150],[260,150],[200,40]].forEach(function(p){bead+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4" fill="'+C.acid+'"/>';});
+    s+='<g transform="translate(200 115)"><g><animateTransform attributeName="transform" type="scale" values="1;1.04;1" dur="'+D+'s" repeatCount="indefinite"/><g transform="translate(-200 -115)">'+bead+'</g></g></g>';
+    [[[100,50],[128,72],[180,104]],[[300,42],[272,62],[214,104]],[[200,216],[200,197],[200,132]]].forEach(function(q,i){
+      var o=q[0],m=q[1],n=q[2],d=i*.03;
+      s+=g(tr([[0,o[0],o[1]],[.1+d,o[0],o[1]],[.22+d,m[0],m[1]],[.38+d,n[0],n[1]],[.55+d,n[0],n[1]],[.7+d,m[0],m[1]],[.85,o[0],o[1]],[.9,o[0],o[1]]]),'<circle r="6" fill="'+C.oil+'">'+an('fill',[[0,C.oil],[.42,C.oil],[.5,C.fuel],[.9,C.fuel]])+'</circle>');
+    });
+    s+=legend([[C.acid,'موقع حمضي'],[C.oil,'متفاعل'],[C.fuel,'ناتج']],385,150);
+    return s;
+  },
+  waste:function(){
+    var s=tx(200,20,'CaCO₃ → CaO + CO₂','style="font-weight:700"');
+    s+=g(an('opacity',[[0,1],[.5,1],[.62,0],[.9,0]]),'<path d="M140 120 C140 66 260 66 260 120 L250 126 L235 115 L220 128 L205 114 L190 127 L175 116 L160 127 L150 118 Z" fill="#F6EBD9" stroke="#C9B48F" stroke-width="2"/>');
+    s+=g(win(0,.05,.3,.35),tx(200,150,'قشر بيض = كربونات الكالسيوم'));
+    [175,200,225].forEach(function(x,i){s+=g(an('opacity',[[0,0],[.25,0],[.3,1],[.38,.6],[.46,1],[.54,.6],[.62,1],[.67,0],[.9,0]]),'<path transform="translate('+x+' 195)" d="M0 0 C-11 -14 -3 -22 0 -34 C3 -22 11 -14 0 0Z" fill="'+(i==1?'#E67E22':'#F0A04B')+'"/>');});
+    s+=g(win(.25,.3,.62,.67),tx(320,185,'تسخين ≈ 900°م','style="font-weight:700;fill:#B5651D"'));
+    for(var i=0;i<4;i++)s+=g(tr([[0,0,0],[.35+i*.05,0,0],[.6+i*.05,(i-1.5)*30,-55],[.9,(i-1.5)*30,-55]])+win(.35+i*.05,.38+i*.05,.55+i*.05,.6+i*.05),'<circle cx="200" cy="95" r="11" fill="#fff" stroke="#9A9A8E"/><text x="200" y="98" text-anchor="middle" style="font-size:8px;stroke:none">CO₂</text>');
+    s+=g(fin(.6,.7),'<path d="M140 140 Q200 92 260 140 Z" fill="#fff" stroke="#B9B6A8" stroke-width="2"/>'+tx(200,165,'أكسيد الكالسيوم CaO: محفّز جاهز','style="font-weight:700;fill:'+C.het+'"'));
+    return s;
+  },
+  boron:function(){
+    var s='<path d="M88 178 Q82 120 140 116 Q200 100 260 116 Q318 120 312 178 Z" fill="#E7E3D6" stroke="#B9B6A8" stroke-width="2"/>';
+    [[130,150],[175,140],[220,155],[265,145],[150,168],[245,168],[200,128]].forEach(function(p){s+='<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="9" ry="5" fill="#D2CDBB"/>';});
+    s+=tx(200,198,'الألومينا Al₂O₃: حامل بمساحة سطح كبيرة','style="font-size:11px"')+tx(200,20,'تُثبَّت مادة قاعدية (مثل البوتاسيوم K) على سطح الألومينا','style="font-size:11px"');
+    [[120,123],[150,114],[180,109],[210,107],[240,109],[270,114],[295,124]].forEach(function(p,i){
+      var t=.05+i*.04;
+      s+=g(tr([[0,0,-80],[t,0,-80],[t+.15,0,0],[.9,0,0]])+fin(t,t+.03),'<circle cx="'+p[0]+'" cy="'+(p[1]-6)+'" r="6" fill="'+C.k+'"/><text x="'+p[0]+'" y="'+(p[1]-3)+'" text-anchor="middle" style="font-size:7px;fill:#fff;stroke:none">K</text>');
+      s+='<circle cx="'+p[0]+'" cy="'+(p[1]-6)+'" r="10" fill="none" stroke="'+C.fuel+'" stroke-width="2">'+an('opacity',[[0,0],[.5,0],[.58,1],[.66,.3],[.74,1],[.82,.3],[.9,1]])+'</circle>';
+    });
+    s+=g(fin(.52,.58),tx(200,62,'فتصبح مواقع قاعدية نشطة','style="font-weight:700;fill:'+C.fuel+'"'));
+    return s;
+  },
+  tmo:function(){
+    var sites=[];for(var x=40,i=0;x<=360;x+=40,i++)sites.push([x,i%2?C.acid:C.base,'']);
+    var s=surface(15,385,168,sites)+tx(200,20,'سطح أكسيد فلز انتقالي: مواقع حمضية وقاعدية معًا','style="font-size:11.5px"');
+    s+=legend([[C.base,'موقع قاعدي'],[C.acid,'موقع حمضي']],385,40);
+    s+=g(tr([[0,0,-90],[.25,0,0],[.9,0,0]]),oil(80,150,.35,.6,[40,-72],true));
+    s+=g(tr([[0,0,-100],[.25,0,0],[.9,0,0]]),ffa(274,152,.4,.6,C.fuel,tr([[0,0,0],[.45,0,0],[.7,-20,-90],[.9,-20,-90]]),an('fill',[[0,'#C0392B'],[.45,'#C0392B'],[.6,C.water],[.9,C.water]])));
+    s+=g(tr([[0,0,-110],[.15,0,-110],[.35,0,0],[.55,25,-100],[.9,25,-100]]),'<path transform="translate(200 160)" d="M0 0 C-7 -6 -6 -12 0 -20 C6 -12 7 -6 0 0Z" fill="'+C.water+'"/>');
+    s+=g(win(.35,.4,.7,.75),tx(200,212,'الماء يرتد عنه دون أن يعطّله'))+g(fin(.75,.8),tx(200,212,'الزيت والأحماض الحرة تتحول إلى وقود'));
+    return s;
+  },
+  alk:function(){
+    var gr=[['MgO',70,25,0],['CaO',160,45,1],['SrO',250,65,3],['BaO',340,85,5]], s=tx(200,20,'كلما زادت القاعدية زاد الذوبان والتسرّب','style="font-weight:700"');
+    s+='<rect x="292" y="34" width="10" height="10" fill="'+C.base+'"/><text x="286" y="43" text-anchor="start" style="font-size:10.5px">قوة القاعدية</text><circle cx="168" cy="39" r="4" fill="'+C.k+'"/><text x="160" y="43" text-anchor="start" style="font-size:10.5px">أيونات تتسرّب</text>';
+    gr.forEach(function(a){
+      var x=a[1],h=a[2];
+      s+='<rect x="'+(x-30)+'" y="158" width="60" height="34" rx="8" fill="#F3F1EA" stroke="#B9B6A8"/>'+tx(x,180,a[0],'style="font-weight:700"');
+      s+='<rect x="'+(x-8)+'" width="16" fill="'+C.base+'" rx="2">'+an('height',[[0,0],[.1,0],[.4,h],[.9,h]])+an('y',[[0,152],[.1,152],[.4,152-h],[.9,152-h]])+'</rect>';
+      for(var i=0;i<a[3];i++)s+=g(tr([[0,0,0],[.45+i*.04,0,0],[.85,24+i*4,-20-i*14],[.9,24+i*4,-20-i*14]])+win(.45+i*.04,.48+i*.04,.82,.86),'<circle cx="'+(x+22)+'" cy="165" r="4" fill="'+C.k+'"/>');
+    });
+    s+=g(fin(.7,.76),'<rect x="126" y="154" width="68" height="42" rx="10" fill="none" stroke="'+C.fuel+'" stroke-width="3"/>'+tx(160,212,'CaO: أفضل توازن','style="font-weight:700;fill:'+C.fuel+'"'));
+    return s;
+  },
+  mix:function(){
+    var s=tx(110,20,'أكسيد واحد (CaO)')+tx(290,20,'أكسيد مختلط (CaO–ZnO)');
+    function grain(cx,mix){var r='<rect x="'+(cx-55)+'" y="70" width="110" height="90" rx="14" fill="#F3F1EA" stroke="#B9B6A8" stroke-width="2"/>';
+      for(var i=0;i<4;i++)for(var j=0;j<3;j++)r+='<circle cx="'+(cx-39+i*26)+'" cy="'+(90+j*25)+'" r="8" fill="'+(mix&&(i+j)%2?'#7A8FA6':'#fff')+'" stroke="#9A9A8E"/>';return r;}
+    s+=grain(110,0)+grain(290,1);
+    [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(d,i){
+      var t=.15+i*.08;
+      s+=g(tr([[0,0,0],[t,0,0],[t+.35,d[0]*70,d[1]*55],[.9,d[0]*70,d[1]*55]])+an('opacity',[[0,0],[t,0],[t+.03,1],[t+.3,1],[t+.38,0],[.9,0]]),'<circle cx="'+(110+d[0]*45)+'" cy="'+(115+d[1]*35)+'" r="6" fill="'+C.k+'"/>');
+      s+=g(tr([[0,0,0],[t,0,0],[t+.12,d[0]*12,d[1]*10],[t+.26,0,0],[.9,0,0]])+an('opacity',[[0,0],[t,0],[t+.03,1],[t+.24,1],[t+.28,0],[.9,0]]),'<circle cx="'+(290+d[0]*45)+'" cy="'+(115+d[1]*35)+'" r="6" fill="'+C.k+'"/>');
+    });
+    s+=g(fin(.5,.58),tx(110,198,'تتسرّب أيوناته إلى الخليط','style="fill:#C0392B"')+tx(290,198,'المكوّنان يثبّت أحدهما الآخر','style="fill:'+C.fuel+'"'));
+    return s;
+  },
+  bio:function(){
+    var s=enzyme(150,115)+tx(115,120,'إنزيم','style="font-weight:700;fill:'+C.bio+'"');
+    s+=tx(200,20,'الإنزيم فيه جيب يناسب جزيئًا محددًا، كالمفتاح والقفل','style="font-size:11.5px"');
+    var A='<polygon points="192,106 220,84 238,84 238,146 220,146 192,124" fill="'+C.oil+'">'+an('fill',[[0,C.oil],[.5,C.oil],[.6,C.fuel],[.9,C.fuel]])+'</polygon>';
+    var B='<rect x="238" y="95" width="52" height="40" rx="8" fill="'+C.oil+'">'+an('fill',[[0,C.oil],[.5,C.oil],[.6,C.gly],[.9,C.gly]])+'</rect>';
+    s+=g(tr([[0,110,0],[.1,110,0],[.32,0,0],[.9,0,0]]),g(tr([[0,0,0],[.5,0,0],[.75,110,55],[.9,110,55]]),A)+g(tr([[0,0,0],[.5,0,0],[.75,70,-55],[.9,70,-55]]),B));
+    s+=g(fin(.55,.62),tx(200,205,'يقطع الجزيء ثم يعود جاهزًا لجزيء آخر'));
+    return s;
+  },
+  enz:function(){
+    var s=enzyme(110,115)+tx(75,120,'ليباز','style="font-weight:700;fill:'+C.bio+'"');
+    s+=tx(200,20,'إنزيم الليباز يقطع الزيت إلى وقود وغليسرول');
+    s+=g(tr([[0,130,0],[.05,130,0],[.3,0,0],[.9,0,0]]),oil(165,115,.4,.72,[95,0],true));
+    s+='<rect x="355" y="40" width="10" height="60" rx="5" fill="#fff" stroke="#7A7B70"/><circle cx="360" cy="106" r="9" fill="#E67E22"/><rect x="357" y="72" width="6" height="30" fill="#E67E22"/>'+tx(345,132,'≈ 40°م','style="font-weight:700;fill:#B5651D"');
+    s+=g(fin(.72,.78),tx(165,160,'غليسرول')+tx(300,165,'وقود')+tx(200,205,'دون صابون، وفي حرارة معتدلة','style="font-weight:700"'));
+    return s;
+  }
   };
-  var tree=R.querySelector('.catx-tree'), svg=R.querySelector('.catx-lines');
+  var CAP={
+    cat:'المحفّز يفتح طريقًا أسهل للتفاعل، ويخرج منه دون أن يُستهلك.',
+    homo:'يذوب في خليط التفاعل نفسه: سريع، لكن فصله بعد التفاعل صعب.',
+    hbase:'مثل الصودا الكاوية: سريع ورخيص، لكنه يصنع صابونًا إذا كان في الزيت أحماض حرة.',
+    hacid:'مثل حمض الكبريتيك: أبطأ، لكنه يحوّل الأحماض الحرة إلى وقود أيضًا.',
+    het:'صلب لا يذوب: يجري التفاعل على سطحه، ثم يُفصل ويُعاد استخدامه.',
+    xacid:'سطح صلب حمضي: يتحمّل الزيوت المستعملة، لكنه يحتاج حرارة أعلى.',
+    ion:'حبيبات بوليمر مسامية تنتفخ في السائل، فتدخلها الجزيئات وتتفاعل عند المجموعات الحمضية ثم تخرج.',
+    xbase:'سطح صلب قاعدي: أسرع من الحمضي، لكنه يتأثر بالماء والأحماض.',
+    waste:'قشر البيض والأصداف تتحوّل بالتسخين إلى محفّز رخيص.',
+    boron:'الألومينا تعمل حاملًا: سطح واسع تُثبَّت عليه المادة النشطة.',
+    tmo:'مواقع حمضية وقاعدية على السطح نفسه، فيتحمّل الماء والأحماض أكثر.',
+    alk:'أكسيد الكالسيوم الأكثر استخدامًا: قاعدي بما يكفي، وأقل ذوبانًا من الأقوى منه.',
+    mix:'خلط أكسيدين يجعل المحفّز أنشط وأقل تسرّبًا.',
+    bio:'محفّزات من الكائنات الحية: دقيقة جدًا وتعمل في ظروف معتدلة.',
+    enz:'الليباز يحوّل الزيت إلى وقود في حرارة معتدلة ودون صابون، لكنه مكلف وأبطأ.'
+  };
+  var tree=R.querySelector('.catx-tree'), svg=R.querySelector('.catx-lines'), stage=R.querySelector('.catx-stage');
   var nodes=[].slice.call(R.querySelectorAll('.catx-n')), byId={};
   nodes.forEach(function(n){byId[n.getAttribute('data-id')]=n;});
-  var lv='g', cur='cat', NS='http://www.w3.org/2000/svg';
-  function fmt(h){return h.replace(/\{\{(.+?)\}\}/g,'<span dir="ltr">$1</span>');}
+  var cur='cat', NS='http://www.w3.org/2000/svg';
   function chain(id){var a=[];while(id){a.unshift(id);id=byId[id].getAttribute('data-p');}return a;}
   function title(id){return byId[id].querySelector('b').textContent;}
   function colorOf(id){var br=byId[id].closest('[data-br]');return br?getComputedStyle(br).getPropertyValue('--c'):'';}
@@ -218,15 +386,17 @@
       var dot=document.createElementNS(NS,'circle'); dot.setAttribute('cx',ex); dot.setAttribute('cy',ey); dot.setAttribute('r',lit?3.5:2.5); if(lit)dot.setAttribute('class','catx-on'); svg.appendChild(dot);
     });
   }
+  function play(id){stage.innerHTML='<svg viewBox="0 0 400 220" role="img" aria-label="'+CAP[id]+'" xmlns="'+NS+'"><g>'+'<animate attributeName="opacity" dur="'+D+'s" repeatCount="indefinite" keyTimes="0;0.9;0.93;0.97;1" values="1;1;0;0;1"/>'+S[id]()+'</g></svg>';}
   function show(id){
     cur=id;
     nodes.forEach(function(n){n.classList.toggle('catx-sel',n.getAttribute('data-id')===id);n.setAttribute('aria-pressed',n.getAttribute('data-id')===id?'true':'false');});
     var n=byId[id], panel=R.querySelector('.catx-panel'), ch=chain(id);
     panel.style.setProperty('--pc',colorOf(id)||'var(--root)');
     R.querySelector('.catx-crumbs').innerHTML=ch.slice(0,-1).map(function(a){return '<button type="button" data-to="'+a+'">'+title(a)+'</button>';}).join(' ‹ ')||'&nbsp;';
-    R.querySelector('.catx-ptitle').innerHTML=title(id)+'<span class="catx-pen">'+n.querySelector('small').innerHTML+'</span><span class="catx-badge">'+(lv==='g'?'للعامة':'للمتخصصين')+'</span>';
-    R.querySelector('.catx-ptext').innerHTML=fmt(D[id][lv]);
-    var i=nodes.indexOf(n), nav=R.querySelectorAll('.catx-nav button');
+    R.querySelector('.catx-ptitle').innerHTML=title(id)+'<span class="catx-pen">'+n.querySelector('small').innerHTML+'</span>';
+    R.querySelector('.catx-cap').textContent=CAP[id];
+    play(id);
+    var i=nodes.indexOf(n), nav=R.querySelectorAll('[data-go]');
     nav[0].disabled=i===0; nav[1].disabled=i===nodes.length-1;
     draw();
   }
@@ -235,8 +405,8 @@
     var t=e.target.closest('button'); if(!t||!R.contains(t))return;
     if(t.hasAttribute('data-id'))show(t.getAttribute('data-id'));
     else if(t.hasAttribute('data-to'))show(t.getAttribute('data-to'));
+    else if(t.hasAttribute('data-replay'))play(cur);
     else if(t.hasAttribute('data-go')){var i=nodes.indexOf(byId[cur])+(+t.getAttribute('data-go'));if(nodes[i])show(nodes[i].getAttribute('data-id'));}
-    else if(t.hasAttribute('data-lv')){lv=t.getAttribute('data-lv');[].forEach.call(R.querySelectorAll('[data-lv]'),function(b){b.setAttribute('aria-pressed',b===t?'true':'false');});show(cur);}
   });
   if(window.ResizeObserver)new ResizeObserver(layout).observe(R); else window.addEventListener('resize',layout);
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
