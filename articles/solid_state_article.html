@@ -1,10 +1,19 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!doctype html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>الكيمياء والفيزياء في المادة الصلبة</title>
+<title>كيف تلتقي الكيمياء والفيزياء في فهم المادة الصلبة؟ | أنس بلغيث</title>
+<meta name="description" content="لماذا يقرأ الكيميائي والفيزيائي البيانات نفسها بطريقتين مختلفتين؟ شرح مبسط للمدارات الذرية ونطاقات الطاقة، انطلاقاً من مقال رولد هوفمان الشهير (1987).">
+<meta name="author" content="أنس بلغيث">
+<link rel="canonical" href="https://anasbq.github.io/articles/solid_state_article.html">
+<link rel="alternate" type="application/rss+xml" title="مقالات أنس بلغيث" href="https://anasbq.github.io/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:title" content="كيف تلتقي الكيمياء والفيزياء في فهم المادة الصلبة؟">
+<meta property="og:description" content="لماذا يقرأ الكيميائي والفيزيائي البيانات نفسها بطريقتين مختلفتين؟ شرح مبسط للمدارات الذرية ونطاقات الطاقة، انطلاقاً من مقال رولد هوفمان الشهير (1987).">
+<meta property="og:url" content="https://anasbq.github.io/articles/solid_state_article.html">
+<meta property="og:image" content="https://anasbq.github.io/images/me.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}
@@ -170,15 +179,22 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
 <body>
 <div style="width:100%;min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;background:#F3F1EA;">
 
-<header style="padding:16px 24px;border-bottom:1px solid #E4E0D3;">
-  <a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;">← Anas Balghaith</a>
+<header dir="rtl" lang="ar" class="ar" style="position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:12px 24px;background:#F3F1EA;border-bottom:1px solid #E4E0D3;">
+  <a href="../ar/index.html" style="font-size:15px;font-weight:600;">أنس بلغيث</a>
+  <nav style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;font-size:15px;">
+    <a href="../ar/index.html#articles" style="padding:8px 12px;">كل المقالات</a>
+    <a href="../ar/index.html#about" style="padding:8px 12px;">من أنا</a>
+    <a href="../ar/index.html#contact" style="padding:8px 12px;">تواصل معي</a>
+    <a href="../index.html" lang="en" dir="ltr" style="padding:6px 14px;border:1.5px solid #2F6F6A;border-radius:20px;font-size:13px;font-weight:600;font-family:'IBM Plex Mono',monospace;">English</a>
+  </nav>
 </header>
 
 <article class="ar" dir="rtl" lang="ar" style="padding:clamp(48px,8vw,96px) 24px;display:flex;justify-content:center;">
   <div style="max-width:680px;width:100%;display:flex;flex-direction:column;gap:20px;text-align:right;">
 
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.02em;color:#2F6F6A;">[سبتمبر 2026]</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.02em;color:#2F6F6A;">سبتمبر 2026</div>
     <h1 style="margin:0;font-size:clamp(26px,4.5vw,40px);line-height:1.35;color:#1B1F1E;">كيف تلتقي الكيمياء والفيزياء في فهم المادة الصلبة؟</h1>
+    <p style="margin:0;font-size:19px;line-height:1.8;color:#4A4B44;">حين قرأ مشرفاي النتائج نفسها ووصلا إلى حكمين متضادين، وجدت الجواب في مقال كتبه كيميائي حائز على نوبل قبل نحو أربعين عاماً. في هذا المقال ستفهم لماذا يختلفان، وما المدارات ونطاقات الطاقة، ولماذا يحتاج كل منهما لغة الآخر.</p>
 
     <!-- ── INTRO ── -->
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">في نهاية السنة الماضية، أرسلتُ بحثي لمشرفَيّ، أحدهما فيزيائية والآخر كيميائي، وكلاهما خبير في مجاله ودرسا تحت أحد علماء المادة الصلبة. لكن صدمني ما حدث: جاء ردّ الفيزيائية أولاً: "النتائج رائعة وتستحق النشر". ثم جاء ردّ الكيميائي: "هممم... لا أثق بالنتائج". رغم أنني عملتُ التجربة مرتين وحصلتُ على نفس النتائج، وبالغالب حِدسُه الكيميائي وخبرته يقولان له أن لا يثق بسبب التركيبة الكيميائية.</p>
@@ -280,7 +296,9 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
     </div>
 
     <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">
-مستوى فيرمي E_F هو الحدّ الفاصل، الحالات التي تحته ممتلئة بإلكترونات تسمى بـ نطاق الإلكترونات (Valence Band) ويكون دائماً في الجانب السالب من الطاقة، والحالات فوقه فارغة تسمى بـ نطاق التوصيل (Conduction band) وتكون في الجانب الموجب من الطاقة، وعندما تحتاج المادة مثلاً أن توصل الكهرباء يحتاج الإلكترون الحر أن يقفز من النطاق السفلي إلى العلوي حتى يستطيع أن يكون موصل، ولكن هذه القفزة تحتاج طاقة، وهذه الطاقة تحدد بالمسافة بين أعلى نقطة في نطاق الإلكترونات الحرة وأدنى نقطة في نطاق التوصيل. في المعادن مثلاً، النطاقين لا يوجد بينهم فراغ أو مسافة ويتداخلان، ومستوى فيرمي يقع في وسط هذا التداخل والإلكترونات تتحرك بحرية بينهم ولهذا السبب المعادن موصلة جيدة للكهرباء. في المواد العازلة، النطاقين منفصلين والمسافة كبيرة بينهم مثل بعض مواد السيراميك SiC، الإلكترونات لا تستطيع التنقل بين النطاقين بسبب كبر المسافة. أما شبه الموصل؟ فهو ما بين العوازل والموصلات، يستطيع الإلكترون الحر في هذه المواد أن يقفز إلى نطاق التوصيل بعد أن كسب بعض الطاقة ولأن المسافة بين النطاقين قصيرة فالإلكترون يحتاج طاقة قليلة حتى يقفز وعندما لا يكتسب طاقة يكون عازل تماماً مثل مادة السيليكون Si.</p>
+مستوى فيرمي E_F هو الحدّ الفاصل، الحالات التي تحته ممتلئة بإلكترونات تسمى نطاق التكافؤ (Valence Band) ويكون دائماً في الجانب السالب من الطاقة، والحالات فوقه فارغة تسمى بـ نطاق التوصيل (Conduction band) وتكون في الجانب الموجب من الطاقة، وحتى توصل المادة الكهرباء يحتاج الإلكترون أن يقفز من النطاق السفلي إلى العلوي حتى يستطيع أن يكون موصل، ولكن هذه القفزة تحتاج طاقة، وهذه الطاقة تحدد بالمسافة بين أعلى نقطة في نطاق التكافؤ وأدنى نقطة في نطاق التوصيل. </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">في المعادن مثلاً، النطاقين لا يوجد بينهم فراغ أو مسافة ويتداخلان، ومستوى فيرمي يقع في وسط هذا التداخل والإلكترونات تتحرك بحرية بينهم ولهذا السبب المعادن موصلة جيدة للكهرباء. في المواد العازلة، النطاقين منفصلين والمسافة كبيرة بينهم مثل الزجاج (SiO₂)، فالإلكترونات لا تستطيع التنقل بين النطاقين بسبب كبر المسافة. </p>
+    <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">أما شبه الموصل؟ فهو ما بين العوازل والموصلات، يستطيع الإلكترون في هذه المواد أن يقفز إلى نطاق التوصيل بعد أن كسب بعض الطاقة ولأن المسافة بين النطاقين قصيرة فالإلكترون يحتاج طاقة قليلة حتى يقفز وعندما لا يكتسب طاقة يكون عازل تماماً مثل مادة السيليكون Si.</p>
 
  <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;">
 على أي حال، ربما لاحظت عند أعلى نقطة أسفل مستوى فيرمي نقول عنها الإلكترونات الحرة "Valence Electron" وهذا هو قول الفيزيائي، لكن هو نفس الفكرة التي يستخدمها الكيميائي حين يتحدث عن أعلى مدار مشغول "HOMO". اللغتان تصفان نفس النقطة والشيء مجدداً.</p>
@@ -315,14 +333,17 @@ input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
         <p style="margin:0;font-size:17px;line-height:1.9;color:#33342F;"></p>
 
 
-    <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">مستوحى من: Roald Hoffmann (1987)، "How Chemistry and Physics Meet in the Solid State"</p>
+    <h2 style="margin:16px 0 0;font-size:22px;color:#1B1F1E;">المصادر</h2>
+    <ul style="margin:0;padding-right:20px;font-size:15px;line-height:1.9;color:#33342F;">
+      <li><span lang="en" dir="ltr">Hoffmann, R. (1987). How Chemistry and Physics Meet in the Solid State. <em>Angewandte Chemie International Edition in English</em>, 26(9), 846–878.</span> <a href="https://doi.org/10.1002/anie.198708461" dir="ltr">doi.org/10.1002/anie.198708461</a></li>
+    </ul>
 
         <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">توضيح: أُستخدم الذكاء الإصطناعي لعمل الرسومات التفاعلية والتصحيح اللغوي.</p>
   </div>
 </article>
 
 <footer style="padding:32px 24px;display:flex;justify-content:center;">
-  <a href="../index.html#articles" style="font-size:14px;font-weight:600;font-family:'IBM Plex Mono',monospace;">← Back to all articles</a>
+  <a href="../ar/index.html#articles" class="ar" dir="rtl" style="font-size:14px;font-weight:600;font-family:'IBM Plex Mono',monospace;">→ العودة إلى كل المقالات</a>
 </footer>
 
 </div>
@@ -953,5 +974,3 @@ function svgEl(tag, attrs) {
 </script>
 </body>
 </html>
-
-</body></html>
