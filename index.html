@@ -196,8 +196,17 @@ a:hover{color:#173F3B;text-decoration:underline;}
 <section id="contact" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3;">
   <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
     <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">Get in touch</h2>
-    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">Email: <a href="mailto:anasqalasi@gmail.com" style="font-weight: 600;">anasqalasi@gmail.com</a></p>
-    <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #33342F;">Have a question about an article or about solar cells? <a href="mailto:anasqalasi@gmail.com?subject=Question%20from%20your%20website" style="font-weight: 600;">Send it to me</a> and I'll answer it, and good questions may become the next article.</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+      <span style="font-size: 17px; color: #33342F;">Email:</span>
+      <span dir="ltr" style="font-weight: 600; font-size: 17px; color: #235E59;">anasqalasi@gmail.com</span>
+      <button type="button" class="copy-email" style="padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; border: 1.5px solid #2F6F6A; background: #FBFAF5; color: #1F4F4B;">Copy email</button>
+    </div>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">Have a question about an article or about solar cells? Send it to me and I'll answer it, and good questions may become the next article.</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=anasqalasi@gmail.com&amp;su=Question%20from%20your%20website" target="_blank" rel="noopener" style="padding: 10px 20px; border-radius: 8px; background: #2F6F6A; color: #F9F7F0; font-weight: 600; font-size: 15px;">Write to me in Gmail</a>
+      <a href="mailto:anasqalasi@gmail.com?subject=Question%20from%20your%20website" style="font-size: 15px;">or open your mail app</a>
+    </div>
+    <p class="copy-status" role="status" style="margin: 0; font-size: 14px; color: #2F6F6A; min-height: 1em;"></p>
     <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #7A7B70;">Universiti Tunku Abdul Rahman (UTAR) </p>
   </div>
 </section>
@@ -262,6 +271,17 @@ a:hover{color:#173F3B;text-decoration:underline;}
 
   render();
 })();
+</script>
+<script>
+document.querySelectorAll('.copy-email').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var status = document.querySelector('.copy-status');
+    function show(t) { if (status) { status.textContent = t; } }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText('anasqalasi@gmail.com').then(function () { show('Email copied. Paste it into any mail app you use.'); }, function () { show('Could not copy. Please copy the address above by hand.'); });
+    } else { show('Could not copy. Please copy the address above by hand.'); }
+  });
+});
 </script>
 </body>
 </html>

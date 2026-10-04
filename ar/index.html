@@ -194,8 +194,17 @@ a:hover{color:#173F3B;text-decoration:underline;}
 <section id="contact" style="padding: 64px 24px; background: #FBFAF5; border-top: 1px solid #E4E0D3;">
   <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
     <h2 style="margin: 0; font-size: clamp(26px,3.5vw,36px); color: #1B1F1E;">تواصل معي</h2>
-    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">البريد الإلكتروني: <a href="mailto:anasqalasi@gmail.com" style="font-weight: 600;" dir="ltr">anasqalasi@gmail.com</a></p>
-    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">عندك سؤال عن مقال أو عن الخلايا الشمسية؟ <a href="mailto:anasqalasi@gmail.com?subject=%D8%B3%D8%A4%D8%A7%D9%84%20%D9%85%D9%86%20%D9%85%D9%88%D9%82%D8%B9%D9%83" style="font-weight: 600;">أرسله لي</a> وسأجيب عنه، وقد يصبح السؤال الجيد موضوع المقال القادم.</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+      <span style="font-size: 17px; color: #33342F;">البريد الإلكتروني:</span>
+      <span dir="ltr" style="font-weight: 600; font-size: 17px; color: #235E59;">anasqalasi@gmail.com</span>
+      <button type="button" class="copy-email" style="padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; border: 1.5px solid #2F6F6A; background: #FBFAF5; color: #1F4F4B;">نسخ البريد</button>
+    </div>
+    <p style="margin: 0; font-size: 17px; line-height: 1.9; color: #33342F;">عندك سؤال عن مقال أو عن الخلايا الشمسية؟ أرسله لي وسأجيب عنه، وقد يصبح السؤال الجيد موضوع المقال القادم.</p>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+      <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=anasqalasi@gmail.com&amp;su=%D8%B3%D8%A4%D8%A7%D9%84%20%D9%85%D9%86%20%D9%85%D9%88%D9%82%D8%B9%D9%83" target="_blank" rel="noopener" style="padding: 10px 20px; border-radius: 8px; background: #2F6F6A; color: #F9F7F0; font-weight: 600; font-size: 15px;">اكتب لي عبر Gmail</a>
+      <a href="mailto:anasqalasi@gmail.com?subject=%D8%B3%D8%A4%D8%A7%D9%84%20%D9%85%D9%86%20%D9%85%D9%88%D9%82%D8%B9%D9%83" style="font-size: 15px;">أو افتح تطبيق البريد في جهازك</a>
+    </div>
+    <p class="copy-status" role="status" style="margin: 0; font-size: 14px; color: #2F6F6A; min-height: 1em;"></p>
     <p style="margin: 0; font-size: 15px; line-height: 1.9; color: #7A7B70;">Universiti Tunku Abdul Rahman (UTAR)</p>
   </div>
 </section>
@@ -260,6 +269,17 @@ a:hover{color:#173F3B;text-decoration:underline;}
 
   render();
 })();
+</script>
+<script>
+document.querySelectorAll('.copy-email').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var status = document.querySelector('.copy-status');
+    function show(t) { if (status) { status.textContent = t; } }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText('anasqalasi@gmail.com').then(function () { show('نُسخ البريد. ألصقه في أي تطبيق بريد تستخدمه.'); }, function () { show('لم يتم النسخ. انسخ العنوان يدوياً من الأعلى.'); });
+    } else { show('لم يتم النسخ. انسخ العنوان يدوياً من الأعلى.'); }
+  });
+});
 </script>
 </body>
 </html>

@@ -44,7 +44,7 @@ ol{margin:0;padding-right:22px;font-size:16px;line-height:1.9;color:#33342F;}
       <code id="feed-url">https://anasbq.github.io/feed.xml</code>
       <button type="button" id="copy-btn">نسخ العنوان</button>
     </div>
-    <p style="font-size:15px;color:#52534C;">لا تستخدم RSS؟ يمكنك أيضاً زيارة <a href="ar/index.html#articles">قائمة المقالات</a> من حين لآخر، أو <a href="mailto:anasqalasi@gmail.com">مراسلتي</a>.</p>
+    <p style="font-size:15px;color:#52534C;">لا تستخدم RSS؟ يمكنك أيضاً زيارة <a href="ar/index.html#articles">قائمة المقالات</a> من حين لآخر، أو <a href="ar/index.html#contact">مراسلتي</a>.</p>
   </div>
   <h2 style="font-size:24px;margin-top:12px;">آخر ما نشرت</h2>
   <xsl:for-each select="item">
