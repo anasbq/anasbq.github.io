@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تصنيف المحفّزات: رسم تفاعلي</title>
+<meta name="description" content="رسم تفاعلي لتصنيف المحفّزات (متجانسة، غير متجانسة، حيوية) بشرح للعامة وللمتخصصين. إعداد أنس بلغيث.">
+<link rel="canonical" href="https://anasbq.github.io/embeds/catalyst-classification.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:transparent}body{font-family:'Noto Naskh Arabic',Tahoma,sans-serif;padding:4px}#catx-anas{margin:0!important}</style>
+</head>
+<body>
+<!-- ===== بداية: رسم تفاعلي لتصنيف المحفّزات (انسخ كل ما بين البداية والنهاية) ===== -->
+<div id="catx-anas" dir="rtl" lang="ar">
+<style>
+#catx-anas{--ink:#1B1F1E;--ink2:#52534C;--line:#E4E0D3;--bg:#FBFAF5;--card:#FFFFFF;--acc:#B5651D;--root:#1F4F4B;
+  --homo:#3E5C76;--homo-t:#EAF0F5;--het:#2F6F6A;--het-t:#E7F1EF;--bio:#5F6E2E;--bio-t:#EEF1E2;
+  all:initial;display:block;direction:rtl;font-family:inherit;color:var(--ink);background:var(--bg);
+  border:1px solid var(--line);border-radius:16px;padding:18px;margin:24px 0;line-height:1.7;font-size:16px;text-align:right}
+#catx-anas *,#catx-anas *::before,#catx-anas *::after{box-sizing:border-box;font-family:inherit}
+#catx-anas p,#catx-anas h3,#catx-anas h4{margin:0;padding:0;border:0;color:inherit;font-size:inherit;line-height:inherit;background:none;text-align:right}
+#catx-anas button{font:inherit;color:inherit;margin:0;cursor:pointer;-webkit-appearance:none;appearance:none;text-align:center}
+#catx-anas .catx-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+#catx-anas .catx-head h3{font-size:1.2em;font-weight:700;color:var(--ink)}
+#catx-anas .catx-head p{font-size:.85em;color:var(--ink2)}
+#catx-anas .catx-seg{display:inline-flex;background:#F3F1EA;border:1px solid var(--line);border-radius:999px;padding:3px}
+#catx-anas .catx-seg button{border:0;background:transparent;border-radius:999px;padding:6px 16px;font-size:.9em;color:var(--ink2)}
+#catx-anas .catx-seg button[aria-pressed="true"]{background:var(--het);color:#fff;font-weight:700}
+#catx-anas .catx-tree{position:relative;padding:4px 0 8px}
+#catx-anas svg.catx-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#catx-anas svg.catx-lines path{fill:none;stroke:#B9B6A8;stroke-width:1.6}
+#catx-anas svg.catx-lines path.catx-on{stroke:var(--acc);stroke-width:2.6}
+#catx-anas svg.catx-lines circle{fill:#B9B6A8}
+#catx-anas svg.catx-lines circle.catx-on{fill:var(--acc)}
+#catx-anas .catx-top{display:flex;justify-content:center;margin-bottom:36px}
+#catx-anas .catx-branches{display:grid;grid-template-columns:1.15fr 1.7fr .85fr;gap:16px;align-items:start}
+#catx-anas .catx-branch{display:flex;flex-direction:column;align-items:stretch}
+#catx-anas .catx-row{display:flex;gap:10px;margin-top:34px;align-items:flex-start}
+#catx-anas .catx-row>*{flex:1 1 0;min-width:0}
+#catx-anas .catx-sub{display:flex;flex-direction:column;align-items:stretch}
+#catx-anas .catx-col{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-inline-start:26px}
+#catx-anas .catx-n{position:relative;z-index:1;display:block;width:100%;border:1.5px solid var(--c,#999);background:var(--t,#fff);
+  color:var(--ink);border-radius:10px;padding:8px 10px;transition:transform .15s,box-shadow .15s,background .15s}
+#catx-anas .catx-n:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+#catx-anas .catx-n:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+#catx-anas .catx-n b{display:block;font-weight:700;font-size:.92em;line-height:1.45}
+#catx-anas .catx-n small{display:block;direction:ltr;font-size:.68em;color:var(--ink2);line-height:1.3;margin-top:2px;letter-spacing:.2px}
+#catx-anas .catx-n.catx-root{width:auto;min-width:200px;background:var(--root);border-color:var(--root);color:#fff;padding:12px 28px;border-radius:12px}
+#catx-anas .catx-n.catx-root b{font-size:1.1em}
+#catx-anas .catx-n.catx-root small{color:#CFE3E0}
+#catx-anas .catx-n.catx-pill{border-radius:999px;padding:12px 14px;border-width:2px}
+#catx-anas .catx-n.catx-pill b{font-size:1em}
+#catx-anas .catx-n.catx-leaf{border-style:solid;border-width:1px;background:var(--card);padding:6px 10px}
+#catx-anas .catx-n.catx-leaf b{font-size:.84em;font-weight:600}
+#catx-anas .catx-n.catx-sel{background:var(--c);color:#fff;border-color:var(--c);box-shadow:0 0 0 3px rgba(181,101,29,.35)}
+#catx-anas .catx-n.catx-sel small{color:rgba(255,255,255,.85)}
+#catx-anas .catx-n.catx-root.catx-sel{box-shadow:0 0 0 3px rgba(181,101,29,.45)}
+#catx-anas [data-br="homo"]{--c:var(--homo);--t:var(--homo-t)}
+#catx-anas [data-br="het"]{--c:var(--het);--t:var(--het-t)}
+#catx-anas [data-br="bio"]{--c:var(--bio);--t:var(--bio-t)}
+#catx-anas .catx-panel{margin-top:18px;background:var(--card);border:1px solid var(--line);border-inline-start:5px solid var(--pc,var(--root));border-radius:12px;padding:14px 16px}
+#catx-anas .catx-crumbs{font-size:.8em;color:var(--ink2);margin-bottom:4px}
+#catx-anas .catx-crumbs button{border:0;background:none;padding:0;color:var(--het);text-decoration:underline;text-underline-offset:3px;font-size:1em}
+#catx-anas .catx-ptitle{font-size:1.12em;font-weight:700;color:var(--ink)}
+#catx-anas .catx-pen{direction:ltr;display:inline-block;font-size:.78em;color:var(--ink2);margin:0 10px;font-weight:400}
+#catx-anas .catx-badge{display:inline-block;font-size:.72em;border-radius:999px;padding:1px 10px;margin-inline-start:8px;vertical-align:middle;background:#F3F1EA;color:var(--ink2);border:1px solid var(--line)}
+#catx-anas .catx-ptext{margin-top:8px;font-size:.97em;color:#33342F}
+#catx-anas .catx-ptext p+p{margin-top:8px}
+#catx-anas .catx-ptext span[dir="ltr"]{unicode-bidi:isolate;white-space:nowrap}
+#catx-anas .catx-nav{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
+#catx-anas .catx-nav button{border:1px solid var(--line);background:#F9F7F0;border-radius:8px;padding:5px 14px;font-size:.85em;color:var(--ink2)}
+#catx-anas .catx-nav button:hover{border-color:var(--het);color:var(--het)}
+#catx-anas .catx-nav button:disabled{opacity:.4;cursor:default}
+#catx-anas .catx-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:.78em;color:var(--ink2)}
+#catx-anas .catx-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-inline-end:6px;vertical-align:middle}
+/* وضع الشاشات الضيقة: شجرة عمودية */
+#catx-anas.catx-narrow{padding:14px}
+#catx-anas.catx-narrow .catx-top{justify-content:stretch;margin-bottom:0}
+#catx-anas.catx-narrow .catx-n.catx-root{width:100%}
+#catx-anas.catx-narrow .catx-branches{display:flex;flex-direction:column;gap:10px;margin-top:10px;padding-inline-start:26px}
+#catx-anas.catx-narrow .catx-row{flex-direction:column;gap:8px;margin-top:8px;padding-inline-start:26px;align-items:stretch}
+#catx-anas.catx-narrow .catx-row>*{flex:none}
+#catx-anas.catx-narrow .catx-branch,#catx-anas.catx-narrow .catx-sub,#catx-anas.catx-narrow .catx-row,#catx-anas.catx-narrow .catx-col,#catx-anas.catx-narrow .catx-row>*{width:100%}
+#catx-anas.catx-narrow .catx-col{margin-top:8px}
+#catx-anas.catx-narrow .catx-n{text-align:right}
+</style>
+
+<div class="catx-head">
+  <div>
+    <h3>تصنيف المحفّزات</h3>
+    <p>اضغط على أي مربع لقراءة شرحه، واختر مستوى الشرح.</p>
+  </div>
+  <div class="catx-seg" role="group" aria-label="مستوى الشرح">
+    <button type="button" data-lv="g" aria-pressed="true">للعامة</button>
+    <button type="button" data-lv="s" aria-pressed="false">للمتخصصين</button>
+  </div>
+</div>
+
+<div class="catx-tree">
+  <svg class="catx-lines" aria-hidden="true"></svg>
+  <div class="catx-top">
+    <button type="button" class="catx-n catx-root" data-id="cat"><b>المحفّز</b><small>Catalyst</small></button>
+  </div>
+  <div class="catx-branches">
+    <div class="catx-branch" data-br="homo">
+      <button type="button" class="catx-n catx-pill" data-id="homo" data-p="cat"><b>محفّز متجانس</b><small>Homogeneous catalyst</small></button>
+      <div class="catx-row">
+        <button type="button" class="catx-n" data-id="hbase" data-p="homo"><b>محفّز قاعدي</b><small>Base catalyst</small></button>
+        <button type="button" class="catx-n" data-id="hacid" data-p="homo"><b>محفّز حمضي</b><small>Acid catalyst</small></button>
+      </div>
+    </div>
+    <div class="catx-branch" data-br="het">
+      <button type="button" class="catx-n catx-pill" data-id="het" data-p="cat"><b>محفّز غير متجانس</b><small>Heterogeneous catalyst</small></button>
+      <div class="catx-row">
+        <div class="catx-sub">
+          <button type="button" class="catx-n" data-id="xacid" data-p="het"><b>محفّز حمضي غير متجانس</b><small>Acid heterogeneous catalyst</small></button>
+          <div class="catx-col">
+            <button type="button" class="catx-n catx-leaf" data-id="ion" data-p="xacid"><b>راتنجات التبادل الأيوني</b><small>Ion-exchange resins</small></button>
+          </div>
+        </div>
+        <div class="catx-sub">
+          <button type="button" class="catx-n" data-id="xbase" data-p="het"><b>محفّز قاعدي غير متجانس</b><small>Base heterogeneous catalyst</small></button>
+          <div class="catx-col">
+            <button type="button" class="catx-n catx-leaf" data-id="waste" data-p="xbase"><b>محفّزات من المخلّفات</b><small>Waste materials based</small></button>
+            <button type="button" class="catx-n catx-leaf" data-id="boron" data-p="xbase"><b>محفّزات عناصر مجموعة البورون</b><small>Boron group based</small></button>
+            <button type="button" class="catx-n catx-leaf" data-id="tmo" data-p="xbase"><b>أكاسيد الفلزات الانتقالية ومشتقاتها</b><small>Transition metal oxides &amp; derivatives</small></button>
+            <button type="button" class="catx-n catx-leaf" data-id="alk" data-p="xbase"><b>أكاسيد الفلزات القلوية ومشتقاتها</b><small>Alkali metal oxides &amp; derivatives</small></button>
+            <button type="button" class="catx-n catx-leaf" data-id="mix" data-p="xbase"><b>الأكاسيد الفلزية المختلطة ومشتقاتها</b><small>Mixed metal oxides &amp; derivatives</small></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="catx-branch" data-br="bio">
+      <button type="button" class="catx-n catx-pill" data-id="bio" data-p="cat"><b>محفّز حيوي</b><small>Biocatalyst</small></button>
+      <div class="catx-col">
+        <button type="button" class="catx-n catx-leaf" data-id="enz" data-p="bio"><b>محفّزات إنزيمية</b><small>Enzyme based catalyst</small></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="catx-panel" aria-live="polite">
+  <div class="catx-crumbs"></div>
+  <h4 class="catx-ptitle"></h4>
+  <div class="catx-ptext"></div>
+  <div class="catx-nav">
+    <button type="button" data-go="-1">→ السابق</button>
+    <button type="button" data-go="1">التالي ←</button>
+  </div>
+</div>
+
+<div class="catx-legend">
+  <span data-br="homo"><i></i>يذوب في خليط التفاعل</span>
+  <span data-br="het"><i></i>منفصل عن الخليط (صلب غالبًا)</span>
+  <span data-br="bio"><i></i>من أصل حيوي</span>
+</div>
+
+<script>
+(function(){
+  var R=document.getElementById('catx-anas'); if(!R||R.getAttribute('data-ready'))return; R.setAttribute('data-ready','1');
+  // {{...}} = نص لاتيني/معادلة يُعرض من اليسار لليمين
+  var D={
+  cat:{g:'<p>المحفّز مادة تجعل التفاعل الكيميائي أسرع، ثم تخرج منه كما دخلت تقريبًا، فيمكن استخدامها مرة بعد مرة. تخيّل التفاعل رحلة عبر جبل: المحفّز لا يغيّر نقطة الانطلاق ولا نقطة الوصول، لكنه يفتح نفقًا أقصر وأسهل.</p><p>تُقسَّم المحفّزات هنا بحسب علاقتها بخليط التفاعل: هل تذوب فيه، أم تبقى منفصلة عنه، أم مصدرها الكائنات الحية؟ والأمثلة مأخوذة من إنتاج وقود الديزل الحيوي، حيث يُحوَّل الزيت النباتي إلى وقود.</p>',
+       s:'<p>يوفّر المحفّز مسارًا تفاعليًا بديلًا بطاقة تنشيط {{(Eₐ)}} أقل، فيرفع معدّل التفاعل في الاتجاهين الأمامي والعكسي معًا دون أن يغيّر ثابت الاتزان أو {{ΔG}} للتفاعل.</p><p>يقوم هذا التصنيف على طور المحفّز نسبةً إلى طور المتفاعلات (متجانس / غير متجانس) وعلى منشئه (حيوي). ويشيع بهذا الشكل في أدبيات إنتاج الديزل الحيوي عبر الأسترة التبادلية {{(transesterification)}} للغليسريدات الثلاثية مع الميثانول، لذا تأتي الأمثلة من هذا السياق.</p>'},
+  homo:{g:'<p>محفّز يذوب في خليط التفاعل نفسه، كما يذوب السكر في الشاي. ولأنه منتشر بين كل الجزيئات، يلتقي بها بسهولة فيعمل بسرعة.</p><p>مشكلته أنه بعد انتهاء التفاعل يصعب فصله عن المنتج، فيضيع غالبًا ويحتاج المنتج إلى غسيل.</p>',
+        s:'<p>المحفّز والمتفاعلات في الطور نفسه (سائل غالبًا). المزايا: نشاط عالٍ، ومواقع نشطة متماثلة ومعرّفة جيدًا، وظروف تشغيل معتدلة نسبيًا.</p><p>العيوب: صعوبة الفصل والاسترجاع، والحاجة إلى معادلة المحفّز وغسل المنتج بما ينتجه من مياه صرف، إضافة إلى التآكل في حالة الأحماض.</p>'},
+  hbase:{g:'<p>قواعد قوية تذوب في الميثانول، أشهرها هيدروكسيد الصوديوم (الصودا الكاوية) وهيدروكسيد البوتاسيوم. رخيصة وسريعة جدًا، وهي الأكثر استخدامًا في المصانع.</p><p>لكنها لا تحب الماء ولا الأحماض الموجودة في الزيوت المستعملة؛ فإن وُجدت تكوّن صابونًا بدل الوقود.</p>',
+         s:'<p>أمثلة: {{NaOH}}، {{KOH}}، ميثوكسيد الصوديوم {{NaOCH₃}} وميثوكسيد البوتاسيوم. تعمل عبر توليد أيون الميثوكسيد {{CH₃O⁻}} الذي يهاجم كربونيل الغليسريد الثلاثي. الأسترة التبادلية بها أسرع بكثير من الحفز الحمضي، وتجري قرب 60°م تحت الضغط الجوي.</p><p>حساسة جدًا للأحماض الدهنية الحرة {{(FFA)}} والماء: تتعادل {{FFA}} مع القاعدة فيحدث التصبّن، فيُستهلك المحفّز ويصعب فصل الغليسرول؛ لذا تتطلب مواد خام مكرّرة منخفضة الحموضة.</p>'},
+  hacid:{g:'<p>أحماض قوية تذوب في الخليط، مثل حمض الكبريتيك. أبطأ من القواعد، لكنها لا تنزعج من الزيوت الرخيصة المستعملة الغنية بالأحماض الدهنية، بل تحوّل هذه الأحماض نفسها إلى وقود.</p><p>عيبها أنها تُتلف المعدات بالتآكل.</p>',
+         s:'<p>أمثلة: {{H₂SO₄}}، {{HCl}}، وأحماض السلفونيك مثل حمض بارا-تولوين سلفونيك {{(p-TSA)}}. تحفّز الأسترة {{(esterification)}} للأحماض الدهنية الحرة والأسترة التبادلية معًا دون تصبّن.</p><p>لكن معدّلها أبطأ بكثير، وتحتاج نسبًا مولية أعلى من الميثانول إلى الزيت وحرارة وزمنًا أكبر، وتسبّب التآكل. لذا تُستخدم كثيرًا خطوةً أولى لخفض {{FFA}} قبل الحفز القاعدي في العملية ذات الخطوتين.</p>'},
+  het:{g:'<p>محفّز يبقى منفصلًا عن خليط التفاعل، وهو عادةً مسحوق صلب داخل سائل. يجري التفاعل على سطحه: تلتصق الجزيئات بالسطح لحظة، تتفاعل، ثم تغادره ليستقبل غيرها.</p><p>ميزته الكبرى أنه يُفصل بسهولة بالترشيح ويُعاد استخدامه، فيقلّ الهدر والتكلفة. لكنه قد يكون أبطأ لأن الجزيئات يجب أن تصل إلى سطحه أولًا.</p>',
+       s:'<p>المحفّز في طور مختلف عن المتفاعلات (صلب في وسط سائل غالبًا). يمرّ التفاعل بخطوات: انتشار المتفاعلات إلى السطح، فالامتزاز على المواقع النشطة، فالتفاعل السطحي، ثم الانتزاز وانتشار النواتج.</p><p>المزايا: سهولة الفصل وإعادة الاستخدام، وإمكانية التشغيل المستمر، ومياه صرف أقل. التحديات: قيود انتقال الكتلة (فالزيت والميثانول والمحفّز ثلاثة أطوار)، وتسرّب الأنواع النشطة إلى الوسط {{(leaching)}} ما يجعل جزءًا من النشاط متجانسًا فعليًا، وفقدان النشاط بالتسمم أو انسداد المسام.</p><p>مساحة السطح النوعية وبنية المسام وكثافة المواقع الحمضية أو القاعدية وقوتها هي ما يحكم الأداء، وهنا يلتقي الحفز بعلم المواد.</p>'},
+  xacid:{g:'<p>مواد صلبة سطحها حمضي. تتحمّل الزيوت الرخيصة المستعملة كما تتحمّلها الأحماض الذائبة، لكنها تُفصل بسهولة ولا تسبّب التآكل نفسه.</p><p>تحتاج غالبًا حرارة أعلى ووقتًا أطول.</p>',
+         s:'<p>تحمل مواقع حمض برونستد (مانحة للبروتون مثل {{–SO₃H}}) و/أو حمض لويس (مستقبلة لزوج إلكترونات، كأيونات فلزية غير مشبعة التناسق على السطح). أمثلة: الزركونيا المكبرتة {{SO₄²⁻/ZrO₂}}، والزيوليتات، والأحماض المتعددة غير المتجانسة {{(heteropolyacids)}}، والكربون المُسلفَن، وراتنجات التبادل الأيوني.</p><p>تحفّز الأسترة والأسترة التبادلية معًا فتناسب المواد الخام عالية {{FFA}}، لكن نشاطها أقل من القواعد الصلبة، وقد يثبّطها الماء الناتج عن الأسترة.</p>'},
+  ion:{g:'<p>حبيبات بلاستيكية صغيرة ومسامية، مثبّت على سطحها وداخل مسامها مجموعات حمضية. تشبه الحبيبات المستخدمة في أجهزة إزالة عُسر الماء، لكن مجموعاتها الحمضية تجعلها محفّزًا.</p>',
+       s:'<p>بوليمرات متشابكة، غالبًا بوليستيرين مع ثنائي فينيل البنزين {{(PS-DVB)}}، تحمل مجموعات سلفونيك {{–SO₃H}}، مثل {{Amberlyst-15}}، أو بوليمرات مفلورة مثل {{Nafion}}.</p><p>يعتمد نشاطها على وصول المتفاعلات إلى المواقع الحمضية، وهذا يتحدد بانتفاخ البوليمر في المذيب وبنية المسام (هلامية أو كبيرة المسام). أبرز قيودها الثبات الحراري المحدود (نحو 120°م لـ{{Amberlyst-15}})، ما يحدّ من حرارة التشغيل. توجد أيضًا راتنجات تبادل أنيوني قاعدية، لكن الرسم يضع هذه الفئة تحت الحمضية.</p>'},
+  xbase:{g:'<p>مواد صلبة سطحها قاعدي، أشهرها أكسيد الكالسيوم (الجير الحيّ). أسرع من الصلبة الحمضية وتعمل في ظروف معتدلة، ويمكن صنع بعضها من مخلّفات رخيصة.</p><p>لكنها تتأثر بالماء والأحماض، وقد يذوب جزء منها في الخليط. تحتها خمس عائلات؛ اضغط على أيٍّ منها.</p>',
+         s:'<p>مواقعها القاعدية غالبًا أيونات أكسجين سطحية {{O²⁻}} أو مجموعات هيدروكسيل، تنتزع بروتونًا من الميثانول لتكوين الميثوكسيد على السطح. الأكثر دراسة {{CaO}} لرخصه وقاعديته العالية.</p><p>تحدياتها: التسمم بثاني أكسيد الكربون والرطوبة من الهواء (تكوّن كربونات وهيدروكسيدات سطحية) ما يستلزم تنشيطًا بالتكليس، والحساسية لـ{{FFA}}، وتسرّب أيونات الفلز (مثل {{Ca²⁺}}) إلى الوسط.</p><p>ملاحظة: العائلات الخمس تحتها مقسّمة بعضها بحسب المصدر (المخلّفات) وبعضها بحسب التركيب، لذا قد تتداخل؛ فـ{{CaO}} المحضّر من قشر البيض ينتمي إلى فئتين.</p>'},
+  waste:{g:'<p>محفّزات تُصنع من النفايات: قشر البيض، وأصداف البحر، والعظام، والرماد. قشر البيض مثلًا مكوّن أساسًا من كربونات الكالسيوم، وعند تسخينه بشدة يتحوّل إلى أكسيد الكالسيوم، وهو محفّز فعّال.</p><p>أي أن النفايات تساعد في صنع الوقود!</p>',
+         s:'<p>يتكوّن قشر البيض وأصداف الرخويات أساسًا من {{CaCO₃}}، وبالتكليس عند نحو 800–900°م يتفكك: {{CaCO₃ → CaO + CO₂}}. وتُستخدم كذلك العظام ورماد الكتلة الحيوية الغني بالبوتاسيوم.</p><p>المزايا: كلفة منخفضة جدًا، وتثمين للمخلّفات {{(valorization)}} ضمن منظور الاقتصاد الدائري. التحديات: تفاوت التركيب بين دفعة وأخرى، والشوائب، وكون المنتج في النهاية {{CaO}} بالمشاكل نفسها من تسمم وتسرّب.</p>'},
+  boron:{g:'<p>محفّزات قائمة على عناصر عائلة البورون في الجدول الدوري (المجموعة 13)، وأهمها عمليًا الألومنيوم في صورة أكسيد الألومنيوم (الألومينا).</p><p>تعمل الألومينا غالبًا «حاملًا»: سطح واسع جدًا تُثبَّت عليه مادة قاعدية نشطة.</p>',
+         s:'<p>عناصر المجموعة 13 ({{B}}، {{Al}}، {{Ga}}…). في محفّزات الديزل الحيوي يغلب استخدام {{γ-Al₂O₃}} دعامةً عالية المساحة السطحية تُحمَّل بأملاح قلوية مثل {{KF}} أو {{KI}} أو {{KNO₃}} أو {{K₂CO₃}}، فتتكوّن بعد التكليس مواقع قاعدية قوية تُنسب إلى أنواع مثل {{K₂O}} أو {{Al–O–K}}.</p><p>الألومينا نفسها مذبذبة (أمفوتيرية)، والقاعدية القوية تأتي أساسًا من الطور المحمَّل. أبرز القيود تسرّب البوتاسيوم إلى الوسط مع تكرار الاستخدام.</p>'},
+  tmo:{g:'<p>أكاسيد عناصر وسط الجدول الدوري، مثل الزركونيوم والتيتانيوم والحديد والمنغنيز. ميزتها أنها متينة وتتحمّل الماء والأحماض أكثر من غيرها، فتصلح لزيوت أقل نقاءً، لكنها تحتاج غالبًا حرارة أعلى.</p>',
+       s:'<p>أمثلة: {{ZrO₂}}، {{TiO₂}}، {{ZnO}}، {{Fe₂O₃}}، {{MnOₓ}}، وصيغها المطعّمة أو المحمّلة. يُدرج {{ZnO}} عادة في هذه الفئة في الأدبيات وإن لم يكن الزنك فلزًا انتقاليًا بالتعريف الصارم.</p><p>كثير منها مذبذب يحمل مواقع حمض لويس وقاعدة معًا، فيستطيع بعضها حفز الأسترة والأسترة التبادلية في آن، ويتحمّل {{FFA}} والماء أكثر من {{CaO}}. يُضبط النشاط بالتطعيم وحالة الأكسدة والعيوب البنيوية كفجوات الأكسجين. وضعها تحت «القاعدية» يتبع الرسم الأصلي، والأدق أنها حمضية أو قاعدية بحسب التركيب والتحضير.</p>'},
+  alk:{g:'<p>أكاسيد فلزات مثل الكالسيوم والمغنيسيوم والسترونشيوم، وأشهرها أكسيد الكالسيوم (الجير الحيّ). قاعدية قوية ورخيصة وسهلة التحضير، لذا هي أكثر المحفّزات الصلبة دراسةً في هذا المجال.</p>',
+       s:'<p>يشمل المصطلح في أدبيات الديزل الحيوي عادةً أكاسيد الفلزات القلوية (المجموعة 1) والقلوية الترابية (المجموعة 2) ومشتقاتها، مثل {{CaO}} و{{MgO}} و{{SrO}} و{{BaO}}، إضافة إلى أملاح قلوية محمّلة على دعامات.</p><p>تزداد القاعدية نزولًا في المجموعة: {{MgO < CaO < SrO < BaO}}، لكن الأشد قاعدية أكثر ذوبانًا في الميثانول وتسرّبًا (و{{BaO}} سام)، لذا يمثّل {{CaO}} حلًّا وسطًا بين النشاط والثبات والكلفة. وتُحسَّن هذه الأكاسيد بالتحميل على دعامات أو بالتطعيم (مثل {{Li/CaO}}).</p>'},
+  mix:{g:'<p>خليط من أكسيدين فلزيين أو أكثر في مادة واحدة، مثل الكالسيوم مع الزنك أو المغنيسيوم. الفكرة أن نجمع نقاط قوة كل مكوّن ونغطي نقاط ضعفه، فيصبح المحفّز أنشط وأمتن وأقل ذوبانًا في الخليط.</p>',
+       s:'<p>أمثلة: {{CaO–ZnO}}، {{CaO–MgO}}، {{CaO–La₂O₃}}، والأكاسيد المختلطة {{Mg–Al}} الناتجة عن تكليس الهيدروتالسيت.</p><p>يتيح الدمج ضبط توازن المواقع الحمضية والقاعدية وقوتها، ورفع المساحة السطحية، وتحسين الثبات وخفض تسرّب الطور النشط عبر التآثر بين المكوّنات (تأثير تآزري). كثير منها ثنائي الوظيفة، فيعالج مواد خام أعلى في {{FFA}}. التحدي: تعقيد التحضير وتحديد طبيعة المواقع النشطة الفعلية.</p>'},
+  bio:{g:'<p>محفّزات من صنع الكائنات الحية، أي الإنزيمات. جسمك يستخدمها كل لحظة لهضم الطعام، وفي الصناعة تُستخدم لأنها تعمل في حرارة معتدلة وبدقة عالية.</p>',
+       s:'<p>أساسها الإنزيمات، وهي بروتينات ذات مواقع نشطة عالية الانتقائية، تُستخدم معزولة أو داخل خلايا كاملة. تعمل في ظروف معتدلة من الحرارة والضغط، ولا تنتج صابونًا.</p><p>يضعها بعض المؤلفين فئة مستقلة كما هنا، وقد تُعامَل الإنزيمات المثبّتة على دعامة صلبة كمحفّزات غير متجانسة من حيث الطور.</p>'},
+  enz:{g:'<p>أشهرها إنزيمات الليباز، من عائلة الإنزيمات نفسها التي تهضم الدهون في جسمك. تحوّل الزيت إلى وقود في حرارة معتدلة (نحو 30–50°م) دون صابون.</p><p>لكنها غالية وأبطأ، ويمكن «تثبيتها» على سطح صلب لإعادة استخدامها.</p>',
+       s:'<p>الليبازات {{(EC 3.1.1.3)}} تحفّز الأسترة والأسترة التبادلية معًا، فتتحمّل المواد الخام عالية {{FFA}} ويسهل فصل غليسرول نقي. من أشهر الأمثلة الليباز {{B}} من {{Candida antarctica}} المثبّت {{(Novozym 435)}}، وليبازات {{Thermomyces lanuginosus}} و{{Rhizomucor miehei}}.</p><p>القيود: الكلفة العالية، والبطء، وفقدان النشاط بالميثانول (لذا يُضاف على دفعات) وبترسّب الغليسرول على سطح المحفّز. التثبيت {{(immobilization)}} على دعامات يحسّن الثبات ويسمح بإعادة الاستخدام.</p>'}
+  };
+  var tree=R.querySelector('.catx-tree'), svg=R.querySelector('.catx-lines');
+  var nodes=[].slice.call(R.querySelectorAll('.catx-n')), byId={};
+  nodes.forEach(function(n){byId[n.getAttribute('data-id')]=n;});
+  var lv='g', cur='cat', NS='http://www.w3.org/2000/svg';
+  function fmt(h){return h.replace(/\{\{(.+?)\}\}/g,'<span dir="ltr">$1</span>');}
+  function chain(id){var a=[];while(id){a.unshift(id);id=byId[id].getAttribute('data-p');}return a;}
+  function title(id){return byId[id].querySelector('b').textContent;}
+  function colorOf(id){var br=byId[id].closest('[data-br]');return br?getComputedStyle(br).getPropertyValue('--c'):'';}
+  function draw(){
+    while(svg.firstChild)svg.removeChild(svg.firstChild);
+    var T=tree.getBoundingClientRect(), on=chain(cur), narrow=R.classList.contains('catx-narrow');
+    nodes.forEach(function(c){
+      var pid=c.getAttribute('data-p'); if(!pid)return;
+      var p=byId[pid].getBoundingClientRect(), r=c.getBoundingClientRect(), d;
+      var lit=on.indexOf(c.getAttribute('data-id'))>-1, ex, ey;
+      if(narrow||c.parentNode.classList.contains('catx-col')){
+        var x=p.right-T.left-13, y2=r.top-T.top+r.height/2; ex=r.right-T.left; ey=y2;
+        d='M'+x+' '+(p.bottom-T.top)+'V'+y2+'H'+ex;
+      }else{
+        var x1=p.left-T.left+p.width/2, y1=p.bottom-T.top, x2=r.left-T.left+r.width/2, ym=(y1+r.top-T.top)/2;
+        ex=x2; ey=r.top-T.top; d='M'+x1+' '+y1+'V'+ym+'H'+x2+'V'+ey;
+      }
+      var path=document.createElementNS(NS,'path'); path.setAttribute('d',d); if(lit)path.setAttribute('class','catx-on'); svg.appendChild(path);
+      var dot=document.createElementNS(NS,'circle'); dot.setAttribute('cx',ex); dot.setAttribute('cy',ey); dot.setAttribute('r',lit?3.5:2.5); if(lit)dot.setAttribute('class','catx-on'); svg.appendChild(dot);
+    });
+  }
+  function show(id){
+    cur=id;
+    nodes.forEach(function(n){n.classList.toggle('catx-sel',n.getAttribute('data-id')===id);n.setAttribute('aria-pressed',n.getAttribute('data-id')===id?'true':'false');});
+    var n=byId[id], panel=R.querySelector('.catx-panel'), ch=chain(id);
+    panel.style.setProperty('--pc',colorOf(id)||'var(--root)');
+    R.querySelector('.catx-crumbs').innerHTML=ch.slice(0,-1).map(function(a){return '<button type="button" data-to="'+a+'">'+title(a)+'</button>';}).join(' ‹ ')||'&nbsp;';
+    R.querySelector('.catx-ptitle').innerHTML=title(id)+'<span class="catx-pen">'+n.querySelector('small').innerHTML+'</span><span class="catx-badge">'+(lv==='g'?'للعامة':'للمتخصصين')+'</span>';
+    R.querySelector('.catx-ptext').innerHTML=fmt(D[id][lv]);
+    var i=nodes.indexOf(n), nav=R.querySelectorAll('.catx-nav button');
+    nav[0].disabled=i===0; nav[1].disabled=i===nodes.length-1;
+    draw();
+  }
+  function layout(){R.classList.toggle('catx-narrow',R.clientWidth<720);draw();}
+  R.addEventListener('click',function(e){
+    var t=e.target.closest('button'); if(!t||!R.contains(t))return;
+    if(t.hasAttribute('data-id'))show(t.getAttribute('data-id'));
+    else if(t.hasAttribute('data-to'))show(t.getAttribute('data-to'));
+    else if(t.hasAttribute('data-go')){var i=nodes.indexOf(byId[cur])+(+t.getAttribute('data-go'));if(nodes[i])show(nodes[i].getAttribute('data-id'));}
+    else if(t.hasAttribute('data-lv')){lv=t.getAttribute('data-lv');[].forEach.call(R.querySelectorAll('[data-lv]'),function(b){b.setAttribute('aria-pressed',b===t?'true':'false');});show(cur);}
+  });
+  if(window.ResizeObserver)new ResizeObserver(layout).observe(R); else window.addEventListener('resize',layout);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+  layout(); show('cat');
+})();
+</script>
+</div>
+<!-- ===== نهاية: رسم تفاعلي لتصنيف المحفّزات ===== -->
+
+</body>
+</html>
