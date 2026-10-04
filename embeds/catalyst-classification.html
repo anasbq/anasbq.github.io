@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://anasbq.github.io/embeds/catalyst-classification.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-<style>html,body{margin:0;background:transparent}body{font-family:'Noto Naskh Arabic',Tahoma,sans-serif;padding:4px}#catx-anas{margin:0!important}</style>
+<style>html,body{margin:0;background:transparent}body{font-family:'Noto Naskh Arabic',Tahoma,sans-serif;padding:4px}#catx-anas{margin:0 auto!important}</style>
 </head>
 <body>
 <!-- ===== بداية: رسم تفاعلي لتصنيف المحفّزات (انسخ كل ما بين البداية والنهاية) ===== -->
@@ -17,124 +17,55 @@
 #catx-anas{--ink:#1B1F1E;--ink2:#52534C;--line:#E4E0D3;--bg:#FBFAF5;--card:#FFFFFF;--acc:#B5651D;--root:#1F4F4B;
   --homo:#3E5C76;--homo-t:#EAF0F5;--het:#2F6F6A;--het-t:#E7F1EF;--bio:#5F6E2E;--bio-t:#EEF1E2;
   all:initial;display:block;direction:rtl;font-family:inherit;color:var(--ink);background:var(--bg);
-  border:1px solid var(--line);border-radius:16px;padding:18px;margin:24px 0;line-height:1.7;font-size:16px;text-align:right}
+  border:1px solid var(--line);border-radius:14px;padding:12px;margin:20px auto;max-width:820px;line-height:1.6;font-size:15px;text-align:right}
 #catx-anas *,#catx-anas *::before,#catx-anas *::after{box-sizing:border-box;font-family:inherit}
 #catx-anas p,#catx-anas h3,#catx-anas h4{margin:0;padding:0;border:0;color:inherit;font-size:inherit;line-height:inherit;background:none;text-align:right}
-#catx-anas button{font:inherit;color:inherit;margin:0;cursor:pointer;-webkit-appearance:none;appearance:none;text-align:center}
-#catx-anas .catx-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
-#catx-anas .catx-head h3{font-size:1.2em;font-weight:700;color:var(--ink)}
-#catx-anas .catx-head p{font-size:.85em;color:var(--ink2)}
-#catx-anas .catx-tree{position:relative;padding:4px 0 8px}
-#catx-anas svg.catx-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-#catx-anas svg.catx-lines path{fill:none;stroke:#B9B6A8;stroke-width:1.6}
-#catx-anas svg.catx-lines path.catx-on{stroke:var(--acc);stroke-width:2.6}
-#catx-anas svg.catx-lines circle{fill:#B9B6A8}
-#catx-anas svg.catx-lines circle.catx-on{fill:var(--acc)}
-#catx-anas .catx-top{display:flex;justify-content:center;margin-bottom:36px}
-#catx-anas .catx-branches{display:grid;grid-template-columns:1.15fr 1.7fr .85fr;gap:16px;align-items:start}
-#catx-anas .catx-branch{display:flex;flex-direction:column;align-items:stretch}
-#catx-anas .catx-row{display:flex;gap:10px;margin-top:34px;align-items:flex-start}
-#catx-anas .catx-row>*{flex:1 1 0;min-width:0}
-#catx-anas .catx-sub{display:flex;flex-direction:column;align-items:stretch}
-#catx-anas .catx-col{display:flex;flex-direction:column;gap:8px;margin-top:12px;padding-inline-start:26px}
-#catx-anas .catx-n{position:relative;z-index:1;display:block;width:100%;border:1.5px solid var(--c,#999);background:var(--t,#fff);
-  color:var(--ink);border-radius:10px;padding:8px 10px;transition:transform .15s,box-shadow .15s,background .15s}
-#catx-anas .catx-n:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.08)}
-#catx-anas .catx-n:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-#catx-anas .catx-n b{display:block;font-weight:700;font-size:.92em;line-height:1.45}
-#catx-anas .catx-n small{display:block;direction:ltr;font-size:.68em;color:var(--ink2);line-height:1.3;margin-top:2px;letter-spacing:.2px}
-#catx-anas .catx-n.catx-root{width:auto;min-width:200px;background:var(--root);border-color:var(--root);color:#fff;padding:12px 28px;border-radius:12px}
-#catx-anas .catx-n.catx-root b{font-size:1.1em}
-#catx-anas .catx-n.catx-root small{color:#CFE3E0}
-#catx-anas .catx-n.catx-pill{border-radius:999px;padding:12px 14px;border-width:2px}
-#catx-anas .catx-n.catx-pill b{font-size:1em}
-#catx-anas .catx-n.catx-leaf{border-style:solid;border-width:1px;background:var(--card);padding:6px 10px}
-#catx-anas .catx-n.catx-leaf b{font-size:.84em;font-weight:600}
-#catx-anas .catx-n.catx-sel{background:var(--c);color:#fff;border-color:var(--c);box-shadow:0 0 0 3px rgba(181,101,29,.35)}
-#catx-anas .catx-n.catx-sel small{color:rgba(255,255,255,.85)}
-#catx-anas .catx-n.catx-root.catx-sel{box-shadow:0 0 0 3px rgba(181,101,29,.45)}
+#catx-anas button{font:inherit;color:inherit;margin:0;cursor:pointer;-webkit-appearance:none;appearance:none}
+#catx-anas .catx-wrap{display:grid;grid-template-columns:230px 1fr;gap:12px;align-items:start}
+#catx-anas .catx-list{display:flex;flex-direction:column;gap:3px}
+#catx-anas .catx-grp{display:flex;flex-direction:column;gap:3px;margin-top:4px}
+#catx-anas .catx-n{display:block;width:100%;text-align:right;border:1px solid transparent;background:transparent;color:var(--ink);
+  border-radius:8px;padding:3px 8px;font-size:.86em;line-height:1.45;transition:background .15s}
+#catx-anas .catx-n:hover{background:var(--t,#F3F1EA)}
+#catx-anas .catx-n:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+#catx-anas .catx-n[data-l="0"]{background:var(--root);color:#fff;font-weight:700}
+#catx-anas .catx-n[data-l="1"]{background:var(--t);border-color:var(--c);color:var(--c);font-weight:700}
+#catx-anas .catx-n[data-l="2"]{width:calc(100% - 14px);margin-inline-start:14px;border-inline-start:3px solid var(--c);border-radius:4px 8px 8px 4px}
+#catx-anas .catx-n[data-l="3"]{width:calc(100% - 28px);margin-inline-start:28px;font-size:.8em;color:var(--ink2);border-inline-start:2px solid var(--line);border-radius:4px 8px 8px 4px}
+#catx-anas .catx-n.catx-sel{background:var(--c,var(--root));color:#fff;border-color:var(--c,var(--root))}
+#catx-anas .catx-n[data-l="0"].catx-sel{box-shadow:0 0 0 2px var(--acc)}
 #catx-anas [data-br="homo"]{--c:var(--homo);--t:var(--homo-t)}
 #catx-anas [data-br="het"]{--c:var(--het);--t:var(--het-t)}
 #catx-anas [data-br="bio"]{--c:var(--bio);--t:var(--bio-t)}
-#catx-anas .catx-panel{margin-top:18px;background:var(--card);border:1px solid var(--line);border-inline-start:5px solid var(--pc,var(--root));border-radius:12px;padding:14px 16px}
-#catx-anas .catx-crumbs{font-size:.8em;color:var(--ink2);margin-bottom:4px}
-#catx-anas .catx-crumbs button{border:0;background:none;padding:0;color:var(--het);text-decoration:underline;text-underline-offset:3px;font-size:1em}
-#catx-anas .catx-ptitle{font-size:1.12em;font-weight:700;color:var(--ink)}
-#catx-anas .catx-pen{direction:ltr;display:inline-block;font-size:.78em;color:var(--ink2);margin:0 10px;font-weight:400}
-#catx-anas .catx-stage{margin-top:10px;background:#FBFAF5;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+#catx-anas .catx-panel{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--pc,var(--root));border-radius:10px;padding:8px 10px}
+#catx-anas .catx-ptitle{font-size:1em;font-weight:700;color:var(--ink)}
+#catx-anas .catx-pen{direction:ltr;display:inline-block;font-size:.75em;color:var(--ink2);margin:0 8px;font-weight:400}
+#catx-anas .catx-stage{margin-top:6px;background:#FBFAF5;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 #catx-anas .catx-stage svg{display:block;width:100%;height:auto}
 #catx-anas .catx-stage text{font-family:inherit;font-size:12px;fill:#33342F;paint-order:stroke;stroke:#FBFAF5;stroke-width:3px;stroke-linejoin:round}
-#catx-anas .catx-cap{margin-top:10px;font-size:1em;color:#33342F;font-weight:600}
-#catx-anas .catx-nav{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
-#catx-anas .catx-nav button{border:1px solid var(--line);background:#F9F7F0;border-radius:8px;padding:5px 14px;font-size:.85em;color:var(--ink2)}
+#catx-anas .catx-cap{margin-top:6px;font-size:.92em;color:#33342F;font-weight:600;min-height:2.9em}
+#catx-anas .catx-nav{display:flex;justify-content:space-between;gap:6px;margin-top:6px}
+#catx-anas .catx-nav button{border:1px solid var(--line);background:#F9F7F0;border-radius:8px;padding:3px 12px;font-size:.82em;color:var(--ink2)}
 #catx-anas .catx-nav button:hover{border-color:var(--het);color:var(--het)}
 #catx-anas .catx-nav button:disabled{opacity:.4;cursor:default}
-#catx-anas .catx-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px;font-size:.78em;color:var(--ink2)}
-#catx-anas .catx-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-inline-end:6px;vertical-align:middle}
-/* وضع الشاشات الضيقة: شجرة عمودية */
-#catx-anas.catx-narrow{padding:14px}
-#catx-anas.catx-narrow .catx-top{justify-content:stretch;margin-bottom:0}
-#catx-anas.catx-narrow .catx-n.catx-root{width:100%}
-#catx-anas.catx-narrow .catx-branches{display:flex;flex-direction:column;gap:10px;margin-top:10px;padding-inline-start:26px}
-#catx-anas.catx-narrow .catx-row{flex-direction:column;gap:8px;margin-top:8px;padding-inline-start:26px;align-items:stretch}
-#catx-anas.catx-narrow .catx-row>*{flex:none}
-#catx-anas.catx-narrow .catx-branch,#catx-anas.catx-narrow .catx-sub,#catx-anas.catx-narrow .catx-row,#catx-anas.catx-narrow .catx-col,#catx-anas.catx-narrow .catx-row>*{width:100%}
-#catx-anas.catx-narrow .catx-col{margin-top:8px}
-#catx-anas.catx-narrow .catx-n{text-align:right}
+#catx-anas .catx-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+#catx-anas .catx-head h3{font-size:1.08em;font-weight:700}
+#catx-anas .catx-head p{font-size:.8em;color:var(--ink2)}
+/* الشاشات الضيقة: المشهد أولًا ثم أزرار صغيرة */
+#catx-anas.catx-narrow{padding:10px}
+#catx-anas.catx-narrow .catx-wrap{grid-template-columns:1fr}
+#catx-anas.catx-narrow .catx-panel{order:-1}
+#catx-anas.catx-narrow .catx-list{flex-direction:row;flex-wrap:wrap;gap:4px}
+#catx-anas.catx-narrow .catx-grp{flex-direction:row;flex-wrap:wrap;gap:4px;margin:0;width:100%}
+#catx-anas.catx-narrow .catx-n{width:auto!important;margin:0!important;border:1px solid var(--c,var(--line));border-radius:999px;padding:2px 10px;font-size:.8em;color:var(--ink)}
+#catx-anas.catx-narrow .catx-n[data-l="1"]{color:var(--c)}
+#catx-anas.catx-narrow .catx-n[data-l="0"]{color:#fff}
+#catx-anas.catx-narrow .catx-n.catx-sel{color:#fff}
 </style>
-
-<div class="catx-head">
-  <div>
-    <h3>تصنيف المحفّزات</h3>
-    <p>اضغط على أي مربع لتشاهد كيف يعمل هذا النوع.</p>
-  </div>
-</div>
-
-<div class="catx-tree">
-  <svg class="catx-lines" aria-hidden="true"></svg>
-  <div class="catx-top">
-    <button type="button" class="catx-n catx-root" data-id="cat"><b>المحفّز</b><small>Catalyst</small></button>
-  </div>
-  <div class="catx-branches">
-    <div class="catx-branch" data-br="homo">
-      <button type="button" class="catx-n catx-pill" data-id="homo" data-p="cat"><b>محفّز متجانس</b><small>Homogeneous catalyst</small></button>
-      <div class="catx-row">
-        <button type="button" class="catx-n" data-id="hbase" data-p="homo"><b>محفّز قاعدي</b><small>Base catalyst</small></button>
-        <button type="button" class="catx-n" data-id="hacid" data-p="homo"><b>محفّز حمضي</b><small>Acid catalyst</small></button>
-      </div>
-    </div>
-    <div class="catx-branch" data-br="het">
-      <button type="button" class="catx-n catx-pill" data-id="het" data-p="cat"><b>محفّز غير متجانس</b><small>Heterogeneous catalyst</small></button>
-      <div class="catx-row">
-        <div class="catx-sub">
-          <button type="button" class="catx-n" data-id="xacid" data-p="het"><b>محفّز حمضي غير متجانس</b><small>Acid heterogeneous catalyst</small></button>
-          <div class="catx-col">
-            <button type="button" class="catx-n catx-leaf" data-id="ion" data-p="xacid"><b>راتنجات التبادل الأيوني</b><small>Ion-exchange resins</small></button>
-          </div>
-        </div>
-        <div class="catx-sub">
-          <button type="button" class="catx-n" data-id="xbase" data-p="het"><b>محفّز قاعدي غير متجانس</b><small>Base heterogeneous catalyst</small></button>
-          <div class="catx-col">
-            <button type="button" class="catx-n catx-leaf" data-id="waste" data-p="xbase"><b>محفّزات من المخلّفات</b><small>Waste materials based</small></button>
-            <button type="button" class="catx-n catx-leaf" data-id="boron" data-p="xbase"><b>محفّزات عناصر مجموعة البورون</b><small>Boron group based</small></button>
-            <button type="button" class="catx-n catx-leaf" data-id="tmo" data-p="xbase"><b>أكاسيد الفلزات الانتقالية ومشتقاتها</b><small>Transition metal oxides &amp; derivatives</small></button>
-            <button type="button" class="catx-n catx-leaf" data-id="alk" data-p="xbase"><b>أكاسيد الفلزات القلوية ومشتقاتها</b><small>Alkali metal oxides &amp; derivatives</small></button>
-            <button type="button" class="catx-n catx-leaf" data-id="mix" data-p="xbase"><b>الأكاسيد الفلزية المختلطة ومشتقاتها</b><small>Mixed metal oxides &amp; derivatives</small></button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="catx-branch" data-br="bio">
-      <button type="button" class="catx-n catx-pill" data-id="bio" data-p="cat"><b>محفّز حيوي</b><small>Biocatalyst</small></button>
-      <div class="catx-col">
-        <button type="button" class="catx-n catx-leaf" data-id="enz" data-p="bio"><b>محفّزات إنزيمية</b><small>Enzyme based catalyst</small></button>
-      </div>
-    </div>
-  </div>
-</div>
-
+<div class="catx-head"><h3>تصنيف المحفّزات</h3><p>اختر نوعًا لتشاهد كيف يعمل</p></div>
+<div class="catx-wrap">
+<div class="catx-list" role="group" aria-label="أنواع المحفّزات"><button type="button" class="catx-n" data-id="cat" data-l="0" data-full="المحفّز" data-en="Catalyst">المحفّز</button><div class="catx-grp" data-br="homo"><button type="button" class="catx-n" data-id="homo" data-l="1" data-full="محفّز متجانس" data-en="Homogeneous catalyst" data-p="cat">متجانس</button><button type="button" class="catx-n" data-id="hbase" data-l="2" data-full="محفّز قاعدي متجانس" data-en="Homogeneous base catalyst" data-p="homo">قاعدي</button><button type="button" class="catx-n" data-id="hacid" data-l="2" data-full="محفّز حمضي متجانس" data-en="Homogeneous acid catalyst" data-p="homo">حمضي</button></div><div class="catx-grp" data-br="het"><button type="button" class="catx-n" data-id="het" data-l="1" data-full="محفّز غير متجانس" data-en="Heterogeneous catalyst" data-p="cat">غير متجانس</button><button type="button" class="catx-n" data-id="xacid" data-l="2" data-full="محفّز حمضي غير متجانس" data-en="Acid heterogeneous catalyst" data-p="het">حمضي صلب</button><button type="button" class="catx-n" data-id="ion" data-l="3" data-full="راتنجات التبادل الأيوني" data-en="Ion-exchange resins" data-p="xacid">راتنجات التبادل الأيوني</button><button type="button" class="catx-n" data-id="xbase" data-l="2" data-full="محفّز قاعدي غير متجانس" data-en="Base heterogeneous catalyst" data-p="het">قاعدي صلب</button><button type="button" class="catx-n" data-id="waste" data-l="3" data-full="محفّزات من المخلّفات" data-en="Waste materials based" data-p="xbase">من المخلّفات</button><button type="button" class="catx-n" data-id="boron" data-l="3" data-full="محفّزات عناصر مجموعة البورون" data-en="Boron group based" data-p="xbase">مجموعة البورون</button><button type="button" class="catx-n" data-id="tmo" data-l="3" data-full="أكاسيد الفلزات الانتقالية ومشتقاتها" data-en="Transition metal oxides &amp; derivatives" data-p="xbase">أكاسيد الفلزات الانتقالية</button><button type="button" class="catx-n" data-id="alk" data-l="3" data-full="أكاسيد الفلزات القلوية ومشتقاتها" data-en="Alkali metal oxides &amp; derivatives" data-p="xbase">أكاسيد الفلزات القلوية</button><button type="button" class="catx-n" data-id="mix" data-l="3" data-full="الأكاسيد الفلزية المختلطة ومشتقاتها" data-en="Mixed metal oxides &amp; derivatives" data-p="xbase">أكاسيد مختلطة</button></div><div class="catx-grp" data-br="bio"><button type="button" class="catx-n" data-id="bio" data-l="1" data-full="محفّز حيوي" data-en="Biocatalyst" data-p="cat">حيوي</button><button type="button" class="catx-n" data-id="enz" data-l="2" data-full="محفّزات إنزيمية" data-en="Enzyme based catalyst" data-p="bio">إنزيمي</button></div></div>
 <div class="catx-panel" aria-live="polite">
-  <div class="catx-crumbs"></div>
   <h4 class="catx-ptitle"></h4>
   <div class="catx-stage"></div>
   <p class="catx-cap"></p>
@@ -144,13 +75,7 @@
     <button type="button" data-go="1">التالي ←</button>
   </div>
 </div>
-
-<div class="catx-legend">
-  <span data-br="homo"><i></i>يذوب في خليط التفاعل</span>
-  <span data-br="het"><i></i>منفصل عن الخليط (صلب غالبًا)</span>
-  <span data-br="bio"><i></i>من أصل حيوي</span>
 </div>
-
 <script>
 (function(){
   var R=document.getElementById('catx-anas'); if(!R||R.getAttribute('data-ready'))return; R.setAttribute('data-ready','1');
@@ -361,55 +286,28 @@
     bio:'محفّزات من الكائنات الحية: دقيقة جدًا وتعمل في ظروف معتدلة.',
     enz:'الليباز يحوّل الزيت إلى وقود في حرارة معتدلة ودون صابون، لكنه مكلف وأبطأ.'
   };
-  var tree=R.querySelector('.catx-tree'), svg=R.querySelector('.catx-lines'), stage=R.querySelector('.catx-stage');
-  var nodes=[].slice.call(R.querySelectorAll('.catx-n')), byId={};
+  var stage=R.querySelector('.catx-stage'), nodes=[].slice.call(R.querySelectorAll('.catx-n')), byId={}, cur='cat', NS='http://www.w3.org/2000/svg';
   nodes.forEach(function(n){byId[n.getAttribute('data-id')]=n;});
-  var cur='cat', NS='http://www.w3.org/2000/svg';
-  function chain(id){var a=[];while(id){a.unshift(id);id=byId[id].getAttribute('data-p');}return a;}
-  function title(id){return byId[id].querySelector('b').textContent;}
   function colorOf(id){var br=byId[id].closest('[data-br]');return br?getComputedStyle(br).getPropertyValue('--c'):'';}
-  function draw(){
-    while(svg.firstChild)svg.removeChild(svg.firstChild);
-    var T=tree.getBoundingClientRect(), on=chain(cur), narrow=R.classList.contains('catx-narrow');
-    nodes.forEach(function(c){
-      var pid=c.getAttribute('data-p'); if(!pid)return;
-      var p=byId[pid].getBoundingClientRect(), r=c.getBoundingClientRect(), d;
-      var lit=on.indexOf(c.getAttribute('data-id'))>-1, ex, ey;
-      if(narrow||c.parentNode.classList.contains('catx-col')){
-        var x=p.right-T.left-13, y2=r.top-T.top+r.height/2; ex=r.right-T.left; ey=y2;
-        d='M'+x+' '+(p.bottom-T.top)+'V'+y2+'H'+ex;
-      }else{
-        var x1=p.left-T.left+p.width/2, y1=p.bottom-T.top, x2=r.left-T.left+r.width/2, ym=(y1+r.top-T.top)/2;
-        ex=x2; ey=r.top-T.top; d='M'+x1+' '+y1+'V'+ym+'H'+x2+'V'+ey;
-      }
-      var path=document.createElementNS(NS,'path'); path.setAttribute('d',d); if(lit)path.setAttribute('class','catx-on'); svg.appendChild(path);
-      var dot=document.createElementNS(NS,'circle'); dot.setAttribute('cx',ex); dot.setAttribute('cy',ey); dot.setAttribute('r',lit?3.5:2.5); if(lit)dot.setAttribute('class','catx-on'); svg.appendChild(dot);
-    });
-  }
-  function play(id){stage.innerHTML='<svg viewBox="0 0 400 220" role="img" aria-label="'+CAP[id]+'" xmlns="'+NS+'"><g>'+'<animate attributeName="opacity" dur="'+D+'s" repeatCount="indefinite" keyTimes="0;0.9;0.93;0.97;1" values="1;1;0;0;1"/>'+S[id]()+'</g></svg>';}
+  function play(id){stage.innerHTML='<svg viewBox="0 0 400 220" role="img" aria-label="'+CAP[id]+'" xmlns="'+NS+'"><g><animate attributeName="opacity" dur="'+D+'s" repeatCount="indefinite" keyTimes="0;0.9;0.93;0.97;1" values="1;1;0;0;1"/>'+S[id]()+'</g></svg>';}
   function show(id){
-    cur=id;
-    nodes.forEach(function(n){n.classList.toggle('catx-sel',n.getAttribute('data-id')===id);n.setAttribute('aria-pressed',n.getAttribute('data-id')===id?'true':'false');});
-    var n=byId[id], panel=R.querySelector('.catx-panel'), ch=chain(id);
-    panel.style.setProperty('--pc',colorOf(id)||'var(--root)');
-    R.querySelector('.catx-crumbs').innerHTML=ch.slice(0,-1).map(function(a){return '<button type="button" data-to="'+a+'">'+title(a)+'</button>';}).join(' ‹ ')||'&nbsp;';
-    R.querySelector('.catx-ptitle').innerHTML=title(id)+'<span class="catx-pen">'+n.querySelector('small').innerHTML+'</span>';
+    cur=id; var n=byId[id];
+    nodes.forEach(function(m){var on=m===n;m.classList.toggle('catx-sel',on);m.setAttribute('aria-pressed',on?'true':'false');});
+    R.querySelector('.catx-panel').style.setProperty('--pc',colorOf(id)||'var(--root)');
+    R.querySelector('.catx-ptitle').innerHTML=n.getAttribute('data-full')+'<span class="catx-pen">'+n.getAttribute('data-en')+'</span>';
     R.querySelector('.catx-cap').textContent=CAP[id];
     play(id);
     var i=nodes.indexOf(n), nav=R.querySelectorAll('[data-go]');
     nav[0].disabled=i===0; nav[1].disabled=i===nodes.length-1;
-    draw();
   }
-  function layout(){R.classList.toggle('catx-narrow',R.clientWidth<720);draw();}
+  function layout(){R.classList.toggle('catx-narrow',R.clientWidth<640);}
   R.addEventListener('click',function(e){
     var t=e.target.closest('button'); if(!t||!R.contains(t))return;
     if(t.hasAttribute('data-id'))show(t.getAttribute('data-id'));
-    else if(t.hasAttribute('data-to'))show(t.getAttribute('data-to'));
     else if(t.hasAttribute('data-replay'))play(cur);
     else if(t.hasAttribute('data-go')){var i=nodes.indexOf(byId[cur])+(+t.getAttribute('data-go'));if(nodes[i])show(nodes[i].getAttribute('data-id'));}
   });
   if(window.ResizeObserver)new ResizeObserver(layout).observe(R); else window.addEventListener('resize',layout);
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
   layout(); show('cat');
 })();
 </script>
