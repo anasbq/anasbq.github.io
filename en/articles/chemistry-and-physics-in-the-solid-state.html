@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Chemistry and Physics Meet in Understanding Solids | Anas Balghaith</title>
+<meta name="description" content="Why do a chemist and a physicist read the same data in two different ways? A plain-language guide to atomic orbitals and energy bands, starting from Roald Hoffmann's famous 1987 paper.">
+<meta name="author" content="Anas Balghaith">
+<link rel="canonical" href="https://anasbq.github.io/en/articles/chemistry-and-physics-in-the-solid-state.html">
+<link rel="alternate" hreflang="en" href="https://anasbq.github.io/en/articles/chemistry-and-physics-in-the-solid-state.html">
+<link rel="alternate" hreflang="ar" href="https://anasbq.github.io/articles/solid_state_article.html">
+<link rel="alternate" type="application/rss+xml" title="Anas Balghaith — Articles" href="https://anasbq.github.io/feed-en.xml">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_AR">
+<meta property="og:title" content="How Chemistry and Physics Meet in Understanding Solids">
+<meta property="og:description" content="Why do a chemist and a physicist read the same data in two different ways? A plain-language guide to atomic orbitals and energy bands, starting from Roald Hoffmann's famous 1987 paper.">
+<meta property="og:url" content="https://anasbq.github.io/en/articles/chemistry-and-physics-in-the-solid-state.html">
+<meta property="og:image" content="https://anasbq.github.io/images/me.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;}
+a{color:#235E59;text-decoration:none;}
+a:hover{color:#173F3B;text-decoration:underline;}
+::selection{background:#2F6F6A;color:#F9F7F0;}
+/* interactive boxes */
+.ibox {
+  background: #ECEAE1;
+  border: 1px solid #D6D2C5;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 12px 0 20px;
+  text-align: center;
+}
+.ibox-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1B1F1E;
+  margin: 0 0 4px;
+}
+.ibox-caption {
+  font-size: 13px;
+  color: #6B6A63;
+  margin: 0 0 14px;
+}
+svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* compare cards */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0 20px;
+}
+@media (max-width: 520px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare-card {
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #D6D2C5;
+  background: #ECEAE1;
+}
+.compare-card.physics { border-color: #2F6F6A; background: rgba(47,111,106,0.06); }
+.compare-card.chemistry { border-color: #9A7030; background: rgba(154,112,48,0.06); }
+.card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.compare-card.physics .card-label { color: #2F6F6A; }
+.compare-card.chemistry .card-label { color: #9A7030; }
+.compare-card h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  margin: 0 0 8px;
+  color: #1B1F1E;
+}
+.compare-card ul {
+  list-style: none; padding: 0; margin: 0;
+  font-size: 14px; color: #6B6A63; line-height: 2;
+}
+.compare-card ul li::before { content: '◈ '; color: #2F6F6A; font-size: 10px; }
+
+/* controls */
+.slider-wrap {
+  margin: 12px 0 4px;
+  display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.slider-label { font-size: 13px; color: #6B6A63; font-family: 'IBM Plex Sans'; }
+input[type=range] { width: 100%; max-width: 320px; accent-color: #2F6F6A; }
+
+/* tabs */
+.tab-row {
+  display: flex; gap: 6px; justify-content: center;
+  margin-bottom: 12px; flex-wrap: wrap;
+}
+.tab-btn {
+  background: #E2DFDA;
+  border: 1px solid #D6D2C5;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 13px;
+  color: #6B6A63;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  transition: all .15s;
+}
+.tab-btn.active, .tab-btn:hover {
+  background: #2F6F6A;
+  color: #fff;
+  border-color: #2F6F6A;
+}
+
+/* band+DOS two column */
+.band-dos-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: start;
+}
+@media (max-width: 480px) { .band-dos-wrap { grid-template-columns: 1fr; } }
+.band-col, .dos-col { display: flex; flex-direction: column; align-items: center; }
+.band-col svg, .dos-col svg { width: 100%; height: auto; }
+.col-label {
+  font-size: 11px;
+  color: #6B6A63;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 4px;
+}
+
+/* info badge */
+.info-badge {
+  display: inline-block;
+  background: #2F6F6A;
+  color: #fff;
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+/* info box below svgs */
+.info-box {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #E2DFDA;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #33342F;
+}
+
+/* device grid */
+.device-item {
+  cursor: pointer;
+  padding: 12px 8px;
+  border-radius: 8px;
+  border: 1px solid #D6D2C5;
+  background: #E2DFDA;
+  text-align: center;
+  transition: border-color .15s;
+}
+.device-item:hover { border-color: #2F6F6A; }
+
+/* section separator */
+.section-sep {
+  border: none;
+  border-top: 1px solid #D6D2C5;
+  margin: 0;
+}
+</style>
+</style>
+</head>
+<body>
+<div style="width:100%;min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;background:#F3F1EA;">
+
+<header style="position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:12px 24px;background:#F3F1EA;border-bottom:1px solid #E4E0D3;">
+  <a href="../../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;">Anas Balghaith</a>
+  <nav style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;font-size:15px;">
+    <a href="../../index.html#articles" style="padding:8px 12px;">All articles</a>
+    <a href="../../index.html#about" style="padding:8px 12px;">About</a>
+    <a href="../../index.html#contact" style="padding:8px 12px;">Contact</a>
+    <a href="../../articles/solid_state_article.html" lang="ar" dir="rtl" hreflang="ar" title="Read this article in Arabic" style="padding:6px 14px;border:1.5px solid #2F6F6A;border-radius:20px;font-size:13px;font-weight:600;">العربية</a>
+  </nav>
+</header>
+
+<article style="padding:clamp(48px,8vw,96px) 24px;display:flex;justify-content:center;">
+  <div style="max-width:680px;width:100%;display:flex;flex-direction:column;gap:20px;">
+
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.02em;color:#2F6F6A;">September 2026 · <a href="../../articles/solid_state_article.html" hreflang="ar">Also in Arabic</a></div>
+    <h1 style="margin:0;font-size:clamp(26px,4.5vw,40px);line-height:1.2;color:#1B1F1E;">How do chemistry and physics meet in understanding solids?</h1>
+
+    <!-- ── INTRO ── -->
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">At the end of last year, I sent my results to my two supervisors: one a physicist, the other a chemist. Both are experts in their fields, and both trained under the same solid-state scientist. What happened next shocked me. The physicist replied first: "The results are great and worth publishing." Then the chemist replied: "Hmm... I don't trust these results." I had run the experiment twice and gotten the same numbers both times. Most likely, his chemical intuition and experience were telling him not to trust them because of the chemical composition.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">I sat staring at the two replies, completely confused. How could two experienced researchers read the same data and reach opposite conclusions? Was this a personal disagreement, or something deeper?</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">Then I came across a paper published in 1987 by the Nobel Prize-winning chemist Roald Hoffmann, titled "How Chemistry and Physics Meet in the Solid State." And it clicked: what I'd experienced with my supervisors wasn't an exception. It's a feature that has been rooted in materials science, and in solid-state science especially, for decades.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">Hoffmann traces the divide to three causes. First, chemists feel lost among the terms solid-state physicists use (energy bands, Bloch functions, wave vectors) and so they steer clear of them. Second, physicists don't appreciate the deep intuition chemists have for the nature of chemical bonds. Third, solid-state chemists themselves don't make enough effort to keep up with molecular chemistry, so the gap widens from the inside. So the gap isn't in the data; it's in the language. That's what this article tries to bridge.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">First, we need to understand what a solid is. Try putting your hand on the table in front of you, or on a wall, or on a piece of metal if there's one nearby. That hard thing you're touching: why is it solid at all? Why doesn't your hand pass through it? The question sounds naive, but it's one of the deepest in science. Solids, like metals, stones, wood, glass, and walls, differ from liquids and gases in how their atoms are arranged. In a gas, the molecules are free and move fast. In a liquid, they tumble over one another. But in a solid, every atom is locked into a regular geometric network it can't leave.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">The crystal lattice</div>
+      <p class="ibox-caption">Press "Animate" to see how atoms vibrate in place without ever leaving their spot</p>
+      <svg id="lattice-canvas" width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
+      <div style="margin-top:10px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="toggleLatticeAnim()" id="anim-btn" style="background:#2F6F6A;color:#fff;border:none;border-radius:6px;padding:7px 18px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:14px;">▶ Animate</button>
+        <button onclick="changeTemp(-1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:14px;">❄ Cool</button>
+        <button onclick="changeTemp(1)" style="background:#E2DFDA;color:#6B6A63;border:1px solid #D6D2C5;border-radius:6px;padding:7px 14px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;font-size:14px;">🔥 Heat</button>
+      </div>
+      <p id="temp-label" style="margin:8px 0 0;font-size:13px;color:#6B6A63;">Temperature: low (the atoms barely move)</p>
+    </div>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">This regular geometric arrangement is what we call a crystal. Most solids around us are crystalline: salt, ice, metals. A few, like glass, have no regular order; we call them amorphous solids. Every crystalline solid has its own characteristic geometry, and each geometry gives different properties. You may have studied this in high school or university, so none of it is new.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">Let's go deeper. Before we talk about millions of atoms in a solid, let's start with the simplest element there is: hydrogen. One atom, one nucleus, one electron. But that single electron tells us everything. A chemist pictures the electron as a cloud of probability around the nucleus. That cloud isn't random; it has very specific shapes we call atomic orbitals. A physicist describes the same thing as a wave function, which gives the probability of finding the electron at every point in space. So the two languages describe the same thing. The 1s orbital is the solution of the Schrödinger equation for the lowest energy level: a symmetric sphere around the nucleus. The 2p orbital is bigger and more complex, with two lobes like a dumbbell (if you go to the gym, you know the shape).</p>
+
+
+    <div class="ibox">
+      <div class="ibox-title">The atomic orbitals of hydrogen</div>
+      <p class="ibox-caption">Pick an orbital to see its shape and energy: this is "where" the electron lives around the nucleus</p>
+      <div class="tab-row">
+        <button class="tab-btn active" onclick="selectOrbital('1s',this)">1s</button>
+        <button class="tab-btn" onclick="selectOrbital('2s',this)">2s</button>
+        <button class="tab-btn" onclick="selectOrbital('2px',this)">2p<sub>x</sub></button>
+        <button class="tab-btn" onclick="selectOrbital('2py',this)">2p<sub>y</sub></button>
+        <button class="tab-btn" onclick="selectOrbital('3d',this)">3d<sub>z²</sub></button>
+      </div>
+      <svg id="orbital-canvas" width="340" height="260" viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
+      <div id="orbital-info" class="info-box">
+       1s: the first energy level, with the lowest energy and the most stable. It is a symmetric sphere around the nucleus, and the electron spends most of its time close to the nucleus.
+      </div>
+    </div>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">Each orbital has a specific energy. An electron in 1s has less energy than one in 2s, which in turn has less than one in 3d, and the lower the energy, the more stable the orbital. This staircase of energies is the key to understanding what happens when we bring hundreds of atoms together.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">So what actually happens when two atoms get close? Their orbitals overlap, and this is where the chemist's and the physicist's descriptions start to differ, even though they describe the same thing. The chemist says the overlap is either constructive, when the two waves line up and form a strong, stable bond, or destructive, when they oppose each other and the bond falls apart. The physicist describes the same thing in the language of waves: amplification or cancellation.</p>
+
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">The strange part is that the physicist and the chemist study the same solid but describe it in completely different ways, as if one were speaking English and the other Arabic about the same scene. The physicist asks: how do electrons flow? How fast does the wave travel inside the material? Which energy bands are allowed? Is the material a conductor or an insulator? The chemist asks: what kind of bonds hold the atoms together? How do the atomic orbitals overlap? Why is this compound stable? What does the electron look like around the atom? Both are wrong, and both are right! The physicist sees a solid as a sea of electrons. The chemist sees atoms bonded to other atoms. Each describes the same thing from a different angle.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">Picture a single hydrogen atom with its 1s energy level. Now bring two hydrogen atoms close together. What happens? Their orbitals start to overlap, and when two orbitals overlap they don't merge into one. They split into two new orbitals: one lower in energy (bonding) and one higher (antibonding). This is the core idea behind the chemical bond, and it's where the bonds we learned about in school come from: metallic, ionic, and covalent. (A side note: the familiar picture of atoms in a covalent bond "sharing" electrons is a simplification for teaching, not a literal description of what happens.) Now that we understand bonding, imagine adding a third atom, then a fourth, then a thousand. Each atom adds a new energy level. When there are enough atoms, those separate levels turn into something entirely new: a continuous energy band.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">From separate levels to a continuous band</div>
+      <p class="ibox-caption">Move the slider to add atoms and watch the levels turn into a band</p>
+      <svg id="band-canvas" width="340" height="200" viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
+      <div class="slider-wrap">
+        <span class="slider-label">Number of neighboring atoms:</span>
+        <input type="range" id="atom-slider" min="1" max="20" value="1" oninput="updateBand(this.value)">
+        <span id="band-status" style="font-size:13px;color:#6B6A63;">One atom → one sharp energy level</span>
+      </div>
+    </div>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">The chemist looks at this band and says, "Oh, that's the sum of all the chemical bonds between hundreds of atoms." The physicist looks at the same band and says, "Look, that's the range where electrons can move freely." Same phenomenon, two languages. To make sense of all these numbers and hundreds of bonded atoms, physicists and chemists developed special plots for reading energy bands in solids. The two best known are:</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;"><strong>Band structure:</strong> shows how an electron's energy changes depending on the "direction" it moves through the crystal. (The horizontal axis, k, is the wave vector, which represents the direction of the electron-wave in the lattice.)</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;"><strong>Density of states (DOS):</strong> shows how many states are available to electrons at each energy level.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">The two plots are linked. Where an energy line is flat in the band structure (the energy changes slowly), you'll find a tall peak in the DOS. Where the line is steep, the DOS is low. Chemists tend to prefer the DOS because it connects directly to bonding interactions; physicists tend to prefer the band structure because it shows how electrons move.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">Interactive band structure and DOS</div>
+      <p class="ibox-caption">Pick a type of material and see how the bands change shape, and where the Fermi level sits</p>
+      <div class="tab-row">
+        <button class="tab-btn active" onclick="selectMaterial('metal',this)">Metal</button>
+        <button class="tab-btn" onclick="selectMaterial('semiconductor',this)">Semiconductor</button>
+        <button class="tab-btn" onclick="selectMaterial('insulator',this)">Insulator</button>
+      </div>
+      <div class="band-dos-wrap" style="margin-top:8px;">
+        <div class="band-col">
+          <svg id="bs-canvas" width="200" height="280" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
+          <span class="col-label">Band Structure</span>
+        </div>
+        <div class="dos-col">
+          <svg id="dos-canvas" width="160" height="280" viewBox="0 0 160 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;"></svg>
+          <span class="col-label">Density of States (DOS)</span>
+        </div>
+      </div>
+      <div id="material-info" class="info-box">
+        In a metal, the Fermi level sits inside a band, so electrons are free to move. That's why metals conduct electricity.
+      </div>
+    </div>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">The Fermi level, E<sub>F</sub>, is the dividing line. The states below it are filled with electrons and form what's called the valence band; on these plots it always sits on the negative side of the energy axis. The states above it are empty and form the conduction band, on the positive side. For a material to conduct electricity, an electron has to jump from the lower band to the upper one. That jump costs energy, and how much depends on the distance between the top of the valence band and the bottom of the conduction band: the band gap.</p>
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">In metals, for example, there's no gap at all: the two bands overlap, the Fermi level sits in the middle of that overlap, and electrons move freely between them. That's why metals are good conductors. In insulators such as glass (SiO₂), the two bands are separated by a large gap, and electrons can't cross it because the distance is too great.</p>
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">And semiconductors? They sit between insulators and conductors. Because the gap between the bands is small, an electron only needs a little energy to jump into the conduction band. Without that extra energy, the material behaves like an insulator. Silicon (Si) is the classic example.</p>
+
+ <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">By the way, you may have noticed that a physicist talks about the electrons at the very top of the filled states, just below the Fermi level, as the valence electrons. That's the same idea a chemist means by the highest occupied molecular orbital, or "HOMO." Once again, two languages describing the same point.</p>
+
+
+
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">So what ties the two languages together? The answer lies in the mathematics, in one elegant idea: the Bloch function.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">Here's what the Bloch function says: an electron in a solid still carries the shape of its original atomic orbital, but repeated across the whole lattice as a wave when it links up with other atoms. Picture two singers, each with their own melody and voice; each voice is an atomic orbital. What happens when they sing together? Their individual voices don't vanish; they weave together into one collective wave. That's exactly what the Bloch function describes.</p>
+
+    <div class="ibox">
+      <div class="ibox-title">From atomic orbital to Bloch wave</div>
+      <p class="ibox-caption">Click the atoms one at a time to see their orbitals combine into a single wave</p>
+      <svg id="bloch-canvas" width="360" height="200" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;cursor:pointer;"></svg>
+      <p id="bloch-label" style="margin:8px 0 0;font-size:14px;color:#6B6A63;">Click the atoms one at a time</p>
+    </div>
+
+        <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">So how did this gap between physicists and chemists open up? It's worth pausing on. It didn't come from nowhere, and it wasn't a personal feud or a rivalry between two fields. It formed because physics and chemistry developed independently over decades, and each built its own tools, language, and questions. In the 1950s and 60s, solid-state physicists were busy with the stunning success of band theory in explaining conductivity and magnetism. At the same time, chemists were absorbed in building molecular orbital theory and understanding chemical bonds with unprecedented precision.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">Hoffmann points out in his paper that over-specialization is the inevitable price of any scientific progress. The deeper you go into a field, the more you build vocabulary and methods that let you talk fluently with colleagues, and the further they carry you from people working in neighboring fields. He adds that the problem got worse because solid-state chemists didn't take care to build bridges between their two worlds, so they ended up making groundbreaking materials without the tools to explain their properties. The result: two researchers studying the same material in the same lab, each missing what the other knows.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">This is the core of Hoffmann's message. The chemist doesn't need to give up thinking in bonds and orbitals, and the physicist doesn't need to give up wave equations. Both describe the same reality from different angles. But each has something to learn from the other.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">What the chemist needs: to learn how to understand and classify the properties of materials, not just make new ones and determine their structure. A chemist should be able to analyze the electronic structure of the compounds they make, rigorously, so they can understand how to tune and control those properties. That means learning the language of solid-state physics, specifically band theory.</p>
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">What the physicist needs: to learn the chemist's language of bonds and orbitals. A physicist can calculate a band structure with great accuracy but often can't answer a simple question: why is this compound stable in the first place? Or why does this material absorb light at this particular wavelength? Those are a chemist's questions. So the physicist needs to engage with molecular chemistry and understand the chemist's intuition for reading bonds, because that intuition is what makes you doubt a result even when the numbers look right, exactly as my supervisor did.</p>
+
+
+    <p style="margin:0;font-size:17px;line-height:1.75;color:#33342F;">After that experience with my supervisors, after reading Hoffmann, and after understanding why each of them responded the way they did, something changed in how I read scientific papers and even how I look at my own results. I pay more attention now, and I ask: does this result make sense chemically? Does it fit the nature of the bonds in this compound? Is chemical intuition saying the same thing as the numbers, or is there a contradiction worth checking? Chemical intuition is a real analytical tool, built on dozens of papers and thousands of experiments. But it stays incomplete until it's tied to the physical properties of a material that we can actually measure.</p>
+
+
+    <h2 style="margin:16px 0 0;font-size:22px;color:#1B1F1E;">Sources</h2>
+    <ul style="margin:0;padding-left:20px;font-size:15px;line-height:1.9;color:#33342F;">
+      <li>Hoffmann, R. (1987). How Chemistry and Physics Meet in the Solid State. <em>Angewandte Chemie International Edition in English</em>, 26(9), 846–878. <a href="https://doi.org/10.1002/anie.198708461">doi.org/10.1002/anie.198708461</a></li>
+    </ul>
+
+        <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">Note: AI was used to build the interactive diagrams and to help with language editing.</p>
+  </div>
+</article>
+
+<footer style="padding:32px 24px;display:flex;justify-content:center;">
+  <a href="../../index.html#articles" style="font-size:14px;font-weight:600;font-family:'IBM Plex Mono',monospace;">← Back to all articles</a>
+</footer>
+
+</div>
+
+<script>
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const TEAL='#2F6F6A', TEAL_LIGHT='rgba(47,111,106,0.15)';
+const GOLD='#C8A964';
+const BORDER='#D6D2C5', BG='#F3F1EA', BG2='#ECEAE1', BG3='#E2DFDA';
+const TEXT='#1B1F1E', MUTED='#6B6A63';
+
+function svgEl(tag, attrs) {
+  const el = document.createElementNS(SVG_NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  return el;
+}
+
+// ─── LATTICE ───
+(function() {
+  const svg = document.getElementById('lattice-canvas');
+  let animating = false, animId = null, tempLevel = 0, lt = 0;
+  const amplitudes = [0.5, 2.5, 6];
+  const tempLabels = [
+    'Temperature: low (the atoms barely move)',
+    'Temperature: medium (moderate vibrations)',
+    'Temperature: high (strong vibrations, close to melting)'
+  ];
+  const rows=4, cols=6;
+  const baseAtoms=[];
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++)
+    baseAtoms.push({x:38+c*52, y:30+r*52, phase:Math.random()*Math.PI*2, phase2:Math.random()*Math.PI*2});
+
+  // Create defs for radial gradient
+  const defs = svgEl('defs');
+  const rg = svgEl('radialGradient', {id:'atom-grad', cx:'35%', cy:'35%', r:'60%'});
+  const s0 = svgEl('stop', {offset:'0%'}); s0.setAttribute('stop-color','#7ab8b0');
+  const s1 = svgEl('stop', {offset:'100%'}); s1.setAttribute('stop-color', TEAL);
+  rg.appendChild(s0); rg.appendChild(s1); defs.appendChild(rg); svg.appendChild(defs);
+
+  // Create bond lines
+  const bondLines = [];
+  for(let i=0;i<baseAtoms.length;i++) for(let j=i+1;j<baseAtoms.length;j++){
+    const dx=baseAtoms[i].x-baseAtoms[j].x, dy=baseAtoms[i].y-baseAtoms[j].y;
+    if(Math.sqrt(dx*dx+dy*dy)<60){
+      const line = svgEl('line', {stroke:BORDER,'stroke-width':'1.2'});
+      svg.appendChild(line);
+      bondLines.push({el:line, i, j});
+    }
+  }
+
+  // Create atom circles
+  const atomCircles = baseAtoms.map(() => {
+    const c = svgEl('circle', {r:'10', fill:'url(#atom-grad)'});
+    svg.appendChild(c);
+    return c;
+  });
+
+  function getPos() {
+    const amp = amplitudes[tempLevel];
+    return baseAtoms.map(a => ({
+      x: a.x + (animating ? Math.sin(lt*.04+a.phase)*amp : 0),
+      y: a.y + (animating ? Math.sin(lt*.05+a.phase2)*amp*.7 : 0)
+    }));
+  }
+
+  function drawLattice() {
+    const pos = getPos();
+    bondLines.forEach(({el, i, j}) => {
+      el.setAttribute('x1', pos[i].x); el.setAttribute('y1', pos[i].y);
+      el.setAttribute('x2', pos[j].x); el.setAttribute('y2', pos[j].y);
+    });
+    atomCircles.forEach((c, idx) => {
+      c.setAttribute('cx', pos[idx].x);
+      c.setAttribute('cy', pos[idx].y);
+    });
+    lt++;
+  }
+
+  function animLoop() { drawLattice(); animId = requestAnimationFrame(animLoop); }
+
+  window.toggleLatticeAnim = function() {
+    animating = !animating;
+    document.getElementById('anim-btn').textContent = animating ? '⏸ Pause' : '▶ Animate';
+    if(animating && !animId) animLoop();
+    else if(!animating) { cancelAnimationFrame(animId); animId = null; drawLattice(); }
+  };
+
+  window.changeTemp = function(d) {
+    tempLevel = Math.max(0, Math.min(2, tempLevel+d));
+    document.getElementById('temp-label').textContent = tempLabels[tempLevel];
+    if(!animating) drawLattice();
+  };
+
+  drawLattice();
+})();
+
+// ─── ORBITAL ───
+(function() {
+  const svg = document.getElementById('orbital-canvas');
+  const W = 340, H = 260, cx = W/2, cy = H/2 - 20;
+  let currentOrbital = '1s', orbAnimId = null, orbT = 0;
+
+  const orbData = {
+    '1s':  {info:'1s: the first energy level, with the lowest energy and the most stable. It is a symmetric sphere around the nucleus, and the electron spends most of its time close to the nucleus.', energy:-13.6, label:'n=1, l=0'},
+    '2s':  {info:'2s: the second level, higher in energy than 1s. Also spherical but bigger, with a "node" where the chance of finding the electron is zero.', energy:-3.4, label:'n=2, l=0'},
+    '2px': {info:'2p<sub>x</sub>: shaped like a dumbbell (two lobes) along the horizontal axis, with the same energy as 2p<sub>y</sub>. These orbitals are behind most chemical bonds.', energy:-3.4, label:'n=2, l=1, m=1'},
+    '2py': {info:'2p<sub>y</sub>: the same shape as 2p<sub>x</sub>, but along the vertical axis. In a crystal, these orbitals overlap to form the p bands.', energy:-3.4, label:'n=2, l=1, m=-1'},
+    '3d':  {info:'3d<sub>z²</sub>: a more complex orbital, like a dumbbell with a ring around the middle. d orbitals are responsible for the distinctive properties of transition metals.', energy:-1.5, label:'n=3, l=2, m=0'}
+  };
+
+  // SVG defs for gradients
+  const defs = svgEl('defs');
+  svg.appendChild(defs);
+
+  function makeDef(id, cx_pct, cy_pct, color) {
+    const rg = svgEl('radialGradient', {id, cx: cx_pct, cy: cy_pct, r:'70%'});
+    const s0 = svgEl('stop', {offset:'0%'}); s0.setAttribute('stop-color', color); s0.setAttribute('stop-opacity','0.7');
+    const s1 = svgEl('stop', {offset:'100%'}); s1.setAttribute('stop-color', color); s1.setAttribute('stop-opacity','0');
+    rg.appendChild(s0); rg.appendChild(s1); defs.appendChild(rg);
+  }
+  makeDef('og-teal','50%','50%', TEAL);
+  makeDef('og-gold','50%','50%', '#C8A964');
+
+  // Container group that gets rebuilt
+  const orbGroup = svgEl('g');
+  svg.appendChild(orbGroup);
+
+  // Energy axis (static)
+  const axisLine = svgEl('line', {x1:22, y1:20, x2:22, y2:H-20, stroke:MUTED+'40', 'stroke-width':'1'});
+  svg.appendChild(axisLine);
+  const axisLabel = svgEl('text', {x:22, y:14, 'text-anchor':'middle', fill:MUTED, 'font-size':'10', 'font-family':'IBM Plex Mono, Georgia'});
+  axisLabel.textContent = 'E'; svg.appendChild(axisLabel);
+
+  // Energy level indicator (dynamic)
+  const energyLine = svgEl('line', {'stroke-width':'2.5', stroke:TEAL});
+  svg.appendChild(energyLine);
+  const energyLabel = svgEl('text', {'text-anchor':'left', fill:TEXT, 'font-size':'11', 'font-family':'IBM Plex Mono, Georgia'});
+  svg.appendChild(energyLabel);
+  const energyEV = svgEl('text', {'text-anchor':'middle', fill:MUTED, 'font-size':'12', 'font-family':'IBM Plex Mono, Georgia', x:cx, y:H-6});
+  svg.appendChild(energyEV);
+
+  function buildOrbital(orb, pulse) {
+    while(orbGroup.firstChild) orbGroup.removeChild(orbGroup.firstChild);
+
+    if(orb === '1s') {
+      for(let r=70;r>0;r-=3) {
+        const a = Math.pow(1-r/70, 1.5)*0.55 + pulse*0.1;
+        const c = svgEl('circle', {cx, cy, r, fill:`rgba(47,111,106,${a.toFixed(3)})`});
+        orbGroup.appendChild(c);
+      }
+    } else if(orb === '2s') {
+      for(let r=90;r>0;r-=3) {
+        const nr=r/90;
+        let a = (nr<.35 ? .45*(1-nr/.35) : nr>.45 ? .55*(nr-.45)/.55 : 0) + pulse*0.05;
+        a = Math.max(0,a);
+        const c = svgEl('circle', {cx, cy, r, fill:`rgba(47,111,106,${a.toFixed(3)})`});
+        orbGroup.appendChild(c);
+      }
+      const nodeRing = svgEl('circle', {cx, cy, r:90*.4, fill:'none', stroke:MUTED+'60', 'stroke-width':'1.5'});
+      orbGroup.appendChild(nodeRing);
+    } else if(orb === '2px') {
+      [[-1, TEAL], [1, '#C8A964']].forEach(([s, col]) => {
+        for(let r=55;r>0;r-=3) {
+          const a = (1-r/55)*0.6 + pulse*0.08;
+          const hexCol = col === TEAL ? '47,111,106' : '200,169,100';
+          const el = svgEl('ellipse', {
+            cx: cx+s*42, cy,
+            rx: r*0.7, ry: r,
+            fill:`rgba(${hexCol},${a.toFixed(3)})`
+          });
+          orbGroup.appendChild(el);
+        }
+      });
+    } else if(orb === '2py') {
+      [[-1, TEAL], [1, '#C8A964']].forEach(([s, col]) => {
+        for(let r=55;r>0;r-=3) {
+          const a = (1-r/55)*0.6 + pulse*0.08;
+          const hexCol = col === TEAL ? '47,111,106' : '200,169,100';
+          const el = svgEl('ellipse', {
+            cx, cy: cy+s*42,
+            rx: r, ry: r*0.7,
+            fill:`rgba(${hexCol},${a.toFixed(3)})`
+          });
+          orbGroup.appendChild(el);
+        }
+      });
+    } else if(orb === '3d') {
+      [-1, 1].forEach(s => {
+        for(let r=50;r>0;r-=3) {
+          const a = (1-r/50)*0.55 + pulse*0.07;
+          const el = svgEl('ellipse', {cx, cy: cy+s*42, rx:r*0.6, ry:r, fill:`rgba(47,111,106,${a.toFixed(3)})`});
+          orbGroup.appendChild(el);
+        }
+      });
+      const ring = svgEl('ellipse', {cx, cy, rx:30, ry:14, fill:'rgba(200,169,100,0.35)', stroke:'#C8A96490', 'stroke-width':'1.5'});
+      orbGroup.appendChild(ring);
+    }
+
+    // nucleus dot
+    const nucleus = svgEl('circle', {cx, cy, r:6, fill:TEXT});
+    orbGroup.appendChild(nucleus);
+  }
+
+  function updateEnergyIndicator(orb) {
+    const eD = orbData[orb], eMin=-15, eMax=0;
+    const eNorm = (eD.energy - eMin)/(eMax - eMin);
+    const ey = 20 + (1-eNorm)*(H-50);
+    energyLine.setAttribute('x1', 10); energyLine.setAttribute('y1', ey);
+    energyLine.setAttribute('x2', 34); energyLine.setAttribute('y2', ey);
+    energyLabel.setAttribute('x', 38); energyLabel.setAttribute('y', ey+4);
+    energyLabel.textContent = eD.label;
+    energyEV.textContent = eD.energy + ' eV';
+  }
+
+  function animLoop() {
+    const pulse = 0.06 + 0.04*Math.sin(orbT*0.05);
+    buildOrbital(currentOrbital, pulse);
+    updateEnergyIndicator(currentOrbital);
+    orbT++;
+    orbAnimId = requestAnimationFrame(animLoop);
+  }
+
+  window.selectOrbital = function(name, btn) {
+    currentOrbital = name;
+    btn.parentNode.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('orbital-info').innerHTML = orbData[name].info;
+    if(orbAnimId) { cancelAnimationFrame(orbAnimId); orbAnimId = null; }
+    orbT = 0;
+    animLoop();
+  };
+
+  animLoop();
+})();
+
+// ─── BAND (atom→band) ───
+(function() {
+  const svg = document.getElementById('band-canvas');
+  const W = 340, H = 200, cx = W/2;
+  const levels = [0.75, 0.5, 0.3];
+
+  // E axis
+  svg.appendChild(svgEl('line', {x1:30, y1:10, x2:30, y2:H-20, stroke:MUTED+'60', 'stroke-width':'1'}));
+  const eLabel = svgEl('text', {x:10, y:16, fill:MUTED, 'font-size':'12', 'font-family':'IBM Plex Mono, monospace'});
+  eLabel.textContent='E'; svg.appendChild(eLabel);
+
+  // Band rects (3 bands)
+  const bandRects = levels.map(() => {
+    const rect = svgEl('rect', {fill:TEAL+'80', stroke:TEAL, 'stroke-width':'1', display:'none'});
+    svg.appendChild(rect);
+    return rect;
+  });
+
+  // Discrete lines (3 sets of lines that split as n increases)
+  const discreteGroups = levels.map(f => {
+    const g = svgEl('g');
+    svg.appendChild(g);
+    return g;
+  });
+
+  // Status text
+  const statusText = svgEl('text', {x:cx, y:H-14, 'text-anchor':'middle', fill:MUTED, 'font-size':'13', 'font-family':'IBM Plex Sans, sans-serif'});
+  svg.appendChild(statusText);
+
+  function drawBand(n) {
+    n = parseInt(n);
+    if(n <= 1) {
+      // Single discrete level per band
+      bandRects.forEach(r => r.setAttribute('display','none'));
+      levels.forEach((f, idx) => {
+        const y = H*f;
+        const g = discreteGroups[idx];
+        while(g.firstChild) g.removeChild(g.firstChild);
+        const line = svgEl('line', {x1:cx-40, y1:y, x2:cx+40, y2:y, stroke:TEAL, 'stroke-width':'2.5'});
+        g.appendChild(line);
+      });
+      statusText.textContent = 'Separate levels';
+    } else {
+      const spread = Math.min(0.18, (n-1)*0.012);
+      levels.forEach((f, idx) => {
+        const yMid = H*f;
+        const bH = H*spread;
+
+        // Hide discrete lines, show band rects
+        const g = discreteGroups[idx];
+        while(g.firstChild) g.removeChild(g.firstChild);
+
+        // Draw multiple lines spreading out
+        const count = Math.min(n, 12);
+        for(let li=0; li<count; li++) {
+          const frac = count===1 ? 0 : (li/(count-1) - 0.5);
+          const ly = yMid + frac * bH * (count > 1 ? 1 : 0);
+          const op = 0.3 + 0.5*(1 - Math.abs(frac)*1.5);
+          const line = svgEl('line', {
+            x1:cx-80, y1:ly, x2:cx+80, y2:ly,
+            stroke:TEAL, 'stroke-width':'1.2', opacity: Math.max(0.1, op).toFixed(2)
+          });
+          g.appendChild(line);
+        }
+
+        if(n >= 8) {
+          // Show band rect overlay
+          bandRects[idx].setAttribute('display','');
+          bandRects[idx].setAttribute('x', cx-80);
+          bandRects[idx].setAttribute('y', yMid - bH/2);
+          bandRects[idx].setAttribute('width', 160);
+          bandRects[idx].setAttribute('height', bH);
+        } else {
+          bandRects[idx].setAttribute('display','none');
+        }
+      });
+
+      statusText.textContent = n<5 ? `${n} atoms - the levels split` :
+                               n<12 ? `${n} atoms - a band is forming` :
+                               `${n} atoms - a continuous energy band`;
+    }
+  }
+
+  window.updateBand = function(v) {
+    v = parseInt(v);
+    document.getElementById('band-status').textContent =
+      v===1 ? 'One atom → one sharp energy level' :
+      v<5   ? `${v} atoms → the levels split` :
+      v<12  ? `${v} atoms → a band is gradually forming` :
+              `${v} atoms → a continuous energy band`;
+    drawBand(v);
+  };
+
+  drawBand(1);
+})();
+
+// ─── BAND STRUCTURE + DOS ───
+(function() {
+  const bsSvg = document.getElementById('bs-canvas');
+  const dosSvg = document.getElementById('dos-canvas');
+  let currentMaterial = 'metal';
+
+  const matData = {
+    metal: {
+      info: 'In a metal, the Fermi level sits inside a band, so electrons are free to move. That is why metals conduct electricity. Examples: copper, gold, iron.',
+      fermiNorm: 0.5,
+      bands: [{yMin:.15, yMax:.85, filled:true, color:'teal'}],
+      gap: null
+    },
+    semiconductor: {
+      info: 'In a semiconductor, the gap between the two bands is small (1-3 eV). Electrons can\'t move under normal conditions, but with heat or light they can jump across. Example: the silicon in computer chips.',
+      fermiNorm: 0.5,
+      bands: [{yMin:.1, yMax:.44, filled:true, color:'teal'}, {yMin:.56, yMax:.9, filled:false, color:'gold'}],
+      gap: {y1:.44, y2:.56}
+    },
+    insulator: {
+      info: 'In an insulator, the gap between the two bands is very large (>5 eV). Under normal conditions, electrons can\'t jump across at all. Examples: diamond and glass.',
+      fermiNorm: 0.5,
+      bands: [{yMin:.05, yMax:.35, filled:true, color:'teal'}, {yMin:.65, yMax:.95, filled:false, color:'gold'}],
+      gap: {y1:.35, y2:.65}
+    }
+  };
+
+  // ── Band Structure SVG setup ──
+  const bsW=200, bsH=280;
+  const bsPad = {l:36, r:16, t:16, b:36};
+  const bsPW = bsW - bsPad.l - bsPad.r, bsPH = bsH - bsPad.t - bsPad.b;
+
+  const bsDefs = svgEl('defs'); bsSvg.appendChild(bsDefs);
+
+  // Axis lines
+  bsSvg.appendChild(svgEl('line', {x1:bsPad.l, y1:bsPad.t, x2:bsPad.l, y2:bsPad.t+bsPH, stroke:MUTED+'60', 'stroke-width':'1'}));
+  bsSvg.appendChild(svgEl('line', {x1:bsPad.l, y1:bsPad.t+bsPH/2, x2:bsPad.l+bsPW, y2:bsPad.t+bsPH/2, stroke:MUTED+'60', 'stroke-width':'1'}));
+  const bsKLabel = svgEl('text', {x:bsPad.l+bsPW/2, y:bsH-4, 'text-anchor':'middle', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  bsKLabel.textContent='k'; bsSvg.appendChild(bsKLabel);
+  const bsELabel = svgEl('text', {x:bsPad.l-4, y:bsPad.t+10, 'text-anchor':'end', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  bsELabel.textContent='E'; bsSvg.appendChild(bsELabel);
+  const bsGamma = svgEl('text', {x:bsPad.l, y:bsPad.t+bsPH/2+14, 'text-anchor':'center', fill:MUTED, 'font-size':'9', 'font-family':'IBM Plex Mono, monospace'});
+  bsGamma.textContent='Γ'; bsSvg.appendChild(bsGamma);
+  const bsX = svgEl('text', {x:bsPad.l+bsPW, y:bsPad.t+bsPH/2+14, 'text-anchor':'center', fill:MUTED, 'font-size':'9', 'font-family':'IBM Plex Mono, monospace'});
+  bsX.textContent='X'; bsSvg.appendChild(bsX);
+
+  // Gap rect
+  const bsGapRect = svgEl('rect', {fill:BG3, display:'none'});
+  bsSvg.appendChild(bsGapRect);
+  const bsGapText = svgEl('text', {'text-anchor':'start', fill:MUTED, 'font-size':'9', 'font-family':'IBM Plex Mono, monospace', display:'none'});
+  bsSvg.appendChild(bsGapText);
+
+  // Band paths (pre-create 2 max)
+  const bsBandFills = [svgEl('path'), svgEl('path')];
+  const bsBandLines = [svgEl('path'), svgEl('path')];
+  bsBandFills.forEach(p => { p.setAttribute('display','none'); bsSvg.appendChild(p); });
+  bsBandLines.forEach(p => { p.setAttribute('display','none'); p.setAttribute('stroke-width','2.5'); p.setAttribute('fill','none'); bsSvg.appendChild(p); });
+
+  // Fermi line
+  const bsFermi = svgEl('line', {stroke:'#C84444', 'stroke-width':'1.5', 'stroke-dasharray':'5,3'});
+  bsSvg.appendChild(bsFermi);
+  const bsFermiLabel = svgEl('text', {'text-anchor':'start', fill:'#C84444', 'font-size':'10', 'font-family':'IBM Plex Mono, monospace'});
+  bsFermiLabel.textContent='E_F'; bsSvg.appendChild(bsFermiLabel);
+
+  function drawBS() {
+    const mat = matData[currentMaterial];
+    // Gap
+    if(mat.gap) {
+      const gy1 = bsPad.t + mat.gap.y1*bsPH, gy2 = bsPad.t + mat.gap.y2*bsPH;
+      bsGapRect.setAttribute('display','');
+      bsGapRect.setAttribute('x', bsPad.l); bsGapRect.setAttribute('y', gy1);
+      bsGapRect.setAttribute('width', bsPW); bsGapRect.setAttribute('height', gy2-gy1);
+      bsGapText.setAttribute('display','');
+      bsGapText.setAttribute('x', bsPad.l+4); bsGapText.setAttribute('y', (gy1+gy2)/2+4);
+      bsGapText.textContent = currentMaterial==='semiconductor' ? 'Gap ~1-3eV' : 'Gap >5eV';
+    } else {
+      bsGapRect.setAttribute('display','none');
+      bsGapText.setAttribute('display','none');
+    }
+
+    // Bands
+    mat.bands.forEach((band, idx) => {
+      const y1 = bsPad.t + band.yMin*bsPH, y2 = bsPad.t + band.yMax*bsPH;
+      const midY = (y1+y2)/2, amp = (y2-y1)/2.4;
+      const col = band.color==='teal' ? TEAL : GOLD;
+
+      // Build cosine path
+      let d = '';
+      for(let xi=0; xi<=bsPW; xi++) {
+        const tt=xi/bsPW, y=midY+amp*Math.cos(Math.PI*tt);
+        d += (xi===0 ? `M ${bsPad.l+xi} ${y}` : ` L ${bsPad.l+xi} ${y}`);
+      }
+
+      if(band.filled) {
+        bsBandFills[idx].setAttribute('display','');
+        bsBandFills[idx].setAttribute('d', d + ` L ${bsPad.l+bsPW} ${bsPad.t+bsPH} L ${bsPad.l} ${bsPad.t+bsPH} Z`);
+        bsBandFills[idx].setAttribute('fill', col+'28');
+      } else {
+        bsBandFills[idx].setAttribute('display','none');
+      }
+
+      bsBandLines[idx].setAttribute('display','');
+      bsBandLines[idx].setAttribute('d', d);
+      bsBandLines[idx].setAttribute('stroke', col);
+    });
+
+    // Hide unused band slots
+    for(let i=mat.bands.length; i<2; i++) {
+      bsBandFills[i].setAttribute('display','none');
+      bsBandLines[i].setAttribute('display','none');
+    }
+
+    // Fermi
+    const fy = bsPad.t + mat.fermiNorm*bsPH;
+    bsFermi.setAttribute('x1', bsPad.l); bsFermi.setAttribute('y1', fy);
+    bsFermi.setAttribute('x2', bsPad.l+bsPW); bsFermi.setAttribute('y2', fy);
+    bsFermiLabel.setAttribute('x', bsPad.l+4); bsFermiLabel.setAttribute('y', fy-4);
+  }
+
+  // ── DOS SVG setup ──
+  const dosW=160, dosH=280;
+  const dosPad = {l:16, r:28, t:16, b:36};
+  const dosPW = dosW - dosPad.l - dosPad.r, dosPH = dosH - dosPad.t - dosPad.b;
+
+  dosSvg.appendChild(svgEl('line', {x1:dosPad.l, y1:dosPad.t, x2:dosPad.l, y2:dosPad.t+dosPH, stroke:MUTED+'60', 'stroke-width':'1'}));
+  const dosLabel = svgEl('text', {x:dosPad.l+dosPW/2, y:dosH-4, 'text-anchor':'middle', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  dosLabel.textContent='DOS'; dosSvg.appendChild(dosLabel);
+  const dosArrow = svgEl('text', {x:dosW-12, y:dosPad.t+dosPH/2+4, 'text-anchor':'middle', fill:MUTED, 'font-size':'11', 'font-family':'IBM Plex Mono, monospace'});
+  dosArrow.textContent='→'; dosSvg.appendChild(dosArrow);
+
+  const dosGapRect = svgEl('rect', {fill:BG3, display:'none'});
+  dosSvg.appendChild(dosGapRect);
+
+  const dosBandFills = [svgEl('path'), svgEl('path')];
+  const dosBandLines = [svgEl('path'), svgEl('path')];
+  dosBandFills.forEach(p => { p.setAttribute('display','none'); dosSvg.appendChild(p); });
+  dosBandLines.forEach(p => { p.setAttribute('display','none'); p.setAttribute('fill','none'); p.setAttribute('stroke-width','2'); dosSvg.appendChild(p); });
+
+  const dosFermi = svgEl('line', {stroke:'#C84444', 'stroke-width':'1.5', 'stroke-dasharray':'5,3'});
+  dosSvg.appendChild(dosFermi);
+  const dosFermiLabel = svgEl('text', {'text-anchor':'end', fill:'#C84444', 'font-size':'10', 'font-family':'IBM Plex Mono, monospace'});
+  dosFermiLabel.textContent='E_F'; dosSvg.appendChild(dosFermiLabel);
+
+  function drawDOS() {
+    const mat = matData[currentMaterial];
+    const steps = 60;
+
+    if(mat.gap) {
+      const gy1 = dosPad.t + mat.gap.y1*dosPH, gy2 = dosPad.t + mat.gap.y2*dosPH;
+      dosGapRect.setAttribute('display','');
+      dosGapRect.setAttribute('x', dosPad.l); dosGapRect.setAttribute('y', gy1);
+      dosGapRect.setAttribute('width', dosPW); dosGapRect.setAttribute('height', gy2-gy1);
+    } else {
+      dosGapRect.setAttribute('display','none');
+    }
+
+    mat.bands.forEach((band, idx) => {
+      const y1 = dosPad.t + band.yMin*dosPH, y2 = dosPad.t + band.yMax*dosPH;
+      const col = band.color==='teal' ? TEAL : GOLD;
+
+      let fillD = `M ${dosPad.l} ${y1}`;
+      let lineD = `M ${dosPad.l} ${y1}`;
+      for(let i=0; i<=steps; i++) {
+        const frac=i/steps, ey=y1+frac*(y2-y1);
+        const dosV = 0.15 + 0.85*(4*Math.pow(frac-.5,2));
+        const xw = dosV*dosPW*0.85;
+        fillD += ` L ${dosPad.l+xw} ${ey}`;
+        lineD += ` L ${dosPad.l+xw} ${ey}`;
+      }
+      fillD += ` L ${dosPad.l} ${y2} Z`;
+
+      dosBandFills[idx].setAttribute('display','');
+      dosBandFills[idx].setAttribute('d', fillD);
+      dosBandFills[idx].setAttribute('fill', col+'35');
+
+      dosBandLines[idx].setAttribute('display','');
+      dosBandLines[idx].setAttribute('d', lineD);
+      dosBandLines[idx].setAttribute('stroke', col);
+    });
+
+    for(let i=mat.bands.length; i<2; i++) {
+      dosBandFills[i].setAttribute('display','none');
+      dosBandLines[i].setAttribute('display','none');
+    }
+
+    const fy = dosPad.t + mat.fermiNorm*dosPH;
+    dosFermi.setAttribute('x1', dosPad.l); dosFermi.setAttribute('y1', fy);
+    dosFermi.setAttribute('x2', dosPad.l+dosPW); dosFermi.setAttribute('y2', fy);
+    dosFermiLabel.setAttribute('x', dosPad.l+dosPW); dosFermiLabel.setAttribute('y', fy-4);
+  }
+
+  window.selectMaterial = function(name, btn) {
+    currentMaterial = name;
+    btn.parentNode.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('material-info').innerHTML = matData[name].info;
+    drawBS(); drawDOS();
+  };
+
+  drawBS(); drawDOS();
+})();
+
+// ─── BLOCH ───
+(function() {
+  const svg = document.getElementById('bloch-canvas');
+  const W=360, H=200;
+  let activeAtoms=0, blochAnimId=null, blochT=0;
+  const blochPos=[50,110,170,230,290];
+  const atomY=140;
+
+  // Wave path
+  const wavePath = svgEl('path', {stroke:TEAL+'AA', 'stroke-width':'2.5', fill:'none', display:'none'});
+  const waveFill = svgEl('path', {fill:TEAL+'18', stroke:'none', display:'none'});
+  svg.appendChild(waveFill);
+  svg.appendChild(wavePath);
+
+  // Orbital halos (radial gradient glow per atom)
+  const defs = svgEl('defs');
+  blochPos.forEach((ax, i) => {
+    const rg = svgEl('radialGradient', {id:`bloch-glow-${i}`, cx:'50%', cy:'50%', r:'50%'});
+    const s0=svgEl('stop',{offset:'0%'}); s0.setAttribute('stop-color',TEAL); s0.setAttribute('stop-opacity','0.44');
+    const s1=svgEl('stop',{offset:'100%'}); s1.setAttribute('stop-color',TEAL); s1.setAttribute('stop-opacity','0');
+    rg.appendChild(s0); rg.appendChild(s1); defs.appendChild(rg);
+  });
+  svg.appendChild(defs);
+
+  const halos = blochPos.map((ax, i) => {
+    const c = svgEl('circle', {cx:ax, cy:atomY, r:28, fill:`url(#bloch-glow-${i})`, display:'none'});
+    svg.appendChild(c);
+    return c;
+  });
+
+  const atoms = blochPos.map((ax, i) => {
+    const c = svgEl('circle', {cx:ax, cy:atomY, r:13, fill:BORDER, stroke:'transparent', 'stroke-width':'2'});
+    svg.appendChild(c);
+    return c;
+  });
+
+  const plusSigns = blochPos.map((ax, i) => {
+    const t = svgEl('text', {x:ax, y:atomY+6, 'text-anchor':'middle', fill:MUTED, 'font-size':'16', 'font-weight':'bold', 'font-family':'Georgia'});
+    t.textContent='+'; svg.appendChild(t);
+    return t;
+  });
+
+  function buildWave() {
+    if(activeAtoms < 5) return;
+    const pts = 200;
+    let d='', df='';
+    for(let px=0; px<=W; px+=2) {
+      const wy = 60 + Math.sin((px/W)*Math.PI*2*2.5 + blochT*0.05)*28;
+      if(px===0) { d=`M ${px} ${wy}`; df=`M ${px} ${wy}`; }
+      else { d+=` L ${px} ${wy}`; df+=` L ${px} ${wy}`; }
+    }
+    wavePath.setAttribute('d', d);
+    wavePath.setAttribute('display','');
+    df += ` L ${W} 60 L 0 60 Z`;
+    waveFill.setAttribute('d', df);
+    waveFill.setAttribute('display','');
+  }
+
+  function updateAtoms() {
+    blochPos.forEach((ax, i) => {
+      const active = i < activeAtoms;
+      atoms[i].setAttribute('fill', active ? TEAL : BORDER);
+      atoms[i].setAttribute('stroke', active ? GOLD : 'transparent');
+      halos[i].setAttribute('display', active ? '' : 'none');
+      plusSigns[i].setAttribute('display', active ? 'none' : '');
+    });
+  }
+
+  function animLoop() {
+    blochT++;
+    buildWave();
+    blochAnimId = requestAnimationFrame(animLoop);
+  }
+
+  svg.addEventListener('click', function(e) {
+    const rect = svg.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (W / rect.width);
+    blochPos.forEach((ax, i) => {
+      if(Math.abs(x-ax) < 34 && i === activeAtoms) activeAtoms++;
+    });
+    updateAtoms();
+    document.getElementById('bloch-label').textContent =
+      activeAtoms===0 ? 'Click the atoms one at a time' :
+      activeAtoms<5   ? `${activeAtoms} of 5 atoms, keep clicking` :
+                        'The lattice is complete: the atoms\' orbitals form a Bloch wave!';
+    if(activeAtoms >= 5 && !blochAnimId) animLoop();
+    if(activeAtoms < 5) {
+      wavePath.setAttribute('display','none');
+      waveFill.setAttribute('display','none');
+    }
+  });
+
+  updateAtoms();
+})();
+</script>
+</body>
+</html>
+

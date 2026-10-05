@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/feed-en.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Anas Balghaith — Articles</title>
+  <link>https://anasbq.github.io/index.html#articles</link>
+  <atom:link href="https://anasbq.github.io/feed-en.xml" rel="self" type="application/rss+xml"/>
+  <description>Plain-language science writing on materials science and life in the lab, for anyone interested in science.</description>
+  <language>en</language>
+  <lastBuildDate>Mon, 05 Oct 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>How cooking taught me lab skills</title>
+    <link>https://anasbq.github.io/en/articles/how-cooking-taught-me-lab-skills.html</link>
+    <guid>https://anasbq.github.io/en/articles/how-cooking-taught-me-lab-skills.html</guid>
+    <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
+    <description>Chopsticks, garlic sauce and espresso: hidden lessons in precision and observation I learned in the kitchen before the lab.</description>
+  </item>
+  <item>
+    <title>How do chemistry and physics meet in understanding solids?</title>
+    <link>https://anasbq.github.io/en/articles/chemistry-and-physics-in-the-solid-state.html</link>
+    <guid>https://anasbq.github.io/en/articles/chemistry-and-physics-in-the-solid-state.html</guid>
+    <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
+    <description>Why did my two supervisors read the same results in opposite ways? And how the chemist Roald Hoffmann brought the chemist's and the physicist's languages together.</description>
+  </item>
+  <item>
+    <title>Why did I choose scientific research?</title>
+    <link>https://anasbq.github.io/en/articles/why-i-chose-research.html</link>
+    <guid>https://anasbq.github.io/en/articles/why-i-chose-research.html</guid>
+    <pubDate>Mon, 05 Oct 2026 00:00:00 GMT</pubDate>
+    <description>A personal story about a physics teacher, a burned-out lamp, and an electron I'm still chasing today.</description>
+  </item>
+</channel>
+</rss>
