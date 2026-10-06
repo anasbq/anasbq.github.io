@@ -6,6 +6,9 @@
 <title>مقالة جديدة — لوحة التحكم</title>
 <meta name="robots" content="noindex, nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/mhchem.min.js"></script>
 <style>
   :root{
     --bg:#F3F1EA; --surface:#FFFFFF; --soft:#FBFAF5; --line:#E4E0D3;
@@ -44,6 +47,14 @@
   .help{font-size:13px;line-height:1.9;color:var(--ink-3);background:var(--soft);border:1px solid var(--line);
     border-radius:10px;padding:10px 14px;margin-top:8px;}
   .help code{font-family:'IBM Plex Mono','IBM Plex Sans Arabic',sans-serif;background:#EFECE2;padding:1px 5px;border-radius:4px;direction:ltr;unicode-bidi:embed;}
+  .toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:var(--soft);border:1.5px solid var(--line);
+    border-bottom:0;border-radius:8px 8px 0 0;}
+  .toolbar button,.toolbar select{flex:0 0 auto;width:auto;padding:6px 10px;border:1px solid var(--line);border-radius:6px;
+    background:#fff;color:var(--ink-2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;line-height:1.4;}
+  .toolbar button:hover,.toolbar select:hover{border-color:var(--accent);color:var(--accent-dark);}
+  .toolbar .sep{width:1px;background:var(--line);margin:2px;}
+  .toolbar + textarea{border-radius:0 0 8px 8px;}
+  .slugnote{font-size:13px;color:var(--ink-3);margin-top:6px;min-height:1em;}
   details summary{cursor:pointer;font-weight:600;color:var(--ink-2);}
   @media (max-width:900px){ .two{grid-template-columns:1fr;} }
   @media (max-width:560px){ main{padding:24px 16px 60px;} #preview{padding:24px 16px;} }
@@ -99,15 +110,43 @@
 
       <label for="slug">اسم الملف <span class="muted">(حروف إنجليزية صغيرة وأرقام وشرطات، مثل <code style="font-family:'IBM Plex Mono',monospace;">why-i-love-crystals</code>)</span></label>
       <input id="slug" class="ltr" autocomplete="off" placeholder="my-new-article">
+      <div class="slugnote" id="slugNote"></div>
 
       <label for="body">نص المقالة</label>
+      <div class="toolbar" role="toolbar" aria-label="أدوات التنسيق">
+        <button type="button" data-act="h2" title="عنوان قسم">عنوان</button>
+        <button type="button" data-act="h3" title="عنوان فرعي أصغر">عنوان فرعي</button>
+        <span class="sep"></span>
+        <button type="button" data-act="bold" title="غامق"><b>غامق</b></button>
+        <button type="button" data-act="italic" title="مائل"><i>مائل</i></button>
+        <button type="button" data-act="sub" title="رقم سفلي، مثل H₂O">x₂</button>
+        <button type="button" data-act="sup" title="رقم علوي، مثل m²">x²</button>
+        <span class="sep"></span>
+        <button type="button" data-act="ul" title="قائمة نقطية">• قائمة</button>
+        <button type="button" data-act="ol" title="قائمة مرقمة">1. قائمة</button>
+        <button type="button" data-act="quote" title="اقتباس">❝ اقتباس</button>
+        <button type="button" data-act="link" title="رابط">رابط</button>
+        <button type="button" data-act="img" title="صورة من رابط">صورة</button>
+        <span class="sep"></span>
+        <button type="button" data-act="math" title="معادلة داخل السطر">∑ معادلة</button>
+        <button type="button" data-act="mathblock" title="معادلة في سطر مستقل في الوسط">معادلة مستقلة</button>
+        <button type="button" data-act="chem" title="صيغة أو تفاعل كيميائي">⚗ صيغة كيميائية</button>
+        <select id="symbols" aria-label="إدراج رمز">
+          <option value="">رموز…</option>
+          <option>→</option><option>⇌</option><option>↑</option><option>↓</option>
+          <option>±</option><option>×</option><option>÷</option><option>≈</option><option>≠</option><option>≤</option><option>≥</option><option>∞</option>
+          <option>°</option><option>°C</option><option>Å</option><option>‰</option>
+          <option>α</option><option>β</option><option>γ</option><option>δ</option><option>Δ</option><option>ε</option><option>θ</option>
+          <option>λ</option><option>μ</option><option>ν</option><option>π</option><option>ρ</option><option>σ</option><option>τ</option><option>φ</option><option>ω</option><option>Ω</option>
+        </select>
+        <span class="sep"></span>
+        <button type="button" data-act="sources" title="قسم المصادر في آخر المقالة">المصادر</button>
+      </div>
       <textarea id="body"></textarea>
       <div class="help">
-        فقرة جديدة: سطر فارغ. عنوان فرعي: <code>## العنوان</code> (وأصغر: <code>### </code>).
-        قائمة: <code>- عنصر</code> أو <code>1. عنصر</code>. اقتباس: <code>&gt; نص</code>.
-        <b>غامق</b>: <code>**نص**</code>. <i>مائل</i>: <code>*نص*</code>.
-        رابط: <code>[النص](https://…)</code>. صورة: <code>![وصف الصورة](https://…)</code>.
-        للمصادر في آخر المقالة: <code>## المصادر</code> ثم قائمة.
+        حدّد نصاً ثم اضغط زراً لتنسيقه، أو اضغط الزر ثم اكتب. الفقرة الجديدة تبدأ بعد سطر فارغ.
+        المعادلات تُكتب بصيغة LaTeX، مثل <code>E = mc^2</code> أو <code>\frac{a}{b}</code>،
+        والصيغ الكيميائية مثل <code>\ce{2H2 + O2 -> 2H2O}</code> أو <code>\ce{SnO2}</code>.
       </div>
 
       <div class="row" style="margin-top:20px;">
@@ -162,8 +201,28 @@
     };
   }
 
+  /* ---------- equations and chemistry (KaTeX + mhchem) ---------- */
+  var KATEX_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';
+  var mathError = null;
+  function mathHtml(tex, display){
+    if(!window.katex) return '<code dir="ltr">'+esc(tex)+'</code>';
+    var html;
+    try{
+      html = katex.renderToString(tex, { displayMode: display, throwOnError: true });
+    }catch(e){
+      mathError = mathError || tex;
+      html = '<code dir="ltr" style="color:#B5651D;">'+esc(tex)+'</code>';
+    }
+    return display
+      ? '<div dir="ltr" style="margin:4px 0;overflow-x:auto;overflow-y:hidden;text-align:center;font-size:1.1em;">'+html+'</div>'
+      : '<span dir="ltr">'+html+'</span>';
+  }
+  function hasMath(src){ return /\$[^$\n]+\$/.test(src); }
+
   /* ---------- a small Markdown converter (no raw HTML is passed through) ---------- */
   function inline(t, st){
+    var keep = [];
+    t = t.replace(/\$([^$\n]+?)\$/g, function(_,tex){ keep.push(mathHtml(tex,false)); return '\u0000'+(keep.length-1)+'\u0000'; });
     t = esc(t);
     t = t.replace(/`([^`]+)`/g, function(_,c){ return '<code style="'+st.code+'">'+c+'</code>'; });
     t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|[^\s)]+\.html[^\s)]*)\)/g,
@@ -173,6 +232,9 @@
       });
     t = t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
     t = t.replace(/(^|[^*])\*([^*\s][^*]*)\*/g,'$1<em>$2</em>');
+    t = t.replace(/~([^~\s][^~]*?)~/g,'<sub>$1</sub>');
+    t = t.replace(/\^([^\^\s][^\^]*?)\^/g,'<sup>$1</sup>');
+    t = t.replace(/\u0000(\d+)\u0000/g, function(_,i){ return keep[+i]; });
     return t;
   }
 
@@ -183,7 +245,9 @@
       b = b.replace(/^\s+|\s+$/g,'');
       if(!b) return;
       var lines = b.split('\n'), m;
-      if((m = b.match(/^(#{2,3})\s+(.+)$/)) && lines.length===1){
+      if((m = b.match(/^\$\$([\s\S]+)\$\$$/))){
+        out.push(ind+mathHtml(m[1].trim(), true));
+      } else if((m = b.match(/^(#{2,3})\s+(.+)$/)) && lines.length===1){
         var tag = m[1].length===2 ? 'h2' : 'h3';
         out.push(ind+'<'+tag+' style="'+st[tag]+'">'+inline(m[2],st)+'</'+tag+'>');
       } else if((m = b.match(/^!\[([^\]]*)\]\((\S+)\)$/))){
@@ -237,6 +301,7 @@
 '<meta property="og:url" content="'+url+'">',
 '<meta property="og:image" content="'+SITE+'/images/me.jpg">',
 '<link href="https://fonts.googleapis.com/css2?'+fonts+'&display=swap" rel="stylesheet">',
+hasMath(a.body) ? '<link rel="stylesheet" href="'+KATEX_CSS+'">' : '',
 '<style>',
 "body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}",
 "h1,h2,h3{font-family:'Fraunces',Georgia,serif;}",
@@ -424,6 +489,7 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
       [].forEach.call(pv.querySelectorAll('h2,h3'), function(h){ h.style.fontFamily="'Fraunces',Georgia,serif"; });
     }
     var d = {}; fields.forEach(function(f){ d[f] = $(f).value; });
+    d.slugAuto = !slugTouched;
     lsSet(LS_DRAFT, JSON.stringify(d));
   }
 
@@ -438,22 +504,122 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
     $('tokenDetails').open = !has;
   }
 
+  /* ---------- file name from the title (Arabic titles are translated) ---------- */
+  var TR = {'ا':'a','أ':'a','إ':'i','آ':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'h','خ':'kh','د':'d','ذ':'dh',
+    'ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'z','ع':'a','غ':'gh','ف':'f','ق':'q','ك':'k',
+    'ل':'l','م':'m','ن':'n','ه':'h','ة':'a','و':'w','ؤ':'w','ي':'y','ى':'a','ئ':'y','ء':''};
+  function transliterate(s){ return s.replace(/[؀-ۿ]/g, function(c){ return TR[c]!=null ? TR[c] : ''; }); }
+
+  var slugTimer = null, slugSeq = 0;
+  function autoSlug(){
+    if(slugTouched) return;
+    var title = $('title').value.trim(), lang = $('lang').value;
+    clearTimeout(slugTimer);
+    if(!title){ $('slug').value=''; $('slugNote').textContent=''; return; }
+    if(lang==='en' || !/[؀-ۿ]/.test(title)){
+      $('slug').value = slugify(title); $('slugNote').textContent=''; render(); return;
+    }
+    $('slugNote').textContent = 'جارٍ ترجمة العنوان…';
+    var seq = ++slugSeq;
+    slugTimer = setTimeout(function(){
+      fetch('https://api.mymemory.translated.net/get?langpair=ar|en&q='+encodeURIComponent(title))
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          var en = d && d.responseData && d.responseData.translatedText;
+          if(!en || d.responseStatus!=200 || !slugify(en)) throw 0;
+          return { slug: slugify(en), note: 'تُرجم تلقائياً: '+en };
+        })
+        .catch(function(){
+          return { slug: slugify(transliterate(title)), note: 'تعذّرت الترجمة، فكتبت العنوان بحروف لاتينية.' };
+        })
+        .then(function(x){
+          if(seq!==slugSeq || slugTouched) return;
+          $('slug').value = x.slug; $('slugNote').textContent = x.note + ' يمكنك تعديل الاسم يدوياً.'; render();
+        });
+    }, 700);
+  }
+
+  /* ---------- formatting toolbar ---------- */
+  function insert(text, selFrom, selTo){
+    var ta = $('body'), s = ta.selectionStart;
+    ta.focus();
+    if(!document.execCommand || !document.execCommand('insertText', false, text)){
+      ta.setRangeText(text, ta.selectionStart, ta.selectionEnd, 'end');
+    }
+    if(selFrom!=null) ta.setSelectionRange(s+selFrom, s+selTo);
+    render();
+  }
+  function selected(){ var ta=$('body'); return ta.value.slice(ta.selectionStart, ta.selectionEnd); }
+  function wrap(pre, post, ph){
+    var t = selected() || ph;
+    insert(pre+t+post, pre.length, pre.length+t.length);
+  }
+  /* put the text on its own block, with blank lines around it */
+  function collapse(){ var ta=$('body'); ta.setSelectionRange(ta.selectionEnd, ta.selectionEnd); }
+  function block(text, selFrom, selTo){
+    var ta = $('body'), v = ta.value, s = ta.selectionStart, e = ta.selectionEnd;
+    var before = v.slice(0,s), after = v.slice(e);
+    var pre = !before || /\n\n$/.test(before) ? '' : (/\n$/.test(before) ? '\n' : '\n\n');
+    var post = !after || /^\n\n/.test(after) ? '' : (/^\n/.test(after) ? '\n' : '\n\n');
+    insert(pre+text+post, selFrom==null?null:pre.length+selFrom, selTo==null?null:pre.length+selTo);
+  }
+  function lines(prefix, ph){
+    var t = selected();
+    if(!t){ var p0 = prefix(0); block(p0+ph, p0.length, p0.length+ph.length); return; }
+    var out = t.split('\n').map(function(l,i){ return prefix(i)+l.replace(/^(#{2,3}\s+|[-*]\s+|\d+[.)]\s+|>\s?)/,''); }).join('\n');
+    block(out, 0, out.length);
+  }
+  var ACTIONS = {
+    h2:    function(){ var t=selected()||'عنوان القسم'; block('## '+t, 3, 3+t.length); },
+    h3:    function(){ var t=selected()||'عنوان فرعي'; block('### '+t, 4, 4+t.length); },
+    bold:  function(){ wrap('**','**','نص غامق'); },
+    italic:function(){ wrap('*','*','نص مائل'); },
+    sub:   function(){ wrap('~','~','2'); },
+    sup:   function(){ wrap('^','^','2'); },
+    ul:    function(){ lines(function(){ return '- '; }, 'عنصر'); },
+    ol:    function(){ lines(function(i){ return (i+1)+'. '; }, 'عنصر'); },
+    quote: function(){ lines(function(){ return '> '; }, 'نص الاقتباس'); },
+    link:  function(){
+      var url = prompt('رابط الصفحة:', 'https://'); if(!url) return;
+      var t = selected() || 'نص الرابط'; insert('['+t+']('+url.trim()+')', 1, 1+t.length);
+    },
+    img:   function(){
+      var url = prompt('رابط الصورة:', 'https://'); if(!url) return;
+      var alt = prompt('وصف قصير للصورة (يظهر تحتها):', '') || '';
+      collapse(); block('!['+alt+']('+url.trim()+')');
+    },
+    math:  function(){ wrap('$','$','E = mc^2'); },
+    mathblock: function(){ var t=selected()||'\\frac{a}{b} = c'; block('$$ '+t+' $$', 3, 3+t.length); },
+    chem:  function(){ var t=selected()||'2H2 + O2 -> 2H2O'; insert('$\\ce{'+t+'}$', 5, 5+t.length); },
+    sources: function(){
+      var ta = $('body'); ta.setSelectionRange(ta.value.length, ta.value.length); /* always at the end */
+      var t = $('lang').value==='ar' ? '## المصادر' : '## References';
+      block(t+'\n\n1. ', t.length+5, t.length+5);
+    }
+  };
+  [].forEach.call(document.querySelectorAll('.toolbar [data-act]'), function(b){
+    b.addEventListener('mousedown', function(e){ e.preventDefault(); }); /* keep the text selection */
+    b.addEventListener('click', function(){ ACTIONS[b.getAttribute('data-act')](); });
+  });
+  $('symbols').addEventListener('change', function(){
+    var v = this.value; this.value = ''; if(v) insert(v);
+  });
+
   /* restore draft */
   try{
     var saved = JSON.parse(lsGet(LS_DRAFT) || 'null');
     if(saved) fields.forEach(function(f){ if(saved[f]!=null) $(f).value = saved[f]; });
-    if(saved && saved.slug) slugTouched = true;
+    if(saved && saved.slug && !saved.slugAuto) slugTouched = true;
   }catch(e){}
   if(!$('date').value) $('date').value = today();
   refreshToken();
   render();
+  window.addEventListener('load', render); /* re-render once KaTeX has loaded */
 
   fields.forEach(function(f){ $(f).addEventListener('input', render); });
-  $('lang').addEventListener('change', render);
-  $('slug').addEventListener('input', function(){ slugTouched = !!$('slug').value; });
-  $('title').addEventListener('input', function(){
-    if(!slugTouched && $('lang').value==='en'){ $('slug').value = slugify($('title').value); render(); }
-  });
+  $('lang').addEventListener('change', function(){ render(); autoSlug(); });
+  $('slug').addEventListener('input', function(){ slugTouched = !!$('slug').value; if(slugTouched) $('slugNote').textContent=''; });
+  $('title').addEventListener('input', autoSlug);
 
   $('saveToken').addEventListener('click', function(){
     var t=$('token').value.trim(); if(!t) return;
@@ -465,7 +631,7 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
   $('reset').addEventListener('click', function(){
     if(!confirm('مسح المسودة الحالية والبدء من جديد؟')) return;
     fields.forEach(function(f){ if(f!=='lang') $(f).value=''; });
-    $('date').value = today(); slugTouched=false; render(); setMsg('');
+    $('date').value = today(); slugTouched=false; $('slugNote').textContent=''; render(); setMsg('');
   });
 
   $('publish').addEventListener('click', function(){
@@ -473,6 +639,11 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
     if(!lsGet(LS_TOKEN)){ setMsg('أدخل مفتاح GitHub أولاً (أعلى الصفحة).','err'); $('tokenDetails').open=true; return; }
     if(!a.title || !a.summary || !a.body){ setMsg('العنوان والملخص والنص كلها مطلوبة.','err'); return; }
     if(!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(a.slug)){ setMsg('اسم الملف يجب أن يكون حروفاً إنجليزية صغيرة وأرقاماً تفصلها شرطات.','err'); return; }
+    if(hasMath(a.body)){
+      if(!window.katex){ setMsg('أداة المعادلات لم تُحمَّل بعد. انتظر لحظة أو حدّث الصفحة ثم حاول مجدداً.','err'); return; }
+      mathError = null; md(a.body, a.lang);
+      if(mathError){ setMsg('في المقالة معادلة لم أستطع قراءتها: '+mathError+' (تظهر باللون البرتقالي في المعاينة).','err'); return; }
+    }
     if(!confirm('نشر «'+a.title+'» على الموقع الآن؟')) return;
     var btn=$('publish'); btn.disabled=true; setMsg('جارٍ النشر…');
     publish(a).then(function(url){
