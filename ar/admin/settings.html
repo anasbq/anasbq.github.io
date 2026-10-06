@@ -14,6 +14,7 @@
   .state.ok{color:var(--accent-dark);} .state.no{color:var(--warn);}
   ol.steps{margin:10px 0 0;padding-inline-start:22px;font-size:14px;line-height:2;color:var(--ink-2);}
   input{max-width:460px;}
+  code{font-family:'IBM Plex Mono',monospace;background:#EFECE2;padding:1px 6px;border-radius:4px;font-size:13px;}
 </style>
 </head>
 <body>
@@ -54,6 +55,14 @@
       <button class="btn ghost" id="gcClear">مسح</button>
     </div>
     <div class="msg" id="gcMsg" role="status"></div>
+
+    <h3 style="margin:26px 0 6px;font-size:16px;">النسخة التلقائية <span class="state" id="copyState"></span></h3>
+    <p class="muted" style="margin:0;">بعض المتصفحات وموانع الإعلانات تمنع الاتصال المباشر بـ GoatCounter. لذلك ينسخ GitHub أرقام الزوار كل نصف ساعة، وتعرضها اللوحة عند الحاجة. تُجهَّز مرة واحدة:</p>
+    <ol class="steps">
+      <li>افتح <a href="https://github.com/anasbq/anasbq.github.io/settings/secrets/actions/new" target="_blank" rel="noopener">صفحة إضافة سرّ في GitHub</a>.</li>
+      <li>في «Name» اكتب <code dir="ltr">GOATCOUNTER_TOKEN</code>، وفي «Secret» الصق مفتاح GoatCounter نفسه، ثم <b>Add secret</b>.</li>
+      <li>افتح <a href="https://github.com/anasbq/anasbq.github.io/actions/workflows/stats.yml" target="_blank" rel="noopener">صفحة «Update stats»</a> واضغط <b>Run workflow</b> ثم <b>Run workflow</b> مرة أخرى. بعد دقيقة تظهر الأرقام.</li>
+    </ol>
   </div>
 </div></main>
 
@@ -92,8 +101,13 @@
     fetch('https://'+s+'.goatcounter.com/api/v0/me', { headers:{ 'Authorization':'Bearer '+t } }).then(function(r){
       if(r.ok) msg('gcMsg','المفتاح يعمل. ستظهر الأرقام في لوحة التحكم.','ok');
       else msg('gcMsg','رفض GoatCounter المفتاح (رمز '+r.status+'). تأكد من الاسم والصلاحية.','err');
-    }).catch(function(){ msg('gcMsg','تعذّر الاتصال بـ GoatCounter الآن. حُفظ المفتاح على أي حال.','err'); });
+    }).catch(function(){ msg('gcMsg','حُفظ المفتاح، لكن متصفحك منع الاتصال المباشر بـ GoatCounter (غالباً مانع إعلانات أو إعداد خصوصية). لا مشكلة: جهّز «النسخة التلقائية» أدناه وستظهر الأرقام في اللوحة.','err'); });
   });
+  fetch('https://raw.githubusercontent.com/'+Admin.REPO+'/stats/stats.json?t='+Date.now())
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(d){ $('copyState').textContent = '✓ تعمل، آخر نسخة: '+new Date(d.updated).toLocaleString('ar-EG'); $('copyState').className='state ok'; })
+    .catch(function(){ $('copyState').textContent = 'لم تُجهَّز بعد'; $('copyState').className='state no'; });
+
   $('gcClear').addEventListener('click', function(){ ls.del(K.gcToken); states(); msg('gcMsg','مُسح المفتاح من هذا المتصفح.'); });
 })();
 </script>

@@ -1,0 +1,58 @@
+# Copies the site's GoatCounter numbers into stats.json on the "stats" branch,
+# so the admin dashboard (ar/admin/) can show them even when the browser
+# blocks direct calls to goatcounter.com (ad blockers, privacy settings).
+# Needs the repository secret GOATCOUNTER_TOKEN (a "Read statistics" API key).
+name: Update stats
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: true
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch from GoatCounter
+        env:
+          GC_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          GC_SITE: anasbq
+        run: |
+          if [ -z "$GC_TOKEN" ]; then
+            echo "::warning::GOATCOUNTER_TOKEN secret is not set; skipping."
+            exit 0
+          fi
+          start=$(date -u -d '29 days ago' +%Y-%m-%dT00:00:00Z)
+          end=$(date -u +%Y-%m-%dT%H:00:00Z)
+          api() {
+            curl -fsS --retry 3 -H "Authorization: Bearer $GC_TOKEN" \
+              "https://$GC_SITE.goatcounter.com/api/v0$1?start=$start&end=$end&$2"
+          }
+          mkdir -p out
+          api /stats/total ''           > total.json
+          api /stats/hits 'limit=20'    > hits.json
+          api /stats/toprefs 'limit=10' > refs.json
+          jq -n --arg updated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --slurpfile total total.json --slurpfile hits hits.json --slurpfile refs refs.json \
+            '{updated: $updated, total: $total[0], hits: $hits[0], refs: $refs[0]}' > out/stats.json
+          echo "HAVE_STATS=1" >> "$GITHUB_ENV"
+
+      # The branch always holds a single commit, so the history never grows.
+      - name: Publish to the stats branch
+        if: env.HAVE_STATS == '1'
+        working-directory: out
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git init -q -b stats
+          git add stats.json
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -q -m "Update stats"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" stats
