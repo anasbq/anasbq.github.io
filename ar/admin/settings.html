@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الإعدادات — لوحة التحكم</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<style>
+  .card + .card{margin-top:20px;}
+  .card h2{margin:0 0 6px;font-size:19px;}
+  .state{font-size:14px;font-weight:600;}
+  .state.ok{color:var(--accent-dark);} .state.no{color:var(--warn);}
+  ol.steps{margin:10px 0 0;padding-inline-start:22px;font-size:14px;line-height:2;color:var(--ink-2);}
+  input{max-width:460px;}
+</style>
+</head>
+<body>
+<main><div class="wrap" style="max-width:820px;">
+  <h1 class="adm-h1">الإعدادات</h1>
+  <p class="adm-lead">المفاتيح تُحفَظ في هذا المتصفح فقط ولا تُرفَع إلى الموقع. إذا فتحت اللوحة من جهاز آخر أدخلها هناك مرة واحدة.</p>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between;">
+      <h2>مفتاح GitHub</h2><span class="state" id="ghState"></span>
+    </div>
+    <p class="muted" style="margin:0;">مطلوب لنشر المقالات وحذفها وتعديل الصفحات ورفع الصور.</p>
+    <ol class="steps">
+      <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">صفحة إنشاء مفتاح Fine-grained</a>.</li>
+      <li>في «Repository access» اختر <b>Only select repositories</b> ثم <b>anasbq.github.io</b>.</li>
+      <li>في «Permissions» اجعل <b>Contents</b> على <b>Read and write</b>، ثم أنشئ المفتاح وانسخه.</li>
+    </ol>
+    <label for="ghToken">المفتاح</label>
+    <input id="ghToken" type="password" class="ltr" placeholder="github_pat_…" autocomplete="off">
+    <div class="row" style="margin-top:12px;">
+      <button class="btn" id="ghSave">حفظ واختبار</button>
+      <button class="btn ghost" id="ghClear">مسح</button>
+    </div>
+    <div class="msg" id="ghMsg" role="status"></div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between;">
+      <h2>إحصاءات GoatCounter</h2><span class="state" id="gcState"></span>
+    </div>
+    <p class="muted" style="margin:0;">من حسابك على GoatCounter: اضغط على بريدك أعلى الصفحة ثم <b>API</b>، وأنشئ مفتاحاً بصلاحية «Read statistics».</p>
+    <label for="gcSite">اسم الحساب</label>
+    <input id="gcSite" class="ltr" placeholder="anasbq" autocomplete="off">
+    <label for="gcToken">المفتاح</label>
+    <input id="gcToken" type="password" class="ltr" placeholder="API token" autocomplete="off">
+    <div class="row" style="margin-top:12px;">
+      <button class="btn" id="gcSave">حفظ واختبار</button>
+      <button class="btn ghost" id="gcClear">مسح</button>
+    </div>
+    <div class="msg" id="gcMsg" role="status"></div>
+  </div>
+</div></main>
+
+<script src="admin.js"></script>
+<script>
+(function(){
+  Admin.layout('settings');
+  var $ = Admin.$, ls = Admin.ls, K = Admin.KEYS;
+
+  function states(){
+    var gh = !!ls.get(K.gh), gc = !!(ls.get(K.gcSite) && ls.get(K.gcToken));
+    $('ghState').textContent = gh ? '✓ محفوظ' : 'غير مُدخَل'; $('ghState').className = 'state '+(gh?'ok':'no');
+    $('gcState').textContent = gc ? '✓ محفوظ' : 'غير مُدخَل'; $('gcState').className = 'state '+(gc?'ok':'no');
+    $('gcSite').value = ls.get(K.gcSite) || 'anasbq';
+  }
+  function msg(id, text, kind){ var m=$(id); m.className='msg'+(kind?' '+kind:''); m.textContent=text; }
+  states();
+
+  $('ghSave').addEventListener('click', function(){
+    var t = $('ghToken').value.trim();
+    if(!t && !ls.get(K.gh)){ msg('ghMsg','الصق المفتاح أولاً.','err'); return; }
+    if(t) ls.set(K.gh, t);
+    $('ghToken').value=''; states(); msg('ghMsg','جارٍ الاختبار…');
+    Admin.gh('https://api.github.com/repos/'+Admin.REPO).then(function(r){
+      if(r.permissions && r.permissions.push) msg('ghMsg','المفتاح يعمل ويملك صلاحية الكتابة على الموقع.','ok');
+      else msg('ghMsg','المفتاح يعمل لكن بلا صلاحية كتابة. اجعل Contents على Read and write.','err');
+    }).catch(function(e){ msg('ghMsg', e.message, 'err'); });
+  });
+  $('ghClear').addEventListener('click', function(){ ls.del(K.gh); states(); msg('ghMsg','مُسح المفتاح من هذا المتصفح.'); });
+
+  $('gcSave').addEventListener('click', function(){
+    var s = $('gcSite').value.trim().replace(/^https?:\/\//,'').replace(/\.goatcounter\.com.*$/,'');
+    var t = $('gcToken').value.trim() || ls.get(K.gcToken);
+    if(!s || !t){ msg('gcMsg','أدخل اسم الحساب والمفتاح.','err'); return; }
+    ls.set(K.gcSite, s); ls.set(K.gcToken, t); $('gcToken').value=''; states(); msg('gcMsg','جارٍ الاختبار…');
+    fetch('https://'+s+'.goatcounter.com/api/v0/me', { headers:{ 'Authorization':'Bearer '+t } }).then(function(r){
+      if(r.ok) msg('gcMsg','المفتاح يعمل. ستظهر الأرقام في لوحة التحكم.','ok');
+      else msg('gcMsg','رفض GoatCounter المفتاح (رمز '+r.status+'). تأكد من الاسم والصلاحية.','err');
+    }).catch(function(){ msg('gcMsg','تعذّر الاتصال بـ GoatCounter الآن. حُفظ المفتاح على أي حال.','err'); });
+  });
+  $('gcClear').addEventListener('click', function(){ ls.del(K.gcToken); states(); msg('gcMsg','مُسح المفتاح من هذا المتصفح.'); });
+})();
+</script>
+</body>
+</html>

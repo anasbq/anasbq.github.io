@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الصور — لوحة التحكم</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<style>
+  .drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:28px;border:2px dashed var(--line);
+    border-radius:14px;background:var(--surface);text-align:center;cursor:pointer;margin-bottom:24px;}
+  .drop.over{border-color:var(--accent);background:var(--accent-soft);}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;}
+  .tile .thumb{aspect-ratio:4/3;background:var(--soft) center/cover no-repeat;}
+  .tile .meta{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+  .tile .name{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-2);direction:ltr;text-align:left;word-break:break-all;}
+  .tile .row{gap:6px;}
+</style>
+</head>
+<body>
+<main><div class="wrap">
+  <h1 class="adm-h1">الصور</h1>
+  <p class="adm-lead">كل صور الموقع. ارفع صورة لتستخدمها في مقالة (انسخ رابطها وضعه بزر «صورة» في محرر المقالة)، أو أضفها إلى صفحة مباشرة من «تعديل الصفحات». الصور الكبيرة تُصغَّر تلقائياً إلى عرض ١٦٠٠ بكسل.</p>
+
+  <label class="drop" id="drop" for="files">
+    <strong>اسحب الصور إلى هنا أو اضغط للاختيار</strong>
+    <span class="muted">JPG أو PNG أو WebP أو SVG</span>
+  </label>
+  <input type="file" id="files" accept="image/*" multiple hidden>
+
+  <div class="gallery" id="gallery"><p class="muted">جارٍ التحميل…</p></div>
+</div></main>
+
+<script src="admin.js"></script>
+<script>
+(function(){
+  Admin.layout('media');
+  var $ = Admin.$, esc = Admin.esc;
+  var hasToken = Admin.needToken();
+  var IMG = /\.(jpe?g|png|gif|webp|svg|avif)$/i;
+  var items = [];
+
+  function load(){
+    Admin.head().then(function(h){ return Admin.tree(h.sha); }).then(function(t){
+      items = t.filter(function(f){ return f.type==='blob' && IMG.test(f.path) && !/^articles\/|^\.|node_modules/.test(f.path); })
+        .map(function(f){ return { path:f.path, size:f.size }; })
+        .sort(function(a,b){ return b.path.localeCompare(a.path); });
+      render();
+    }).catch(function(e){ $('gallery').innerHTML = '<p class="muted">'+esc(e.message)+'</p>'; });
+  }
+  function kb(n){ return n>1048576 ? (n/1048576).toFixed(1)+' MB' : Math.max(1,Math.round(n/1024))+' KB'; }
+  function render(){
+    $('gallery').innerHTML = items.length ? items.map(function(x){
+      var url = x.local || Admin.SITE+'/'+Admin.enc(x.path);
+      return '<div class="tile"><div class="thumb" style="background-image:url(\''+url+'\')"></div><div class="meta">'+
+        '<div class="name">'+esc(x.path)+'</div><div class="muted" style="font-size:12px;">'+(x.size?kb(x.size):'')+'</div>'+
+        '<div class="row"><button class="btn ghost sm" data-copy="'+esc(x.path)+'">نسخ الرابط</button>'+
+        '<button class="btn danger sm" data-del="'+esc(x.path)+'">حذف</button></div></div></div>';
+    }).join('') : '<p class="muted">لا توجد صور بعد.</p>';
+  }
+
+  function upload(files){
+    if(!hasToken){ Admin.toast('أضف مفتاح GitHub من الإعدادات أولاً.','err'); return; }
+    files = [].filter.call(files, function(f){ return /^image\//.test(f.type); });
+    if(!files.length) return;
+    Admin.toast('جارٍ رفع '+files.length+' صورة…');
+    Promise.all(files.map(function(f){
+      return Admin.fileToBase64(f).then(function(x){ return { path:Admin.imageName(f,x.type), base64:x.base64, type:x.type }; });
+    })).then(function(list){
+      return Admin.commit(function(){ return list.map(function(u){ return { path:u.path, base64:u.base64 }; }); },
+        'رفع صور: '+list.map(function(u){ return u.path; }).join(', ')).then(function(){ return list; });
+    }).then(function(list){
+      list.forEach(function(u){ items.unshift({ path:u.path, size:Math.round(u.base64.length*0.75), local:'data:'+u.type+';base64,'+u.base64 }); });
+      render(); Admin.toast('رُفعت الصور. تصبح متاحة على الموقع خلال دقيقة أو دقيقتين.');
+    }).catch(function(e){ Admin.toast(e.message,'err'); });
+  }
+
+  $('files').addEventListener('change', function(){ upload(this.files); this.value=''; });
+  var drop = $('drop');
+  ['dragenter','dragover'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave','drop'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function(e){ upload(e.dataTransfer.files); });
+
+  $('gallery').addEventListener('click', function(e){
+    var c = e.target.closest('[data-copy]'), d = e.target.closest('[data-del]');
+    if(c){
+      var url = Admin.SITE+'/'+Admin.enc(c.getAttribute('data-copy'));
+      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function(){ Admin.toast('نُسخ الرابط: '+url); })
+        .catch(function(){ prompt('انسخ الرابط:', url); });
+    }
+    if(d){
+      if(!hasToken){ Admin.toast('أضف مفتاح GitHub من الإعدادات أولاً.','err'); return; }
+      var p = d.getAttribute('data-del');
+      if(!confirm('حذف الصورة '+p+'؟\n\nإذا كانت مستخدمة في صفحة ما فستظهر هناك مكسورة.')) return;
+      d.disabled = true;
+      Admin.commit(function(){ return [{ path:p, remove:true }]; }, 'حذف صورة: '+p).then(function(){
+        items = items.filter(function(x){ return x.path!==p; }); render(); Admin.toast('حُذفت الصورة.');
+      }).catch(function(e){ d.disabled = false; Admin.toast(e.message,'err'); });
+    }
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
