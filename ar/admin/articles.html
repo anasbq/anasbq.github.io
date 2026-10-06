@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المقالات — لوحة التحكم</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<style>
+  .filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .filters button{padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-size:14px;
+    font-weight:600;color:var(--ink-2);cursor:pointer;}
+  .filters button.on{background:var(--accent);border-color:var(--accent);color:#F9F7F0;}
+  td.title a{color:var(--ink);font-weight:600;}
+  td.title .file{display:block;margin-top:2px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);direction:ltr;text-align:right;}
+  td.actions{white-space:nowrap;}
+  td.actions .btn{margin-inline-start:4px;}
+</style>
+</head>
+<body>
+<main><div class="wrap">
+  <div class="row" style="justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+    <div>
+      <h1 class="adm-h1">المقالات</h1>
+      <p class="adm-lead">كل صفحات المقالات في الموقع. «مخفية» تعني أن الصفحة موجودة لكنها غير ظاهرة في قائمة المقالات ولا في RSS.</p>
+    </div>
+    <a class="btn" href="new.html">+ مقالة جديدة</a>
+  </div>
+
+  <div class="filters" role="group" aria-label="تصفية حسب اللغة">
+    <button data-f="all" class="on">الكل</button>
+    <button data-f="ar">العربية</button>
+    <button data-f="en">الإنجليزية</button>
+  </div>
+
+  <div class="card tablewrap" style="padding:4px 6px;">
+    <table>
+      <thead><tr><th>العنوان</th><th>اللغة</th><th>التاريخ</th><th>الحالة</th><th style="text-align:left;">إجراءات</th></tr></thead>
+      <tbody id="list"><tr><td colspan="5" class="muted">جارٍ التحميل…</td></tr></tbody>
+    </table>
+  </div>
+</div></main>
+
+<script src="admin.js"></script>
+<script>
+(function(){
+  Admin.layout('articles');
+  var $ = Admin.$, esc = Admin.esc, rows = [], filter = 'all';
+  var hasToken = !!Admin.ls.get(Admin.KEYS.gh);
+
+  function parseFeed(xmlText){
+    var out = {};
+    (xmlText||'').replace(/<item>([\s\S]*?)<\/item>/g, function(_,it){
+      var g = function(t){ var m = it.match(new RegExp('<'+t+'>([\\s\\S]*?)</'+t+'>')); return m ? m[1] : ''; };
+      var link = g('link').replace(Admin.SITE+'/','');
+      out[decodeURIComponent(link)] = { title: g('title').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'"),
+        date: new Date(g('pubDate')) };
+    });
+    return out;
+  }
+
+  function load(){
+    Admin.head().then(function(h){
+      return Promise.all([ Admin.tree(h.sha), Admin.raw('feed.xml',h.sha), Admin.raw('feed-en.xml',h.sha) ]);
+    }).then(function(x){
+      var feed = Object.assign({}, parseFeed(x[1]), parseFeed(x[2]));
+      rows = x[0].filter(function(f){ return f.type==='blob' && /^(en\/)?articles\/[^\/]+\.html$/.test(f.path); })
+        .map(function(f){
+          var fe = feed[f.path];
+          return { path:f.path, lang:Admin.langOf(f.path), title: fe ? fe.title : f.path.split('/').pop().replace(/\.html$/,'').replace(/[-_]/g,' '),
+                   date: fe ? fe.date : null, listed: !!fe };
+        })
+        .sort(function(a,b){ return (b.date||0) - (a.date||0); });
+      render();
+    }).catch(function(e){
+      $('list').innerHTML = '<tr><td colspan="5" class="muted">'+esc(e.message || 'تعذّر تحميل المقالات.')+'</td></tr>';
+    });
+  }
+
+  function render(){
+    var r = rows.filter(function(x){ return filter==='all' || x.lang===filter; });
+    $('list').innerHTML = r.length ? r.map(function(x){
+      var date = x.date ? x.date.toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'}) : '—';
+      return '<tr><td class="title"><a dir="auto" href="'+Admin.SITE+'/'+esc(x.path)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a>'+
+        '<span class="file">'+esc(x.path)+'</span></td>'+
+        '<td><span class="pill'+(x.lang==='en'?' en':'')+'">'+(x.lang==='en'?'إنجليزي':'عربي')+'</span></td>'+
+        '<td class="muted" style="white-space:nowrap;">'+date+'</td>'+
+        '<td>'+(x.listed ? '<span class="pill">منشورة</span>' : '<span class="pill gray">مخفية</span>')+'</td>'+
+        '<td class="actions" style="text-align:left;">'+
+          '<a class="btn ghost sm" href="pages.html?path='+encodeURIComponent(x.path)+'">تعديل</a>'+
+          '<button class="btn danger sm" data-del="'+esc(x.path)+'">حذف</button></td></tr>';
+    }).join('') : '<tr><td colspan="5" class="muted">لا توجد مقالات.</td></tr>';
+  }
+
+  document.querySelector('.filters').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    filter = b.getAttribute('data-f');
+    [].forEach.call(this.children, function(c){ c.classList.toggle('on', c===b); });
+    render();
+  });
+
+  $('list').addEventListener('click', function(e){
+    var b = e.target.closest('[data-del]'); if(!b) return;
+    var path = b.getAttribute('data-del'), row = rows.filter(function(x){ return x.path===path; })[0];
+    if(!hasToken){ Admin.toast('أضف مفتاح GitHub من الإعدادات أولاً.','err'); return; }
+    if(!confirm('حذف «'+row.title+'» نهائياً من الموقع؟\n\nستُحذف صفحة المقالة وبطاقتها من الصفحة الرئيسية وعنصرها في RSS. يمكن استرجاعها لاحقاً من سجل GitHub فقط.')) return;
+    b.disabled = true; b.textContent = 'جارٍ الحذف…';
+    var lang = row.lang;
+    Admin.commit(function(h){
+      return Promise.all([ Admin.raw(Admin.homeOf(lang),h.sha), Admin.raw(Admin.feedOf(lang),h.sha) ]).then(function(x){
+        var changes = [{ path:path, remove:true }];
+        var home = Admin.removeCard(x[0], path), feed = Admin.removeFeedItem(x[1], path);
+        if(home !== x[0]) changes.push({ path:Admin.homeOf(lang), content:home });
+        if(feed !== x[1]) changes.push({ path:Admin.feedOf(lang), content:feed });
+        return changes;
+      });
+    }, (lang==='ar'?'حذف مقالة: ':'Delete article: ')+row.title).then(function(){
+      rows = rows.filter(function(x){ return x.path!==path; }); render();
+      Admin.toast('حُذفت المقالة. يختفي التغيير من الموقع خلال دقيقة أو دقيقتين.');
+    }).catch(function(e){
+      b.disabled = false; b.textContent = 'حذف'; Admin.toast(e.message,'err');
+    });
+  });
+
+  if(!hasToken) Admin.needToken();
+  load();
+})();
+</script>
+</body>
+</html>
