@@ -4,11 +4,141 @@
   var KEYS = { gh:'gh_publish_token', gcSite:'gc_site', gcToken:'gc_token' };
 
   /* ---------- storage: every access guarded (private windows can throw) ---------- */
-  var ls = {
+  var plain = {
     get: function(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
     set: function(k,v){ try{ localStorage.setItem(k,v); }catch(e){} },
     del: function(k){ try{ localStorage.removeItem(k); }catch(e){} }
   };
+
+  /*
+   * Passcode lock. With a passcode set, the secret keys are kept only AES-GCM encrypted
+   * in localStorage (VAULT, key from PBKDF2 over the passcode). Unlocking puts the AES key
+   * and the secrets in sessionStorage, which the browser drops when the tab closes;
+   * IDLE_MS without activity locks again.
+   */
+  var SECRETS = [KEYS.gh, KEYS.gcToken], VAULT = 'admin_vault', SESSION = 'admin_session', IDLE_MS = 30*60*1000;
+  var ss = {
+    get: function(){ try{ return JSON.parse(sessionStorage.getItem(SESSION) || 'null'); }catch(e){ return null; } },
+    set: function(v){ try{ sessionStorage.setItem(SESSION, JSON.stringify(v)); }catch(e){} },
+    del: function(){ try{ sessionStorage.removeItem(SESSION); }catch(e){} }
+  };
+  function isSecret(k){ return SECRETS.indexOf(k) > -1; }
+  function vault(){ try{ return JSON.parse(plain.get(VAULT) || 'null'); }catch(e){ return null; } }
+  function session(){
+    var s = ss.get();
+    if(s && Date.now() - s.t > IDLE_MS){ ss.del(); return null; }
+    return s;
+  }
+
+  var b64 = function(buf){ return btoa(String.fromCharCode.apply(null, new Uint8Array(buf))); };
+  var unb64 = function(str){ return Uint8Array.from(atob(str), function(c){ return c.charCodeAt(0); }); };
+  function deriveKey(pass, salt){
+    var te = new TextEncoder();
+    return crypto.subtle.importKey('raw', te.encode(pass), 'PBKDF2', false, ['deriveKey']).then(function(base){
+      return crypto.subtle.deriveKey({ name:'PBKDF2', salt:salt, iterations:310000, hash:'SHA-256' }, base,
+        { name:'AES-GCM', length:256 }, true, ['encrypt','decrypt']);
+    });
+  }
+  function seal(key, salt, secrets){
+    var iv = crypto.getRandomValues(new Uint8Array(12));
+    return crypto.subtle.encrypt({ name:'AES-GCM', iv:iv }, key, new TextEncoder().encode(JSON.stringify(secrets)))
+      .then(function(ct){ plain.set(VAULT, JSON.stringify({ v:1, salt:b64(salt), iv:b64(iv), data:b64(ct) })); });
+  }
+  function rawKey(s){ return crypto.subtle.importKey('raw', unb64(s.k), 'AES-GCM', true, ['encrypt','decrypt']); }
+  function startSession(key, secrets){
+    return crypto.subtle.exportKey('raw', key).then(function(r){ ss.set({ k:b64(r), s:secrets, t:Date.now() }); });
+  }
+  /* re-encrypt after a secret changes while unlocked */
+  function reseal(s){ return rawKey(s).then(function(key){ return seal(key, unb64(vault().salt), s.s); }); }
+
+  var ls = {
+    get: function(k){
+      if(!isSecret(k) || !vault()) return plain.get(k);
+      var s = session(); return s && s.s[k] != null ? s.s[k] : null;
+    },
+    set: function(k,v){
+      if(!isSecret(k) || !vault()) return plain.set(k,v);
+      var s = session(); if(!s) return;
+      s.s[k] = v; ss.set(s); reseal(s);
+    },
+    del: function(k){
+      if(!isSecret(k) || !vault()) return plain.del(k);
+      var s = session(); if(!s) return;
+      delete s.s[k]; ss.set(s); reseal(s);
+    }
+  };
+
+  var lock = {
+    enabled: function(){ return !!vault(); },
+    unlocked: function(){ return !!session(); },
+    /* turn the lock on: encrypt the saved keys and remove the readable copies */
+    enable: function(pass){
+      var salt = crypto.getRandomValues(new Uint8Array(16)), secrets = {};
+      SECRETS.forEach(function(k){ var v = plain.get(k); if(v != null) secrets[k] = v; });
+      return deriveKey(pass, salt).then(function(key){
+        return seal(key, salt, secrets).then(function(){ return startSession(key, secrets); });
+      }).then(function(){ SECRETS.forEach(plain.del); });
+    },
+    unlock: function(pass){
+      var v = vault();
+      return deriveKey(pass, unb64(v.salt)).then(function(key){
+        return crypto.subtle.decrypt({ name:'AES-GCM', iv:unb64(v.iv) }, key, unb64(v.data)).then(function(pt){
+          return startSession(key, JSON.parse(new TextDecoder().decode(pt)));
+        });
+      }).catch(function(){ throw new Error('الرمز غير صحيح.'); });
+    },
+    change: function(pass){
+      var s = session(); if(!s) return Promise.reject(new Error('افتح القفل أولاً.'));
+      var salt = crypto.getRandomValues(new Uint8Array(16));
+      return deriveKey(pass, salt).then(function(key){
+        return seal(key, salt, s.s).then(function(){ return startSession(key, s.s); });
+      });
+    },
+    /* turn the lock off: keys go back to plain localStorage */
+    disable: function(){
+      var s = session(); if(!s) return false;
+      Object.keys(s.s).forEach(function(k){ plain.set(k, s.s[k]); });
+      plain.del(VAULT); ss.del(); return true;
+    },
+    /* forgot the passcode: drop the encrypted keys; they must be entered again */
+    reset: function(){ plain.del(VAULT); ss.del(); },
+    lock: function(){ ss.del(); location.reload(); }
+  };
+
+  function lockScreen(){
+    var o = document.createElement('div');
+    o.className = 'adm-lock';
+    o.innerHTML = '<form class="card" autocomplete="off"><h1>لوحة التحكم مقفلة</h1>'+
+      '<p class="muted">أدخل الرمز السري لفتحها.</p>'+
+      '<label for="admPass">الرمز السري</label><input id="admPass" type="password" autocomplete="current-password" required>'+
+      '<div class="msg err" id="admPassMsg" role="alert"></div>'+
+      '<div class="row" style="margin-top:14px;justify-content:space-between;"><button class="btn" type="submit">فتح</button>'+
+      '<button class="btn ghost sm" type="button" id="admForgot">نسيت الرمز</button></div></form>';
+    document.body.appendChild(o);
+    document.documentElement.classList.add('adm-locked');
+    var input = o.querySelector('input'), msgEl = o.querySelector('#admPassMsg'), btn = o.querySelector('[type=submit]');
+    input.focus();
+    o.querySelector('form').addEventListener('submit', function(e){
+      e.preventDefault(); btn.disabled = true; msgEl.textContent = '';
+      lock.unlock(input.value).then(function(){ location.reload(); }).catch(function(err){
+        setTimeout(function(){ btn.disabled = false; msgEl.textContent = err.message; input.select(); }, 600);
+      });
+    });
+    o.querySelector('#admForgot').addEventListener('click', function(){
+      if(!confirm('لا يمكن استرجاع الرمز. سيُمسح المفتاحان المحفوظان من هذا المتصفح وتدخلهما من جديد في الإعدادات (مفتاح GitHub ومفتاح GoatCounter).\n\nمتابعة؟')) return;
+      lock.reset(); location.href = 'settings.html';
+    });
+  }
+
+  /* gate every admin page; keep the session alive while the page is used */
+  if(vault()){
+    if(!session()) lockScreen();
+    else {
+      var bump = function(){ var s = ss.get(); if(s && Date.now() - s.t > 15000){ s.t = Date.now(); ss.set(s); } };
+      ['click','keydown','scroll','touchstart'].forEach(function(ev){ addEventListener(ev, bump, { passive:true }); });
+      setInterval(function(){ if(!session()) location.reload(); }, 30000);
+    }
+  }
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -51,6 +181,14 @@
       if(n.grp) return '<div class="grp">'+n.grp+'</div>';
       return '<a href="'+n.href+'"'+(n.id===active?' class="on" aria-current="page"':'')+'>'+icon(n.icon)+n.label+'</a>';
     }).join('');
+    if(lock.enabled() && lock.unlocked()){
+      var b = document.createElement('button');
+      b.className = 'btn ghost sm'; b.type = 'button'; b.textContent = 'قفل';
+      b.addEventListener('click', lock.lock);
+      var right = document.createElement('span'); right.className = 'row';
+      right.appendChild(top.querySelector('.adm-site')); right.appendChild(b);
+      top.appendChild(right);
+    }
     var main = document.querySelector('main');
     main.classList.add('adm-main');
     var shell = document.createElement('div');
@@ -198,7 +336,7 @@
 
   window.Admin = {
     REPO:REPO, BRANCH:BRANCH, SITE:SITE, KEYS:KEYS, MONTHS:MONTHS,
-    ls:ls, esc:esc, xml:xml, $:$, layout:layout, toast:toast, needToken:needToken,
+    ls:ls, lock:lock, esc:esc, xml:xml, $:$, layout:layout, toast:toast, needToken:needToken,
     gh:gh, head:head, raw:raw, exists:exists, tree:tree, commit:commit, enc:enc,
     homeOf:homeOf, feedOf:feedOf, langOf:langOf, cardHref:cardHref,
     removeCard:removeCard, removeFeedItem:removeFeedItem, relFrom:relFrom,

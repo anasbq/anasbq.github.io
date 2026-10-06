@@ -24,6 +24,24 @@
 
   <div class="card">
     <div class="row" style="justify-content:space-between;">
+      <h2>الرمز السري</h2><span class="state" id="lkState"></span>
+    </div>
+    <p class="muted" style="margin:0;">يقفل اللوحة في هذا المتصفح ويحفظ المفتاحين مشفّرين به، فلا يستطيع من يفتح جهازك النشر أو الحذف دون الرمز. يُطلب الرمز عند كل فتح جديد للمتصفح، وتُقفل اللوحة تلقائياً بعد ٣٠ دقيقة بلا استخدام. لا يمكن استرجاع الرمز إذا نسيته، وعندها تُدخل المفتاحين من جديد.</p>
+    <div id="lkSet">
+      <label for="lkPass">الرمز الجديد <span class="muted">(٦ أحرف أو أرقام على الأقل)</span></label>
+      <input id="lkPass" type="password" autocomplete="new-password">
+      <label for="lkPass2">أعد كتابة الرمز</label>
+      <input id="lkPass2" type="password" autocomplete="new-password">
+      <div class="row" style="margin-top:12px;">
+        <button class="btn" id="lkSave">حفظ الرمز</button>
+        <button class="btn ghost" id="lkOff" hidden>إلغاء الرمز</button>
+      </div>
+    </div>
+    <div class="msg" id="lkMsg" role="status"></div>
+  </div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between;">
       <h2>مفتاح GitHub</h2><span class="state" id="ghState"></span>
     </div>
     <p class="muted" style="margin:0;">مطلوب لنشر المقالات وحذفها وتعديل الصفحات ورفع الصور.</p>
@@ -78,6 +96,13 @@
     $('gcState').textContent = gc ? '✓ محفوظ' : 'غير مُدخَل'; $('gcState').className = 'state '+(gc?'ok':'no');
     $('gcSite').value = ls.get(K.gcSite) || 'anasbq';
   }
+  function lockState(){
+    var on = Admin.lock.enabled();
+    $('lkState').textContent = on ? '✓ مفعّل' : 'غير مفعّل'; $('lkState').className = 'state '+(on?'ok':'no');
+    $('lkSave').textContent = on ? 'تغيير الرمز' : 'حفظ الرمز';
+    $('lkOff').hidden = !on;
+  }
+  lockState();
   function msg(id, text, kind){ var m=$(id); m.className='msg'+(kind?' '+kind:''); m.textContent=text; }
   states();
 
@@ -107,6 +132,23 @@
     .then(function(r){ if(!r.ok) throw 0; return r.json(); })
     .then(function(d){ $('copyState').textContent = '✓ تعمل، آخر نسخة: '+new Date(d.updated).toLocaleString('ar-EG'); $('copyState').className='state ok'; })
     .catch(function(){ $('copyState').textContent = 'لم تُجهَّز بعد'; $('copyState').className='state no'; });
+
+  $('lkSave').addEventListener('click', function(){
+    var a = $('lkPass').value, b = $('lkPass2').value;
+    if(a.length < 6){ msg('lkMsg','الرمز قصير. اجعله ٦ أحرف أو أرقام على الأقل.','err'); return; }
+    if(a !== b){ msg('lkMsg','الرمزان غير متطابقين.','err'); return; }
+    var was = Admin.lock.enabled();
+    msg('lkMsg','جارٍ الحفظ…');
+    (was ? Admin.lock.change(a) : Admin.lock.enable(a)).then(function(){
+      $('lkPass').value = $('lkPass2').value = '';
+      msg('lkMsg', was ? 'تغيّر الرمز.' : 'تفعّل الرمز. المفتاحان محفوظان الآن مشفّرين.', 'ok'); lockState(); states();
+    }).catch(function(e){ msg('lkMsg', e.message || 'تعذّر حفظ الرمز.', 'err'); });
+  });
+  $('lkOff').addEventListener('click', function(){
+    if(!confirm('إلغاء الرمز السري؟ سيعود المفتاحان محفوظين في هذا المتصفح بلا تشفير.')) return;
+    Admin.lock.disable(); var lb = document.querySelector('.adm-top button'); if(lb) lb.remove();
+    msg('lkMsg','أُلغي الرمز.'); lockState(); states();
+  });
 
   $('gcClear').addEventListener('click', function(){ ls.del(K.gcToken); states(); msg('gcMsg','مُسح المفتاح من هذا المتصفح.'); });
 })();
