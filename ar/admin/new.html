@@ -129,7 +129,8 @@
 
       <div class="row" style="margin-top:20px;">
         <button class="btn" id="publish">نشر</button>
-        <button class="btn ghost" id="reset">مسودة جديدة</button>
+        <button class="btn ghost" id="saveDraft" title="احفظها في حسابك على GitHub لتكملها لاحقاً من أي جهاز، دون أن تظهر في الموقع">حفظ كمسودة</button>
+        <button class="btn ghost" id="reset">مقالة جديدة</button>
       </div>
       <div class="msg" id="msg" role="status"></div>
     </div>
@@ -416,14 +417,17 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
       if(existing) throw new Error('يوجد ملف بالاسم نفسه ('+path+'). اختر اسماً آخر.');
       return Promise.all([
         gh('/contents/'+enc(homePath)+'?ref='+head, { raw:true }),
-        gh('/contents/'+enc(feedPath)+'?ref='+head, { raw:true })
+        gh('/contents/'+enc(feedPath)+'?ref='+head, { raw:true }),
+        draftId ? gh('/contents/'+enc(draftPath())+'?ref='+head, { allow404:true }) : null
       ]);
     }).then(function(x){
-      return gh('/git/trees', { method:'POST', body:{ base_tree: baseTree, tree: [
+      var tree = [
         { path: path,     mode:'100644', type:'blob', content: articleHtml(a) },
         { path: homePath, mode:'100644', type:'blob', content: addCard(x[0], a) },
         { path: feedPath, mode:'100644', type:'blob', content: addFeedItem(x[1], a) }
-      ]}});
+      ];
+      if(x[2]) tree.push({ path: draftPath(), mode:'100644', type:'blob', sha:null });
+      return gh('/git/trees', { method:'POST', body:{ base_tree: baseTree, tree: tree }});
     }).then(function(tree){
       return gh('/git/commits', { method:'POST', body:{
         message: (a.lang==='ar' ? 'نشر مقالة: ' : 'Publish article: ') + a.title + '\n\nPublished from ar/publish.html',
@@ -470,7 +474,7 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
       [].forEach.call(pv.querySelectorAll('h2,h3'), function(h){ h.style.fontFamily="'Fraunces',Georgia,serif"; });
     }
     var d = {}; fields.forEach(function(f){ d[f] = $(f).value; });
-    d.slugAuto = !slugTouched;
+    d.slugAuto = !slugTouched; d.draftId = draftId;
     lsSet(LS_DRAFT, JSON.stringify(d));
   }
 
@@ -581,12 +585,49 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
     var v = this.value; this.value = ''; if(v) insert(v);
   });
 
-  /* restore draft */
+  /*
+   * Saved drafts live in the repo under _drafts/ (GitHub Pages skips folders that start
+   * with "_", so they never appear on the site). ?draft=<id> opens one.
+   */
+  var draftId = null;
+  function draftPath(){ return '_drafts/'+draftId+'.json'; }
+  function fill(saved){
+    fields.forEach(function(f){ if(saved[f]!=null) $(f).value = saved[f]; });
+    slugTouched = !!(saved.slug && !saved.slugAuto);
+  }
+  function showDraftUrl(){
+    var u = location.pathname + (draftId ? '?draft='+encodeURIComponent(draftId) : '');
+    history.replaceState(null, '', u);
+  }
+
+  /* restore the last session in this browser */
+  var wanted = new URLSearchParams(location.search).get('draft');
   try{
     var saved = JSON.parse(lsGet(LS_DRAFT) || 'null');
-    if(saved) fields.forEach(function(f){ if(saved[f]!=null) $(f).value = saved[f]; });
-    if(saved && saved.slug && !saved.slugAuto) slugTouched = true;
+    if(saved && (!wanted || saved.draftId===wanted)){ fill(saved); draftId = saved.draftId || null; }
   }catch(e){}
+  if(draftId && !wanted) showDraftUrl();
+  if(wanted && wanted!==draftId){
+    setMsg('جارٍ فتح المسودة…');
+    Admin.raw('_drafts/'+wanted+'.json', Admin.BRANCH).then(function(t){
+      if(!t){ setMsg('لم أجد هذه المسودة. ربما نُشرت أو حُذفت.','err'); return; }
+      draftId = wanted; fill(JSON.parse(t)); render(); setMsg('');
+    }).catch(function(e){ setMsg(e.message,'err'); });
+  }
+
+  $('saveDraft').addEventListener('click', function(){
+    if(!lsGet(LS_TOKEN)){ setMsg('أضف مفتاح GitHub من صفحة الإعدادات أولاً.','err'); return; }
+    var d = {}; fields.forEach(function(f){ d[f] = $(f).value; });
+    if(!d.title.trim() && !d.body.trim()){ setMsg('اكتب عنواناً أو نصاً أولاً.','err'); return; }
+    d.slugAuto = !slugTouched; d.updated = new Date().toISOString();
+    if(!draftId) draftId = (slugify(d.slug) || 'draft') + '-' + Date.now().toString(36);
+    var btn = $('saveDraft'); btn.disabled = true; setMsg('جارٍ حفظ المسودة…');
+    Admin.commit(function(){ return [{ path: draftPath(), content: JSON.stringify(d, null, 2) + '\n' }]; },
+      'حفظ مسودة: '+(d.title.trim() || draftId)).then(function(){
+      showDraftUrl(); render();
+      setMsg('حُفظت المسودة. تجدها في <a href="articles.html">المقالات</a> تحت «المسودات» لتكملها لاحقاً.','ok',true);
+    }).catch(function(e){ setMsg(e.message,'err'); }).then(function(){ btn.disabled = false; });
+  });
   if(!$('date').value) $('date').value = today();
   render();
   window.addEventListener('load', render); /* re-render once KaTeX has loaded */
@@ -598,9 +639,9 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
 
 
   $('reset').addEventListener('click', function(){
-    if(!confirm('مسح المسودة الحالية والبدء من جديد؟')) return;
+    if(!confirm('البدء بمقالة جديدة؟ ما لم تحفظه كمسودة سيُمسح من هذه الصفحة.')) return;
     fields.forEach(function(f){ if(f!=='lang') $(f).value=''; });
-    $('date').value = today(); slugTouched=false; $('slugNote').textContent=''; render(); setMsg('');
+    $('date').value = today(); slugTouched=false; $('slugNote').textContent=''; draftId=null; showDraftUrl(); render(); setMsg('');
   });
 
   $('publish').addEventListener('click', function(){
@@ -617,7 +658,7 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
     var btn=$('publish'); btn.disabled=true; setMsg('جارٍ النشر…');
     publish(a).then(function(url){
       setMsg('نُشرت المقالة. ستظهر خلال دقيقة أو دقيقتين على: <a href="'+esc(url)+'" target="_blank" rel="noopener" dir="ltr">'+esc(url)+'</a>','ok',true);
-      lsDel(LS_DRAFT);
+      lsDel(LS_DRAFT); draftId = null; showDraftUrl();
     }).catch(function(e){
       setMsg(e.message || 'حدث خطأ غير متوقع.','err');
     }).then(function(){ btn.disabled=false; });
