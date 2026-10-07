@@ -52,6 +52,7 @@
     <button data-a="link" title="اجعل النص المحدد رابطاً">رابط</button>
     <button data-a="editlink" data-need="a" title="غيّر عنوان الرابط المحدد">تعديل الرابط</button>
     <button data-a="unlink" title="أزل الرابط عن النص المحدد">إزالة الرابط</button>
+    <button data-a="clean" data-need="any" title="أزل الخطوط والألوان التي جاءت مع نص منسوخ من مكان آخر">مسح التنسيق</button>
     <span class="sep"></span>
     <button data-a="dup" data-need="any" title="أضف نسخة من العنصر المحدد بعده، مثلاً عمل جديد أو بطاقة جديدة">⧉ تكرار</button>
     <button data-a="up" data-need="any" title="انقل العنصر المحدد للأعلى">↑ لأعلى</button>
@@ -138,6 +139,18 @@
       select(t.tagName==='IMG' ? t : block(t));
     }, true);
     doc.addEventListener('input', function(){ setDirty(true); });
+    /* paste as plain text so copied fonts and colours never enter the page */
+    doc.addEventListener('paste', function(e){
+      var cd = e.clipboardData; if(!cd) return;
+      if(!cd.getData('text/plain') && cd.files && cd.files.length) { e.preventDefault(); return; }
+      e.preventDefault();
+      snap();
+      cd.getData('text/plain').replace(/\r/g,'').split(/\n+/).filter(function(x){ return x.trim(); }).forEach(function(line, i){
+        if(i) doc.execCommand('insertParagraph');
+        doc.execCommand('insertText', false, line.replace(/\s+/g,' '));
+      });
+      setDirty(true);
+    });
     doc.addEventListener('keydown', function(e){
       if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){ e.preventDefault(); save(); }
     });
@@ -282,6 +295,28 @@
     img: function(){
       var img = sel;
       pickImage(function(src, key){ snap(); img.src = src; img.setAttribute('data-cms-upload', key); select(img); });
+    },
+    clean: function(){
+      snap();
+      [].slice.call(sel.querySelectorAll('span,font')).forEach(function(x){
+        if(x.className) return;
+        while(x.firstChild) x.parentNode.insertBefore(x.firstChild, x); x.remove();
+      });
+      [].forEach.call(sel.querySelectorAll('[style]'), function(x){
+        if(/^(B|STRONG|I|EM|A|SUB|SUP)$/.test(x.tagName)) x.removeAttribute('style');
+      });
+      var st = sel.getAttribute('style');
+      if(st){
+        /* drop what a paste brings (Word/Docs fonts, pt sizes, highlights); keep the site's own fonts and px sizes */
+        st = st.split(';').filter(function(d){
+          if(!d.trim()) return false;
+          if(/^\s*font-family\s*:/i.test(d)) return /IBM Plex|Noto Serif|Fraunces/i.test(d);
+          return !/^\s*(background(-color)?|white-space|text-indent|mso-[\w-]+)\s*:|^\s*font-size\s*:[^;]*pt/i.test(d);
+        }).join(';').trim();
+        if(st) sel.setAttribute('style', st); else sel.removeAttribute('style');
+      }
+      sel.normalize();
+      Admin.toast('أُزيل التنسيق المنسوخ من العنصر المحدد.');
     },
     alt: function(){ var v = prompt('وصف الصورة:', sel.getAttribute('alt')||''); if(v==null) return; snap(); sel.setAttribute('alt', v); setDirty(true); }
   };
