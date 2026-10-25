@@ -1,0 +1,8 @@
+&PROJWFC
+  prefix = 'Si'
+  outdir = './'
+  ngauss = 0
+  degauss = 0.01
+  DeltaE = 0.01
+  filpdos = 'si.pdos'
+/

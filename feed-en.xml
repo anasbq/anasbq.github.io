@@ -7,7 +7,14 @@
   <atom:link href="https://anasbq.github.io/feed-en.xml" rel="self" type="application/rss+xml"/>
   <description>Plain-language science writing on materials science and life in the lab, for anyone interested in science.</description>
   <language>en</language>
-  <lastBuildDate>Mon, 05 Oct 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 25 Oct 2026 08:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Where is the chemical bond hiding?</title>
+    <link>https://anasbq.github.io/en/articles/where-is-the-chemical-bond.html</link>
+    <guid>https://anasbq.github.io/en/articles/where-is-the-chemical-bond.html</guid>
+    <pubDate>Sun, 25 Oct 2026 08:00:00 GMT</pubDate>
+    <description>DFT calculations never draw a line between atoms. How do we pull bonds and orbitals out of a sea of waves? Real calculations on silicon and tin dioxide.</description>
+  </item>
   <item>
     <title>How cooking taught me lab skills</title>
     <link>https://anasbq.github.io/en/articles/how-cooking-taught-me-lab-skills.html</link>

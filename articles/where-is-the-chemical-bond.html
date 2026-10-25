@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أين تختبئ الرابطة الكيميائية؟ | أنس بلغيث</title>
+<meta name="description" content="حسابات DFT لا ترسم أي خط بين الذرات. كيف نستخرج الرابطة والمدارات من بحر الموجات؟ تجربة حقيقية على السيليكون وثاني أكسيد القصدير بطريقة COHP التي يقوم عليها برنامج LOBSTER.">
+<meta name="author" content="أنس بلغيث">
+<link rel="canonical" href="https://anasbq.github.io/articles/where-is-the-chemical-bond.html">
+<link rel="alternate" hreflang="ar" href="https://anasbq.github.io/articles/where-is-the-chemical-bond.html">
+<link rel="alternate" hreflang="en" href="https://anasbq.github.io/en/articles/where-is-the-chemical-bond.html">
+<link rel="alternate" type="application/rss+xml" title="مقالات أنس بلغيث" href="https://anasbq.github.io/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ar_AR">
+<meta property="og:title" content="أين تختبئ الرابطة الكيميائية؟">
+<meta property="og:description" content="حسابات DFT لا ترسم أي خط بين الذرات. كيف نستخرج الرابطة والمدارات من بحر الموجات؟ تجربة حقيقية على السيليكون وثاني أكسيد القصدير.">
+<meta property="og:url" content="https://anasbq.github.io/articles/where-is-the-chemical-bond.html">
+<meta property="og:image" content="https://anasbq.github.io/images/sno2-band-edges-cbm.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;family=Noto+Serif+Arabic:wght@500;600;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F1EA;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#1B1F1E;}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;}
+a{color:#235E59;text-decoration:none;}
+a:hover{color:#173F3B;text-decoration:underline;}
+::selection{background:#2F6F6A;color:#F9F7F0;}
+.ar{font-family:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif;}
+.ar h1,.ar h2,.ar h3{font-family:'Noto Serif Arabic','Fraunces',serif;}
+.body p{margin:0;font-size:17px;line-height:1.9;color:#33342F;}
+.body h2{margin:28px 0 0;font-size:24px;line-height:1.5;color:#1B1F1E;}
+.en-term{font-family:'IBM Plex Sans',system-ui,sans-serif;}
+figure{margin:8px 0 12px;padding:18px 16px 14px;background:#ECEAE1;border:1px solid #D6D2C5;border-radius:10px;}
+figure .fig-title{font-family:'Noto Serif Arabic',serif;font-size:16px;font-weight:600;color:#1B1F1E;margin:0 0 4px;}
+figure .fig-sub{font-size:13.5px;line-height:1.7;color:#6B6A63;margin:0 0 12px;}
+figcaption{font-size:13.5px;line-height:1.8;color:#52534C;margin-top:10px;}
+figure svg{display:block;width:100%;height:auto;}
+figure img{display:block;width:100%;height:auto;}
+.cb-plot{position:relative;direction:ltr;}
+.cb-tip{position:absolute;display:none;flex-direction:column;gap:2px;pointer-events:none;background:#FBFAF5;border:1px solid #D6D2C5;border-radius:6px;padding:6px 9px;font-size:12.5px;line-height:1.5;color:#33342F;box-shadow:0 2px 8px rgba(0,0,0,.08);white-space:nowrap;font-family:'IBM Plex Sans Arabic','IBM Plex Sans',sans-serif;}
+.cb-tip i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-inline-end:5px;vertical-align:middle;}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:#52534C;margin:0 0 8px;}
+.legend span{display:inline-flex;align-items:center;gap:6px;}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;}
+.legend i.box{height:10px;width:10px;border-radius:2px;opacity:.75;}
+.controls{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.controls label{font-size:13.5px;color:#52534C;}
+input[type=range]{width:100%;accent-color:#2F6F6A;}
+.cb-readout{font-size:14.5px;line-height:1.8;color:#33342F;background:#E2DFDA;border-radius:6px;padding:8px 12px;}
+.cb-readout b{font-family:'IBM Plex Mono',monospace;}
+.tab-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px;}
+.tab-btn{background:#E2DFDA;border:1px solid #D6D2C5;border-radius:20px;padding:5px 14px;font-size:13px;color:#52534C;cursor:pointer;font-family:'IBM Plex Sans Arabic','IBM Plex Sans',sans-serif;}
+.tab-btn.active,.tab-btn:hover{background:#2F6F6A;color:#fff;border-color:#2F6F6A;}
+.bars{display:grid;grid-template-columns:auto 1fr auto;gap:8px 10px;align-items:center;font-size:14px;color:#33342F;}
+.bars .lab{font-family:'IBM Plex Mono',monospace;font-size:13px;direction:ltr;text-align:right;}
+.bars .track{height:16px;background:#E2DFDA;border-radius:4px;overflow:hidden;}
+.bars .fill{height:100%;border-radius:4px 0 0 4px;}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media (max-width:520px){.pair{grid-template-columns:1fr;}}
+.pair-lab{text-align:center;font-size:14px;font-weight:600;color:#33342F;margin-top:4px;}
+.bars .val{font-family:'IBM Plex Mono',monospace;font-size:13px;direction:ltr;}
+.bars .grp{grid-column:1/-1;font-weight:600;font-size:14px;margin-top:6px;}
+.note{background:#E2DFDA;border-radius:8px;padding:12px 16px;font-size:15px;line-height:1.85;color:#33342F;}
+details{background:#ECEAE1;border:1px solid #D6D2C5;border-radius:10px;padding:12px 16px;}
+details summary{cursor:pointer;font-weight:600;font-size:16px;color:#1B1F1E;}
+details p,details li{font-size:15px;line-height:1.85;color:#33342F;}
+details ul{margin:8px 0;padding-inline-start:20px;}
+code{font-family:'IBM Plex Mono',monospace;font-size:13.5px;background:#E2DFDA;padding:1px 5px;border-radius:4px;direction:ltr;unicode-bidi:isolate;}
+</style>
+</head>
+<body>
+<div style="width:100%;min-height:100vh;box-sizing:border-box;display:flex;flex-direction:column;background:#F3F1EA;">
+
+<header dir="rtl" lang="ar" class="ar" style="position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:12px 24px;background:#F3F1EA;border-bottom:1px solid #E4E0D3;">
+  <a href="../ar/index.html" style="font-size:15px;font-weight:600;">أنس بلغيث</a>
+  <nav style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;font-size:15px;">
+    <a href="../ar/index.html#articles" style="padding:8px 12px;">كل المقالات</a>
+    <a href="../ar/index.html#about" style="padding:8px 12px;">من أنا</a>
+    <a href="../ar/index.html#contact" style="padding:8px 12px;">تواصل معي</a>
+    <a href="../en/articles/where-is-the-chemical-bond.html" lang="en" dir="ltr" hreflang="en" title="Read this article in English" style="padding:6px 14px;border:1.5px solid #2F6F6A;border-radius:20px;font-size:13px;font-weight:600;font-family:'IBM Plex Mono',monospace;">English</a>
+  </nav>
+</header>
+
+<article class="ar body" dir="rtl" lang="ar" style="padding:clamp(48px,8vw,96px) 16px;display:flex;justify-content:center;">
+  <div style="max-width:680px;width:100%;display:flex;flex-direction:column;gap:20px;text-align:right;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.02em;color:#2F6F6A;">أكتوبر 2026</div>
+    <h1 style="margin:0;font-size:clamp(28px,4.5vw,42px);line-height:1.35;color:#1B1F1E;">أين تختبئ الرابطة الكيميائية؟</h1>
+    <p style="font-size:19px;line-height:1.8;color:#52534C;">حسابات ميكانيكا الكم لا ترسم أي خط بين الذرات. فكيف نستخرج الرابطة والمدارات من بحر من الموجات؟ جرّبنا ذلك بحسابات حقيقية على السيليكون وعلى ثاني أكسيد القصدير.</p>
+
+    <p>في المدرسة تعلّمنا أن نرسم جزيء الماء هكذا: H–O–H. خطّان صغيران، وكل خط رابطة. ثم كبرنا قليلاً فصار الخط زوجاً من الإلكترونات، ثم صار تداخلاً بين مدارين. لكن الخط بقي في أذهاننا شيئاً موجوداً، كأنه عصا صغيرة تمسك الذرتين معاً.</p>
+    <p>افتح الآن ملف المخرجات لحساب من نوع <span class="en-term">DFT</span>، وهي الطريقة الأشهر اليوم لحساب سلوك الإلكترونات في المواد. ستجد آلاف الأرقام: طاقات، ونقاطاً في فضاء غريب اسمه فضاء الزخم، ومعاملات لموجات لا تنتهي. ولن تجد كلمة «رابطة» مرة واحدة، ولا خطاً واحداً بين ذرتين.</p>
+    <p>فأين ذهبت الرابطة؟</p>
+    <p>في مقالتي السابقة «<a href="solid_state_article.html">كيف تلتقي الكيمياء والفيزياء في فهم المادة الصلبة؟</a>» كتبت عن الكيميائي رولد هوفمان، وعن لغتين تصفان الشيء نفسه: الفيزيائي يرى بحراً من الإلكترونات، والكيميائي يرى ذرات ترتبط بذرات. هذه المقالة تكملة عملية لتلك. سنأخذ حساباً مكتوباً بلغة الفيزيائي، ونترجمه إلى لغة الكيميائي، ثم نقرأ النتيجة على مادتين: السيليكون، أشهر شبه موصل في العالم، وثاني أكسيد القصدير <span class="en-term">SnO₂</span>، المادة التي أعمل عليها في أبحاثي على الخلايا الشمسية.</p>
+
+    <h2>الحاسوب يسجّل الأوركسترا كلها</h2>
+    <p>كل إلكترون في المادة يتأثر بالنوى وبكل الإلكترونات الأخرى في الوقت نفسه. في حبة رمل صغيرة عدد هائل من الإلكترونات، وحلّ معادلة شرودنغر لها كلها معاً مستحيل. الفكرة التي غيّرت ذلك نشرها والتر كون ولو جيو شام سنة 1965: بدل أن نتتبع كل إلكترون على حدة، نتتبع كثافة الإلكترونات في كل نقطة من الفضاء (<bdi style="white-space:nowrap"><a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" rel="noopener">Kohn &amp; Sham, 1965</a></bdi>). على هذه الفكرة قامت نظرية دالّية الكثافة، <span class="en-term">Density Functional Theory</span>، ونال عنها كون جائزة نوبل في الكيمياء سنة 1998.</p>
+    <p>برامج مثل <span class="en-term">Quantum ESPRESSO</span> تصف كل إلكترون في البلورة بمجموع من الموجات المستوية، وهي موجات جيبية بأطوال مختلفة تمتد في البلورة كلها. هذا اختيار رياضي مريح جداً للبلورات المنتظمة، لكن له ثمن: الموجة المستوية لا تنتمي لأي ذرة. لذلك يعطيك الحساب طاقات دقيقة وكثافة إلكترونات صحيحة، لكن بلغة ليس فيها ذرات ولا روابط.</p>
+    <p>تخيّل أنك سجّلت حفلاً لأوركسترا كاملة بميكروفون واحد في منتصف القاعة. التسجيل ممتاز، وكل نغمة موجودة فيه. لكنك لا تستطيع أن تقول من التسجيل وحده أي نغمة عزفها الكمان وأيها عزفها العود. هذا بالضبط ما يعطيك إياه حساب DFT.</p>
+
+    <figure>
+      <div class="fig-title">من موجة ممتدة إلى مدارات ذرية</div>
+      <div class="fig-sub">الإسقاط يسأل: كم تشبه هذه الموجة المدار s على هذه الذرة؟ وكم تشبه المدار p على تلك؟</div>
+      <svg viewBox="0 0 560 210" role="img" aria-label="رسم توضيحي: موجة ممتدة من حساب DFT تتحول بالإسقاط إلى مساهمات من مدارات s و p و d">
+        <g font-family="IBM Plex Sans Arabic, IBM Plex Sans, sans-serif" font-size="14" fill="#52534C">
+          <rect x="370" y="30" width="176" height="150" rx="10" fill="#F3F1EA" stroke="#D6D2C5"/>
+          <path d="M378,105 C388,60 398,60 408,105 S428,150 438,105 S458,70 468,105 S488,140 498,105 S518,62 538,105" fill="none" stroke="#52534C" stroke-width="2"/>
+          <circle cx="398" cy="105" r="4" fill="#5A5D66"/><circle cx="458" cy="105" r="4" fill="#5A5D66"/><circle cx="518" cy="105" r="4" fill="#5A5D66"/>
+          <text x="458" y="200" text-anchor="middle">موجة من حساب DFT</text>
+          <path d="M360,105 L250,105" stroke="#2F6F6A" stroke-width="2.5" marker-end="url(#arrA)"/>
+          <defs><marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2F6F6A"/></marker></defs>
+          <text x="305" y="94" text-anchor="middle" fill="#2F6F6A" font-weight="600">إسقاط</text>
+          <text x="305" y="128" text-anchor="middle" font-size="12">LOBSTER</text>
+          <circle cx="200" cy="50" r="18" fill="#3A6FD0" fill-opacity=".8"/>
+          <text x="160" y="55" text-anchor="end">s : 25%</text>
+          <ellipse cx="200" cy="93" rx="9" ry="15" fill="#B07A10" fill-opacity=".85"/><ellipse cx="200" cy="121" rx="9" ry="15" fill="#B07A10" fill-opacity=".45"/>
+          <text x="160" y="112" text-anchor="end">p : 70%</text>
+          <g transform="translate(200 165)"><ellipse rx="6" ry="12" transform="rotate(45) translate(0 -12)" fill="#8A4FB8" fill-opacity=".8"/><ellipse rx="6" ry="12" transform="rotate(-45) translate(0 -12)" fill="#8A4FB8" fill-opacity=".4"/><ellipse rx="6" ry="12" transform="rotate(135) translate(0 -12)" fill="#8A4FB8" fill-opacity=".8"/><ellipse rx="6" ry="12" transform="rotate(-135) translate(0 -12)" fill="#8A4FB8" fill-opacity=".4"/></g>
+          <text x="160" y="170" text-anchor="end">d : 5%</text>
+        </g>
+      </svg>
+      <figcaption>رسم توضيحي (النسب هنا للتمثيل فقط). كل موجة من الحساب تتحول إلى «وصفة»: كمية من s على هذه الذرة، وكمية من p على تلك.</figcaption>
+    </figure>
+
+    <h2>LOBSTER يفصل الآلات</h2>
+    <p>هنا يأتي دور برنامج <span class="en-term">LOBSTER</span>، الذي طوّرته مجموعة الكيميائي ريتشارد درونسكوفسكي في جامعة آخن التقنية في ألمانيا (<bdi style="white-space:nowrap"><a href="https://doi.org/10.1002/jcc.26353" target="_blank" rel="noopener">Nelson et al., 2020</a></bdi>). اسمه يعني «سرطان البحر»، لكنه في الحقيقة اختصار لعبارة طويلة معناها «مجموعة أدوات المدارات المحلية لإعادة بناء البنية الإلكترونية».</p>
+    <p>فكرته بسيطة في جوهرها: يأخذ كل موجة من حساب DFT ويسأل: كم تشبه هذه الموجة المدار 3s على ذرة السيليكون الأولى؟ وكم تشبه المدار 3p على الثانية؟ هذه العملية اسمها الإسقاط (<span class="en-term">projection</span>)، وهي ما يفعله البرنامج الذي يفصل صوت كل آلة من تسجيل الأوركسترا.</p>
+    <p>وكيف نعرف أن الترجمة أمينة؟ نقيس ما ضاع منها. هذا الرقم اسمه تسرّب الشحنة (<span class="en-term">charge spilling</span>): نسبة الإلكترونات التي لم تستطع المدارات الذرية وصفها. في حسابينا كان 0.9% للسيليكون و0.4% لثاني أكسيد القصدير. أي أن المدارات الذرية وصفت أكثر من 99% من الإلكترونات.</p>
+
+    <h2>كيف نقرأ الرابطة من منحنى</h2>
+    <p>بعد أن عرفنا وصفة كل موجة، نستطيع أن نسأل سؤال الكيميائي: هل الإلكترونات عند هذه الطاقة تشدّ هاتين الذرتين إلى بعضهما، أم تدفعهما بعيداً؟</p>
+    <p>تذكّر من المقالة السابقة: حين يتداخل مداران من ذرتين ينتج مداران جديدان. الأول أقل طاقة، والموجتان فيه في الطور نفسه فتتراكم الإلكترونات بين الذرتين: هذا المدار الرابط. والثاني أعلى طاقة، والموجتان فيه متعاكستان فتظهر بين الذرتين عقدة لا إلكترونات فيها: هذا المدار المضاد للرابط.</p>
+
+    <figure>
+      <div class="fig-title">مداران يصنعان رابطة، وكيف يظهر ذلك في COHP</div>
+      <div class="fig-sub">الرابط أقل طاقة ويُرسم إلى اليمين، والمضاد للرابط أعلى طاقة ويُرسم إلى اليسار.</div>
+      <svg viewBox="0 0 560 270" role="img" aria-label="مخطط مستويات الطاقة: مداران ذريان يتحدان في مدار رابط أقل طاقة ومدار مضاد للرابط أعلى طاقة، وبجانبهما محور COHP">
+        <g font-family="IBM Plex Sans Arabic, IBM Plex Sans, sans-serif" font-size="13" fill="#52534C">
+          <line x1="40" x2="100" y1="140" y2="140" stroke="#1B1F1E" stroke-width="2.5"/>
+          <line x1="240" x2="300" y1="140" y2="140" stroke="#1B1F1E" stroke-width="2.5"/>
+          <text x="70" y="166" text-anchor="middle">مدار الذرة A</text>
+          <text x="270" y="166" text-anchor="middle">مدار الذرة B</text>
+          <line x1="140" x2="200" y1="60" y2="60" stroke="#C2462A" stroke-width="2.5"/>
+          <line x1="140" x2="200" y1="215" y2="215" stroke="#008C7E" stroke-width="2.5"/>
+          <path d="M100,140 L140,60 M100,140 L140,215 M240,140 L200,60 M240,140 L200,215" stroke="#9A988F" stroke-dasharray="4 4" fill="none"/>
+          <circle cx="158" cy="38" r="11" fill="#C2462A" fill-opacity=".85"/><circle cx="182" cy="38" r="11" fill="#F3F1EA" stroke="#C2462A" stroke-width="2"/>
+          <text x="170" y="22" text-anchor="middle" fill="#C2462A" font-weight="600">مضاد للرابط</text>
+          <ellipse cx="170" cy="244" rx="26" ry="11" fill="#008C7E" fill-opacity=".85"/>
+          <text x="170" y="266" text-anchor="middle" fill="#008C7E" font-weight="600">رابط</text>
+          <text x="208" y="242" font-size="12">↑↓</text>
+          <line x1="350" x2="350" y1="20" y2="250" stroke="#7B7970"/>
+          <line x1="440" x2="440" y1="20" y2="250" stroke="#7B7970"/>
+          <path d="M440,60 C432,45 405,52 398,60 C405,68 432,75 440,60 Z" fill="#C2462A" fill-opacity=".6"/>
+          <path d="M440,215 C450,200 488,207 496,215 C488,223 450,230 440,215 Z" fill="#008C7E" fill-opacity=".6"/>
+          <text x="440" y="14" text-anchor="middle" fill="#1B1F1E" font-weight="600">−COHP</text>
+          <text x="500" y="200" text-anchor="middle" fill="#008C7E">رابط →</text>
+          <text x="384" y="85" text-anchor="middle" fill="#C2462A">← مضاد</text>
+          <text x="342" y="30" text-anchor="end" font-size="12">طاقة ↑</text>
+        </g>
+      </svg>
+      <figcaption>حين يمتلئ المدار الرابط بإلكترونين تقوى الرابطة. وإن امتلأ المضاد للرابط أيضاً ضاع أثرها.</figcaption>
+    </figure>
+
+    <p>في البلورة لا يوجد مداران فقط، بل ملايين المدارات المتداخلة التي تشكّل حزماً كاملة من الطاقة. لذلك اقترح درونسكوفسكي وبيتر بلوخل سنة 1993 أداة اسمها <span class="en-term">COHP</span>، اختصار لـ «إسهام هاملتون للمدارات البلورية» (<bdi style="white-space:nowrap"><a href="https://doi.org/10.1021/j100135a014" target="_blank" rel="noopener">Dronskowski &amp; Blöchl, 1993</a></bdi>). وهي حفيدة أداة أقدم ابتكرها هوفمان نفسه اسمها <span class="en-term">COOP</span> (<bdi style="white-space:nowrap"><a href="https://doi.org/10.1021/ja00349a027" target="_blank" rel="noopener">Hughbanks &amp; Hoffmann, 1983</a></bdi>).</p>
+    <p>تعطيك COHP رقماً واحداً لكل طاقة ولكل زوج من الذرات. نرسمها مقلوبة الإشارة (−COHP) حتى يكون الرابط إلى اليمين والمضاد للرابط إلى اليسار، وما يقع قرب الصفر لا يربط ولا يفرّق. وإذا جمعنا كل الحالات الممتلئة بالإلكترونات حصلنا على رقم واحد اسمه <span class="en-term">ICOHP</span>. كلما كان أكثر سالبية، كانت الرابطة التساهمية أقوى.</p>
+
+    <h2>التجربة الأولى: السيليكون</h2>
+    <p>السيليكون يتبلور مثل الماس: كل ذرة ترتبط بأربع جارات على بعد 2.35 أنغستروم، أي أقصر من عرض شعرة الإنسان بأكثر من 300 ألف مرة. ويقول كتاب الكيمياء إن ذرة السيليكون «تهجّن» مدارها 3s مع مداراتها 3p لتصنع أربع روابط متماثلة. فماذا يقول الحساب؟</p>
+
+    <figure id="fig-si">
+      <div class="fig-title">السيليكون: كثافة الحالات (يساراً) والرابطة Si–Si (يميناً)</div>
+      <div class="fig-sub">حرّك المؤشر على الرسم لترى القيم عند كل طاقة. الصفر هو قمة حزمة التكافؤ، والشريط الرمادي هو فجوة الطاقة.</div>
+      <div class="legend" dir="rtl">
+        <span><i style="background:#3A6FD0"></i>Si 3s</span>
+        <span><i style="background:#B07A10"></i>Si 3p</span>
+        <span><i class="box" style="background:#008C7E"></i>رابط</span>
+        <span><i class="box" style="background:#C2462A"></i>مضاد للرابط</span>
+      </div>
+      <div class="cb-plot"></div>
+      <div class="controls">
+        <label for="si-ef">لعبة: املأ حالات أعلى. اسحب المؤشر لترفع مستوى الإلكترونات إلى حزمة التوصيل.</label>
+        <input id="si-ef" type="range" min="0" max="5.5" step="0.05" value="0" dir="ltr">
+        <div class="cb-readout" aria-live="polite"></div>
+      </div>
+      <figcaption>حساب Quantum ESPRESSO (PBE). المساحة الداكنة هي الحالات الممتلئة بالإلكترونات، والفاتحة هي الحالات الفارغة. رفع مستوى الإلكترونات هنا تجربة ذهنية: في الواقع تتغير الحزم نفسها حين نضيف إلكترونات.</figcaption>
+    </figure>
+
+    <p>انظر إلى اللوحة اليمنى. كل المساحة تحت الخط المتقطع، أي كل الحالات الممتلئة من −12 حتى قمة حزمة التكافؤ، لونها أخضر مزرق: كل إلكترون فيها يقوّي رابطة Si–Si. وفوق الفجوة ينقلب اللون إلى الأحمر: كل الحالات الفارغة مضادة للرابط. والفجوة تقع بالضبط على الحد الفاصل بينهما.</p>
+    <p>هذا هو المعنى الكيميائي لفجوة الطاقة في السيليكون: الحالات الرابطة ممتلئة كلها، والمضادة للرابط فارغة كلها، وبينهما لا شيء. والطبيعة اختارت عدد الإلكترونات الذي يملأ الجانب الرابط تماماً ويتوقف.</p>
+    <p>جرّب المؤشر تحت الرسم. كلما رفعت مستوى الإلكترونات دخلت إلى حالات مضادة للرابط، فتضعف الرابطة. أضف قرابة إلكترون واحد لكل ذرة فتنخفض قيمة −ICOHP من 5.1 إلى 4.0 إلكترون فولت، أي بأكثر من الخُمس.</p>
+    <p>وفي اللوحة اليسرى ترى المدار 3s في أسفل الحزمة والمدار 3p في أعلاها، لكنهما يتداخلان على امتدادها. هذا التداخل هو التهجين الذي نرسمه في الكتب. والحساب يعطيه رقماً: من أصل 5.12 إلكترون فولت لكل رابطة، يأتي أكثر من نصفها من خلط s مع p.</p>
+
+    <figure>
+      <div class="fig-title">من يبني الرابطة؟ −ICOHP لكل رابطة حسب زوج المدارات (eV)</div>
+      <div class="fig-sub">كلما طال الشريط زاد إسهام هذا الزوج في الترابط التساهمي.</div>
+      <div class="bars" dir="rtl">
+        <div class="grp">Si–Si (المجموع 5.12)</div>
+        <div class="lab">3s–3p</div><div class="track"><div class="fill" style="width:72.7%;background:#8A4FB8"></div></div><div class="val">2.63</div>
+        <div class="lab">3p–3p</div><div class="track"><div class="fill" style="width:61.8%;background:#B07A10"></div></div><div class="val">2.24</div>
+        <div class="lab">3s–3s</div><div class="track"><div class="fill" style="width:6.9%;background:#3A6FD0"></div></div><div class="val">0.25</div>
+        <div class="grp">Sn–O (المجموع 4.47)</div>
+        <div class="lab">Sn 5p–O</div><div class="track"><div class="fill" style="width:90.8%;background:#B07A10"></div></div><div class="val">3.29</div>
+        <div class="lab">Sn 5s–O</div><div class="track"><div class="fill" style="width:32.2%;background:#3A6FD0"></div></div><div class="val">1.17</div>
+        <div class="lab">Sn 4d–O</div><div class="track"><div class="fill" style="width:0.4%;background:#7B7970"></div></div><div class="val">0.01</div>
+      </div>
+      <figcaption>القيم من الحسابين في هذه المقالة. «O» تعني مداري الأكسجين 2s و2p معاً.</figcaption>
+    </figure>
+
+    <h2>التجربة الثانية: ثاني أكسيد القصدير، مادتي</h2>
+    <p>في الخلية الشمسية من نوع البيروفسكايت، يحرّر الضوء إلكترونات داخل طبقة البيروفسكايت. وتحت هذه الطبقة توجد طبقة رقيقة من <span class="en-term">SnO₂</span> تعمل كبوابة: تمرّر الإلكترونات نحو القطب الكهربائي وتمنع الشحنات الموجبة من المرور. هذه البوابة هي ما أعمل عليه في المعمل، ولهذا أردت أن أعرف: ما الذي يجعلها تمرر الإلكترونات بهذه السهولة؟</p>
+    <p>في بلورة <span class="en-term">SnO₂</span> تحيط بكل ذرة قصدير ست ذرات أكسجين على شكل ثماني الأوجه، على بعد 2.05 أنغستروم تقريباً. والحساب يعطي لكل رابطة Sn–O قيمة ICOHP تساوي −4.47 إلكترون فولت.</p>
+
+    <figure id="fig-sno2">
+      <div class="fig-title">ثاني أكسيد القصدير: كثافة الحالات (يساراً) والرابطة Sn–O (يميناً)</div>
+      <div class="fig-sub">اختر أي مدار من القصدير تريد أن ترى إسهامه في الرابطة. الخط الملون يُرسم فوق المنحنى الكلي.</div>
+      <div class="tab-row" dir="rtl">
+        <button class="tab-btn active" data-line="s">Sn 5s مع O</button>
+        <button class="tab-btn" data-line="p">Sn 5p مع O</button>
+      </div>
+      <div class="legend" dir="rtl">
+        <span><i style="background:#3A6FD0"></i>Sn 5s</span>
+        <span><i style="background:#B07A10"></i>Sn 5p</span>
+        <span><i style="background:#8A4FB8"></i>O 2s + 2p</span>
+        <span><i class="box" style="background:#008C7E"></i>رابط</span>
+        <span><i class="box" style="background:#C2462A"></i>مضاد للرابط</span>
+      </div>
+      <div class="cb-plot"></div>
+      <figcaption>حساب Quantum ESPRESSO (PBE). قمة الأكسجين 2p تتجاوز حدود اللوحة اليسرى (تصل إلى قرابة 10)، فقطعناها ليظهر القصدير. مدارات 4d للقصدير تقع أعمق من الرسم، عند −20 إلكترون فولت تقريباً.</figcaption>
+    </figure>
+
+    <p>من الأسفل إلى الأعلى نقرأ ثلاث قصص. في العمق، بين −19 و−15 إلكترون فولت، يرتبط المدار 2s للأكسجين مع 5p للقصدير. ثم بين −9 و−2 تقع معظم قوة الرابطة: القصدير بمداريه 5s و5p مع 2p للأكسجين. أما قمة حزمة التكافؤ، من −2 إلى الصفر، فيملؤها الأكسجين 2p (القمة البنفسجية الكبيرة)، لكن منحنى COHP هناك قريب من الصفر. إلكترونات هذه المنطقة لا تربط ولا تفرّق؛ إنها إلكترونات الأكسجين «في بيته».</p>
+    <p>ولاحظ في شريط الإسهامات أعلاه أن مدارات 4d للقصدير، وفيها عشرة إلكترونات كاملة، لا تكاد تشارك في الرابطة: 0.01 إلكترون فولت فقط. إنها جالسة في الصف الأخير تتفرج.</p>
+    <p>والآن الأهم: فوق الفجوة، في قاع حزمة التوصيل، يتجه الخط الأزرق إلى اليسار. الحالات هناك مضادة للرابط بين 5s للقصدير والأكسجين. وهذا هو المكان الذي يصل إليه الإلكترون حين يعبر من البيروفسكايت إلى طبقة <span class="en-term">SnO₂</span>.</p>
+
+    <figure>
+      <div class="fig-title">نرى المدارين بأعيننا</div>
+      <div class="fig-sub">كثافة الإلكترون في مستوى يمر بأربع ذرات قصدير وذرتي أكسجين من البلورة.</div>
+      <div class="pair">
+        <div><img src="../images/sno2-band-edges-vbm.png" alt="كثافة الإلكترون عند قمة حزمة التكافؤ في SnO₂: شكل دمبل على كل ذرة أكسجين، متعامد على الخط الواصل إلى القصدير" loading="lazy" width="672" height="672"><div class="pair-lab">قمة حزمة التكافؤ</div></div>
+        <div><img src="../images/sno2-band-edges-cbm.png" alt="كثافة الإلكترون عند قاع حزمة التوصيل في SnO₂: سحب كروية حول القصدير، وهلال على كل أكسجين يدير ظهره للقصدير" loading="lazy" width="672" height="672"><div class="pair-lab">قاع حزمة التوصيل</div></div>
+      </div>
+      <figcaption>من حساب Quantum ESPRESSO عند مركز منطقة بريلوان (النقطة Γ). الألوان الداكنة تعني كثافة أعلى.</figcaption>
+    </figure>
+
+    <p>في صورة قمة حزمة التكافؤ، على كل ذرة أكسجين شكل يشبه الدمبل: هذا مدار 2p. لكنه متعامد على الخط الواصل إلى أقرب ذرة قصدير، فلا يشير إليها أبداً. لهذا كان COHP قريباً من الصفر هناك: مدار لا ينظر إلى جاره لا يرتبط به.</p>
+    <p>وفي صورة قاع حزمة التوصيل، حول كل ذرة قصدير سحابة كروية: هذا مدار 5s، وترى في داخلها حلقة فاتحة هي إحدى عقده. وعلى كل أكسجين هلال يدير ظهره للقصدير، وبينهما منطقة شبه فارغة. هذه العقدة بين الذرتين هي توقيع الحالة المضادة للرابط التي رأيناها في المنحنى.</p>
+    <p>ولماذا يهمني ذلك؟ لأن المدار s كروي، فهو يتداخل مع جيرانه بالقدر نفسه في كل الاتجاهات. وهذا يصنع حزمة توصيل عريضة جداً، يتحرك فيها الإلكترون بمقاومة قليلة كأنه أخف وزناً. لاحظ كم هي منخفضة كثافة الحالات فوق الفجوة مباشرة: الحالات هناك موزعة على مدى واسع من الطاقة. هذا هو التفسير الشائع لسبب توصيل أكاسيد مثل <span class="en-term">SnO₂</span> و<span class="en-term">ZnO</span> للإلكترونات جيداً مع بقائها شفافة. فالبوابة التي أعمل عليها تدين بسهولة عبورها لمدار كروي على ذرة القصدير.</p>
+
+    <h2>ما لا تقوله هذه الأدوات</h2>
+    <p>قبل أن نتحمس كثيراً، أربعة تنبيهات:</p>
+    <p><b>أولاً</b>، قيمة ICOHP ليست طاقة الرابطة بالمعنى الحرفي، ولا تساوي الطاقة اللازمة لكسرها. هي مؤشر نقارن به الروابط ببعضها داخل الطريقة نفسها.</p>
+    <p><b>ثانياً</b>، النتائج تعتمد على المدارات الذرية التي نُسقط عليها. لذلك نقيس تسرّب الشحنة دائماً، ولا نثق بنتيجة يضيع فيها جزء كبير من الإلكترونات.</p>
+    <p><b>ثالثاً</b>، نسخة DFT التي استخدمناها (<span class="en-term">PBE</span>) تصغّر فجوة الطاقة: خرجت 0.62 إلكترون فولت للسيليكون والقيمة المقاسة 1.12، وخرجت 1.26 لثاني أكسيد القصدير والمقاسة قرابة 3.6. أشكال المنحنيات وطبيعة الروابط موثوقة، أما عرض الفجوة فلا.</p>
+    <p><b>رابعاً</b>، لعبة إضافة الإلكترونات في رسم السيليكون تجربة ذهنية. في الواقع تتغير الحزم حين تتغير الشحنة.</p>
+
+    <h2>الخط الذي رسمناه في المدرسة</h2>
+    <p>فهل كان الخط بين الذرتين خطأ؟ لا. لكنه ملخّص. هو كل المساحة الخضراء تحت مستوى الإلكترونات الممتلئة، مطروحاً منها كل المساحة الحمراء، مضغوطة في ضربة قلم واحدة.</p>
+    <p>كان الحاسوب يعرف الرابطة طوال الوقت، لكنه كان يتكلم بلغة الموجات. وكل ما فعلناه أننا سألناه بلغة الكيميائي. الرابطة لم تختفِ من الحساب؛ كانت تنتظر من يسأل عنها بلغتها.</p>
+
+    <details>
+      <summary>للمتخصصين: كيف حُسبت هذه النتائج؟</summary>
+      <ul>
+        <li>البرنامج: <span class="en-term">Quantum ESPRESSO 7.3.1</span>، الدالّية <span class="en-term">PBE</span>، و<span class="en-term">PAW pseudopotentials</span> من مكتبة pslibrary 1.0.0.</li>
+        <li>طاقة القطع: 50 Ry للدوال الموجية و400 Ry للكثافة. شبكة نقاط k كاملة بلا تماثل: 8×8×8 للسيليكون و6×6×9 لـ SnO₂.</li>
+        <li>البنية: الثوابت الشبكية التجريبية بلا ترخية (Si: a = 5.431 Å؛ SnO₂ روتيل: a = 4.737 Å، c = 3.186 Å، u = 0.307).</li>
+        <li>الإسقاط: <code>projwfc.x</code> على المدارات الذرية المتعامدة (Löwdin)، وتسرّب الشحنة 0.9% و0.4%.</li>
+        <li>منحنيات COHP في هذه النسخة حُسبت بسكربت كتبناه يطبق معادلات COHP نفسها على هذا الإسقاط: يبني هاملتونياً في فضاء المدارات المحلية، ثم يوزّع طاقة كل حالة على أزواج الذرات. برنامج LOBSTER يفعل الشيء نفسه بقاعدة مدارات محسّنة لهذا الغرض، لذلك قد تختلف الأرقام عنه قليلاً بينما تبقى الصورة الكيميائية نفسها. ملفات إدخال LOBSTER موجودة مع بقية الملفات لمن يريد المقارنة.</li>
+        <li>كل ملفات الإدخال والسكربتات <a href="https://github.com/anasbq/anasbq.github.io/tree/main/files/chemical-bonds-dft" target="_blank" rel="noopener">على GitHub</a>. الحسابان يعملان على حاسوب عادي: قرابة 3 دقائق للسيليكون و12 دقيقة لـ SnO₂ على 4 أنوية.</li>
+      </ul>
+    </details>
+
+    <h2 style="font-size:20px;">المصادر</h2>
+    <ol dir="ltr" lang="en" style="margin:0;padding-left:20px;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;line-height:1.7;color:#52534C;text-align:left;">
+      <li style="margin-bottom:8px;">Dal Corso, A. (2014). Pseudopotentials periodic table: From H to Pu. <i>Computational Materials Science</i>, 95, 337–350. <a href="https://doi.org/10.1016/j.commatsci.2014.07.043" target="_blank" rel="noopener">doi.org/10.1016/j.commatsci.2014.07.043</a></li>
+      <li style="margin-bottom:8px;">Deringer, V. L., Tchougréeff, A. L., &amp; Dronskowski, R. (2011). Crystal orbital Hamilton population (COHP) analysis as projected from plane-wave basis sets. <i>The Journal of Physical Chemistry A</i>, 115(21), 5461–5466. <a href="https://doi.org/10.1021/jp202489s" target="_blank" rel="noopener">doi.org/10.1021/jp202489s</a></li>
+      <li style="margin-bottom:8px;">Dronskowski, R., &amp; Blöchl, P. E. (1993). Crystal orbital Hamilton populations (COHP): Energy-resolved visualization of chemical bonding in solids based on density-functional calculations. <i>The Journal of Physical Chemistry</i>, 97(33), 8617–8624. <a href="https://doi.org/10.1021/j100135a014" target="_blank" rel="noopener">doi.org/10.1021/j100135a014</a></li>
+      <li style="margin-bottom:8px;">Giannozzi, P., et al. (2017). Advanced capabilities for materials modelling with Quantum ESPRESSO. <i>Journal of Physics: Condensed Matter</i>, 29(46), 465901. <a href="https://doi.org/10.1088/1361-648X/aa8f79" target="_blank" rel="noopener">doi.org/10.1088/1361-648X/aa8f79</a></li>
+      <li style="margin-bottom:8px;">Hoffmann, R. (1987). How chemistry and physics meet in the solid state. <i>Angewandte Chemie International Edition in English</i>, 26(9), 846–878. <a href="https://doi.org/10.1002/anie.198708461" target="_blank" rel="noopener">doi.org/10.1002/anie.198708461</a></li>
+      <li style="margin-bottom:8px;">Hughbanks, T., &amp; Hoffmann, R. (1983). Chains of trans-edge-sharing molybdenum octahedra: Metal–metal bonding in extended systems. <i>Journal of the American Chemical Society</i>, 105(11), 3528–3537. <a href="https://doi.org/10.1021/ja00349a027" target="_blank" rel="noopener">doi.org/10.1021/ja00349a027</a></li>
+      <li style="margin-bottom:8px;">Kohn, W., &amp; Sham, L. J. (1965). Self-consistent equations including exchange and correlation effects. <i>Physical Review</i>, 140(4A), A1133–A1138. <a href="https://doi.org/10.1103/PhysRev.140.A1133" target="_blank" rel="noopener">doi.org/10.1103/PhysRev.140.A1133</a></li>
+      <li style="margin-bottom:8px;">Maintz, S., Deringer, V. L., Tchougréeff, A. L., &amp; Dronskowski, R. (2016). LOBSTER: A tool to extract chemical bonding from plane-wave based DFT. <i>Journal of Computational Chemistry</i>, 37(11), 1030–1035. <a href="https://doi.org/10.1002/jcc.24300" target="_blank" rel="noopener">doi.org/10.1002/jcc.24300</a></li>
+      <li style="margin-bottom:8px;">Nelson, R., Ertural, C., George, J., Deringer, V. L., Hautier, G., &amp; Dronskowski, R. (2020). LOBSTER: Local orbital projections, atomic charges, and chemical-bonding analysis from projector-augmented-wave-based density-functional theory. <i>Journal of Computational Chemistry</i>, 41(21), 1931–1940. <a href="https://doi.org/10.1002/jcc.26353" target="_blank" rel="noopener">doi.org/10.1002/jcc.26353</a></li>
+      <li style="margin-bottom:8px;">Perdew, J. P., Burke, K., &amp; Ernzerhof, M. (1996). Generalized gradient approximation made simple. <i>Physical Review Letters</i>, 77(18), 3865–3868. <a href="https://doi.org/10.1103/PhysRevLett.77.3865" target="_blank" rel="noopener">doi.org/10.1103/PhysRevLett.77.3865</a></li>
+    </ol>
+  </div>
+</article>
+
+<footer style="padding:32px 24px;display:flex;justify-content:center;">
+  <a href="../ar/index.html#articles" class="ar" dir="rtl" style="font-size:14px;font-weight:600;">→ العودة إلى كل المقالات</a>
+</footer>
+
+</div>
+<script src="../embeds/chemical-bonds-charts.js"></script>
+<script>
+(function () {
+  var base = {
+    dir: "rtl", energy: "الطاقة بالنسبة لقمة التكافؤ (eV)", energyShort: "الطاقة", dosTitle: "كثافة الحالات",
+    cohpTitle: "−COHP", dosAxis: "حالات لكل eV", cohpAxis: "−COHP (eV)", bonding: "رابط", antibonding: "مضاد للرابط",
+    nonbonding: "غير رابط", gap: "الفجوة", vbm: "قمة التكافؤ", ef: "مستوى الإلكترونات", clipped: "O 2p ← مقطوعة"
+  };
+  var si = Object.assign({}, base, {
+    aria: "رسم كثافة الحالات ومنحنى COHP للسيليكون: كل الحالات الممتلئة رابطة وكل الحالات الفارغة فوق الفجوة مضادة للرابط",
+    readout: function (ic, added, above) {
+      return "−ICOHP لكل رابطة: <b>" + ic + " eV</b>" +
+        (above ? " · إلكترونات مضافة لكل ذرة: <b>" + added + "</b><br>دخلت الإلكترونات حالات مضادة للرابط، فضعفت الرابطة."
+               : "<br>كل الحالات الرابطة ممتلئة، وكل المضادة للرابط فارغة.");
+    }
+  });
+  var sn = Object.assign({}, base, {
+    aria: "رسم كثافة الحالات ومنحنى COHP لثاني أكسيد القصدير: قمة التكافؤ أكسجين غير رابط، وقاع التوصيل مضاد للرابط بين القصدير 5s والأكسجين"
+  });
+  BondCharts.silicon(document.getElementById("fig-si"), si);
+  BondCharts.tinOxide(document.getElementById("fig-sno2"), sn);
+})();
+</script>
+<script data-goatcounter="https://anasbq.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body></html>

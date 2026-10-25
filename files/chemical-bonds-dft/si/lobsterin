@@ -1,0 +1,7 @@
+COHPstartEnergy  -15
+COHPendEnergy     10
+usebasisset      pbeVaspFit2015
+basisfunctions   Si 3s 3p
+gaussianSmearingWidth 0.05
+! all Si-Si nearest neighbours (2.35 A), split by orbital pair
+cohpGenerator from 2.0 to 2.5 type Si type Si orbitalwise

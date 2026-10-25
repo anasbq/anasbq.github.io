@@ -1,0 +1,8 @@
+COHPstartEnergy  -20
+COHPendEnergy     10
+usebasisset      pbeVaspFit2015
+basisfunctions   Sn 5s 5p 4d
+basisfunctions   O  2s 2p
+gaussianSmearingWidth 0.05
+! the six Sn-O bonds of each SnO6 octahedron (~2.05-2.06 A), split by orbital pair
+cohpGenerator from 1.9 to 2.2 type Sn type O orbitalwise
