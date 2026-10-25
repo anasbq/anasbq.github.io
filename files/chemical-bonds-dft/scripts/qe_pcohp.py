@@ -161,7 +161,7 @@ def main():
     gap = e[:, nocc].min() - 0.0
     lines = [
         f"system {args.prefix}: {name} bonds per cell = {nbonds}, d = {min(lengths):.3f}-{max(lengths):.3f} A",
-        f"band gap (PBE) = {gap:.3f} eV, spilling (occupied) = {100 * spill:.2f} %",
+        f"band gap = {gap:.3f} eV, spilling (occupied) = {100 * spill:.2f} %",
         f"IpCOHP up to VBM, per bond = {icohp_occ:.3f} eV  (negative = net bonding)",
     ] + [f"  {kk}: {icohp_orb[kk]:.3f} eV" for kk in keys]
     with open("pcohp_summary.txt", "a") as f:
