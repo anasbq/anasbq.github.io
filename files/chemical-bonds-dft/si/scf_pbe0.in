@@ -1,0 +1,36 @@
+! Si (diamond) - PBE0 (hybrid) SCF run prepared for LOBSTER
+! LOBSTER needs: PAW pseudopotentials, nosym/noinv (full k-grid), extra empty bands
+&CONTROL
+  calculation = 'scf'
+  prefix      = 'Si'
+  outdir      = './'
+  pseudo_dir  = '../pseudo'
+  wf_collect  = .true.
+  verbosity   = 'high'
+/
+&SYSTEM
+  ibrav     = 2
+  celldm(1) = 10.2631        ! a = 5.431 Angstrom (experimental)
+  nat       = 2
+  ntyp      = 1
+  ecutwfc   = 50
+  ecutrho   = 400
+  nbnd      = 16             ! 4 occupied; LOBSTER needs >= 8 basis functions
+  occupations = 'fixed'
+  input_dft = 'pbe0'        ! 25% exact exchange (PBE0)
+  ecutfock  = 200           ! cutoff for the Fock operator (4 x ecutwfc)
+  nqx1 = 4, nqx2 = 4, nqx3 = 4   ! q-grid for exact exchange (must divide the 8x8x8 k-grid)
+  exxdiv_treatment = 'gygi-baldereschi'
+  nosym     = .true.
+  noinv     = .true.
+/
+&ELECTRONS
+  conv_thr = 1.0d-10
+/
+ATOMIC_SPECIES
+  Si  28.0855  Si.pbe-n-kjpaw_psl.1.0.0.UPF
+ATOMIC_POSITIONS crystal
+  Si  0.00  0.00  0.00
+  Si  0.25  0.25  0.25
+K_POINTS automatic
+  8 8 8 0 0 0

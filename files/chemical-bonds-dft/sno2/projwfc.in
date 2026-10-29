@@ -1,0 +1,8 @@
+&PROJWFC
+  prefix = 'SnO2'
+  outdir = './'
+  ngauss = 0
+  degauss = 0.01
+  DeltaE = 0.01
+  filpdos = 'sno2.pdos'
+/

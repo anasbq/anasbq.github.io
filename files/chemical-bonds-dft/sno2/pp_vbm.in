@@ -1,0 +1,13 @@
+&INPUTPP
+  prefix   = 'SnO2'
+  outdir   = './'
+  filplot  = 'band_vbm.dat'
+  plot_num = 7
+  kpoint   = 1
+  kband    = 26
+/
+&PLOT
+  iflag         = 3
+  output_format = 6
+  fileout       = 'SnO2_vbm.cube'
+/

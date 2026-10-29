@@ -7,7 +7,14 @@
   <atom:link href="https://anasbq.github.io/feed.xml" rel="self" type="application/rss+xml"/>
   <description>مقالات علمية مبسطة عن علم المواد والحياة في المختبر، لكل مهتم بالعلم.</description>
   <language>ar</language>
-  <lastBuildDate>Fri, 09 Oct 2026 02:57:11 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 25 Oct 2026 08:00:00 GMT</lastBuildDate>
+  <item>
+    <title>كيف نفهم الروابط الكيميائية باستخدام أدوات حسابية</title>
+    <link>https://anasbq.github.io/articles/where-is-the-chemical-bond.html</link>
+    <guid>https://anasbq.github.io/articles/where-is-the-chemical-bond.html</guid>
+    <pubDate>Sun, 25 Oct 2026 08:00:00 GMT</pubDate>
+    <description>حسابات DFT لا ترسم أي خط بين الذرات. كيف نستخرج الرابطة والمدارات من بحر الموجات؟ تجربة حقيقية على السيليكون وثاني أكسيد القصدير.</description>
+  </item>
   <item>
     <title>هل تغيّر البسملة نتيجة التجربة؟</title>
     <link>https://anasbq.github.io/articles/has-the-basmala-changed-as-a-result-of-the-experiment.html</link>
