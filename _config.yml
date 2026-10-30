@@ -1,0 +1,5 @@
+# GitHub Pages builds this site with Jekyll. Keep the article sources and build tools
+# out of the published site (Jekyll would otherwise turn content/**/*.md into pages).
+exclude:
+  - content
+  - tools

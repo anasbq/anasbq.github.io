@@ -1,0 +1,67 @@
+# Publishes articles written as Markdown (from Obsidian or any editor).
+# Push a file under content/articles/ and this builds its page with the same template as the
+# admin, adds or updates its card on the home page and its RSS item, then commits the result.
+# Run it by hand ("Run workflow") to rebuild every article.
+name: Publish articles
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/articles/**']
+  workflow_dispatch:
+    inputs:
+      all:
+        description: 'Rebuild every article (not only the changed ones)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: articles
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install KaTeX
+        run: npm install --prefix tools --no-audit --no-fund
+
+      - name: Build changed articles
+        env:
+          BEFORE: ${{ github.event.before }}
+          ALL: ${{ github.event_name == 'workflow_dispatch' && inputs.all }}
+        run: |
+          if [ "$ALL" = "true" ]; then
+            node tools/build-articles.mjs --all
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "No previous commit to compare with; nothing to build."
+          else
+            git diff --name-only --diff-filter=AMR "$BEFORE" "$GITHUB_SHA" -- 'content/articles/*.md' 'content/articles/**/*.md' > changed.txt
+            cat changed.txt
+            if [ -s changed.txt ]; then xargs -d '\n' node tools/build-articles.mjs < changed.txt; fi
+            rm -f changed.txt
+          fi
+
+      - name: Commit the built pages
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898+github-actions[bot]@users.noreply.github.com'
+          git add -A articles en/articles ar/index.html index.html feed.xml feed-en.xml images
+          if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+          git commit -m "Build articles from Markdown" -m "Triggered by ${GITHUB_SHA::7}"
+          for i in 1 2 3; do
+            git push && exit 0
+            git pull --rebase origin main
+          done
+          exit 1
