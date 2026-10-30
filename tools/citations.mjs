@@ -44,12 +44,18 @@ function link(it) {
   return null;
 }
 /* text that goes inside Markdown: keep characters the converter treats as formatting literal */
-const plain = s => String(s || '').replace(/\s+/g, ' ').trim().replace(/[*~^`[\]]/g, '');
+const plain = s => String(s || '').replace(/\s+/g, ' ').trim().replace(/[*~^`[\]]/g, '')
+  /* Zotero keeps rich text as HTML tags: SnO<sub>2</sub>, <i>Danio rerio</i> */
+  .replace(/<sub>([^<]*)<\/sub>/gi, '~$1~').replace(/<sup>([^<]*)<\/sup>/gi, '^$1^')
+  .replace(/<(i|em)>([^<]*)<\/\1>/gi, '*$2*').replace(/<(b|strong)>([^<]*)<\/\1>/gi, '**$2**')
+  .replace(/<[^>]+>/g, '');
+/* the same, as plain text (for the in-text name, where formatting is not wanted) */
+const bare = s => plain(s).replace(/[*~^]/g, '');
 
 /* (Farias et al., 2013): one author, two with &, three or more et al. */
 function inTextName(it) {
   const a = authorsOf(it);
-  if (!a.length) return plain(it.title).split(' ').slice(0, 4).join(' ');
+  if (!a.length) return bare(it.title).split(' ').slice(0, 4).join(' ');
   if (a.length === 1) return family(a[0]);
   if (a.length === 2) return family(a[0]) + ' & ' + family(a[1]);
   return family(a[0]) + ' et al.';
@@ -93,7 +99,7 @@ export function applyCitations(body, lang, root, problems) {
       if (!it) { problems.push(lib.size ? `citation [@${key}] is not in content/references.json` :
         `citation [@${key}] used, but content/references.json is missing (export it from Zotero)`); return all; }
       used.set(key, it);
-      const text = (noAuthor ? '' : inTextName(it) + ', ') + year(it) + (locator ? ', ' + plain(locator) : '');
+      const text = (noAuthor ? '' : inTextName(it) + ', ') + year(it) + (locator ? ', ' + bare(locator) : '');
       const l = link(it);
       out.push(l ? `[${text}](${l.url})` : text);
     }
