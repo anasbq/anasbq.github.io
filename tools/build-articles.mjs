@@ -150,7 +150,7 @@ function load(file) {
     lead: String(meta.lead || 'true').toLowerCase() !== 'false',   // show the summary under the title
   };
   if (a.status === 'draft') return a;
-  a.body = applyCitations(obsidian(body, problems), a.lang, ROOT, problems);
+  a.body = applyCitations(obsidian(body, problems), a.lang, ROOT, problems, (meta.citation_style || 'ieee').toLowerCase(), R);
   if (!a.title) problems.push('title is missing');
   if (!a.summary) problems.push('summary is missing');
   if (!a.body) problems.push('the article has no text');

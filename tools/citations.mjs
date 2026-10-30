@@ -4,8 +4,8 @@
  * In the Markdown, a citation is written the Pandoc way (what the Obsidian "Zotero Integration"
  * plugin inserts):  [@farias2013]   [@farias2013, p. 12]   [@farias2013; @brooks2016]
  * The data comes from content/references.json, a "Better CSL JSON" export of the Zotero library
- * that Better BibTeX keeps up to date. Each citation becomes an APA-style (Author, Year) link to
- * the paper, and the cited works are listed under the references heading at the end.
+ * that Better BibTeX keeps up to date. By default (IEEE) each citation becomes a number [1] linked to
+ * a numbered list under the references heading; `citation_style: apa` gives (Author, Year) instead.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -87,8 +87,40 @@ function reference(it) {
 /* ---------- the article body ---------- */
 const HEADING = { ar: 'المصادر', en: 'References' };
 
-export function applyCitations(body, lang, root, problems) {
-  const lib = loadLibrary(root), used = new Map();
+/* ---------- IEEE (the default): [1] in the text, numbered list in order of first citation ---------- */
+const ieeeName = a => a.literal ? a.literal : [initials(a.given), a.family].filter(Boolean).join(' ');
+function ieeeAuthors(it) {
+  const a = authorsOf(it).map(ieeeName);
+  if (a.length > 6) return a[0] + ' et al.';
+  if (a.length <= 2) return a.join(' and ');
+  return a.slice(0, -1).join(', ') + ', and ' + a[a.length - 1];
+}
+function ieeeReference(it) {
+  const who = plain(ieeeAuthors(it)), t = plain(it.title), c = plain(it['container-title']), y = year(it);
+  const book = /^(book|thesis|report)$/.test(it.type);
+  const parts = [];
+  if (book) {
+    parts.push((who ? who + ', ' : '') + `*${t}*.`);
+    const tail = [plain(it.publisher), y].filter(Boolean).join(', ');
+    if (tail) parts.push(tail + (link(it) ? ',' : '.'));
+  } else {
+    let head = (who ? who + ', ' : '') + `“${t},”`;
+    const bits = [];
+    if (c) bits.push(`*${c}*`);
+    if (it.volume) bits.push(`vol. ${plain(it.volume)}`);
+    if (it.issue) bits.push(`no. ${plain(it.issue)}`);
+    const pg = it.page || it.number;
+    if (pg) bits.push((/[-–]/.test(pg) ? 'pp. ' : 'p. ') + plain(String(pg).replace(/-/g, '–')));
+    bits.push(y);
+    parts.push(head + ' ' + bits.join(', ') + (link(it) ? ',' : '.'));
+  }
+  const l = link(it);
+  if (l) parts.push(it.DOI ? `doi: [${l.label.replace(/^doi\.org\//, '')}](${l.url}).` : `[Online]. Available: [${l.label}](${l.url})`);
+  return parts.join(' ');
+}
+
+export function applyCitations(body, lang, root, problems, style = 'ieee', R = null) {
+  const lib = loadLibrary(root), used = new Map(), ieee = style !== 'apa';
   const re = /\[((?:[^\]\[]*?;\s*)?-?@[^\]]+)\]/g;
   body = body.replace(re, (all, inside) => {
     const parts = inside.split(/\s*;\s*/).map(p => p.match(/^(-?)@([^\s,]+)\s*,?\s*(.*)$/));
@@ -98,21 +130,34 @@ export function applyCitations(body, lang, root, problems) {
       const it = lib.get(key);
       if (!it) { problems.push(lib.size ? `citation [@${key}] is not in content/references.json` :
         `citation [@${key}] used, but content/references.json is missing (export it from Zotero)`); return all; }
-      used.set(key, it);
+      if (!used.has(key)) used.set(key, it);
+      if (ieee) {
+        const n = [...used.keys()].indexOf(key) + 1;
+        out.push(`[[${n}](#ref-${n})` + (locator ? ', ' + bare(locator) : '') + ']');
+        continue;
+      }
       const text = (noAuthor ? '' : inTextName(it) + ', ') + year(it) + (locator ? ', ' + bare(locator) : '');
       const l = link(it);
       out.push(l ? `[${text}](${l.url})` : text);
     }
-    return '(' + out.join('; ') + ')';
+    return ieee ? out.join(', ') : '(' + out.join('; ') + ')';
   });
   if (!used.size) return body;
+  const heading = new RegExp(`^##\\s+(${HEADING.ar}|${HEADING.en})\\s*$`, 'm');
+  const place = list => heading.test(body) ? body.replace(heading, h => h + '\n\n' + list + '\n')
+    : body.replace(/\s*$/, '') + `\n\n## ${HEADING[lang] || HEADING.en}\n\n` + list + '\n';
+
+  if (ieee) {
+    /* an English list, numbered [1], [2] … in order of first citation, each with an anchor the numbers link to */
+    const st = R.S('en');
+    const items = [...used.values()].map((it, i) =>
+      `<li id="ref-${i + 1}" style="display:flex;gap:10px;scroll-margin-top:80px;"><span style="flex:none;min-width:2.2em;">[${i + 1}]</span><span>${R.inline(ieeeReference(it), st)}</span></li>`);
+    return place('```html\n    <ol dir="ltr" lang="en" style="' + st.list.replace('padding-inline-start:24px;', 'padding:0;list-style:none;') +
+      'font-size:15px;text-align:left;">' + items.join('') + '</ol>\n```');
+  }
 
   const refs = [...used.values()].sort((x, y) =>
     (family(authorsOf(x)[0] || {}) || plain(x.title)).localeCompare(family(authorsOf(y)[0] || {}) || plain(y.title), 'en') ||
     year(x).localeCompare(year(y)));
-  const list = refs.map((it, i) => `${i + 1}. ${reference(it)}`).join('\n');
-  const heading = new RegExp(`^##\\s+(${HEADING.ar}|${HEADING.en})\\s*$`, 'm');
-  /* put the list under the references heading if the article has one, otherwise add the heading at the end */
-  if (heading.test(body)) return body.replace(heading, h => h + '\n\n' + list + '\n');
-  return body.replace(/\s*$/, '') + `\n\n## ${HEADING[lang] || HEADING.en}\n\n` + list + '\n';
+  return place(refs.map((it, i) => `${i + 1}. ${reference(it)}`).join('\n'));
 }
