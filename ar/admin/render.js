@@ -69,7 +69,7 @@
     t = t.replace(/\$([^$\n]+?)\$/g, function(_,tex){ keep.push(mathHtml(tex,false)); return '\u0000'+(keep.length-1)+'\u0000'; });
     t = esc(t);
     t = t.replace(/`([^`]+)`/g, function(_,c){ return '<code style="'+st.code+'">'+c+'</code>'; });
-    t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|[^\s)]+\.html[^\s)]*)\)/g,
+    t = t.replace(/\[([^\[\]]+)\]\((https?:\/\/[^\s)]+|[^\s)]+\.html[^\s)]*|#[A-Za-z0-9_-]+)\)/g,
       function(_,txt,url){
         var ext = /^https?:/.test(url) && url.indexOf(SITE)!==0;
         return '<a href="'+url+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+txt+'</a>';
