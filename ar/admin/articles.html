@@ -149,9 +149,12 @@
     if(!confirm('حذف «'+row.title+'» نهائياً من الموقع؟\n\nستُحذف صفحة المقالة وبطاقتها من الصفحة الرئيسية وعنصرها في RSS. يمكن استرجاعها لاحقاً من سجل GitHub فقط.')) return;
     b.disabled = true; b.textContent = 'جارٍ الحذف…';
     var lang = row.lang;
+    /* the Markdown source (content/articles/…), if the article has one */
+    var source = 'content/articles/'+(lang==='en'?'en/':'')+path.split('/').pop().replace(/\.html$/,'.md');
     Admin.commit(function(h){
-      return Promise.all([ Admin.raw(Admin.homeOf(lang),h.sha), Admin.raw(Admin.feedOf(lang),h.sha) ]).then(function(x){
+      return Promise.all([ Admin.raw(Admin.homeOf(lang),h.sha), Admin.raw(Admin.feedOf(lang),h.sha), Admin.exists(source,h.sha) ]).then(function(x){
         var changes = [{ path:path, remove:true }];
+        if(x[2]) changes.push({ path:source, remove:true });
         var home = Admin.removeCard(x[0], path), feed = Admin.removeFeedItem(x[1], path);
         if(home !== x[0]) changes.push({ path:Admin.homeOf(lang), content:home });
         if(feed !== x[1]) changes.push({ path:Admin.feedOf(lang), content:feed });

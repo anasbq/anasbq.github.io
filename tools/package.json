@@ -1,0 +1,9 @@
+{
+  "name": "site-tools",
+  "private": true,
+  "description": "Builds articles from content/articles/*.md (see tools/README.md)",
+  "type": "module",
+  "dependencies": {
+    "katex": "0.16.9"
+  }
+}
