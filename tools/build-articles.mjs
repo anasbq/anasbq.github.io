@@ -30,6 +30,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { applyCitations } from './citations.mjs';
 
 const require = createRequire(import.meta.url);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -149,7 +150,7 @@ function load(file) {
     lead: String(meta.lead || 'true').toLowerCase() !== 'false',   // show the summary under the title
   };
   if (a.status === 'draft') return a;
-  a.body = obsidian(body, problems);
+  a.body = applyCitations(obsidian(body, problems), a.lang, ROOT, problems);
   if (!a.title) problems.push('title is missing');
   if (!a.summary) problems.push('summary is missing');
   if (!a.body) problems.push('the article has no text');
