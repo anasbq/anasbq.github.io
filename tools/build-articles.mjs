@@ -17,7 +17,8 @@
  *   summary: "…"          one line, shown under the title, on the card and in RSS
  *   lang: ar | en         defaults to en for files under content/articles/en/, else ar
  *   date: 2026-10-30
- *   slug: my-article      defaults to the file name
+ *   slug: my-article      optional: from the file name, or else the title (Arabic is translated);
+ *                         a generated slug is written back into the file so the URL stays fixed
  *   status: published | draft
  *   ---
  *   Markdown body: ## / ###, **bold**, *italic*, H~2~O, m^2^, lists, > quotes, [text](url),
@@ -95,6 +96,39 @@ function obsidian(body, problems) {
   return body.replace(/\n{3,}/g, '\n\n').trim();
 }
 
+/* ---------- the file name in the URL, from the title (same steps as the admin page) ---------- */
+const slugify = s => s.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70);
+const TR = {'ا':'a','أ':'a','إ':'i','آ':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'h','خ':'kh','د':'d','ذ':'dh',
+  'ر':'r','ز':'z','س':'s','ش':'sh','ص':'s','ض':'d','ط':'t','ظ':'z','ع':'a','غ':'gh','ف':'f','ق':'q','ك':'k',
+  'ل':'l','م':'m','ن':'n','ه':'h','ة':'a','و':'w','ؤ':'w','ي':'y','ى':'a','ئ':'y','ء':''};
+const transliterate = s => s.replace(/[\u0600-\u06ff]/g, c => TR[c] ?? '');
+async function slugFromTitle(title) {
+  if (!/[\u0600-\u06ff]/.test(title)) return slugify(title);
+  try {   // Arabic titles are translated, like the admin page does
+    const r = await fetch('https://api.mymemory.translated.net/get?langpair=ar|en&q=' + encodeURIComponent(title),
+      { signal: AbortSignal.timeout(15000) });
+    const d = await r.json();
+    const en = d && d.responseData && d.responseData.translatedText;
+    if (d.responseStatus == 200 && en && slugify(en)) return slugify(en);
+  } catch (e) { /* fall back below */ }
+  return slugify(transliterate(title));
+}
+/* when the source has no usable slug, pick one and write it into the file, so it never changes later */
+async function ensureSlug(a) {
+  if (a.slugGiven || /^[A-Za-z0-9_-]+$/.test(a.slug) || !a.title) return;
+  let slug = await slugFromTitle(a.title) || 'article';
+  const taken = s => fs.existsSync(path.join(ROOT, R.articlePath({ ...a, slug: s })));
+  for (let i = 2; taken(slug); i++) slug = slug.replace(/-\d+$/, '') + '-' + i;
+  a.slug = slug;
+  const abs = path.join(ROOT, a.file);
+  const text = fs.readFileSync(abs, 'utf8');
+  fs.writeFileSync(abs, /^\uFEFF?---\r?\n/.test(text)
+    ? text.replace(/^(\uFEFF?---\r?\n)/, `$1slug: ${slug}\n`)
+    : `---\nslug: ${slug}\n---\n\n${text}`);
+  console.log(`  ${a.file}: no slug given, using "${slug}" (saved in the file)`);
+}
+
 /* ---------- one article ---------- */
 function load(file) {
   const abs = path.resolve(ROOT, file);
@@ -108,6 +142,7 @@ function load(file) {
     lang: meta.lang || (inEn ? 'en' : 'ar'),
     date: meta.date || '',
     slug: meta.slug || path.basename(abs, '.md'),
+    slugGiven: !!meta.slug,
     status: (meta.status || 'published').toLowerCase(),
     layout: meta.layout || 'standard',
     pageTitle: meta.page_title || '',
@@ -119,7 +154,6 @@ function load(file) {
   if (!a.summary) problems.push('summary is missing');
   if (!a.body) problems.push('the article has no text');
   if (!/^(ar|en)$/.test(a.lang)) problems.push(`lang must be ar or en, not "${a.lang}"`);
-  if (!/^[A-Za-z0-9_-]+$/.test(a.slug)) problems.push(`slug "${a.slug}" may only use letters, numbers, - and _`);
   const d = a.date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!d) problems.push(`date must look like 2026-10-30, not "${a.date}"`);
   else a.dateObj = new Date(Date.UTC(+d[1], +d[2] - 1, +d[3], 8, 0, 0));
@@ -191,6 +225,8 @@ for (const f of files) {
   try {
     const a = load(f);
     if (a.status === 'draft') { console.log(`- ${a.file}: draft, skipped`); continue; }
+    if (!check) await ensureSlug(a);
+    if (!/^[A-Za-z0-9_-]+$/.test(a.slug)) a.problems.push(`slug "${a.slug}" may only use letters, numbers, - and _`);
     if (a.problems.length) throw new Error(a.problems.join('; '));
     const page = build(a, check);
     console.log(`✓ ${a.file}${page ? ' → ' + page : ' (ok)'}`);
