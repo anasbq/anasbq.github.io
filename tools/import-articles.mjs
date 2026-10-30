@@ -73,6 +73,7 @@ function inlineMd(h) {
     if (name === 'sub') return '~';
     if (name === 'sup') return '^';
     if (name === 'code') return '`';
+    if (name === 'bdi') return '';        // the renderer adds it back around citations
     if (name === 'a') {
       if (close) return '\u0002';
       const href = (attrs.match(/href="([^"]*)"/) || [])[1];
@@ -103,7 +104,7 @@ function blockMd(node) {
 }
 
 /* does the Markdown render to the same thing the reader saw? (same text, same tags, same links) */
-const shape = h => ({
+const shape = h => (h = h.replace(/<\/?bdi[^>]*>/g, ''), {
   text: text(h),
   tags: [...h.matchAll(/<\/?([a-z0-9]+)/gi)].map(x => ({ b: 'strong', i: 'em' })[x[1].toLowerCase()] || x[1].toLowerCase()).join(','),
   links: [...h.matchAll(/href="([^"]*)"/g)].map(x => decode(x[1])).join(' '),

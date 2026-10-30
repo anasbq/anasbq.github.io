@@ -31,6 +31,7 @@
   function S(lang){
     var lh = lang==='ar' ? '1.9' : '1.75';
     return {
+      rtl: lang==='ar',
       p:   'margin:0;font-size:17px;line-height:'+lh+';color:#33342F;',
       h2:  'margin:16px 0 0;font-size:clamp(22px,3vw,28px);line-height:1.4;color:#1B1F1E;',
       h3:  'margin:8px 0 0;font-size:20px;line-height:1.5;color:#1B1F1E;',
@@ -77,6 +78,9 @@
     t = t.replace(/(^|[^*])\*([^*\s][^*]*)\*/g,'$1<em>$2</em>');
     t = t.replace(/~([^~\s][^~]*?)~/g,'<sub>$1</sub>');
     t = t.replace(/\^([^\^\s][^\^]*?)\^/g,'<sup>$1</sup>');
+    /* in Arabic text, keep an English citation like (Farias et al., 2013) in reading order and on one line */
+    if(st.rtl) t = t.replace(/\(((?:<a [^>]*>)?[A-Za-z][^()<>\u0600-\u06ff]*?\b(?:1[89]|20)\d\d[a-z]?(?:<\/a>)?)\)/g,
+      '(<bdi style="white-space:nowrap">$1</bdi>)');
     t = t.replace(/\u0000(\d+)\u0000/g, function(_,i){ return keep[+i]; });
     return t;
   }
