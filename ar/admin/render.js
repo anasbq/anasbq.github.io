@@ -79,8 +79,11 @@
     t = t.replace(/~([^~\s][^~]*?)~/g,'<sub>$1</sub>');
     t = t.replace(/\^([^\^\s][^\^]*?)\^/g,'<sup>$1</sup>');
     /* in Arabic text, keep an English citation like (Farias et al., 2013) in reading order and on one line */
-    if(st.rtl) t = t.replace(/\(((?:<a [^>]*>)?[A-Za-z][^()<>\u0600-\u06ff]*?\b(?:1[89]|20)\d\d[a-z]?(?:<\/a>)?)\)/g,
-      '(<bdi style="white-space:nowrap">$1</bdi>)');
+    if(st.rtl) t = t.replace(/\(((?:<a [^>]*>)?[A-Za-z][^()\u0600-\u06ff]*?\b(?:1[89]|20)\d\d[^()\u0600-\u06ff]*?)\)/g,
+      function(_, c){   /* one short citation stays on one line; a list of several may wrap */
+        var short = c.replace(/<[^>]+>/g,'').length <= 40;
+        return '(<bdi'+(short?' style="white-space:nowrap"':'')+'>'+c+'</bdi>)';
+      });
     t = t.replace(/\u0000(\d+)\u0000/g, function(_,i){ return keep[+i]; });
     return t;
   }
