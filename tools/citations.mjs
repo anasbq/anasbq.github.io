@@ -88,6 +88,13 @@ function reference(it) {
 const HEADING = { ar: 'المصادر', en: 'References' };
 
 /* ---------- IEEE (the default): [1] in the text, numbered list in order of first citation ---------- */
+const MON = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
+/* web pages and news carry the full date (Jun. 12, 2025); journal articles only the year */
+function ieeeDate(it) {
+  const p = it.issued && it.issued['date-parts'] && it.issued['date-parts'][0];
+  if (!p || !p[1] || /^article-journal$|^book$|^chapter$/.test(it.type)) return year(it);
+  return MON[p[1] - 1] + (p[2] ? ' ' + p[2] + ',' : '') + ' ' + p[0];
+}
 const ieeeName = a => a.literal ? a.literal : [initials(a.given), a.family].filter(Boolean).join(' ');
 function ieeeAuthors(it) {
   const a = authorsOf(it).map(ieeeName);
@@ -102,7 +109,7 @@ function ieeeReference(it) {
   if (book) {
     parts.push((who ? who + ', ' : '') + `*${t}*.`);
     const tail = [plain(it.publisher), y].filter(Boolean).join(', ');
-    if (tail) parts.push(tail + (link(it) ? ',' : '.'));
+    if (tail) parts.push(tail + (it.DOI ? ',' : '.'));
   } else {
     let head = (who ? who + ', ' : '') + `“${t},”`;
     const bits = [];
@@ -111,8 +118,8 @@ function ieeeReference(it) {
     if (it.issue) bits.push(`no. ${plain(it.issue)}`);
     const pg = it.page || it.number;
     if (pg) bits.push((/[-–]/.test(pg) ? 'pp. ' : 'p. ') + plain(String(pg).replace(/-/g, '–')));
-    bits.push(y);
-    parts.push(head + ' ' + bits.join(', ') + (link(it) ? ',' : '.'));
+    bits.push(ieeeDate(it));
+    parts.push(head + ' ' + bits.join(', ') + (it.DOI ? ',' : '.'));
   }
   const l = link(it);
   if (l) parts.push(it.DOI ? `doi: [${l.label.replace(/^doi\.org\//, '')}](${l.url}).` : `[Online]. Available: [${l.label}](${l.url})`);
@@ -140,7 +147,7 @@ export function applyCitations(body, lang, root, problems, style = 'ieee', R = n
       const l = link(it);
       out.push(l ? `[${text}](${l.url})` : text);
     }
-    return ieee ? out.join(', ') : '(' + out.join('; ') + ')';
+    return ieee ? out.join(lang === 'ar' ? '، ' : ', ') : '(' + out.join('; ') + ')';
   });
   if (!used.size) return body;
   const heading = new RegExp(`^##\\s+(${HEADING.ar}|${HEADING.en})\\s*$`, 'm');
