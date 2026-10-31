@@ -8,6 +8,9 @@ status: published
 layout: existing
 lead: false
 page_title: "How Chemistry and Physics Meet in Understanding Solids"
+description: "Why do a chemist and a physicist read the same data in two different ways? A plain-language guide to atomic orbitals and energy bands, starting from Roald Hoffmann's famous 1987 paper."
+feed_summary: "Why did my two supervisors read the same results in opposite ways? And how the chemist Roald Hoffmann brought the chemist's and the physicist's languages together."
+feed_date: "2026-10-05T00:00:00Z"
 ---
 
 At the end of last year, I sent my results to my two supervisors: one a physicist, the other a chemist. Both are experts in their fields, and both trained under the same solid-state scientist. What happened next shocked me. The physicist replied first: "The results are great and worth publishing." Then the chemist replied: "Hmm... I don't trust these results." I had run the experiment twice and gotten the same numbers both times. Most likely, his chemical intuition and experience were telling him not to trust them because of the chemical composition.
@@ -20,7 +23,6 @@ Hoffmann traces the divide to three causes. First, chemists feel lost among the 
 
 First, we need to understand what a solid is. Try putting your hand on the table in front of you, or on a wall, or on a piece of metal if there's one nearby. That hard thing you're touching: why is it solid at all? Why doesn't your hand pass through it? The question sounds naive, but it's one of the deepest in science. Solids, like metals, stones, wood, glass, and walls, differ from liquids and gases in how their atoms are arranged. In a gas, the molecules are free and move fast. In a liquid, they tumble over one another. But in a solid, every atom is locked into a regular geometric network it can't leave.
 
-```html
 <div class="ibox">
       <div class="ibox-title">The crystal lattice</div>
       <p class="ibox-caption">Press "Animate" to see how atoms vibrate in place without ever leaving their spot</p>
@@ -32,13 +34,11 @@ First, we need to understand what a solid is. Try putting your hand on the table
       </div>
       <p id="temp-label" style="margin:8px 0 0;font-size:13px;color:#6B6A63;">Temperature: low (the atoms barely move)</p>
     </div>
-```
 
 This regular geometric arrangement is what we call a crystal. Most solids around us are crystalline: salt, ice, metals. A few, like glass, have no regular order; we call them amorphous solids. Every crystalline solid has its own characteristic geometry, and each geometry gives different properties. You may have studied this in high school or university, so none of it is new.
 
 Let's go deeper. Before we talk about millions of atoms in a solid, let's start with the simplest element there is: hydrogen. One atom, one nucleus, one electron. But that single electron tells us everything. A chemist pictures the electron as a cloud of probability around the nucleus. That cloud isn't random; it has very specific shapes we call atomic orbitals. A physicist describes the same thing as a wave function, which gives the probability of finding the electron at every point in space. So the two languages describe the same thing. The 1s orbital is the solution of the Schrödinger equation for the lowest energy level: a symmetric sphere around the nucleus. The 2p orbital is bigger and more complex, with two lobes like a dumbbell (if you go to the gym, you know the shape).
 
-```html
 <div class="ibox">
       <div class="ibox-title">The atomic orbitals of hydrogen</div>
       <p class="ibox-caption">Pick an orbital to see its shape and energy: this is "where" the electron lives around the nucleus</p>
@@ -54,7 +54,6 @@ Let's go deeper. Before we talk about millions of atoms in a solid, let's start 
        1s: the first energy level, with the lowest energy and the most stable. It is a symmetric sphere around the nucleus, and the electron spends most of its time close to the nucleus.
       </div>
     </div>
-```
 
 Each orbital has a specific energy. An electron in 1s has less energy than one in 2s, which in turn has less than one in 3d, and the lower the energy, the more stable the orbital. This staircase of energies is the key to understanding what happens when we bring hundreds of atoms together.
 
@@ -64,7 +63,6 @@ The strange part is that the physicist and the chemist study the same solid but 
 
 Picture a single hydrogen atom with its 1s energy level. Now bring two hydrogen atoms close together. What happens? Their orbitals start to overlap, and when two orbitals overlap they don't merge into one. They split into two new orbitals: one lower in energy (bonding) and one higher (antibonding). This is the core idea behind the chemical bond, and it's where the bonds we learned about in school come from: metallic, ionic, and covalent. (A side note: the familiar picture of atoms in a covalent bond "sharing" electrons is a simplification for teaching, not a literal description of what happens.) Now that we understand bonding, imagine adding a third atom, then a fourth, then a thousand. Each atom adds a new energy level. When there are enough atoms, those separate levels turn into something entirely new: a continuous energy band.
 
-```html
 <div class="ibox">
       <div class="ibox-title">From separate levels to a continuous band</div>
       <p class="ibox-caption">Move the slider to add atoms and watch the levels turn into a band</p>
@@ -75,7 +73,6 @@ Picture a single hydrogen atom with its 1s energy level. Now bring two hydrogen 
         <span id="band-status" style="font-size:13px;color:#6B6A63;">One atom → one sharp energy level</span>
       </div>
     </div>
-```
 
 The chemist looks at this band and says, "Oh, that's the sum of all the chemical bonds between hundreds of atoms." The physicist looks at the same band and says, "Look, that's the range where electrons can move freely." Same phenomenon, two languages. To make sense of all these numbers and hundreds of bonded atoms, physicists and chemists developed special plots for reading energy bands in solids. The two best known are:
 
@@ -85,7 +82,6 @@ The chemist looks at this band and says, "Oh, that's the sum of all the chemical
 
 The two plots are linked. Where an energy line is flat in the band structure (the energy changes slowly), you'll find a tall peak in the DOS. Where the line is steep, the DOS is low. Chemists tend to prefer the DOS because it connects directly to bonding interactions; physicists tend to prefer the band structure because it shows how electrons move.
 
-```html
 <div class="ibox">
       <div class="ibox-title">Interactive band structure and DOS</div>
       <p class="ibox-caption">Pick a type of material and see how the bands change shape, and where the Fermi level sits</p>
@@ -108,7 +104,6 @@ The two plots are linked. Where an energy line is flat in the band structure (th
         In a metal, the Fermi level sits inside a band, so electrons are free to move. That's why metals conduct electricity.
       </div>
     </div>
-```
 
 The Fermi level, E~F~, is the dividing line. The states below it are filled with electrons and form what's called the valence band; on these plots it always sits on the negative side of the energy axis. The states above it are empty and form the conduction band, on the positive side. For a material to conduct electricity, an electron has to jump from the lower band to the upper one. That jump costs energy, and how much depends on the distance between the top of the valence band and the bottom of the conduction band: the band gap.
 
@@ -122,14 +117,12 @@ So what ties the two languages together? The answer lies in the mathematics, in 
 
 Here's what the Bloch function says: an electron in a solid still carries the shape of its original atomic orbital, but repeated across the whole lattice as a wave when it links up with other atoms. Picture two singers, each with their own melody and voice; each voice is an atomic orbital. What happens when they sing together? Their individual voices don't vanish; they weave together into one collective wave. That's exactly what the Bloch function describes.
 
-```html
 <div class="ibox">
       <div class="ibox-title">From atomic orbital to Bloch wave</div>
       <p class="ibox-caption">Click the atoms one at a time to see their orbitals combine into a single wave</p>
       <svg id="bloch-canvas" width="360" height="200" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;cursor:pointer;"></svg>
       <p id="bloch-label" style="margin:8px 0 0;font-size:14px;color:#6B6A63;">Click the atoms one at a time</p>
     </div>
-```
 
 So how did this gap between physicists and chemists open up? It's worth pausing on. It didn't come from nowhere, and it wasn't a personal feud or a rivalry between two fields. It formed because physics and chemistry developed independently over decades, and each built its own tools, language, and questions. In the 1950s and 60s, solid-state physicists were busy with the stunning success of band theory in explaining conductivity and magnetism. At the same time, chemists were absorbed in building molecular orbital theory and understanding chemical bonds with unprecedented precision.
 
@@ -147,6 +140,4 @@ After that experience with my supervisors, after reading Hoffmann, and after und
 
 - Hoffmann, R. (1987). How Chemistry and Physics Meet in the Solid State. *Angewandte Chemie International Edition in English*, 26(9), 846–878. [doi.org/10.1002/anie.198708461](https://doi.org/10.1002/anie.198708461)
 
-```html
 <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">Note: AI was used to build the interactive diagrams and to help with language editing.</p>
-```
