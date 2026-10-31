@@ -20,6 +20,8 @@
  *   slug: my-article      optional: from the file name, or else the title (Arabic is translated);
  *                         a generated slug is written back into the file so the URL stays fixed
  *   status: published | draft
+ *   description, card_title, feed_summary, feed_date   optional: what search engines, the home
+ *                         card and RSS show, when it should differ from summary/title/date
  *   ---
  *   Markdown body: ## / ###, **bold**, *italic*, H~2~O, m^2^, lists, > quotes, [text](url),
  *   ![caption](url), $math$, $$block math$$, $\ce{…}$, ```html raw blocks```.
@@ -148,6 +150,11 @@ function load(file) {
     layout: meta.layout || 'standard',
     pageTitle: meta.page_title || '',
     lead: String(meta.lead || 'true').toLowerCase() !== 'false',   // show the summary under the title
+    /* optional: where the home card, RSS or search engines should show something other than title/summary */
+    description: meta.description || '',
+    cardTitle: meta.card_title || '',
+    feedSummary: meta.feed_summary || '',
+    feedDate: meta.feed_date || '',
   };
   if (a.status === 'draft') return a;
   a.body = applyCitations(obsidian(body, problems), a.lang, ROOT, problems, (meta.citation_style || 'ieee').toLowerCase(), R);
@@ -158,6 +165,10 @@ function load(file) {
   const d = a.date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!d) problems.push(`date must look like 2026-10-30, not "${a.date}"`);
   else a.dateObj = new Date(Date.UTC(+d[1], +d[2] - 1, +d[3], 8, 0, 0));
+  if (a.feedDate) {
+    a.feedDateObj = new Date(a.feedDate);
+    if (isNaN(a.feedDateObj)) problems.push(`feed_date must look like 2026-10-01T08:16:45Z, not "${a.feedDate}"`);
+  }
   a.problems = problems;
   return a;
 }
@@ -185,9 +196,9 @@ function existingHtml(a) {
   html = html.slice(0, h1.index) + newH1 + lead + R.md(a.body, a.lang) + '\n  ' + html.slice(end);
   const pageTitle = a.pageTitle || a.title;   // the browser-tab title may differ from the heading
   html = html.replace(/<title>[\s\S]*?( \| [^<]*)?<\/title>/, (_, suffix) => '<title>' + R.esc(pageTitle) + (suffix || '') + '</title>');
-  html = setMeta(html, 'name', 'description', a.summary);
+  html = setMeta(html, 'name', 'description', a.description || a.summary);
   html = setMeta(html, 'property', 'og:title', pageTitle);
-  html = setMeta(html, 'property', 'og:description', a.summary);
+  html = setMeta(html, 'property', 'og:description', a.description || a.summary);
   if (R.hasMath(a.body) && !html.includes('katex.min.css'))
     html = html.replace('</head>', `<link rel="stylesheet" href="${R.KATEX_CSS}">\n</head>`);
   return html;
@@ -203,8 +214,8 @@ function build(a, check) {
   write(page, html);
   const home = a.lang === 'ar' ? 'ar/index.html' : 'index.html';
   const feed = a.lang === 'ar' ? 'feed.xml' : 'feed-en.xml';
-  write(home, R.upsertCard(read(home), a));
-  write(feed, R.upsertFeedItem(read(feed), a));
+  write(home, R.upsertCard(read(home), { ...a, title: a.cardTitle || a.title }));
+  write(feed, R.upsertFeedItem(read(feed), { ...a, summary: a.feedSummary || a.summary, dateObj: a.feedDateObj || a.dateObj }));
   return page;
 }
 

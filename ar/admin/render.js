@@ -89,10 +89,12 @@
   }
 
   /*
-   * Besides the usual blocks, a fenced ```html … ``` block is copied into the page as it is.
-   * It holds the hand-made parts of older articles (interactive figures, their styles and
-   * scripts). Everything else is escaped.
+   * Besides the usual blocks, HTML is copied into the page as it is: a paragraph that starts
+   * with one of the tags below (Obsidian then shows it the way the site will), or a fenced
+   * ```html … ``` block. They hold the hand-made parts of older articles (interactive figures,
+   * specially styled lines, reference lists). Everything else is escaped.
    */
+  var RAW_BLOCK = /^<(p|div|ol|ul|figure|table|section|aside|details|blockquote|svg|iframe|hr|h[1-6])[\s>\/]/i;
   function md(src, lang){
     var st = S(lang), out = [], ind = '    ', raws = [];
     src = String(src||'').replace(/\r/g,'').replace(/^```html[ \t]*\n([\s\S]*?)\n```[ \t]*$/gm, function(_,h){
@@ -100,11 +102,14 @@
     });
     var blocks = src.split(/\n\s*\n/);
     blocks.forEach(function(b){
+      var raw = b.replace(/^\n+|\s+$/g,'');
       b = b.replace(/^\s+|\s+$/g,'');
       if(!b) return;
       var lines = b.split('\n'), m;
       if((m = b.match(/^\u0001(\d+)\u0001$/))){
         out.push(raws[+m[1]]);
+      } else if(RAW_BLOCK.test(b)){
+        out.push(raw);   // HTML written straight into the Markdown (Obsidian shows it as it will look)
       } else if((m = b.match(/^\$\$([\s\S]+)\$\$$/))){
         out.push(ind+mathHtml(m[1].trim(), true));
       } else if((m = b.match(/^(#{2,3})\s+(.+)$/)) && lines.length===1){

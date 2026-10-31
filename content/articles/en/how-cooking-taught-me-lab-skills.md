@@ -8,6 +8,9 @@ status: published
 layout: existing
 lead: false
 page_title: "How Cooking Taught Me Lab Skills"
+description: "Chopsticks, garlic sauce and espresso: how the kitchen taught a materials science researcher the precision and observation he needs in the lab"
+feed_summary: "Chopsticks, garlic sauce and espresso: hidden lessons in precision and observation I learned in the kitchen before the lab."
+feed_date: "2026-10-05T00:00:00Z"
 ---
 
 In one of my first meetings with my supervisor after joining his research group, we were talking about our lab skills, especially handling solar cell glass substrates with tweezers. He told me something I didn't expect: "Learn to cook. It'll help you in the lab". I thought he was joking, or trying to ease my first try nerves. But he was serious. He added: "Even your grip on the tweezers will get better if you eat with chopsticks".
@@ -30,14 +33,12 @@ Then I asked myself: why does toum turn creamy when everything I put in was liqu
 
 That moment of connection mattered to me, not because I started making better toum, but because I realized the kitchen is full of hidden physical chemistry. And if I can learn to see it there, I can see it anywhere.
 
-```html
 <div class="ibox">
       <div class="ibox-title">How an emulsion forms</div>
       <p class="ibox-caption">Emulsifier molecules put their tails in the oil and their heads in the water, which keeps the droplets stable</p>
       <svg id="emulsion-svg" viewBox="0 0 340 200" width="340" height="200"></svg>
       <div id="emulsion-info" class="info-box">Before whisking: the oil and water sit apart and don't mix. The egg molecules are scattered at random.</div>
     </div>
-```
 
 Has the kitchen stopped surprising me? Of course not. I'm a coffee addicted, and I have espresso machine, and I started watching videos to learn how to pull a good espresso that actually improves my mood. In one of them, the expert said: "You have to tamp the grounds evenly and leave no gaps, because the water finds the shortest path, rushes through them, and doesn't extract the flavor properly".
 
@@ -45,7 +46,6 @@ I stopped. "Leave no gaps".
 
 I knew that sentence! In the lab, when I was preparing the ceramic Li₇La₃Zr₂O₁₂, I used a hydraulic press to compact the ceramic powder and reduce its porosity before sintering it (heating it until the grains fuse together). Pores weaken the material and hold back its properties, whether that's conducting electricity or standing up to mechanical stress. Exactly the same principle; a gap in the espresso powder means an easy shortcut for the water; a pore in the ceramic can cause problems with how it performs.
 
-```html
 <div class="ibox">
       <div class="ibox-title">How porosity affects the flow of water</div>
       <p class="ibox-caption">Pick one of the two modes to see how water behaves with loose or tightly packed grains</p>
@@ -56,7 +56,6 @@ I knew that sentence! In the lab, when I was preparing the ceramic Li₇La₃Zr�
       <svg id="porosity-svg" viewBox="0 0 340 220" width="340" height="220" style="display:block;margin:0 auto;max-width:100%;"></svg>
       <div id="porosity-info" class="info-box">Loose grains: the gaps are large, so the water finds short paths and rushes through without full extraction. In a ceramic, this weakens the material and makes it brittle.</div>
     </div>
-```
 
 And I haven't even mentioned grind size, dose, water temperature, and everything else that affects extraction, because it's exactly what we do in the lab. Only, since we're introverts who love inventing our own vocabulary, in the lab we call them parameters; in the kitchen we call them a recipe. Same principle, different place and vocabulary. That's what I was starting to understand.
 
@@ -64,7 +63,6 @@ Speaking of parameters; when you bake a cake or a French loaf, twenty grams of f
 
 Precision in the lab works the same way. When I prepare a solution at a specific concentration, one extra gram changes the whole result. And the difference between a researcher who gets reproducible results and one who doesn't often comes down to this small kind of attention. Precise measurement gives a predictable, repeatable result, whether in a bread recipe or a lab solution. (I wish people who make cooking videos would stop using "a spoonful" as a unit of measurement. As a lab researcher, it drives me crazy!)
 
-```html
 <div class="ibox">
       <div class="ibox-title">Why precise measurement matters</div>
       <p class="ibox-caption">Move the slider to see how measurement error affects the final result</p>
@@ -76,13 +74,10 @@ Precision in the lab works the same way. When I prepare a solution at a specific
       </div>
       <div id="precision-info" class="info-box">Precise measurement gives a predictable, repeatable result, whether in a bread recipe or a lab solution.</div>
     </div>
-```
 
 I'm not saying cooking teaches you chemistry or physics. Cooking doesn't replace the lab. But it does something else; it keeps you in a constant state of observation. It makes you ask: why? What's happening right now? What changed? Those questions are the heart of lab work.
 
 The difference between a researcher who runs experiments and a researcher who understands what's happening in them often lies in the habit of asking, not in knowledge alone. My supervisor wanted to tell me that from the start. But he just chose a simpler way to say it: learn to cook.
 
-```html
 <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">P.S. The first dish I ever cooked was chicken with jam. And once I bought lung instead of meat and made kabsa out of it. But isn't that what we do in the lab? We fail at experiments, then fix our mistakes :)</p>
 <p style="margin:0;font-size:14px;color:#6B6A63;font-family:'IBM Plex Mono',monospace;">Note: AI was used to build the interactive diagrams and to help with language editing.</p>
-```

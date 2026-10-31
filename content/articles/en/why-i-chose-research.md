@@ -8,6 +8,9 @@ status: published
 layout: existing
 lead: false
 page_title: "Why Did I Choose Scientific Research?"
+description: "A personal story about a physics teacher, a burned-out lamp, and an electron I'm still chasing: why Anas Balghaith chose scientific research despite every warning."
+feed_summary: "A personal story about a physics teacher, a burned-out lamp, and an electron I'm still chasing today."
+feed_date: "2026-10-05T00:00:00Z"
 ---
 
 Why did I choose scientific research? It's probably the question I get asked most, and it usually comes with a raised eyebrow, as if I'd picked a field that will never pay the kind of salaries other careers do. (To be fair, we researchers really do need someone to pay for our research.) Some people ask out of worry: they've heard stories of scientists who lost their minds later in life, and they fear I'll go grey before I'm thirty. A few even warned me that digging too deep might cost me my faith. The truth is, I ask myself the same question. Why research, over every other path? I knew what I was signing up for, including many long years as a student.
@@ -34,6 +37,4 @@ All right, back to the question. After this whole journey, you're probably still
 
 Maybe choosing research was nothing more than a reflection of that human nature, which simply got the better of me.
 
-```html
 <p style="margin: 0; font-size: 19px; line-height: 1.75; color: #1B1F1E; font-weight: 600;">Maybe!</p>
-```

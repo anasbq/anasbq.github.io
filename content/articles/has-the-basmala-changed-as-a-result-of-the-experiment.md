@@ -9,9 +9,7 @@ layout: existing
 lead: false
 ---
 
-```html
 <p style="margin:0;font-size:19px;line-height:1.8;color:#52534C;">مشرفي ليس مسلماً، لكنه يقول بسم الله قبل كل تجربة، لماذا؟ ماذا تقول الأبحاث عن الطقوس والقلق والأداء في المعمل؟</p>
-```
 
 في أحد الأيام جاء مشرفي ليعلّمنا كيف نصنع الخلايا الشمسية. كانت الخطوة الأولى قطع الزجاج الذي ستُبنى عليه الخلية. أمسك القطعة، وتوقّف لحظة، ونظر إليها، ثم قال: "بسم الله".
 
@@ -57,7 +55,6 @@ lead: false
 
 ## المصادر
 
-```html
 <ol dir="ltr" lang="en" style="margin:0;padding-left:20px;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;line-height:1.7;color:#52534C;text-align:left;">
 <li style="margin-bottom:8px;">Allen, K., &amp; Blascovich, J. (1994). Effects of music on cardiovascular reactivity among surgeons. <i>JAMA</i>, 272, 882–884. <a href="https://pubmed.ncbi.nlm.nih.gov/7811324" target="_blank" rel="noopener">PubMed 7811324</a></li>
 <li style="margin-bottom:8px;">Aruguete, M. S., Goodboy, A. K., Jenkins, W. J., Mansson, D. H., &amp; McCutcheon, L. E. (2012). Does religious faith improve test performance? <i>North American Journal of Psychology</i>, 14(1), 185–196.</li>
@@ -71,4 +68,3 @@ lead: false
 <li style="margin-bottom:8px;">Ghiasi, A., &amp; Keramat, A. (2018). The effect of listening to Holy Quran recitation on anxiety: A systematic review. <i>Iranian Journal of Nursing and Midwifery Research</i>, 23(6), 411–420. <a href="https://doi.org/10.4103/ijnmr.IJNMR_173_17" target="_blank" rel="noopener">doi.org/10.4103/ijnmr.IJNMR_173_17</a></li>
 <li style="margin-bottom:8px;">Hanrahan, J., Sideris, M., Pasha, T., et al. (2018). Hands train the brain: What is the role of hand tremor and anxiety in undergraduate microsurgical skills? <i>Acta Neurochirurgica</i>, 160, 1673–1679. <a href="https://doi.org/10.1007/s00701-018-3609-6" target="_blank" rel="noopener">doi.org/10.1007/s00701-018-3609-6</a></li>
 </ol>
-```
