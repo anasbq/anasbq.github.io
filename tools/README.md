@@ -16,3 +16,12 @@ node tools/build-articles.mjs content/articles/x.md          # build one article
 node tools/build-articles.mjs --check content/articles/x.md  # validate only
 node tools/build-articles.mjs --all                          # rebuild everything
 ```
+
+## Floating table of contents
+
+Every article page loads [`../assets/toc.js`](../assets/toc.js). It turns the article's `##` / `###`
+headings (h2/h3) into a round button in the corner that opens a list of the sections, with a ring
+that fills as the reader scrolls. It only appears when an article has 3 or more headings, so short
+articles look the same as before. The template (`render.js`) adds the script to new articles, and
+the build adds it to `layout: existing` pages if it is missing. Add `data-toc="skip"` to a heading
+to leave it out, or `data-toc="off"` on `<article>` to turn the list off for one article.
