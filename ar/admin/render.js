@@ -211,6 +211,7 @@ ar ? '  <a href="'+home+'#articles" class="ar" dir="rtl" style="font-size: 14px;
 '</footer>',
 '',
 '</div>',
+'<script src="'+up+'assets/toc.js" defer><\/script>',
 '<script data-goatcounter="https://anasbq.goatcounter.com/count" async src="//gc.zgo.at/count.js"><\/script>',
 '</body>',
 '</html>',

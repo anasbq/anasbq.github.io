@@ -199,6 +199,8 @@ function existingHtml(a) {
   html = setMeta(html, 'name', 'description', a.description || a.summary);
   html = setMeta(html, 'property', 'og:title', pageTitle);
   html = setMeta(html, 'property', 'og:description', a.description || a.summary);
+  if (!html.includes('assets/toc.js'))   // the floating table of contents (assets/toc.js)
+    html = html.replace(/<\/body>/, `<script src="${a.lang === 'ar' ? '../' : '../../'}assets/toc.js" defer></script>\n</body>`);
   if (R.hasMath(a.body) && !html.includes('katex.min.css'))
     html = html.replace('</head>', `<link rel="stylesheet" href="${R.KATEX_CSS}">\n</head>`);
   return html;
