@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>موقع Oxide — لوحة التحكم</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Arabic:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<style>
+  .bar{position:sticky;top:56px;z-index:5;background:var(--bg);padding:12px 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);margin-bottom:18px;}
+  .card + .card{margin-top:18px;}
+  .card h2{margin:0;font-size:19px;}
+  .head{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+  .bi{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .bi > div{min-width:0;}
+  .bi small{display:block;font-size:12px;color:var(--ink-3);margin-bottom:4px;}
+  .bi input.en,.bi textarea.en{direction:ltr;text-align:left;}
+  textarea{min-height:64px;resize:vertical;}
+  .item{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:12px;background:#FCFBF7;}
+  .item .head b{font-size:14px;}
+  .mini{display:grid;grid-template-columns:90px 1fr;gap:10px;align-items:end;}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .dirty{font-size:14px;font-weight:600;color:var(--warn);}
+  @media (max-width:640px){.bi,.opts{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<main><div class="wrap" style="max-width:900px;">
+  <h1 class="adm-h1">موقع Oxide</h1>
+  <p class="adm-lead">عدّل نصوص صفحة Oxide، وأضف أو احذف الأقسام والبطاقات. كل نص له خانتين: إنجليزي وعربي. لما تخلص اضغط «حفظ ونشر»، والصفحة تتحدّث خلال دقيقة أو دقيقتين.</p>
+  <div class="bar">
+    <span class="dirty" id="dirty"></span>
+    <span class="row">
+      <a class="btn ghost" href="../../oxide/" target="_blank" rel="noopener">عرض الصفحة ↗</a>
+      <button class="btn" id="save" disabled>حفظ ونشر</button>
+    </span>
+  </div>
+  <div id="ed"><p class="muted">جاري التحميل…</p></div>
+</div></main>
+
+<script src="admin.js"></script>
+<script>
+(function(){
+  Admin.layout('oxide');
+  var PATH = 'oxide/content.json', data = null, dirty = false;
+  var ed = Admin.$('ed'), saveBtn = Admin.$('save');
+  var hasToken = Admin.needToken();
+
+  function mark(){ dirty = true; saveBtn.disabled = !hasToken; Admin.$('dirty').textContent = '● تعديلات ما انحفظت'; }
+  addEventListener('beforeunload', function(e){ if(dirty){ e.preventDefault(); e.returnValue = ''; } });
+  function el(tag, cls, html){ var e = document.createElement(tag); if(cls) e.className = cls; if(html!=null) e.innerHTML = html; return e; }
+  function bt(text, cls, fn){ var b = el('button', 'btn ghost sm '+(cls||''), text); b.type = 'button'; b.onclick = fn; return b; }
+  function bi(obj, key, label, area){
+    obj[key] = obj[key] || { en:'', ar:'' };
+    var wrap = el('div'); wrap.append(el('label', '', label));
+    var g = el('div', 'bi');
+    ['en','ar'].forEach(function(l){
+      var d = el('div'); d.append(el('small', '', l==='en' ? 'English' : 'عربي'));
+      var i = el(area ? 'textarea' : 'input', l==='en' ? 'en' : '');
+      i.value = obj[key][l] || ''; i.oninput = function(){ obj[key][l] = i.value; mark(); };
+      d.append(i); g.append(d);
+    });
+    wrap.append(g); return wrap;
+  }
+  function plain(obj, key, label, cls){
+    var wrap = el('div'); wrap.append(el('label', '', label));
+    var i = el('input', cls||''); i.value = obj[key] || ''; i.oninput = function(){ obj[key] = i.value; mark(); };
+    wrap.append(i); return wrap;
+  }
+  function moveBtns(arr, i){
+    var s = el('span', 'row');
+    if(i > 0) s.append(bt('↑', '', function(){ var x = arr[i]; arr[i] = arr[i-1]; arr[i-1] = x; mark(); draw(); }));
+    if(i < arr.length-1) s.append(bt('↓', '', function(){ var x = arr[i]; arr[i] = arr[i+1]; arr[i+1] = x; mark(); draw(); }));
+    return s;
+  }
+  function del(arr, i, what){ return bt('حذف', 'danger', function(){ if(!confirm('تحذف '+what+'؟')) return; arr.splice(i, 1); mark(); draw(); }); }
+
+  function draw(){
+    var y = scrollY; ed.innerHTML = '';
+    // hero
+    var c = el('div', 'card'); c.append(el('h2', '', 'الواجهة (أول الصفحة)'));
+    c.append(bi(data.hero, 'pill', 'الشارة الصغيرة'), bi(data.hero, 'title', 'العنوان الكبير (آخر كلمتين تطلع بالأزرق)'), bi(data.hero, 'text', 'الوصف', true), bi(data.hero, 'button', 'نص الزر'));
+    ed.append(c);
+    // ribbon
+    c = el('div', 'card'); var hd = el('div', 'head'); hd.append(el('h2', '', 'الشريط الأزرق'));
+    hd.append(bt('+ إضافة عبارة', '', function(){ data.ribbon.push({ en:'', ar:'' }); mark(); draw(); })); c.append(hd);
+    data.ribbon.forEach(function(r, i){
+      var it = el('div', 'item'), h = el('div', 'head'); h.append(el('b', '', 'عبارة '+(i+1)));
+      var act = el('span', 'row'); act.append(moveBtns(data.ribbon, i), del(data.ribbon, i, 'هذي العبارة')); h.append(act); it.append(h);
+      it.append(bi({ v:r }, 'v', 'النص'));
+      c.append(it);
+    });
+    ed.append(c);
+    // sections
+    data.sections.forEach(function(s, si){
+      var c = el('div', 'card'), h = el('div', 'head');
+      h.append(el('h2', '', 'قسم: '+((s.title && (s.title.ar || s.title.en)) || '(بدون عنوان)')));
+      var act = el('span', 'row'); act.append(moveBtns(data.sections, si), del(data.sections, si, 'القسم كامل مع بطاقاته')); h.append(act); c.append(h);
+      c.append(bi(s, 'title', 'عنوان القسم'), bi(s, 'lead', 'سطر تحت العنوان (اختياري)', true), bi(s, 'badge', 'شارة بجانب العنوان (اختياري، مثل «قيد التطوير»)'));
+      var o = el('div', 'opts');
+      var l1 = el('div'); l1.append(el('label', '', 'شكل العناصر'));
+      var sel = el('select'); [['cards','بطاقات'],['steps','خطوات مرقّمة'],['text','نص فقط (بدون عناصر)']].forEach(function(x){ var op = el('option', '', x[1]); op.value = x[0]; sel.append(op); });
+      sel.value = s.layout || 'cards'; sel.onchange = function(){ s.layout = sel.value; mark(); }; l1.append(sel);
+      var l2 = el('div'); l2.append(el('label', '', 'الخلفية'));
+      var sel2 = el('select'); [['white','أبيض'],['grey','رمادي فاتح']].forEach(function(x){ var op = el('option', '', x[1]); op.value = x[0]; sel2.append(op); });
+      sel2.value = s.bg || 'white'; sel2.onchange = function(){ s.bg = sel2.value; mark(); }; l2.append(sel2);
+      var l3 = plain(s, 'id', 'رابط القسم (حروف إنجليزية، مثل device)', 'ltr');
+      o.append(l1, l2); c.append(o, l3);
+      s.items = s.items || [];
+      s.items.forEach(function(it, ii){
+        var box = el('div', 'item'), ih = el('div', 'head');
+        ih.append(el('b', '', 'عنصر '+(ii+1)+': '+((it.title && (it.title.ar || it.title.en)) || '')));
+        var ia = el('span', 'row'); ia.append(moveBtns(s.items, ii), del(s.items, ii, 'هذا العنصر')); ih.append(ia); box.append(ih);
+        var m = el('div', 'mini'); m.append(plain(it, 'icon', 'أيقونة'), bi(it, 'title', 'العنوان')); box.append(m);
+        box.append(bi(it, 'text', 'النص', true), bi(it, 'tag', 'وسم صغير (اختياري)'), plain(it, 'note', 'سطر إضافي بخط صغير (اختياري)', 'ltr'));
+        c.append(box);
+      });
+      var addRow = el('div', 'row'); addRow.style.marginTop = '12px';
+      addRow.append(bt('+ إضافة عنصر', '', function(){ s.items.push({ icon:'', title:{en:'',ar:''}, text:{en:'',ar:''} }); mark(); draw(); }));
+      c.append(addRow);
+      ed.append(c);
+    });
+    var add = el('div', 'card'); add.append(bt('+ إضافة قسم جديد', '', function(){
+      data.sections.push({ id:'section-'+(data.sections.length+1), layout:'cards', bg:'white', title:{en:'New section',ar:'قسم جديد'}, lead:{en:'',ar:''}, badge:{en:'',ar:''}, items:[] }); mark(); draw();
+      setTimeout(function(){ scrollTo(0, document.body.scrollHeight); }, 0);
+    })); ed.append(add);
+    // pilot
+    var p = data.pilot; c = el('div', 'card'); c.append(el('h2', '', 'قسم التواصل (انضم للتجربة)'));
+    c.append(bi(p, 'title', 'العنوان'), bi(p, 'text', 'النص', true), plain(p, 'email', 'الإيميل الظاهر', 'ltr'));
+    hd = el('div', 'head'); hd.append(el('label', '', 'النقاط اللي يكتبها المرسل'));
+    hd.append(bt('+ إضافة نقطة', '', function(){ p.bullets.push({ en:'', ar:'' }); mark(); draw(); })); c.append(hd);
+    p.bullets.forEach(function(b, i){
+      var it = el('div', 'item'), h = el('div', 'head'); h.append(el('b', '', 'نقطة '+(i+1)));
+      var act = el('span', 'row'); act.append(moveBtns(p.bullets, i), del(p.bullets, i, 'هذي النقطة')); h.append(act); it.append(h);
+      it.append(bi({ v:b }, 'v', 'النص'));
+      c.append(it);
+    });
+    ed.append(c);
+    // footer
+    c = el('div', 'card'); c.append(el('h2', '', 'آخر الصفحة'), bi(data, 'footer', 'السطر الأخير')); ed.append(c);
+    scrollTo(0, y);
+  }
+
+  Admin.raw(PATH, Admin.BRANCH).then(function(t){
+    if(!t) throw new Error('ما لقيت ملف المحتوى '+PATH);
+    data = JSON.parse(t); data.ribbon = data.ribbon || []; data.sections = data.sections || [];
+    data.pilot = data.pilot || { bullets:[] }; data.pilot.bullets = data.pilot.bullets || [];
+    draw();
+  }).catch(function(e){ ed.innerHTML = ''; ed.append(el('div', 'notice', Admin.esc(e.message))); });
+
+  saveBtn.onclick = function(){
+    saveBtn.disabled = true; saveBtn.textContent = 'جاري النشر…';
+    var body = JSON.stringify(data, null, 1) + '\n';
+    Admin.commit(function(){ return [{ path:PATH, content:body }]; }, 'Oxide site: update content').then(function(){
+      dirty = false; Admin.$('dirty').textContent = '';
+      Admin.toast('انحفظ ✓ الصفحة تتحدّث خلال دقيقة أو دقيقتين.');
+    }).catch(function(e){ Admin.toast(e.message, 'err'); saveBtn.disabled = false; })
+      .then(function(){ saveBtn.textContent = 'حفظ ونشر'; });
+  };
+})();
+</script>
+</body>
+</html>

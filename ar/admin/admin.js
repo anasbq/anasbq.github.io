@@ -164,6 +164,7 @@
     { id:'new',      href:'new.html',      label:'مقالة جديدة',     icon:'plus' },
     { id:'pages',    href:'pages.html',    label:'تعديل الصفحات',   icon:'pages' },
     { id:'media',    href:'media.html',    label:'الصور',           icon:'media' },
+    { id:'oxide',    href:'oxide.html',    label:'موقع Oxide',      icon:'pages' },
     { grp:'الحساب' },
     { id:'settings', href:'settings.html', label:'الإعدادات',       icon:'settings' }
   ];
